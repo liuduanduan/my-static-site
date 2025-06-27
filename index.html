@@ -1,279 +1,203 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" >
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>no996noicu.com | AI 工具导航</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>no996noicu.com - 首页</title>
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      margin: 0;
-      background: #f9f9f9;
-    }
-
-    header {
-      background: #ffffff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      padding: 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #333;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: #0077ff;
-    }
-
-    section {
+      margin:0; padding:0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      color: #222;
       max-width: 960px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.03);
+      margin-left: auto;
+      margin-right: auto;
+      padding: 1.5rem 1rem;
     }
-
-    h2 {
-      margin-top: 0;
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    header h1 {
+      font-weight: 700;
+      font-size: 2.5rem;
       color: #0077ff;
+      margin-bottom: 0.2rem;
     }
-
+    header p {
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 1.2rem;
+    }
+    #search-box {
+      width: 100%;
+      max-width: 400px;
+      padding: 0.7rem 1rem;
+      font-size: 1.1rem;
+      border: 2px solid #0077ff;
+      border-radius: 30px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+    #search-box:focus {
+      outline: none;
+      border-color: #0056d2;
+      box-shadow: 0 0 8px #0056d2aa;
+    }
+    main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+    }
+    .card {
+      flex: 1 1 280px;
+      background: #0077ff;
+      color: white;
+      border-radius: 14px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.3rem;
+      box-shadow: 0 6px 16px rgb(0 119 255 / 0.4);
+      cursor: pointer;
+      text-decoration: none;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    .card:hover {
+      background: #0056d2;
+      box-shadow: 0 8px 24px rgb(0 86 210 / 0.6);
+    }
+    .card small {
+      display: block;
+      font-weight: 400;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      color: #cce0ff;
+    }
+    section#featured {
+      margin-bottom: 3rem;
+    }
+    section#featured h2 {
+      font-size: 1.8rem;
+      color: #0077ff;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-weight: 700;
+    }
+    .featured-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .featured-card {
+      background: white;
+      color: #222;
+      padding: 1rem 1.2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      flex: 1 1 280px;
+      cursor: pointer;
+      user-select: none;
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
+      text-decoration: none;
+    }
+    .featured-card:hover {
+      box-shadow: 0 6px 20px rgb(0 0 0 / 0.15);
+      transform: translateY(-5px);
+    }
+    .featured-card h3 {
+      margin: 0 0 0.5rem 0;
+      color: #0077ff;
+      font-size: 1.2rem;
+    }
+    .featured-card p {
+      margin: 0;
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
     footer {
       text-align: center;
-      font-size: 14px;
-      color: #888;
-      padding: 2rem 0;
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 1rem;
+      user-select: none;
+    }
+
+    @media (max-width: 600px) {
+      main, .featured-list {
+        flex-direction: column;
+        align-items: center;
+      }
+      .card, .featured-card {
+        flex: 1 1 100%;
+        max-width: 400px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <nav>
-      <a href="#ai-tools">AI 工具</a>
-      <a href="#credit-cards">信用卡推荐</a>
-      <a href="#hotels">酒店推荐</a>
-    </nav>
-  </header>
+<header>
+  <h1>欢迎来到 no996noicu.com</h1>
+  <p>专业的AI工具导航，信用卡和酒店推荐平台</p>
+  <input id="search-box" type="search" placeholder="搜索AI工具，回车跳转" />
+</header>
 
-  <main>
-  <section id="ai-tools">
-  <h2>AI 工具</h2>
-  <p>这里是100个常用AI工具推荐，帮助你快速找到合适工具。</p>
-  <input type="text" id="tool-search" placeholder="搜索AI工具..." style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 6px;">
-  <div class="tool-list">
-    <!-- 工具卡片列表开始 -->
-    <div class="tool-card" data-name="ChatGPT">
-      <a href="https://chat.openai.com/" target="_blank" rel="noopener">ChatGPT</a>
+<main>
+  <a href="ai-tools.html" class="card" aria-label="进入AI工具大全">
+    AI工具大全
+    <small>100+实用AI工具推荐</small>
+  </a>
+  <a href="#credit-card" class="card" aria-label="信用卡推荐">
+    信用卡推荐
+    <small>最优惠信用卡全解析</small>
+  </a>
+  <a href="#hotel" class="card" aria-label="酒店推荐">
+    酒店推荐
+    <small>精选优质酒店优惠</small>
+  </a>
+</main>
+
+<section id="featured">
+  <h2>精选AI工具推荐</h2>
+  <div class="featured-list">
+    <a href="https://chat.openai.com/" target="_blank" rel="noopener" class="featured-card" aria-label="ChatGPT">
+      <h3>ChatGPT</h3>
       <p>OpenAI的智能聊天助手，支持多场景对话。</p>
-    </div>
-    <div class="tool-card" data-name="Midjourney">
-      <a href="https://midjourney.com/" target="_blank" rel="noopener">Midjourney</a>
+    </a>
+    <a href="https://midjourney.com/" target="_blank" rel="noopener" class="featured-card" aria-label="Midjourney">
+      <h3>Midjourney</h3>
       <p>基于AI的艺术图像生成平台，创意绘画利器。</p>
-    </div>
-    <div class="tool-card" data-name="Stable Diffusion">
-      <a href="https://beta.dreamstudio.ai/" target="_blank" rel="noopener">Stable Diffusion</a>
-      <p>开源图像生成模型，支持多种风格图像制作。</p>
-    </div>
-    <div class="tool-card" data-name="Copy.ai">
-      <a href="https://copy.ai/" target="_blank" rel="noopener">Copy.ai</a>
+    </a>
+    <a href="https://copy.ai/" target="_blank" rel="noopener" class="featured-card" aria-label="Copy.ai">
+      <h3>Copy.ai</h3>
       <p>AI文案生成工具，提升写作效率。</p>
-    </div>
-    <div class="tool-card" data-name="Jasper AI">
-      <a href="https://www.jasper.ai/" target="_blank" rel="noopener">Jasper AI</a>
-      <p>智能内容创作平台，适合营销和内容团队。</p>
-    </div>
-    <div class="tool-card" data-name="Runway ML">
-      <a href="https://runwayml.com/" target="_blank" rel="noopener">Runway ML</a>
-      <p>基于AI的视频编辑和生成工具。</p>
-    </div>
-    <div class="tool-card" data-name="Canva AI 图像生成">
-      <a href="https://www.canva.com/features/ai-text-to-image/" target="_blank" rel="noopener">Canva AI 图像生成</a>
-      <p>Canva集成的AI图像生成，设计好帮手。</p>
-    </div>
-    <div class="tool-card" data-name="Gradio">
-      <a href="https://gradio.app/" target="_blank" rel="noopener">Gradio</a>
-      <p>快速构建AI演示和应用的开源工具。</p>
-    </div>
-    <div class="tool-card" data-name="QuillBot">
-      <a href="https://quillbot.com/" target="_blank" rel="noopener">QuillBot</a>
-      <p>AI辅助写作改写和润色工具。</p>
-    </div>
-    <div class="tool-card" data-name="Speechify">
-      <a href="https://speechify.com/" target="_blank" rel="noopener">Speechify</a>
-      <p>文字转语音工具，帮助内容无障碍获取。</p>
-    </div>
-    <div class="tool-card" data-name="Synthesia">
-      <a href="https://synthesia.io/" target="_blank" rel="noopener">Synthesia</a>
-      <p>AI生成虚拟视频演示和讲解。</p>
-    </div>
-    <div class="tool-card" data-name="Replika">
-      <a href="https://www.replika.ai/" target="_blank" rel="noopener">Replika</a>
-      <p>AI陪伴聊天机器人，注重情感交流。</p>
-    </div>
-    <div class="tool-card" data-name="Deepgram">
-      <a href="https://deepgram.com/" target="_blank" rel="noopener">Deepgram</a>
-      <p>AI语音识别和转录服务。</p>
-    </div>
-    <div class="tool-card" data-name="Remove.bg">
-      <a href="https://remove.bg/" target="_blank" rel="noopener">Remove.bg</a>
-      <p>一键去除图片背景的AI工具。</p>
-    </div>
-    <div class="tool-card" data-name="Designs.ai Logo Maker">
-      <a href="https://www.designs.ai/tools/logo" target="_blank" rel="noopener">Designs.ai Logo Maker</a>
-      <p>智能logo设计生成器。</p>
-    </div>
-    <div class="tool-card" data-name="Tome">
-      <a href="https://www.tome.app/" target="_blank" rel="noopener">Tome</a>
-      <p>AI驱动的演示文稿生成工具。</p>
-    </div>
-    <div class="tool-card" data-name="Kaiber">
-      <a href="https://kaiber.ai/" target="_blank" rel="noopener">Kaiber</a>
-      <p>AI生成动画和视频的工具。</p>
-    </div>
-    <div class="tool-card" data-name="Descript">
-      <a href="https://descript.com/" target="_blank" rel="noopener">Descript</a>
-      <p>音视频编辑及转录的智能工具。</p>
-    </div>
-    <div class="tool-card" data-name="Lumen5">
-      <a href="https://www.lumen5.com/" target="_blank" rel="noopener">Lumen5</a>
-      <p>自动视频制作平台，适合内容创作者。</p>
-    </div>
-    <div class="tool-card" data-name="Synthesys">
-      <a href="https://www.synthesys.io/" target="_blank" rel="noopener">Synthesys</a>
-      <p>AI生成语音和视频配音工具。</p>
-    </div>
-
-    <!-- 继续添加第21至100个工具，格式同上 -->
-    <!-- 为方便演示，以下只示范100个工具名，描述和链接请根据需求补充 -->
-
-    <div class="tool-card" data-name="AI Dungeon">
-      <a href="https://play.aidungeon.io/" target="_blank" rel="noopener">AI Dungeon</a>
-      <p>基于AI的文字冒险游戏。</p>
-    </div>
-    <div class="tool-card" data-name="Reface">
-      <a href="https://reface.app/" target="_blank" rel="noopener">Reface</a>
-      <p>AI换脸视频制作工具。</p>
-    </div>
-    <div class="tool-card" data-name="Runway">
-      <a href="https://runwayml.com/" target="_blank" rel="noopener">Runway</a>
-      <p>AI视频编辑平台。</p>
-    </div>
-    <div class="tool-card" data-name="DeepL Translator">
-      <a href="https://www.deepl.com/translator" target="_blank" rel="noopener">DeepL Translator</a>
-      <p>高质量AI翻译工具。</p>
-    </div>
-    <div class="tool-card" data-name="Jukebox">
-      <a href="https://jukebox.openai.com/" target="_blank" rel="noopener">Jukebox</a>
-      <p>AI生成音乐。</p>
-    </div>
-    <div class="tool-card" data-name="Talk to Transformer">
-      <a href="https://app.inferkit.com/demo" target="_blank" rel="noopener">Talk to Transformer</a>
-      <p>基于GPT的文本生成器。</p>
-    </div>
-    <div class="tool-card" data-name="Wombo Dream">
-      <a href="https://www.wombo.art/" target="_blank" rel="noopener">Wombo Dream</a>
-      <p>AI艺术图像生成。</p>
-    </div>
-    <div class="tool-card" data-name="Fotor">
-      <a href="https://www.fotor.com/" target="_blank" rel="noopener">Fotor</a>
-      <p>在线AI照片编辑器。</p>
-    </div>
-    <div class="tool-card" data-name="CopySmith">
-      <a href="https://copysmith.ai/" target="_blank" rel="noopener">CopySmith</a>
-      <p>AI文案创作工具。</p>
-    </div>
-    <div class="tool-card" data-name="AI Writer">
-      <a href="https://ai-writer.com/" target="_blank" rel="noopener">AI Writer</a>
-      <p>自动化写作工具。</p>
-    </div>
-    <!-- 其余工具请按此格式自行添加 -->
+    </a>
   </div>
-
-  <style>
-    .tool-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    .tool-card {
-      background: #f0f4ff;
-      border-radius: 8px;
-      padding: 1rem;
-      flex: 1 1 220px;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-      transition: box-shadow 0.3s ease;
-    }
-    .tool-card:hover {
-      box-shadow: 0 4px 12px rgb(0 0 0 / 0.2);
-    }
-    .tool-card a {
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: #0056d2;
-      text-decoration: none;
-    }
-    .tool-card p {
-      margin: 0.5rem 0 0 0;
-      color: #333;
-      font-size: 0.9rem;
-    }
-    @media (max-width: 600px) {
-      .tool-card {
-        flex: 1 1 100%;
-      }
-    }
-  </style>
-
-  <script>
-    const searchInput = document.getElementById('tool-search');
-    const toolCards = document.querySelectorAll('.tool-card');
-
-    searchInput.addEventListener('input', () => {
-      const query = searchInput.value.toLowerCase();
-      toolCards.forEach(card => {
-        const name = card.getAttribute('data-name').toLowerCase();
-        if (name.includes(query)) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    });
-  </script>
 </section>
 
+<footer>
+  &copy; 2025 no996noicu.com 版权所有 | 联系邮箱: 18607272540@163.com
+</footer>
 
-    <section id="credit-cards">
-      <h2>信用卡推荐</h2>
-      <p>推荐全球热门信用卡，分析返现、积分、出行优惠等优势，适合不同需求用户。</p>
-      <!-- 可以插入卡片横向滑动展示 -->
-    </section>
-
-    <section id="hotels">
-      <h2>酒店推荐</h2>
-      <p>精选高性价比酒店，提供出行攻略、价格对比、用户评分等信息。</p>
-      <!-- 你可以接第三方API展示数据 -->
-    </section>
-  </main>
-
-  <footer>
-    &copy; 2025 no996noicu.com ｜ 做全球打工人的 AI 助手
-  </footer>
+<script>
+  const searchBox = document.getElementById('search-box');
+  searchBox.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const query = encodeURIComponent(searchBox.value.trim());
+      if(query){
+        window.location.href = `ai-tools.html?search=${query}`;
+      }
+    }
+  });
+</script>
 
 </body>
 </html>
