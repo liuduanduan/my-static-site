@@ -1,42 +1,97 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的静态网站</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>no996noicu.com | AI 工具导航</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+    }
+
+    header {
+      background: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #0077ff;
+    }
+
+    section {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.03);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #0077ff;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+      padding: 2rem 0;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>欢迎来到我的网站</h1>
-        <nav>
-            <ul>
-                <li><a href="#about">关于我</a></li>
-                <li><a href="#contact">联系方式</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <section id="about">
-            <h2>关于我</h2>
-            <p>这是一个简单的静态网站模板，展示了基本的 HTML、CSS 和 JS 整合方式。</p>
-        </section>
 
-        <section id="contact">
-            <h2>联系方式</h2>
-            <p>你可以通过以下方式与我联系：</p>
-            <ul>
-                <li>Email: example@example.com</li>
-                <li>Phone: 123-456-7890</li>
-            </ul>
-        </section>
-    </main>
+  <header>
+    <nav>
+      <a href="#ai-tools">AI 工具</a>
+      <a href="#credit-cards">信用卡推荐</a>
+      <a href="#hotels">酒店推荐</a>
+    </nav>
+  </header>
 
-    <footer>
-        <p>&copy; 2025 我的静态网站</p>
-    </footer>
+  <main>
+    <section id="ai-tools">
+      <h2>AI 工具</h2>
+      <p>这里将展示各种实用的 AI 工具推荐，例如图像生成、文字处理、AI编程助手等。</p>
+      <!-- 可以插入工具卡片 -->
+    </section>
 
-    <script src="script.js"></script>
+    <section id="credit-cards">
+      <h2>信用卡推荐</h2>
+      <p>推荐全球热门信用卡，分析返现、积分、出行优惠等优势，适合不同需求用户。</p>
+      <!-- 可以插入卡片横向滑动展示 -->
+    </section>
+
+    <section id="hotels">
+      <h2>酒店推荐</h2>
+      <p>精选高性价比酒店，提供出行攻略、价格对比、用户评分等信息。</p>
+      <!-- 你可以接第三方API展示数据 -->
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 no996noicu.com ｜ 做全球打工人的 AI 助手
+  </footer>
+
 </body>
 </html>
