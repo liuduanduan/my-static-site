@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI工具大全 - 带分页、分类、弹窗和样式</title>
+<style>
+  /* 重置与基础样式 */
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    max-width: 960px;
+    margin: auto;
+    padding: 1rem;
+  }
+  h1 {
+    color: #0077ff;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  /* 搜索框 */
+  #tool-search {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border: 1.5px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  #tool-search:focus {
+    border-color: #0077ff;
+    outline: none;
+  }
+  /* 分类筛选 */
+  #category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
+  .category-chip {
+    padding: 0.4rem 0.9rem;
+    background: #e0e7ff;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+    color: #3b49df;
+    border: 1.5px solid transparent;
+  }
+  .category-chip.selected {
+    background: #3b49df;
+    color: #fff;
+    border-color: #2a38b7;
+  }
+  /* 工具卡片列表 */
+  .tool-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .tool-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1rem;
+    flex: 1 1 220px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    user-select: none;
+  }
+  .tool-card:hover {
+    box-shadow: 0 6px 18px rgb(0 0 0 / 0.15);
+    transform: translateY(-4px);
+  }
+  .tool-card h3 {
+    margin: 0 0 0.3rem 0;
+    font-size: 1.1rem;
+    color: #0056d2;
+    word-break: break-word;
+  }
+  .tool-card p {
+    margin: 0;
+    color: #555;
+    font-size: 0.9rem;
+    flex-grow: 1;
+  }
+  /* 分页 */
+  #pagination {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+  #pagination button {
+    background: #3b49df;
+    color: white;
+    border: none;
+    margin: 0 0.3rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #pagination button:disabled {
+    background: #a3a9dd;
+    cursor: not-allowed;
+  }
+  #pagination button:hover:not(:disabled) {
+    background: #2a38b7;
+  }
+  /* 弹窗 */
+  #modal-bg {
+    position: fixed;
+    top: 0; left: 0; right:0; bottom:0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  #modal {
+    background: white;
+    border-radius: 12px;
+    max-width: 480px;
+    width: 90%;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    position: relative;
+  }
+  #modal h2 {
+    margin-top: 0;
+    color: #0077ff;
+  }
+  #modal p {
+    color: #444;
+    line-height: 1.5;
+  }
+  #modal a {
+    color: #0056d2;
+    text-decoration: underline;
+  }
+  #modal-close {
+    position: absolute;
+    top: 0.8rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: #888;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.3s ease;
+  }
+  #modal-close:hover {
+    color: #0077ff;
+  }
+  /* 响应式 */
+  @media (max-width: 600px) {
+    .tool-card {
+      flex: 1 1 100%;
+    }
+    #category-filters {
+      justify-content: flex-start;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>AI 工具大全</h1>
+
+<input type="text" id="tool-search" placeholder="搜索AI工具..." autocomplete="off" />
+
+<div id="category-filters">
+  <!-- 分类筛选标签动态生成 -->
+</div>
+
+<div class="tool-list" id="tool-list">
+  <!-- 工具卡片动态生成 -->
+</div>
+
+<div id="pagination">
+  <!-- 分页按钮动态生成 -->
+</div>
+
+<!-- 弹窗 -->
+<div id="modal-bg">
+  <div id="modal">
+    <div id="modal-close">&times;</div>
+    <h2 id="modal-title"></h2>
+    <p id="modal-desc"></p>
+    <p>官网链接：<a href="#" target="_blank" id="modal-link">打开官网</a></p>
+  </div>
+</div>
+
+<script>
+  // 工具数据（示例，补充到100条你自行扩展）
+  const tools = [
+    {name: "ChatGPT", category: ["聊天", "文本生成"], desc: "OpenAI的智能聊天助手，支持多场景对话。", url: "https://chat.openai.com/"},
+    {name: "Midjourney", category: ["图像生成", "艺术"], desc: "基于AI的艺术图像生成平台，创意绘画利器。", url: "https://midjourney.com/"},
+    {name: "Stable Diffusion", category: ["图像生成", "开源"], desc: "开源图像生成模型，支持多种风格图像制作。", url: "https://beta.dreamstudio.ai/"},
+    {name: "Copy.ai", category: ["文本生成", "营销"], desc: "AI文案生成工具，提升写作效率。", url: "https://copy.ai/"},
+    {name: "Jasper AI", category: ["文本生成", "营销"], desc: "智能内容创作平台，适合营销和内容团队。", url: "https://www.jasper.ai/"},
+    {name: "Runway ML", category: ["视频编辑", "图像生成"], desc: "基于AI的视频编辑和生成工具。", url: "https://runwayml.com/"},
+    {name: "Canva AI 图像生成", category: ["设计", "图像生成"], desc: "Canva集成的AI图像生成，设计好帮手。", url: "https://www.canva.com/features/ai-text-to-image/"},
+    {name: "Gradio", category: ["开发", "演示"], desc: "快速构建AI演示和应用的开源工具。", url: "https://gradio.app/"},
+    {name: "QuillBot", category: ["文本生成", "写作辅助"], desc: "AI辅助写作改写和润色工具。", url: "https://quillbot.com/"},
+    {name: "Speechify", category: ["文字转语音", "辅助"], desc: "文字转语音工具，帮助内容无障碍获取。", url: "https://speechify.com/"},
+    {name: "Synthesia", category: ["视频生成", "虚拟人物"], desc: "AI生成虚拟视频演示和讲解。", url: "https://synthesia.io/"},
+    {name: "Replika", category: ["聊天", "情感陪伴"], desc: "AI陪伴聊天机器人，注重情感交流。", url: "https://www.replika.ai/"},
+    {name: "Deepgram", category: ["语音识别", "转录"], desc: "AI语音识别和转录服务。", url: "https://deepgram.com/"},
+    {name: "Remove.bg", category: ["图像处理", "去背景"], desc: "一键去除图片背景的AI工具。", url: "https://remove.bg/"},
+    {name: "Designs.ai Logo Maker", category: ["设计", "logo"], desc: "智能logo设计生成器。", url: "https://www.designs.ai/tools/logo"},
+    {name: "Tome", category: ["演示", "文档"], desc: "AI驱动的演示文稿生成工具。", url: "https://www.tome.app/"},
+    {name: "Kaiber", category: ["视频生成", "动画"], desc: "AI生成动画和视频的工具。", url: "https://kaiber.ai/"},
+    {name: "Descript", category: ["音视频编辑", "转录"], desc: "音视频编辑及转录的智能工具。", url: "https://descript.com/"},
+    {name: "Lumen5", category: ["视频制作", "内容创作"], desc: "自动视频制作平台，适合内容创作者。", url: "https://www.lumen5.com/"},
+    {name: "Synthesys", category: ["语音合成", "视频配音"], desc: "AI生成语音和视频配音工具。", url: "https://www.synthesys.io/"},
+    // 你可以继续添加更多，最多100条
+  ];
+
+  // 当前状态
+  let currentPage = 1;
+  const pageSize = 12; // 每页显示数量
+  let filteredTools = [...tools];
+  let selectedCategories = new Set();
+
+  const toolListEl = document.getElementById("tool-list");
+  const paginationEl = document.getElementById("pagination");
+  const searchInput = document.getElementById("tool-search");
+  const categoryFiltersEl = document.getElementById("category-filters");
+
+  // 生成所有分类（去重）
+  const allCategories = Array.from(new Set(tools.flatMap(t => t.category))).sort();
+
+  // 渲染分类筛选按钮
+  function renderCategoryFilters() {
+    categoryFiltersEl.innerHTML = "";
+    allCategories.forEach(cat => {
+      const chip = document.createElement("div");
+      chip.className = "category-chip";
+      chip.textContent = cat;
+      chip.onclick = () => {
+        if(selectedCategories.has(cat)) {
+          selectedCategories.delete(cat);
+          chip.classList.remove("selected");
+        } else {
+          selectedCategories.add(cat);
+          chip.classList.add("selected");
+        }
+        currentPage = 1;
+        filterTools();
+      };
+      categoryFiltersEl.appendChild(chip);
+    });
+  }
+
+  // 过滤工具（搜索+分类）
+  function filterTools() {
+    const query = searchInput.value.toLowerCase();
+    filteredTools = tools.filter(tool => {
+      const matchName = tool.name.toLowerCase().includes(query);
+      const matchCategory = selectedCategories.size === 0 || tool.category.some(c => selectedCategories.has(c));
+      return matchName && matchCategory;
+    });
+    renderTools();
+    renderPagination();
+  }
+
+  // 渲染工具列表（分页）
+  function renderTools() {
+    toolListEl.innerHTML = "";
+    if(filteredTools.length === 0) {
+      toolListEl.innerHTML = "<p>没有找到符合条件的工具。</p>";
+      return;
+    }
+    const start = (currentPage - 1) * pageSize;
+    const pageTools = filteredTools.slice(start, start + pageSize);
+    pageTools.forEach(tool => {
+      const card = document.createElement("div");
+      card.className = "tool-card";
+      card.tabIndex = 0;
+      card.setAttribute("role", "button");
+      card.setAttribute("aria-pressed", "false");
+      card.innerHTML = `<h3>${tool.name}</h3><p>${tool.desc}</p>`;
+      card.onclick = () => openModal(tool);
+      card.onkeypress = (e) => { if(e.key === "Enter") openModal(tool); };
+      toolListEl.appendChild(card);
+    });
+  }
+
+  // 渲染分页按钮
+  function renderPagination() {
+    paginationEl.innerHTML = "";
+    const pageCount = Math.ceil(filteredTools.length / pageSize);
+    if(pageCount <= 1) return;
+
+    const prevBtn = document.createElement("button");
+    prevBtn.textContent = "上一页";
+    prevBtn.disabled = currentPage === 1;
+    prevBtn.onclick = () => {
+      if(currentPage > 1) {
+        currentPage--;
+        renderTools();
+        renderPagination();
+        window.scrollTo({top:0, behavior:'smooth'});
+      }
+    };
+    paginationEl.appendChild(prevBtn);
+
+    // 显示页码（简单显示1~pageCount）
+    for(let i = 1; i <= pageCount; i++) {
+      const pageBtn = document.createElement("button");
+      pageBtn.textContent = i;
+      pageBtn.disabled = i === currentPage;
+      pageBtn.onclick = () => {
+        currentPage = i;
+        renderTools();
+        renderPagination();
+        window.scrollTo({top:0, behavior:'smooth'});
+      };
+      paginationEl.appendChild(pageBtn);
+    }
+
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "下一页";
+    nextBtn.disabled = currentPage === pageCount;
+    nextBtn.onclick = () => {
+      if(currentPage < pageCount) {
+        currentPage++;
+        renderTools();
+        renderPagination();
+        window.scrollTo({top:0, behavior:'smooth'});
+      }
+    };
+    paginationEl.appendChild(nextBtn);
+  }
+
+  // 弹窗相关
+  const modalBg = document.getElementById("modal-bg");
+  const modalTitle = document.getElementById("modal-title");
+  const modalDesc = document.getElementById("modal-desc");
+  const modalLink = document.getElementById("modal-link");
+  const modalClose = document.getElementById("modal-close");
+
+  function openModal(tool) {
+    modalTitle.textContent = tool.name;
+    modalDesc.textContent = tool.desc;
+    modalLink.href = tool.url;
+    modalBg.style.display = "flex";
+  }
+
+  modalClose.onclick = () => {
+    modalBg.style.display = "none";
+  };
+  modalBg.onclick = (e) => {
+    if(e.target === modalBg) {
+      modalBg.style.display = "none";
+    }
+  };
+  document.addEventListener("keydown", e => {
+    if(e.key === "Escape" && modalBg.style.display === "flex") {
+      modalBg.style.display = "none";
+    }
+  });
+
+  // 搜索框监听
+  searchInput.addEventListener("input", () => {
+    currentPage = 1;
+    filterTools();
+  });
+
+  // 初始化
+  renderCategoryFilters();
+  filterTools();
+
+</script>
+
+</body>
+</html>
