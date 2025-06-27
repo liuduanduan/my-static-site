@@ -3,383 +3,237 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>AI工具大全 - 带分页、分类、弹窗和样式</title>
+<title>AI工具大全 - 搜索 & 分类筛选</title>
 <style>
-  /* 重置与基础样式 */
   body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f7fa;
-    color: #333;
     max-width: 960px;
-    margin: auto;
-    padding: 1rem;
+    margin: 20px auto;
+    padding: 0 15px;
+    background: #f7f9fc;
+    color: #333;
   }
   h1 {
-    color: #0077ff;
-    margin-bottom: 1rem;
     text-align: center;
+    margin-bottom: 8px;
+    color: #222;
   }
-  /* 搜索框 */
-  #tool-search {
+  #search {
     width: 100%;
-    padding: 0.6rem 1rem;
+    padding: 10px 12px;
     font-size: 1rem;
-    border: 1.5px solid #ccc;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease;
-  }
-  #tool-search:focus {
-    border-color: #0077ff;
-    outline: none;
-  }
-  /* 分类筛选 */
-  #category-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    justify-content: center;
-  }
-  .category-chip {
-    padding: 0.4rem 0.9rem;
-    background: #e0e7ff;
-    border-radius: 20px;
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 0.3s ease;
-    font-size: 0.9rem;
-    color: #3b49df;
-    border: 1.5px solid transparent;
-  }
-  .category-chip.selected {
-    background: #3b49df;
-    color: #fff;
-    border-color: #2a38b7;
-  }
-  /* 工具卡片列表 */
-  .tool-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-  }
-  .tool-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 1rem;
-    flex: 1 1 220px;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    transition: box-shadow 0.3s ease, transform 0.2s ease;
-    user-select: none;
-  }
-  .tool-card:hover {
-    box-shadow: 0 6px 18px rgb(0 0 0 / 0.15);
-    transform: translateY(-4px);
-  }
-  .tool-card h3 {
-    margin: 0 0 0.3rem 0;
-    font-size: 1.1rem;
-    color: #0056d2;
-    word-break: break-word;
-  }
-  .tool-card p {
-    margin: 0;
-    color: #555;
-    font-size: 0.9rem;
-    flex-grow: 1;
-  }
-  /* 分页 */
-  #pagination {
-    margin-top: 1.5rem;
-    text-align: center;
-  }
-  #pagination button {
-    background: #3b49df;
-    color: white;
-    border: none;
-    margin: 0 0.3rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
+    border: 2px solid #1a73e8;
     border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+    box-sizing: border-box;
   }
-  #pagination button:disabled {
-    background: #a3a9dd;
-    cursor: not-allowed;
-  }
-  #pagination button:hover:not(:disabled) {
-    background: #2a38b7;
-  }
-  /* 弹窗 */
-  #modal-bg {
-    position: fixed;
-    top: 0; left: 0; right:0; bottom:0;
-    background: rgba(0,0,0,0.5);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  }
-  #modal {
+  #categoryFilter {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 2px solid #1a73e8;
     background: white;
-    border-radius: 12px;
-    max-width: 480px;
-    width: 90%;
-    padding: 1.5rem 2rem;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    position: relative;
   }
-  #modal h2 {
-    margin-top: 0;
-    color: #0077ff;
+  ul#toolList {
+    list-style: none;
+    padding: 0;
   }
-  #modal p {
-    color: #444;
-    line-height: 1.5;
+  ul#toolList li {
+    background: white;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    padding: 14px 20px;
+    box-shadow: 0 2px 6px rgb(26 115 232 / 0.15);
+    transition: box-shadow 0.3s ease;
   }
-  #modal a {
-    color: #0056d2;
+  ul#toolList li:hover {
+    box-shadow: 0 5px 15px rgb(26 115 232 / 0.3);
+  }
+  ul#toolList li a {
+    color: #1a73e8;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+  }
+  ul#toolList li a:hover {
     text-decoration: underline;
   }
-  #modal-close {
-    position: absolute;
-    top: 0.8rem;
-    right: 1rem;
-    font-size: 1.5rem;
-    color: #888;
-    cursor: pointer;
-    user-select: none;
-    transition: color 0.3s ease;
+  ul#toolList li p {
+    margin: 6px 0 0;
+    font-size: 0.9rem;
+    color: #555;
   }
-  #modal-close:hover {
-    color: #0077ff;
-  }
-  /* 响应式 */
   @media (max-width: 600px) {
-    .tool-card {
-      flex: 1 1 100%;
+    body {
+      margin: 10px;
+      padding: 0 10px;
     }
-    #category-filters {
-      justify-content: flex-start;
+    ul#toolList li {
+      padding: 12px 14px;
+    }
+    #search, #categoryFilter {
+      font-size: 1rem;
     }
   }
 </style>
 </head>
 <body>
 
-<h1>AI 工具大全</h1>
+<h1>AI工具大全</h1>
+<input type="search" id="search" placeholder="🔍 输入关键词搜索工具..." aria-label="搜索AI工具" />
+<select id="categoryFilter" aria-label="选择工具类别">
+  <option value="all">全部类别</option>
+  <option value="text">文本写作</option>
+  <option value="image">图像生成</option>
+  <option value="video">视频处理</option>
+  <option value="code">编程辅助</option>
+  <option value="voice">语音相关</option>
+  <option value="other">其他工具</option>
+</select>
 
-<input type="text" id="tool-search" placeholder="搜索AI工具..." autocomplete="off" />
-
-<div id="category-filters">
-  <!-- 分类筛选标签动态生成 -->
-</div>
-
-<div class="tool-list" id="tool-list">
-  <!-- 工具卡片动态生成 -->
-</div>
-
-<div id="pagination">
-  <!-- 分页按钮动态生成 -->
-</div>
-
-<!-- 弹窗 -->
-<div id="modal-bg">
-  <div id="modal">
-    <div id="modal-close">&times;</div>
-    <h2 id="modal-title"></h2>
-    <p id="modal-desc"></p>
-    <p>官网链接：<a href="#" target="_blank" id="modal-link">打开官网</a></p>
-  </div>
-</div>
+<ul id="toolList"></ul>
 
 <script>
-  // 工具数据（示例，补充到100条你自行扩展）
   const tools = [
-    {name: "ChatGPT", category: ["聊天", "文本生成"], desc: "OpenAI的智能聊天助手，支持多场景对话。", url: "https://chat.openai.com/"},
-    {name: "Midjourney", category: ["图像生成", "艺术"], desc: "基于AI的艺术图像生成平台，创意绘画利器。", url: "https://midjourney.com/"},
-    {name: "Stable Diffusion", category: ["图像生成", "开源"], desc: "开源图像生成模型，支持多种风格图像制作。", url: "https://beta.dreamstudio.ai/"},
-    {name: "Copy.ai", category: ["文本生成", "营销"], desc: "AI文案生成工具，提升写作效率。", url: "https://copy.ai/"},
-    {name: "Jasper AI", category: ["文本生成", "营销"], desc: "智能内容创作平台，适合营销和内容团队。", url: "https://www.jasper.ai/"},
-    {name: "Runway ML", category: ["视频编辑", "图像生成"], desc: "基于AI的视频编辑和生成工具。", url: "https://runwayml.com/"},
-    {name: "Canva AI 图像生成", category: ["设计", "图像生成"], desc: "Canva集成的AI图像生成，设计好帮手。", url: "https://www.canva.com/features/ai-text-to-image/"},
-    {name: "Gradio", category: ["开发", "演示"], desc: "快速构建AI演示和应用的开源工具。", url: "https://gradio.app/"},
-    {name: "QuillBot", category: ["文本生成", "写作辅助"], desc: "AI辅助写作改写和润色工具。", url: "https://quillbot.com/"},
-    {name: "Speechify", category: ["文字转语音", "辅助"], desc: "文字转语音工具，帮助内容无障碍获取。", url: "https://speechify.com/"},
-    {name: "Synthesia", category: ["视频生成", "虚拟人物"], desc: "AI生成虚拟视频演示和讲解。", url: "https://synthesia.io/"},
-    {name: "Replika", category: ["聊天", "情感陪伴"], desc: "AI陪伴聊天机器人，注重情感交流。", url: "https://www.replika.ai/"},
-    {name: "Deepgram", category: ["语音识别", "转录"], desc: "AI语音识别和转录服务。", url: "https://deepgram.com/"},
-    {name: "Remove.bg", category: ["图像处理", "去背景"], desc: "一键去除图片背景的AI工具。", url: "https://remove.bg/"},
-    {name: "Designs.ai Logo Maker", category: ["设计", "logo"], desc: "智能logo设计生成器。", url: "https://www.designs.ai/tools/logo"},
-    {name: "Tome", category: ["演示", "文档"], desc: "AI驱动的演示文稿生成工具。", url: "https://www.tome.app/"},
-    {name: "Kaiber", category: ["视频生成", "动画"], desc: "AI生成动画和视频的工具。", url: "https://kaiber.ai/"},
-    {name: "Descript", category: ["音视频编辑", "转录"], desc: "音视频编辑及转录的智能工具。", url: "https://descript.com/"},
-    {name: "Lumen5", category: ["视频制作", "内容创作"], desc: "自动视频制作平台，适合内容创作者。", url: "https://www.lumen5.com/"},
-    {name: "Synthesys", category: ["语音合成", "视频配音"], desc: "AI生成语音和视频配音工具。", url: "https://www.synthesys.io/"},
-    // 你可以继续添加更多，最多100条
+    {name:"ChatGPT (OpenAI)", url:"https://chat.openai.com", desc:"领先的对话生成AI，支持多语言聊天。", category:"text"},
+    {name:"Google Bard", url:"https://bard.google.com", desc:"Google推出的生成式AI聊天助手。", category:"text"},
+    {name:"GitHub Copilot", url:"https://copilot.github.com", desc:"AI编程助手，支持多语言代码补全。", category:"code"},
+    {name:"Stable Diffusion", url:"https://stable-diffusion.com", desc:"开源图像生成AI。", category:"image"},
+    {name:"Runway ML", url:"https://runwayml.com", desc:"多功能AI创作平台。", category:"video"},
+    {name:"AlphaFold (DeepMind)", url:"https://www.deepmind.com/research/alphafold", desc:"蛋白质结构预测AI。", category:"other"},
+    {name:"QuillBot", url:"https://quillbot.com", desc:"AI写作助手。", category:"text"},
+    {name:"Jasper AI", url:"https://jasper.ai", desc:"营销文案自动生成。", category:"text"},
+    {name:"Descript", url:"https://descript.com", desc:"AI视频和音频编辑。", category:"video"},
+    {name:"Copy.ai", url:"https://copy.ai", desc:"快速生成广告文案。", category:"text"},
+    {name:"Hugging Face", url:"https://huggingface.co", desc:"开源NLP模型平台。", category:"other"},
+    {name:"Synthesia", url:"https://synthesia.io", desc:"AI视频虚拟主播生成。", category:"video"},
+    {name:"Voice.ai", url:"https://voice.ai", desc:"AI变声和语音合成。", category:"voice"},
+    {name:"CopyTune", url:"https://copytune.com", desc:"AI文案优化助手。", category:"text"},
+    {name:"Canva", url:"https://canva.com", desc:"设计辅助平台。", category:"image"},
+    {name:"Midjourney", url:"https://midjourney.com", desc:"AI艺术图像生成。", category:"image"},
+    {name:"Lumen5", url:"https://lumen5.com", desc:"视频内容自动生成。", category:"video"},
+    {name:"Writesonic", url:"https://writesonic.com", desc:"AI写作工具。", category:"text"},
+    {name:"AI Dungeon", url:"https://play.aidungeon.io", desc:"AI驱动的交互式文字冒险游戏。", category:"text"},
+    {name:"Replika", url:"https://replika.ai", desc:"AI情感聊天机器人。", category:"text"},
+    {name:"DeepL Translator", url:"https://www.deepl.com", desc:"高质量AI翻译工具。", category:"text"},
+    {name:"Otter.ai", url:"https://otter.ai", desc:"AI语音转文字。", category:"voice"},
+    {name:"Krisp", url:"https://krisp.ai", desc:"AI降噪通话软件。", category:"voice"},
+    {name:"Scribble Diffusion", url:"https://scribblediffusion.com", desc:"手绘图转AI绘画。", category:"image"},
+    {name:"Remove.bg", url:"https://www.remove.bg", desc:"AI自动抠图。", category:"image"},
+    {name:"Runway Gen-2", url:"https://runwayml.com/gen-2", desc:"AI视频生成。", category:"video"},
+    {name:"Deep Nostalgia", url:"https://www.myheritage.cn/deep-nostalgia", desc:"AI照片动画。", category:"image"},
+    {name:"CopySmith", url:"https://copysmith.ai", desc:"AI内容生成。", category:"text"},
+    {name:"Synthesys", url:"https://synthesys.io", desc:"AI语音和视频生成。", category:"video"},
+    {name:"Reface", url:"https://reface.app", desc:"AI换脸应用。", category:"image"},
+    {name:"Talk to Transformer", url:"https://app.inferkit.com/demo", desc:"基于GPT的文本生成。", category:"text"},
+    {name:"InferKit", url:"https://inferkit.com", desc:"AI文本生成API。", category:"text"},
+    {name:"AI Image Enlarger", url:"https://imglarger.com", desc:"AI图像无损放大。", category:"image"},
+    {name:"Deep Dream Generator", url:"https://deepdreamgenerator.com", desc:"艺术风格AI图像。", category:"image"},
+    {name:"BigSleep", url:"https://github.com/lucidrains/big-sleep", desc:"AI生成梦幻图像。", category:"image"},
+    {name:"ClipDrop", url:"https://clipdrop.co", desc:"AI截图和图片编辑。", category:"image"},
+    {name:"FaceApp", url:"https://www.faceapp.com", desc:"AI换脸和滤镜。", category:"image"},
+    {name:"Socratic", url:"https://socratic.org", desc:"AI学习助手。", category:"text"},
+    {name:"Talk to Books", url:"https://books.google.com/talktobooks", desc:"谷歌AI语义搜索书籍。", category:"text"},
+    {name:"AI Painter", url:"https://paintschainer.preferred.tech/index_en.html", desc:"AI自动上色。", category:"image"},
+    {name:"DeepAI Text Generator", url:"https://deepai.org/machine-learning-model/text-generator", desc:"文本生成工具。", category:"text"},
+    {name:"DeepVoice", url:"https://deepvoice.ai", desc:"AI语音合成。", category:"voice"},
+    {name:"AI Writer", url:"https://ai-writer.com", desc:"AI文章生成。", category:"text"},
+    {name:"AISEO", url:"https://aiseo.ai", desc:"SEO内容AI生成。", category:"text"},
+    {name:"DALL·E 2", url:"https://openai.com/dall-e-2", desc:"OpenAI图像生成。", category:"image"},
+    {name:"Magic Eraser", url:"https://magiceraser.io", desc:"AI去除图片背景。", category:"image"},
+    {name:"NightCafe Creator", url:"https://creator.nightcafe.studio", desc:"AI艺术生成。", category:"image"},
+    {name:"DeepArt", url:"https://deepart.io", desc:"AI艺术风格转换。", category:"image"},
+    {name:"Wordtune", url:"https://www.wordtune.com", desc:"AI写作润色。", category:"text"},
+    {name:"AI Resume Builder", url:"https://enhancv.com", desc:"AI简历生成。", category:"text"},
+    {name:"Lalal.ai", url:"https://www.lalal.ai", desc:"AI音频分离。", category:"voice"},
+    {name:"AIVA", url:"https://www.aiva.ai", desc:"AI音乐创作。", category:"other"},
+    {name:"MuseNet", url:"https://openai.com/blog/musenet", desc:"AI音乐生成。", category:"other"},
+    {name:"Soundraw", url:"https://soundraw.io", desc:"AI音乐生成器。", category:"other"},
+    {name:"Runway Text to Video", url:"https://runwayml.com/text-to-video", desc:"AI文本转视频。", category:"video"},
+    {name:"Boomy", url:"https://boomy.com", desc:"AI音乐生成平台。", category:"other"},
+    {name:"Pictory", url:"https://pictory.ai", desc:"AI视频自动剪辑。", category:"video"},
+    {name:"Synthesizer V", url:"https://synthesizerv.com", desc:"AI歌声合成软件。", category:"voice"},
+    {name:"VoiceMod", url:"https://www.voicemod.net", desc:"AI实时变声软件。", category:"voice"},
+    {name:"Deep Video Portraits", url:"https://www.deepvideoportraits.com", desc:"AI视频面部替换。", category:"video"},
+    {name:"AISEO Copywriting", url:"https://aiseo.ai/copywriting", desc:"AI营销文案。", category:"text"},
+    {name:"Grammarly", url:"https://grammarly.com", desc:"AI语法检查。", category:"text"},
+    {name:"Hemingway Editor", url:"https://hemingwayapp.com", desc:"AI写作风格检查。", category:"text"},
+    {name:"INK Editor", url:"https://inkforall.com", desc:"AI SEO写作助手。", category:"text"},
+    {name:"Anyword", url:"https://anyword.com", desc:"AI广告文案生成。", category:"text"},
+    {name:"Writesonic", url:"https://writesonic.com", desc:"AI写作助手。", category:"text"},
+    {name:"Peppertype.ai", url:"https://www.peppertype.ai", desc:"AI内容生成。", category:"text"},
+    {name:"Headlime", url:"https://headlime.com", desc:"AI标题生成。", category:"text"},
+    {name:"Text Blaze", url:"https://blaze.today", desc:"AI文本片段管理。", category:"text"},
+    {name:"FlowGPT", url:"https://flowgpt.com", desc:"GPT提示词共享平台。", category:"other"},
+    {name:"PromptHero", url:"https://prompthero.com", desc:"AI提示词社区。", category:"other"},
+    {name:"AI Portraits", url:"https://aiportraits.com", desc:"AI肖像画生成。", category:"image"},
+    {name:"This Person Does Not Exist", url:"https://thispersondoesnotexist.com", desc:"AI虚拟人脸生成。", category:"image"},
+    {name:"DeepFakeLab", url:"https://github.com/iperov/DeepFaceLab", desc:"深度伪造工具。", category:"other"},
+    {name:"FaceSwap", url:"https://faceswap.dev", desc:"开源换脸工具。", category:"other"},
+    {name:"Botpress", url:"https://botpress.com", desc:"开源聊天机器人平台。", category:"other"},
+    {name:"Rasa", url:"https://rasa.com", desc:"开源对话AI。", category:"other"},
+    {name:"Dialogflow", url:"https://dialogflow.cloud.google.com", desc:"Google智能对话平台。", category:"other"},
+    {name:"Microsoft LUIS", url:"https://www.luis.ai", desc:"语言理解服务。", category:"other"},
+    {name:"IBM Watson Assistant", url:"https://www.ibm.com/cloud/watson-assistant", desc:"AI客服聊天机器人。", category:"other"},
+    {name:"AI Image Colorizer", url:"https://imagecolorizer.com", desc:"黑白图自动上色。", category:"image"},
+    {name:"DeepImage", url:"https://deepimage.ai", desc:"AI图像增强。", category:"image"},
+    {name:"Let's Enhance", url:"https://letsenhance.io", desc:"AI图片增强和放大。", category:"image"},
+    {name:"Remini", url:"https://www.remini.ai", desc:"AI老照片修复。", category:"image"},
+    {name:"AI UpScaler", url:"https://aiupscaler.com", desc:"AI图像放大。", category:"image"},
+    {name:"Pixlr", url:"https://pixlr.com", desc:"在线AI图像编辑器。", category:"image"},
+    {name:"Fotor", url:"https://www.fotor.com", desc:"AI设计与编辑平台。", category:"image"},
+    {name:"Artbreeder", url:"https://www.artbreeder.com", desc:"AI图像混合生成。", category:"image"},
+    {name:"PaintsChainer", url:"https://paintschainer.preferred.tech", desc:"AI自动上色。", category:"image"},
+    {name:"Cartoonify", url:"https://www.cartoonify.de", desc:"AI图片卡通化。", category:"image"},
+    {name:"Photopea", url:"https://www.photopea.com", desc:"在线PS替代品，支持AI插件。", category:"image"},
+    {name:"Deep Text Generator", url:"https://deeptextgenerator.com", desc:"AI文本生成。", category:"text"},
+    {name:"AISEO", url:"https://aiseo.ai", desc:"AI内容营销工具。", category:"text"},
+    {name:"AI Blog Writer", url:"https://aiblogwriter.com", desc:"AI博客写作。", category:"text"},
+    {name:"CopyMonkey", url:"https://copymonkey.ai", desc:"亚马逊商品文案AI生成。", category:"text"},
+    {name:"Hypotenuse AI", url:"https://hypotenuse.ai", desc:"电商AI内容。", category:"text"},
+    {name:"Scalenut", url:"https://www.scalenut.com", desc:"AI SEO内容平台。", category:"text"},
+    {name:"Frase", url:"https://www.frase.io", desc:"AI内容优化。", category:"text"},
+    {name:"Neural.love", url:"https://neural.love", desc:"AI图片修复与生成。", category:"image"},
   ];
 
-  // 当前状态
-  let currentPage = 1;
-  const pageSize = 12; // 每页显示数量
-  let filteredTools = [...tools];
-  let selectedCategories = new Set();
+  const ul = document.getElementById('toolList');
+  const searchInput = document.getElementById('search');
+  const categorySelect = document.getElementById('categoryFilter');
 
-  const toolListEl = document.getElementById("tool-list");
-  const paginationEl = document.getElementById("pagination");
-  const searchInput = document.getElementById("tool-search");
-  const categoryFiltersEl = document.getElementById("category-filters");
+  function renderList() {
+    const filterText = searchInput.value.trim().toLowerCase();
+    const filterCategory = categorySelect.value;
 
-  // 生成所有分类（去重）
-  const allCategories = Array.from(new Set(tools.flatMap(t => t.category))).sort();
+    ul.innerHTML = '';
 
-  // 渲染分类筛选按钮
-  function renderCategoryFilters() {
-    categoryFiltersEl.innerHTML = "";
-    allCategories.forEach(cat => {
-      const chip = document.createElement("div");
-      chip.className = "category-chip";
-      chip.textContent = cat;
-      chip.onclick = () => {
-        if(selectedCategories.has(cat)) {
-          selectedCategories.delete(cat);
-          chip.classList.remove("selected");
-        } else {
-          selectedCategories.add(cat);
-          chip.classList.add("selected");
-        }
-        currentPage = 1;
-        filterTools();
-      };
-      categoryFiltersEl.appendChild(chip);
+    const filtered = tools.filter(tool => {
+      const matchesText = tool.name.toLowerCase().includes(filterText) || tool.desc.toLowerCase().includes(filterText);
+      const matchesCategory = filterCategory === 'all' || tool.category === filterCategory;
+      return matchesText && matchesCategory;
     });
-  }
 
-  // 过滤工具（搜索+分类）
-  function filterTools() {
-    const query = searchInput.value.toLowerCase();
-    filteredTools = tools.filter(tool => {
-      const matchName = tool.name.toLowerCase().includes(query);
-      const matchCategory = selectedCategories.size === 0 || tool.category.some(c => selectedCategories.has(c));
-      return matchName && matchCategory;
-    });
-    renderTools();
-    renderPagination();
-  }
-
-  // 渲染工具列表（分页）
-  function renderTools() {
-    toolListEl.innerHTML = "";
-    if(filteredTools.length === 0) {
-      toolListEl.innerHTML = "<p>没有找到符合条件的工具。</p>";
+    if (filtered.length === 0) {
+      ul.innerHTML = '<li>没有找到匹配的工具。</li>';
       return;
     }
-    const start = (currentPage - 1) * pageSize;
-    const pageTools = filteredTools.slice(start, start + pageSize);
-    pageTools.forEach(tool => {
-      const card = document.createElement("div");
-      card.className = "tool-card";
-      card.tabIndex = 0;
-      card.setAttribute("role", "button");
-      card.setAttribute("aria-pressed", "false");
-      card.innerHTML = `<h3>${tool.name}</h3><p>${tool.desc}</p>`;
-      card.onclick = () => openModal(tool);
-      card.onkeypress = (e) => { if(e.key === "Enter") openModal(tool); };
-      toolListEl.appendChild(card);
+
+    filtered.forEach(tool => {
+      const li = document.createElement('li');
+      li.setAttribute('data-category', tool.category);
+      li.innerHTML = `
+        <a href="${tool.url}" target="_blank" rel="noopener">${tool.name}</a>
+        <p>${tool.desc}</p>
+      `;
+      ul.appendChild(li);
     });
   }
 
-  // 渲染分页按钮
-  function renderPagination() {
-    paginationEl.innerHTML = "";
-    const pageCount = Math.ceil(filteredTools.length / pageSize);
-    if(pageCount <= 1) return;
+  searchInput.addEventListener('input', renderList);
+  categorySelect.addEventListener('change', renderList);
 
-    const prevBtn = document.createElement("button");
-    prevBtn.textContent = "上一页";
-    prevBtn.disabled = currentPage === 1;
-    prevBtn.onclick = () => {
-      if(currentPage > 1) {
-        currentPage--;
-        renderTools();
-        renderPagination();
-        window.scrollTo({top:0, behavior:'smooth'});
-      }
-    };
-    paginationEl.appendChild(prevBtn);
-
-    // 显示页码（简单显示1~pageCount）
-    for(let i = 1; i <= pageCount; i++) {
-      const pageBtn = document.createElement("button");
-      pageBtn.textContent = i;
-      pageBtn.disabled = i === currentPage;
-      pageBtn.onclick = () => {
-        currentPage = i;
-        renderTools();
-        renderPagination();
-        window.scrollTo({top:0, behavior:'smooth'});
-      };
-      paginationEl.appendChild(pageBtn);
-    }
-
-    const nextBtn = document.createElement("button");
-    nextBtn.textContent = "下一页";
-    nextBtn.disabled = currentPage === pageCount;
-    nextBtn.onclick = () => {
-      if(currentPage < pageCount) {
-        currentPage++;
-        renderTools();
-        renderPagination();
-        window.scrollTo({top:0, behavior:'smooth'});
-      }
-    };
-    paginationEl.appendChild(nextBtn);
-  }
-
-  // 弹窗相关
-  const modalBg = document.getElementById("modal-bg");
-  const modalTitle = document.getElementById("modal-title");
-  const modalDesc = document.getElementById("modal-desc");
-  const modalLink = document.getElementById("modal-link");
-  const modalClose = document.getElementById("modal-close");
-
-  function openModal(tool) {
-    modalTitle.textContent = tool.name;
-    modalDesc.textContent = tool.desc;
-    modalLink.href = tool.url;
-    modalBg.style.display = "flex";
-  }
-
-  modalClose.onclick = () => {
-    modalBg.style.display = "none";
-  };
-  modalBg.onclick = (e) => {
-    if(e.target === modalBg) {
-      modalBg.style.display = "none";
-    }
-  };
-  document.addEventListener("keydown", e => {
-    if(e.key === "Escape" && modalBg.style.display === "flex") {
-      modalBg.style.display = "none";
-    }
-  });
-
-  // 搜索框监听
-  searchInput.addEventListener("input", () => {
-    currentPage = 1;
-    filterTools();
-  });
-
-  // 初始化
-  renderCategoryFilters();
-  filterTools();
-
+  // 初始化列表
+  renderList();
 </script>
 
 </body>
