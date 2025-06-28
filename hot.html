@@ -2,97 +2,123 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>每日热点（动态加载）</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>每日热点 - no996noicu.com</title>
   <style>
     body {
-      font-family: "Microsoft YaHei", Arial, sans-serif;
-      background: #f9f9f9;
       margin: 0;
       padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background-color: #f9fafb;
       color: #333;
     }
+
     h1 {
       text-align: center;
+      color: #1f2937;
       margin-bottom: 30px;
+      font-size: 26px;
     }
-    .hot-section {
-      background: #fff;
-      padding: 15px 20px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 8px #ddd;
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
     }
-    .hot-section h2 {
-      margin-top: 0;
-      border-bottom: 2px solid #ff4d4f;
-      padding-bottom: 5px;
-      color: #ff4d4f;
-    }
-    ol {
-      padding-left: 20px;
-    }
-    ol li {
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
-    ol li a {
-      color: #1890ff;
+
+    .card {
+      background-color: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
       text-decoration: none;
+      color: inherit;
     }
-    ol li a:hover {
-      text-decoration: underline;
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+
+    .icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: #999;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
-  <h1>每日热点（动态加载）</h1>
-  <div id="container">正在加载热点数据...</div>
 
-  <script>
-    const titles = {
-      weibo: '微博热搜榜',
-      baidu: '百度热搜榜',
-      zhihu: '知乎热榜',
-      douyin: '抖音热搜榜'
-    };
+  <h1>🔥 每日热点导航</h1>
 
-    function createSection(platform, items) {
-      const section = document.createElement('div');
-      section.className = 'hot-section';
-      const h2 = document.createElement('h2');
-      h2.textContent = titles[platform] || platform;
-      section.appendChild(h2);
+  <div class="grid">
 
-      const ol = document.createElement('ol');
-      items.forEach(item => {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = item.url;
-        a.target = '_blank';
-        a.textContent = item.title;
-        li.appendChild(a);
-        ol.appendChild(li);
-      });
+    <a href="https://tophub.today/n/KqndgxeLl9" class="card" target="_blank">
+      <div class="icon">🐦</div>
+      <div class="title">微博热搜</div>
+    </a>
 
-      section.appendChild(ol);
-      return section;
-    }
+    <a href="https://tophub.today/n/mproPpoq6O" class="card" target="_blank">
+      <div class="icon">📘</div>
+      <div class="title">知乎热榜</div>
+    </a>
 
-    fetch('./hotsearch.json')
-      .then(response => response.json())
-      .then(data => {
-        const container = document.getElementById('container');
-        container.innerHTML = '';
-        Object.keys(data).forEach(platform => {
-          const section = createSection(platform, data[platform]);
-          container.appendChild(section);
-        });
-      })
-      .catch(err => {
-        console.error('加载热点数据失败:', err);
-        document.getElementById('container').textContent = '热点数据加载失败，请稍后再试。';
-      });
-  </script>
+    <a href="https://tophub.today/n/WnBe01o371" class="card" target="_blank">
+      <div class="icon">🔍</div>
+      <div class="title">百度热搜</div>
+    </a>
+
+    <a href="https://tophub.today/n/Jb0vmloB1G" class="card" target="_blank">
+      <div class="icon">🎵</div>
+      <div class="title">抖音热点</div>
+    </a>
+
+    <a href="https://tophub.today/n/vy6ejeVdG3" class="card" target="_blank">
+      <div class="icon">📰</div>
+      <div class="title">今日头条</div>
+    </a>
+
+    <a href="https://tophub.today/n/ywjBv0WPoM" class="card" target="_blank">
+      <div class="icon">🎬</div>
+      <div class="title">B站热榜</div>
+    </a>
+
+    <a href="https://tophub.today/n/74Kvx6kExz" class="card" target="_blank">
+      <div class="icon">💻</div>
+      <div class="title">IT之家榜</div>
+    </a>
+
+    <a href="https://tophub.today/n/0mJb8mVyN6" class="card" target="_blank">
+      <div class="icon">📈</div>
+      <div class="title">36氪资讯</div>
+    </a>
+
+    <a href="https://tophub.today/n/G4VmGv7N4R" class="card" target="_blank">
+      <div class="icon">📱</div>
+      <div class="title">少数派热榜</div>
+    </a>
+
+  </div>
+
+  <footer>
+    数据来源：<a href="https://tophub.today/" target="_blank">今日热榜 TopHub</a> · 页面由 no996noicu.com 提供
+  </footer>
+
 </body>
 </html>
