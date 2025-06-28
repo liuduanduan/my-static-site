@@ -1,87 +1,93 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>AI工具大全 - 搜索 & 分类筛选</title>
-<style>
-  body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    max-width: 960px;
-    margin: 20px auto;
-    padding: 0 15px;
-    background: #f7f9fc;
-    color: #333;
-  }
-  h1 {
-    text-align: center;
-    margin-bottom: 8px;
-    color: #222;
-  }
-  #search {
-    width: 100%;
-    padding: 10px 12px;
-    font-size: 1rem;
-    border: 2px solid #1a73e8;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-  }
-  #categoryFilter {
-    margin-bottom: 20px;
-    font-size: 1rem;
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: 2px solid #1a73e8;
-    background: white;
-  }
-  ul#toolList {
-    list-style: none;
-    padding: 0;
-  }
-  ul#toolList li {
-    background: white;
-    margin-bottom: 12px;
-    border-radius: 8px;
-    padding: 14px 20px;
-    box-shadow: 0 2px 6px rgb(26 115 232 / 0.15);
-    transition: box-shadow 0.3s ease;
-  }
-  ul#toolList li:hover {
-    box-shadow: 0 5px 15px rgb(26 115 232 / 0.3);
-  }
-  ul#toolList li a {
-    color: #1a73e8;
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-decoration: none;
-  }
-  ul#toolList li a:hover {
-    text-decoration: underline;
-  }
-  ul#toolList li p {
-    margin: 6px 0 0;
-    font-size: 0.9rem;
-    color: #555;
-  }
-  @media (max-width: 600px) {
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🚀 AI工具大全（100+平台）</title>
+  <style>
     body {
-      margin: 10px;
-      padding: 0 10px;
+      margin: 0; padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background-color: #f9fafb;
+      color: #333;
+      max-width: 1000px;
+      margin: 0 auto;
     }
-    ul#toolList li {
-      padding: 12px 14px;
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 26px;
+      color: #1f2937;
     }
-    #search, #categoryFilter {
-      font-size: 1rem;
+    #search {
+      display: block;
+      margin: 0 auto 20px auto;
+      max-width: 400px;
+      width: 100%;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+      outline: none;
+      transition: border-color 0.2s ease;
     }
-  }
-</style>
+    #search:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 5px rgba(37, 99, 235, 0.5);
+    }
+    #categoryFilter {
+      display: block;
+      margin: 0 auto 30px auto;
+      max-width: 200px;
+      width: 100%;
+      padding: 8px 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+      gap: 18px;
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 16px;
+      padding: 18px 14px;
+      text-align: left;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      user-select: none;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+    .card .name {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #1a73e8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card .desc {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.4;
+    }
+  </style>
 </head>
 <body>
 
-<h1>AI工具大全</h1>
-<input type="search" id="search" placeholder="🔍 输入关键词搜索工具..." aria-label="搜索AI工具" />
+<h1>🚀 AI工具大全</h1>
+<input type="search" id="search" placeholder="搜索工具名称或描述..." aria-label="搜索工具" />
 <select id="categoryFilter" aria-label="选择工具类别">
   <option value="all">全部类别</option>
   <option value="text">文本写作</option>
@@ -92,148 +98,163 @@
   <option value="other">其他工具</option>
 </select>
 
-<ul id="toolList"></ul>
+<div class="grid" id="toolGrid"></div>
 
 <script>
   const tools = [
-    {name:"ChatGPT (OpenAI)", url:"https://chat.openai.com", desc:"领先的对话生成AI，支持多语言聊天。", category:"text"},
-    {name:"Google Bard", url:"https://bard.google.com", desc:"Google推出的生成式AI聊天助手。", category:"text"},
-    {name:"GitHub Copilot", url:"https://copilot.github.com", desc:"AI编程助手，支持多语言代码补全。", category:"code"},
-    {name:"Stable Diffusion", url:"https://stable-diffusion.com", desc:"开源图像生成AI。", category:"image"},
-    {name:"Runway ML", url:"https://runwayml.com", desc:"多功能AI创作平台。", category:"video"},
-    {name:"AlphaFold (DeepMind)", url:"https://www.deepmind.com/research/alphafold", desc:"蛋白质结构预测AI。", category:"other"},
-    {name:"QuillBot", url:"https://quillbot.com", desc:"AI写作助手。", category:"text"},
-    {name:"Jasper AI", url:"https://jasper.ai", desc:"营销文案自动生成。", category:"text"},
-    {name:"Descript", url:"https://descript.com", desc:"AI视频和音频编辑。", category:"video"},
-    {name:"Copy.ai", url:"https://copy.ai", desc:"快速生成广告文案。", category:"text"},
-    {name:"Hugging Face", url:"https://huggingface.co", desc:"开源NLP模型平台。", category:"other"},
-    {name:"Synthesia", url:"https://synthesia.io", desc:"AI视频虚拟主播生成。", category:"video"},
-    {name:"Voice.ai", url:"https://voice.ai", desc:"AI变声和语音合成。", category:"voice"},
-    {name:"CopyTune", url:"https://copytune.com", desc:"AI文案优化助手。", category:"text"},
-    {name:"Canva", url:"https://canva.com", desc:"设计辅助平台。", category:"image"},
-    {name:"Midjourney", url:"https://midjourney.com", desc:"AI艺术图像生成。", category:"image"},
-    {name:"Lumen5", url:"https://lumen5.com", desc:"视频内容自动生成。", category:"video"},
-    {name:"Writesonic", url:"https://writesonic.com", desc:"AI写作工具。", category:"text"},
-    {name:"AI Dungeon", url:"https://play.aidungeon.io", desc:"AI驱动的交互式文字冒险游戏。", category:"text"},
-    {name:"Replika", url:"https://replika.ai", desc:"AI情感聊天机器人。", category:"text"},
-    {name:"DeepL Translator", url:"https://www.deepl.com", desc:"高质量AI翻译工具。", category:"text"},
-    {name:"Otter.ai", url:"https://otter.ai", desc:"AI语音转文字。", category:"voice"},
-    {name:"Krisp", url:"https://krisp.ai", desc:"AI降噪通话软件。", category:"voice"},
-    {name:"Scribble Diffusion", url:"https://scribblediffusion.com", desc:"手绘图转AI绘画。", category:"image"},
-    {name:"Remove.bg", url:"https://www.remove.bg", desc:"AI自动抠图。", category:"image"},
-    {name:"Runway Gen-2", url:"https://runwayml.com/gen-2", desc:"AI视频生成。", category:"video"},
-    {name:"Deep Nostalgia", url:"https://www.myheritage.cn/deep-nostalgia", desc:"AI照片动画。", category:"image"},
-    {name:"CopySmith", url:"https://copysmith.ai", desc:"AI内容生成。", category:"text"},
-    {name:"Synthesys", url:"https://synthesys.io", desc:"AI语音和视频生成。", category:"video"},
-    {name:"Reface", url:"https://reface.app", desc:"AI换脸应用。", category:"image"},
-    {name:"Talk to Transformer", url:"https://app.inferkit.com/demo", desc:"基于GPT的文本生成。", category:"text"},
-    {name:"InferKit", url:"https://inferkit.com", desc:"AI文本生成API。", category:"text"},
-    {name:"AI Image Enlarger", url:"https://imglarger.com", desc:"AI图像无损放大。", category:"image"},
-    {name:"Deep Dream Generator", url:"https://deepdreamgenerator.com", desc:"艺术风格AI图像。", category:"image"},
-    {name:"BigSleep", url:"https://github.com/lucidrains/big-sleep", desc:"AI生成梦幻图像。", category:"image"},
-    {name:"ClipDrop", url:"https://clipdrop.co", desc:"AI截图和图片编辑。", category:"image"},
-    {name:"FaceApp", url:"https://www.faceapp.com", desc:"AI换脸和滤镜。", category:"image"},
-    {name:"Socratic", url:"https://socratic.org", desc:"AI学习助手。", category:"text"},
-    {name:"Talk to Books", url:"https://books.google.com/talktobooks", desc:"谷歌AI语义搜索书籍。", category:"text"},
-    {name:"AI Painter", url:"https://paintschainer.preferred.tech/index_en.html", desc:"AI自动上色。", category:"image"},
-    {name:"DeepAI Text Generator", url:"https://deepai.org/machine-learning-model/text-generator", desc:"文本生成工具。", category:"text"},
-    {name:"DeepVoice", url:"https://deepvoice.ai", desc:"AI语音合成。", category:"voice"},
-    {name:"AI Writer", url:"https://ai-writer.com", desc:"AI文章生成。", category:"text"},
-    {name:"AISEO", url:"https://aiseo.ai", desc:"SEO内容AI生成。", category:"text"},
-    {name:"DALL·E 2", url:"https://openai.com/dall-e-2", desc:"OpenAI图像生成。", category:"image"},
-    {name:"Magic Eraser", url:"https://magiceraser.io", desc:"AI去除图片背景。", category:"image"},
-    {name:"NightCafe Creator", url:"https://creator.nightcafe.studio", desc:"AI艺术生成。", category:"image"},
-    {name:"DeepArt", url:"https://deepart.io", desc:"AI艺术风格转换。", category:"image"},
-    {name:"Wordtune", url:"https://www.wordtune.com", desc:"AI写作润色。", category:"text"},
-    {name:"AI Resume Builder", url:"https://enhancv.com", desc:"AI简历生成。", category:"text"},
-    {name:"Lalal.ai", url:"https://www.lalal.ai", desc:"AI音频分离。", category:"voice"},
-    {name:"AIVA", url:"https://www.aiva.ai", desc:"AI音乐创作。", category:"other"},
-    {name:"MuseNet", url:"https://openai.com/blog/musenet", desc:"AI音乐生成。", category:"other"},
-    {name:"Soundraw", url:"https://soundraw.io", desc:"AI音乐生成器。", category:"other"},
-    {name:"Runway Text to Video", url:"https://runwayml.com/text-to-video", desc:"AI文本转视频。", category:"video"},
-    {name:"Boomy", url:"https://boomy.com", desc:"AI音乐生成平台。", category:"other"},
-    {name:"Pictory", url:"https://pictory.ai", desc:"AI视频自动剪辑。", category:"video"},
-    {name:"Synthesizer V", url:"https://synthesizerv.com", desc:"AI歌声合成软件。", category:"voice"},
-    {name:"VoiceMod", url:"https://www.voicemod.net", desc:"AI实时变声软件。", category:"voice"},
-    {name:"Deep Video Portraits", url:"https://www.deepvideoportraits.com", desc:"AI视频面部替换。", category:"video"},
-    {name:"AISEO Copywriting", url:"https://aiseo.ai/copywriting", desc:"AI营销文案。", category:"text"},
-    {name:"Grammarly", url:"https://grammarly.com", desc:"AI语法检查。", category:"text"},
-    {name:"Hemingway Editor", url:"https://hemingwayapp.com", desc:"AI写作风格检查。", category:"text"},
-    {name:"INK Editor", url:"https://inkforall.com", desc:"AI SEO写作助手。", category:"text"},
-    {name:"Anyword", url:"https://anyword.com", desc:"AI广告文案生成。", category:"text"},
-    {name:"Writesonic", url:"https://writesonic.com", desc:"AI写作助手。", category:"text"},
-    {name:"Peppertype.ai", url:"https://www.peppertype.ai", desc:"AI内容生成。", category:"text"},
-    {name:"Headlime", url:"https://headlime.com", desc:"AI标题生成。", category:"text"},
-    {name:"Text Blaze", url:"https://blaze.today", desc:"AI文本片段管理。", category:"text"},
-    {name:"FlowGPT", url:"https://flowgpt.com", desc:"GPT提示词共享平台。", category:"other"},
-    {name:"PromptHero", url:"https://prompthero.com", desc:"AI提示词社区。", category:"other"},
-    {name:"AI Portraits", url:"https://aiportraits.com", desc:"AI肖像画生成。", category:"image"},
-    {name:"This Person Does Not Exist", url:"https://thispersondoesnotexist.com", desc:"AI虚拟人脸生成。", category:"image"},
-    {name:"DeepFakeLab", url:"https://github.com/iperov/DeepFaceLab", desc:"深度伪造工具。", category:"other"},
-    {name:"FaceSwap", url:"https://faceswap.dev", desc:"开源换脸工具。", category:"other"},
-    {name:"Botpress", url:"https://botpress.com", desc:"开源聊天机器人平台。", category:"other"},
-    {name:"Rasa", url:"https://rasa.com", desc:"开源对话AI。", category:"other"},
-    {name:"Dialogflow", url:"https://dialogflow.cloud.google.com", desc:"Google智能对话平台。", category:"other"},
-    {name:"Microsoft LUIS", url:"https://www.luis.ai", desc:"语言理解服务。", category:"other"},
-    {name:"IBM Watson Assistant", url:"https://www.ibm.com/cloud/watson-assistant", desc:"AI客服聊天机器人。", category:"other"},
-    {name:"AI Image Colorizer", url:"https://imagecolorizer.com", desc:"黑白图自动上色。", category:"image"},
-    {name:"DeepImage", url:"https://deepimage.ai", desc:"AI图像增强。", category:"image"},
-    {name:"Let's Enhance", url:"https://letsenhance.io", desc:"AI图片增强和放大。", category:"image"},
-    {name:"Remini", url:"https://www.remini.ai", desc:"AI老照片修复。", category:"image"},
-    {name:"AI UpScaler", url:"https://aiupscaler.com", desc:"AI图像放大。", category:"image"},
-    {name:"Pixlr", url:"https://pixlr.com", desc:"在线AI图像编辑器。", category:"image"},
-    {name:"Fotor", url:"https://www.fotor.com", desc:"AI设计与编辑平台。", category:"image"},
-    {name:"Artbreeder", url:"https://www.artbreeder.com", desc:"AI图像混合生成。", category:"image"},
-    {name:"PaintsChainer", url:"https://paintschainer.preferred.tech", desc:"AI自动上色。", category:"image"},
-    {name:"Cartoonify", url:"https://www.cartoonify.de", desc:"AI图片卡通化。", category:"image"},
-    {name:"Photopea", url:"https://www.photopea.com", desc:"在线PS替代品，支持AI插件。", category:"image"},
-    {name:"Deep Text Generator", url:"https://deeptextgenerator.com", desc:"AI文本生成。", category:"text"},
-    {name:"AISEO", url:"https://aiseo.ai", desc:"AI内容营销工具。", category:"text"},
-    {name:"AI Blog Writer", url:"https://aiblogwriter.com", desc:"AI博客写作。", category:"text"},
-    {name:"CopyMonkey", url:"https://copymonkey.ai", desc:"亚马逊商品文案AI生成。", category:"text"},
-    {name:"Hypotenuse AI", url:"https://hypotenuse.ai", desc:"电商AI内容。", category:"text"},
-    {name:"Scalenut", url:"https://www.scalenut.com", desc:"AI SEO内容平台。", category:"text"},
-    {name:"Frase", url:"https://www.frase.io", desc:"AI内容优化。", category:"text"},
-    {name:"Neural.love", url:"https://neural.love", desc:"AI图片修复与生成。", category:"image"},
+
+
+  {"name":"ChatGPT (OpenAI)", "url":"https://chat.openai.com", "desc":"领先的对话生成AI，支持多语言聊天。", "category":"text"},
+  {"name":"Google Bard", "url":"https://bard.google.com", "desc":"Google推出的生成式AI聊天助手。", "category":"text"},
+  {"name":"GitHub Copilot", "url":"https://copilot.github.com", "desc":"AI编程助手，支持多语言代码补全。", "category":"code"},
+  {"name":"Stable Diffusion", "url":"https://stable-diffusion.com", "desc":"开源图像生成AI。", "category":"image"},
+  {"name":"Runway ML", "url":"https://runwayml.com", "desc":"多功能AI创作平台。", "category":"video"},
+  {"name":"AlphaFold (DeepMind)", "url":"https://www.deepmind.com/research/alphafold", "desc":"蛋白质结构预测AI。", "category":"other"},
+  {"name":"QuillBot", "url":"https://quillbot.com", "desc":"AI写作助手。", "category":"text"},
+  {"name":"Jasper AI", "url":"https://jasper.ai", "desc":"营销文案自动生成。", "category":"text"},
+  {"name":"Descript", "url":"https://descript.com", "desc":"AI视频和音频编辑。", "category":"video"},
+  {"name":"Copy.ai", "url":"https://copy.ai", "desc":"快速生成广告文案。", "category":"text"},
+  {"name":"Hugging Face", "url":"https://huggingface.co", "desc":"开源NLP模型平台。", "category":"other"},
+  {"name":"Synthesia", "url":"https://synthesia.io", "desc":"AI视频虚拟主播生成。", "category":"video"},
+  {"name":"Voice.ai", "url":"https://voice.ai", "desc":"AI变声和语音合成。", "category":"voice"},
+  {"name":"CopyTune", "url":"https://copytune.com", "desc":"AI文案优化助手。", "category":"text"},
+  {"name":"Canva", "url":"https://canva.com", "desc":"设计辅助平台。", "category":"image"},
+  {"name":"Midjourney", "url":"https://midjourney.com", "desc":"AI艺术图像生成。", "category":"image"},
+  {"name":"Lumen5", "url":"https://lumen5.com", "desc":"视频内容自动生成。", "category":"video"},
+  {"name":"Writesonic", "url":"https://writesonic.com", "desc":"AI写作工具。", "category":"text"},
+  {"name":"AI Dungeon", "url":"https://play.aidungeon.io", "desc":"AI驱动的交互式文字冒险游戏。", "category":"text"},
+  {"name":"Replika", "url":"https://replika.ai", "desc":"AI情感聊天机器人。", "category":"text"},
+
+  {"name":"DeepL Translator", "url":"https://www.deepl.com", "desc":"高质量AI翻译工具。", "category":"text"},
+  {"name":"Otter.ai", "url":"https://otter.ai", "desc":"AI语音转文字。", "category":"voice"},
+  {"name":"Krisp", "url":"https://krisp.ai", "desc":"AI降噪通话软件。", "category":"voice"},
+  {"name":"Scribble Diffusion", "url":"https://scribblediffusion.com", "desc":"手绘图转AI绘画。", "category":"image"},
+  {"name":"Remove.bg", "url":"https://www.remove.bg", "desc":"AI自动抠图。", "category":"image"},
+  {"name":"Runway Gen-2", "url":"https://runwayml.com/gen-2", "desc":"AI视频生成。", "category":"video"},
+  {"name":"Deep Nostalgia", "url":"https://www.myheritage.cn/deep-nostalgia", "desc":"AI照片动画。", "category":"image"},
+  {"name":"CopySmith", "url":"https://copysmith.ai", "desc":"AI内容生成。", "category":"text"},
+  {"name":"Synthesys", "url":"https://synthesys.io", "desc":"AI语音和视频生成。", "category":"video"},
+  {"name":"Reface", "url":"https://reface.app", "desc":"AI换脸应用。", "category":"image"},
+  {"name":"Talk to Transformer", "url":"https://app.inferkit.com/demo", "desc":"基于GPT的文本生成。", "category":"text"},
+  {"name":"InferKit", "url":"https://inferkit.com", "desc":"AI文本生成API。", "category":"text"},
+  {"name":"AI Image Enlarger", "url":"https://imglarger.com", "desc":"AI图像无损放大。", "category":"image"},
+  {"name":"Deep Dream Generator", "url":"https://deepdreamgenerator.com", "desc":"艺术风格AI图像。", "category":"image"},
+  {"name":"BigSleep", "url":"https://github.com/lucidrains/big-sleep", "desc":"AI生成梦幻图像。", "category":"image"},
+  {"name":"ClipDrop", "url":"https://clipdrop.co", "desc":"AI截图和图片编辑。", "category":"image"},
+  {"name":"FaceApp", "url":"https://www.faceapp.com", "desc":"AI换脸和滤镜。", "category":"image"},
+  {"name":"Socratic", "url":"https://socratic.org", "desc":"AI学习助手。", "category":"text"},
+  {"name":"Talk to Books", "url":"https://books.google.com/talktobooks", "desc":"谷歌AI语义搜索书籍。", "category":"text"},
+  {"name":"AI Painter", "url":"https://paintschainer.preferred.tech/index_en.html", "desc":"AI自动上色。", "category":"image"},
+
+  {"name":"DeepAI Text Generator", "url":"https://deepai.org/machine-learning-model/text-generator", "desc":"文本生成工具。", "category":"text"},
+  {"name":"DeepVoice", "url":"https://deepvoice.ai", "desc":"AI语音合成。", "category":"voice"},
+  {"name":"AI Writer", "url":"https://ai-writer.com", "desc":"AI文章生成。", "category":"text"},
+  {"name":"AISEO", "url":"https://aiseo.ai", "desc":"SEO内容AI生成。", "category":"text"},
+  {"name":"DALL·E 2", "url":"https://openai.com/dall-e-2", "desc":"OpenAI图像生成。", "category":"image"},
+  {"name":"Magic Eraser", "url":"https://magiceraser.io", "desc":"AI去除图片背景。", "category":"image"},
+  {"name":"NightCafe Creator", "url":"https://creator.nightcafe.studio", "desc":"AI艺术生成。", "category":"image"},
+  {"name":"DeepArt", "url":"https://deepart.io", "desc":"AI艺术风格转换。", "category":"image"},
+  {"name":"Wordtune", "url":"https://www.wordtune.com", "desc":"AI写作润色。", "category":"text"},
+  {"name":"AI Resume Builder", "url":"https://enhancv.com", "desc":"AI简历生成。", "category":"text"},
+  {"name":"Lalal.ai", "url":"https://www.lalal.ai", "desc":"AI音频分离。", "category":"voice"},
+  {"name":"AIVA", "url":"https://www.aiva.ai", "desc":"AI音乐创作。", "category":"other"},
+  {"name":"MuseNet", "url":"https://openai.com/blog/musenet", "desc":"AI音乐生成。", "category":"other"},
+  {"name":"Soundraw", "url":"https://soundraw.io", "desc":"AI音乐生成器。", "category":"other"},
+  {"name":"Runway Text to Video", "url":"https://runwayml.com/text-to-video", "desc":"AI文本转视频。", "category":"video"},
+  {"name":"Boomy", "url":"https://boomy.com", "desc":"AI音乐生成平台。", "category":"other"},
+  {"name":"Pictory", "url":"https://pictory.ai", "desc":"AI视频自动剪辑。", "category":"video"},
+  {"name":"Synthesizer V", "url":"https://synthesizerv.com", "desc":"AI歌声合成软件。", "category":"voice"},
+  {"name":"VoiceMod", "url":"https://www.voicemod.net", "desc":"AI实时变声软件。", "category":"voice"},
+  {"name":"Deep Video Portraits", "url":"https://www.deepvideoportraits.com", "desc":"AI视频面部替换。", "category":"video"},
+
+  {"name":"Jasper AI", "url":"https://www.jasper.ai", "desc":"多用途AI写作助手。", "category":"text"},
+  {"name":"Copy.ai", "url":"https://www.copy.ai", "desc":"AI营销文案生成。", "category":"text"},
+  {"name":"Canva AI", "url":"https://www.canva.com/features/ai", "desc":"设计与图像AI工具。", "category":"image"},
+  {"name":"Lumen5", "url":"https://lumen5.com", "desc":"AI视频制作平台。", "category":"video"},
+  {"name":"Replika", "url":"https://replika.ai", "desc":"AI聊天机器人。", "category":"chatbot"},
+  {"name":"Talk to Transformer", "url":"https://app.inferkit.com/demo", "desc":"基于GPT的文本生成。", "category":"text"},
+  {"name":"AI Dungeon", "url":"https://play.aidungeon.io", "desc":"AI文本冒险游戏。", "category":"game"},
+  {"name":"This Person Does Not Exist", "url":"https://thispersondoesnotexist.com", "desc":"AI生成虚拟人脸。", "category":"image"},
+  {"name":"Artbreeder", "url":"https://www.artbreeder.com", "desc":"AI生成艺术与头像。", "category":"image"},
+  {"name":"Runway ML", "url":"https://runwayml.com", "desc":"创意AI视频与图像工具。", "category":"video"},
+  {"name":"Talk to Books", "url":"https://books.google.com/talktobooks", "desc":"基于AI的书籍问答。", "category":"text"},
+  {"name":"OpenAI Codex", "url":"https://openai.com/blog/openai-codex", "desc":"AI代码生成与助手。", "category":"code"},
+  {"name":"GitHub Copilot", "url":"https://github.com/features/copilot", "desc":"AI代码补全工具。", "category":"code"},
+  {"name":"Descript", "url":"https://www.descript.com", "desc":"AI音频和视频编辑。", "category":"video"},
+  {"name":"AI Portraits", "url":"https://aiportraits.com", "desc":"AI人像生成。", "category":"image"},
+  {"name":"Play.ht", "url":"https://play.ht", "desc":"AI语音合成平台。", "category":"voice"},
+  {"name":"Speechify", "url":"https://speechify.com", "desc":"文本转语音工具。", "category":"voice"},
+  {"name":"Deep Nostalgia", "url":"https://www.myheritage.com/deep-nostalgia", "desc":"AI旧照片动画。", "category":"image"},
+  {"name":"ChatGPT", "url":"https://chat.openai.com", "desc":"OpenAI聊天机器人。", "category":"chatbot"},
+  {"name":"Hugging Face", "url":"https://huggingface.co", "desc":"多种开源AI模型平台。", "category":"other"},
+  {"name":"CopySmith", "url":"https://copysmith.ai", "desc":"AI文案写作助手。", "category":"text"},
+  {"name":"Synthesia", "url":"https://www.synthesia.io", "desc":"AI虚拟主播视频制作。", "category":"video"},
+  {"name":"Runway Gen-2", "url":"https://runwayml.com/gen2", "desc":"文本生成视频AI。", "category":"video"},
+  {"name":"DeepL Translator", "url":"https://www.deepl.com", "desc":"AI翻译工具。", "category":"text"},
+  {"name":"QuillBot", "url":"https://quillbot.com", "desc":"AI改写与润色工具。", "category":"text"},
+  {"name":"Grammarly", "url":"https://grammarly.com", "desc":"AI语法和拼写检查。", "category":"text"},
+  {"name":"Fireflies.ai", "url":"https://fireflies.ai", "desc":"AI会议录音与笔记。", "category":"other"},
+  {"name":"Otter.ai", "url":"https://otter.ai", "desc":"AI实时转录与笔记。", "category":"other"},
+  {"name":"Synthesizer V Studio", "url":"https://synthesizerv.com", "desc":"AI歌声合成软件。", "category":"voice"},
+  {"name":"VoiceMod", "url":"https://www.voicemod.net", "desc":"AI实时变声软件。", "category":"voice"},
+  {"name":"ChatPDF", "url":"https://www.chatpdf.com", "desc":"上传PDF文档，智能提问与摘要。", "category":"text"},
+  {"name":"CopyGenius", "url":"https://copygenius.ai", "desc":"智能生成各种文案内容。", "category":"text"},
+  {"name":"Jitter", "url":"https://jitter.video", "desc":"快速制作动态动画视频。", "category":"video"},
+  {"name":"Descript", "url":"https://www.descript.com", "desc":"AI音视频编辑工具。", "category":"video"},
+  {"name":"Synthesys", "url":"https://synthesys.io", "desc":"AI语音和视频生成。", "category":"video"},
+  {"name":"Rephrase.ai", "url":"https://www.rephrase.ai", "desc":"AI个性化视频制作。", "category":"video"},
+  {"name":"RunwayML", "url":"https://runwayml.com", "desc":"创意AI视频与图像平台。", "category":"video"},
+  {"name":"AISEO", "url":"https://aiseo.ai", "desc":"SEO内容AI生成。", "category":"text"},
+  {"name":"DeepAI", "url":"https://deepai.org", "desc":"多功能AI工具平台。", "category":"other"},
+  {"name":"AI Text Generator", "url":"https://deepai.org/machine-learning-model/text-generator", "desc":"文本生成工具。", "category":"text"},
+  {"name":"Lumen5", "url":"https://lumen5.com", "desc":"AI视频制作平台。", "category":"video"},
+  {"name":"Boomy", "url":"https://boomy.com", "desc":"AI音乐生成平台。", "category":"other"},
+  {"name":"Soundraw", "url":"https://soundraw.io", "desc":"AI音乐生成器。", "category":"other"},
+  {"name":"AIVA", "url":"https://www.aiva.ai", "desc":"AI音乐创作。", "category":"other"},
+  {"name":"Runway Text to Video", "url":"https://runwayml.com/text-to-video", "desc":"AI文本转视频。", "category":"video"},
+  {"name":"Pictory", "url":"https://pictory.ai", "desc":"AI视频自动剪辑。", "category":"video"},
+  {"name":"Synthesizer V", "url":"https://synthesizerv.com", "desc":"AI歌声合成软件。", "category":"voice"},
+  {"name":"VoiceMod", "url":"https://www.voicemod.net", "desc":"AI实时变声软件。", "category":"voice"},
+  {"name":"Deep Video Portraits", "url":"https://www.deepvideoportraits.com", "desc":"AI视频面部替换。", "category":"video"}
+
+
+
+
+
   ];
 
-  const ul = document.getElementById('toolList');
+  const grid = document.getElementById('toolGrid');
   const searchInput = document.getElementById('search');
   const categorySelect = document.getElementById('categoryFilter');
 
-  function renderList() {
-    const filterText = searchInput.value.trim().toLowerCase();
-    const filterCategory = categorySelect.value;
-
-    ul.innerHTML = '';
-
-    const filtered = tools.filter(tool => {
-      const matchesText = tool.name.toLowerCase().includes(filterText) || tool.desc.toLowerCase().includes(filterText);
-      const matchesCategory = filterCategory === 'all' || tool.category === filterCategory;
-      return matchesText && matchesCategory;
-    });
-
-    if (filtered.length === 0) {
-      ul.innerHTML = '<li>没有找到匹配的工具。</li>';
-      return;
-    }
-
-    filtered.forEach(tool => {
-      const li = document.createElement('li');
-      li.setAttribute('data-category', tool.category);
-      li.innerHTML = `
-        <a href="${tool.url}" target="_blank" rel="noopener">${tool.name}</a>
-        <p>${tool.desc}</p>
-      `;
-      ul.appendChild(li);
+  function render(data) {
+    grid.innerHTML = '';
+    data.forEach(item => {
+      const a = document.createElement('a');
+      a.className = 'card';
+      a.href = item.url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.innerHTML = `<div class="name">${item.name}</div><div class="desc">${item.desc}</div>`;
+      grid.appendChild(a);
     });
   }
 
-  searchInput.addEventListener('input', renderList);
-  categorySelect.addEventListener('change', renderList);
+  function filterAndRender() {
+    const val = searchInput.value.trim().toLowerCase();
+    const cat = categorySelect.value;
+    const filtered = tools.filter(t => {
+      const matchText = t.name.toLowerCase().includes(val) || t.desc.toLowerCase().includes(val);
+      const matchCat = cat === 'all' || t.category === cat;
+      return matchText && matchCat;
+    });
+    render(filtered);
+  }
 
-  // 初始化列表
-  renderList();
+  searchInput.addEventListener('input', filterAndRender);
+  categorySelect.addEventListener('change', filterAndRender);
+
+  render(tools);
 </script>
 
 </body>
