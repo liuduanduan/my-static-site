@@ -2,92 +2,61 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>每日热点 - 热搜榜单汇总</title>
+  <title>每日热点（动态加载）</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
-      font-family: "Segoe UI", sans-serif;
-      max-width: 800px;
-      margin: auto;
-      padding: 2rem;
+      font-family: "Microsoft YaHei", Arial, sans-serif;
       background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
       color: #333;
     }
     h1 {
-      color: #0077ff;
-      font-size: 2rem;
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 30px;
     }
-    h3 {
-      margin-top: 1.5rem;
-      color: #0077ff;
+    .hot-section {
+      background: #fff;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px #ddd;
     }
-    ul {
-      list-style: none;
-      padding: 0;
+    .hot-section h2 {
+      margin-top: 0;
+      border-bottom: 2px solid #ff4d4f;
+      padding-bottom: 5px;
+      color: #ff4d4f;
     }
-    li {
-      margin: 0.5rem 0;
+    ol {
+      padding-left: 20px;
     }
-    a {
+    ol li {
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    ol li a {
+      color: #1890ff;
       text-decoration: none;
-      color: #333;
     }
-    a:hover {
-      color: #0077ff;
-    }
-    .error {
-      color: red;
-      font-size: 0.95rem;
+    ol li a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
+  <h1>每日热点（动态加载）</h1>
+  <div id="container">正在加载热点数据...</div>
 
-  <h1>🔥 每日热点榜单</h1>
-  <div id="hot-content">加载中...</div>
+  <script>
+    const titles = {
+      weibo: '微博热搜榜',
+      baidu: '百度热搜榜',
+      zhihu: '知乎热榜',
+      douyin: '抖音热搜榜'
+    };
 
-<script>
-const hotApis = [
-  {
-    name: "微博热搜",
-    api: "https://tenapi.cn/resou/",
-    parse: res => res.data.map(i => `<li><a href="${i.url}" target="_blank" rel="noopener">${i.name}</a></li>`).join("")
-  },
-  {
-    name: "知乎热榜",
-    api: "https://v2.alapi.cn/api/zhihu/hot?token=free",
-    parse: res => res.data.map(i => `<li><a href="${i.url}" target="_blank" rel="noopener">${i.title}</a></li>`).join("")
-  },
-  {
-    name: "百度热搜",
-    api: "https://v2.alapi.cn/api/new/baiduhot?token=free",
-    parse: res => res.data.map(i => `<li><a href="${i.url}" target="_blank" rel="noopener">${i.title}</a></li>`).join("")
-  },
-  {
-    name: "B站热榜",
-    api: "https://v2.alapi.cn/api/bilibili/index?token=free",
-    parse: res => res.data.list.map(i => `<li><a href="${i.link}" target="_blank" rel="noopener">${i.title}</a></li>`).join("")
-  }
-];
-
-async function loadHotContent() {
-  const container = document.getElementById("hot-content");
-  container.innerHTML = "";
-  for (const source of hotApis) {
-    try {
-      const res = await fetch(source.api);
-      const data = await res.json();
-      const html = source.parse(data);
-      container.innerHTML += `<h3>${source.name}</h3><ul>${html}</ul>`;
-    } catch (err) {
-      container.innerHTML += `<p class="error">❌ 加载 ${source.name} 失败</p>`;
-    }
-  }
-}
-
-loadHotContent();
-</script>
-</body>
-</html>
+    function createSection(platform, items) {
+      const section = document.createElement('div');
+      section.clas
