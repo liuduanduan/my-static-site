@@ -3,122 +3,252 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>每日热点 - no996noicu.com</title>
+  <title>每日热点导航（100+平台）</title>
   <style>
     body {
-      margin: 0;
-      padding: 20px;
+      margin: 0; padding: 20px;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
       background-color: #f9fafb;
       color: #333;
     }
-
     h1 {
       text-align: center;
-      color: #1f2937;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       font-size: 26px;
+      color: #1f2937;
     }
-
+    #searchBox {
+      display: block;
+      margin: 0 auto 30px auto;
+      max-width: 400px;
+      width: 100%;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    #searchBox:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 5px rgba(37, 99, 235, 0.5);
+    }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill,minmax(140px,1fr));
+      gap: 18px;
       max-width: 1000px;
       margin: 0 auto;
     }
-
     .card {
       background-color: #fff;
       border-radius: 16px;
-      padding: 20px;
+      padding: 18px 10px;
       text-align: center;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.15s, box-shadow 0.15s;
       cursor: pointer;
       text-decoration: none;
       color: inherit;
+      user-select: none;
     }
-
     .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
     }
-
     .icon {
       font-size: 32px;
       margin-bottom: 10px;
     }
-
     .title {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-
     footer {
       text-align: center;
       font-size: 13px;
       color: #999;
       margin-top: 40px;
+      padding-bottom: 20px;
+    }
+    .card.hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
 
-  <h1>🔥 每日热点导航</h1>
+<h1>🔥 每日热点导航（100+平台）</h1>
+<input id="searchBox" type="search" placeholder="搜索平台名称..." aria-label="搜索平台名称" />
 
-  <div class="grid">
+<div class="grid" id="gridContainer"></div>
 
-    <a href="https://tophub.today/n/KqndgxeLl9" class="card" target="_blank">
-      <div class="icon">🐦</div>
-      <div class="title">微博热搜</div>
-    </a>
+<footer>
+  数据来源：<a href="https://tophub.today/" target="_blank" rel="noopener">今日热榜 TopHub</a> · 页面由 no996noicu.com 提供
+</footer>
 
-    <a href="https://tophub.today/n/mproPpoq6O" class="card" target="_blank">
-      <div class="icon">📘</div>
-      <div class="title">知乎热榜</div>
-    </a>
+<script>
+  const platforms = [
+    {title: "微博热搜", url: "https://tophub.today/n/KqndgxeLl9", icon: "🐦"},
+    {title: "知乎热榜", url: "https://tophub.today/n/mproPpoq6O", icon: "📘"},
+    {title: "百度热搜", url: "https://tophub.today/n/WnBe01o371", icon: "🔍"},
+    {title: "抖音热点", url: "https://tophub.today/n/Jb0vmloB1G", icon: "🎵"},
+    {title: "今日头条", url: "https://tophub.today/n/vy6ejeVdG3", icon: "📰"},
+    {title: "B站热榜", url: "https://tophub.today/n/ywjBv0WPoM", icon: "🎬"},
+    {title: "IT之家榜", url: "https://tophub.today/n/74Kvx6kExz", icon: "💻"},
+    {title: "36氪资讯", url: "https://tophub.today/n/0mJb8mVyN6", icon: "📈"},
+    {title: "少数派热榜", url: "https://tophub.today/n/G4VmGv7N4R", icon: "📱"},
+    {title: "网易新闻", url: "https://tophub.today/n/NetEaseNews", icon: "🗞️"},
+    {title: "搜狐热点", url: "https://tophub.today/n/SohuHot", icon: "🔥"},
+    {title: "凤凰网", url: "https://tophub.today/n/Ifeng", icon: "🦅"},
+    {title: "新浪新闻", url: "https://tophub.today/n/SinaNews", icon: "📡"},
+    {title: "腾讯新闻", url: "https://tophub.today/n/TencentNews", icon: "🐯"},
+    {title: "网易科技", url: "https://tophub.today/n/NetEaseTech", icon: "💡"},
+    {title: "澎湃新闻", url: "https://tophub.today/n/ThePaper", icon: "🌊"},
+    {title: "中国日报", url: "https://tophub.today/n/ChinaDaily", icon: "🇨🇳"},
+    {title: "环球时报", url: "https://tophub.today/n/GlobalTimes", icon: "🌐"},
+    {title: "界面新闻", url: "https://tophub.today/n/Jiemian", icon: "🔗"},
+    {title: "凤凰科技", url: "https://tophub.today/n/IfengTech", icon: "🚀"},
+    {title: "TechCrunch", url: "https://tophub.today/n/TechCrunch", icon: "🤖"},
+    {title: "虎嗅网", url: "https://tophub.today/n/Huxiu", icon: "🐯"},
+    {title: "知乎科技", url: "https://tophub.today/n/ZhihuTech", icon: "📘"},
+    {title: "新浪财经", url: "https://tophub.today/n/SinaFinance", icon: "💰"},
+    {title: "东方财富", url: "https://tophub.today/n/EastMoney", icon: "💹"},
+    {title: "雪球财经", url: "https://tophub.today/n/Xueqiu", icon: "❄️"},
+    {title: "网易财经", url: "https://tophub.today/n/NetEaseFinance", icon: "📊"},
+    {title: "财新网", url: "https://tophub.today/n/Caixin", icon: "📉"},
+    {title: "央视财经", url: "https://tophub.today/n/CCTVFinance", icon: "📺"},
+    {title: "中国经济网", url: "https://tophub.today/n/CeNews", icon: "🏦"},
+    {title: "知乎娱乐", url: "https://tophub.today/n/ZhihuEntertainment", icon: "🎭"},
+    {title: "豆瓣电影", url: "https://tophub.today/n/DoubanMovie", icon: "🎥"},
+    {title: "微博电影", url: "https://tophub.today/n/WeiboMovie", icon: "🎬"},
+    {title: "腾讯视频", url: "https://tophub.today/n/TencentVideo", icon: "📺"},
+    {title: "爱奇艺", url: "https://tophub.today/n/IQiyi", icon: "🎞️"},
+    {title: "优酷", url: "https://tophub.today/n/Youku", icon: "📹"},
+    {title: "网易云音乐", url: "https://tophub.today/n/NetEaseMusic", icon: "🎶"},
+    {title: "QQ音乐", url: "https://tophub.today/n/QQMusic", icon: "🎵"},
+    {title: "喜马拉雅", url: "https://tophub.today/n/Ximalaya", icon: "🎧"},
+    {title: "虎牙直播", url: "https://tophub.today/n/Huya", icon: "🎮"},
+    {title: "斗鱼直播", url: "https://tophub.today/n/Douyu", icon: "🕹️"},
+    {title: "小红书", url: "https://tophub.today/n/Xiaohongshu", icon: "📖"},
+{title: "美团", url: "https://tophub.today/n/Meituan", icon: "🍽️"},
+{title: "大众点评", url: "https://tophub.today/n/Dianping", icon: "⭐"},
+{title: "携程旅游", url: "https://tophub.today/n/Ctrip", icon: "✈️"},
+{title: "去哪儿网", url: "https://tophub.today/n/Qunar", icon: "🧳"},
+{title: "飞猪", url: "https://tophub.today/n/Fliggy", icon: "🐘"},
+{title: "淘宝", url: "https://tophub.today/n/Taobao", icon: "🛒"},
+{title: "京东", url: "https://tophub.today/n/JD", icon: "📦"},
+{title: "拼多多", url: "https://tophub.today/n/Pinduoduo", icon: "🛍️"},
+{title: "支付宝", url: "https://tophub.today/n/Alipay", icon: "💳"},
+{title: "微信支付", url: "https://tophub.today/n/WeChatPay", icon: "💰"},
+{title: "快手", url: "https://tophub.today/n/Kuaishou", icon: "📹"},
+{title: "微博体育", url: "https://tophub.today/n/WeiboSports", icon: "🏅"},
+{title: "虎扑", url: "https://tophub.today/n/Hupu", icon: "🏀"},
+{title: "新浪体育", url: "https://tophub.today/n/SinaSports", icon: "⚽"},
+{title: "腾讯体育", url: "https://tophub.today/n/TencentSports", icon: "🏈"},
+{title: "网易体育", url: "https://tophub.today/n/NetEaseSports", icon: "🎾"},
+{title: "哔哩哔哩游戏", url: "https://tophub.today/n/BilibiliGames", icon: "🎮"},
+{title: "游民星空", url: "https://tophub.today/n/UGX", icon: "👾"},
+{title: "3DM游戏", url: "https://tophub.today/n/3DM", icon: "🎲"},
+{title: "虎牙电竞", url: "https://tophub.today/n/HuyaEsports", icon: "🎯"},
+{title: "斗鱼电竞", url: "https://tophub.today/n/DouyuEsports", icon: "🎮"},
+{title: "微博财经", url: "https://tophub.today/n/WeiboFinance", icon: "💹"},
+{title: "快资讯", url: "https://tophub.today/n/Kuaizixun", icon: "⚡"},
+{title: "网易娱乐", url: "https://tophub.today/n/NetEaseEntertainment", icon: "🎤"},
+{title: "凤凰娱乐", url: "https://tophub.today/n/IfengEntertainment", icon: "🎭"},
+{title: "央视新闻", url: "https://tophub.today/n/CCTVNews", icon: "📺"},
+{title: "人民网", url: "https://tophub.today/n/PeopleNews", icon: "👥"},
+{title: "澎湃深度", url: "https://tophub.today/n/ThePaperDeep", icon: "🌊"},
+{title: "腾讯视频VIP", url: "https://tophub.today/n/TencentVideoVIP", icon: "🎟️"},
+{title: "优酷VIP", url: "https://tophub.today/n/YoukuVIP", icon: "🎟️"},
+{title: "爱奇艺VIP", url: "https://tophub.today/n/IQiyiVIP", icon: "🎟️"},
+{title: "知乎发现", url: "https://tophub.today/n/ZhihuDiscover", icon: "🔍"},
+{title: "知乎专栏", url: "https://tophub.today/n/ZhihuColumn", icon: "📑"},
+{title: "头条号", url: "https://tophub.today/n/Toutiaohao", icon: "✍️"},
+{title: "网易号", url: "https://tophub.today/n/NetEaseAccount", icon: "📝"},
+{title: "微信公众号", url: "https://tophub.today/n/WeChatOfficial", icon: "📰"},
+{title: "抖音短视频", url: "https://tophub.today/n/DouyinVideo", icon: "🎥"},
+{title: "快手短视频", url: "https://tophub.today/n/KuaishouVideo", icon: "📹"},
+{title: "小红书笔记", url: "https://tophub.today/n/XiaohongshuNotes", icon: "📒"},
+{title: "知乎问答", url: "https://tophub.today/n/ZhihuQandA", icon: "❓"},
+{title: "知乎榜单", url: "https://tophub.today/n/ZhihuRankings", icon: "🏆"},
+{title: "网易云热评", url: "https://tophub.today/n/NetEaseComments", icon: "💬"},
+{title: "微博视频", url: "https://tophub.today/n/WeiboVideo", icon: "📹"},
+{title: "知乎日报", url: "https://tophub.today/n/ZhihuDaily", icon: "📅"},
+{title: "知乎话题", url: "https://tophub.today/n/ZhihuTopics", icon: "🔖"},
+{title: "微博话题", url: "https://tophub.today/n/WeiboTopics", icon: "🏷️"},
+{title: "豆瓣小组", url: "https://tophub.today/n/DoubanGroup", icon: "👥"},
+{title: "知乎专栏", url: "https://tophub.today/n/ZhihuColumns", icon: "📚"},
+{title: "微博博主", url: "https://tophub.today/n/WeiboBloggers", icon: "✍️"},
+{title: "B站专栏", url: "https://tophub.today/n/BilibiliColumns", icon: "📝"},
+{title: "虎扑社区", url: "https://tophub.today/n/HupuCommunity", icon: "💬"},
+{title: "知乎热门", url: "https://tophub.today/n/ZhihuHot", icon: "🔥"},
+{title: "微博热门", url: "https://tophub.today/n/WeiboHot", icon: "🔥"},
+{title: "抖音热门", url: "https://tophub.today/n/DouyinHot", icon: "🔥"},
+{title: "快手热门", url: "https://tophub.today/n/KuaishouHot", icon: "🔥"},
+{title: "百度知道", url: "https://tophub.today/n/BaiduZhidao", icon: "❓"},
+{title: "百度贴吧", url: "https://tophub.today/n/BaiduTieba", icon: "💬"},
+{title: "知乎专栏", url: "https://tophub.today/n/ZhihuColumn", icon: "📖"},
+{title: "网易云音乐热歌", url: "https://tophub.today/n/NetEaseHotSongs", icon: "🎵"},
+{title: "QQ音乐热歌", url: "https://tophub.today/n/QQHotSongs", icon: "🎶"},
+{title: "酷狗音乐热歌", url: "https://tophub.today/n/KugouHotSongs", icon: "🎧"},
+{title: "酷我音乐热歌", url: "https://tophub.today/n/KuwoHotSongs", icon: "🎤"},
+{title: "喜马拉雅热门", url: "https://tophub.today/n/XimalayaHot", icon: "🎙️"},
+{title: "网易新闻视频", url: "https://tophub.today/n/NetEaseNewsVideo", icon: "🎥"},
+{title: "新浪微博视频", url: "https://tophub.today/n/SinaWeiboVideo", icon: "🎞️"},
+{title: "腾讯视频热播", url: "https://tophub.today/n/TencentVideoHot", icon: "📺"},
+{title: "爱奇艺热播", url: "https://tophub.today/n/IQiyiHot", icon: "🎬"},
+{title: "优酷热播", url: "https://tophub.today/n/YoukuHot", icon: "📹"},
+{title: "哔哩哔哩热播", url: "https://tophub.today/n/BilibiliHot", icon: "🎮"},
+{title: "搜狐视频", url: "https://tophub.today/n/SohuVideo", icon: "🎦"},
+{title: "凤凰视频", url: "https://tophub.today/n/IfengVideo", icon: "📽️"},
+{title: "今日头条视频", url: "https://tophub.today/n/ToutiaoVideo", icon: "📲"},
+{title: "央视财经视频", url: "https://tophub.today/n/CCTVFinanceVideo", icon: "📉"},
+{title: "人民日报", url: "https://tophub.today/n/PeopleDaily", icon: "📰"},
+{title: "光明网", url: "https://tophub.today/n/Guangming", icon: "🌟"},
+{title: "经济日报", url: "https://tophub.today/n/EconomyDaily", icon: "💼"},
+{title: "科技日报", url: "https://tophub.today/n/ScienceDaily", icon: "🔬"},
+{title: "中国青年报", url: "https://tophub.today/n/YouthDaily", icon: "👦"},
+{title: "新京报", url: "https://tophub.today/n/BeijingNews", icon: "🏙️"},
+{title: "法制日报", url: "https://tophub.today/n/LawDaily", icon: "⚖️"},
+{title: "南方都市报", url: "https://tophub.today/n/SouthMetro", icon: "🌆"},
+{title: "第一财经", url: "https://tophub.today/n/Yicai", icon: "📈"}
 
-    <a href="https://tophub.today/n/WnBe01o371" class="card" target="_blank">
-      <div class="icon">🔍</div>
-      <div class="title">百度热搜</div>
-    </a>
 
-    <a href="https://tophub.today/n/Jb0vmloB1G" class="card" target="_blank">
-      <div class="icon">🎵</div>
-      <div class="title">抖音热点</div>
-    </a>
+  ];
 
-    <a href="https://tophub.today/n/vy6ejeVdG3" class="card" target="_blank">
-      <div class="icon">📰</div>
-      <div class="title">今日头条</div>
-    </a>
+  const grid = document.getElementById('gridContainer');
+  const searchBox = document.getElementById('searchBox');
 
-    <a href="https://tophub.today/n/ywjBv0WPoM" class="card" target="_blank">
-      <div class="icon">🎬</div>
-      <div class="title">B站热榜</div>
-    </a>
+  function render(data) {
+    grid.innerHTML = '';
+    data.forEach(item => {
+      const a = document.createElement('a');
+      a.className = 'card';
+      a.href = item.url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.innerHTML = `<div class="icon">${item.icon}</div><div class="title">${item.title}</div>`;
+      grid.appendChild(a);
+    });
+  }
 
-    <a href="https://tophub.today/n/74Kvx6kExz" class="card" target="_blank">
-      <div class="icon">💻</div>
-      <div class="title">IT之家榜</div>
-    </a>
+  searchBox.addEventListener('input', () => {
+    const val = searchBox.value.trim().toLowerCase();
+    if (!val) {
+      render(platforms);
+      return;
+    }
+    const filtered = platforms.filter(p => p.title.toLowerCase().includes(val));
+    render(filtered);
+  });
 
-    <a href="https://tophub.today/n/0mJb8mVyN6" class="card" target="_blank">
-      <div class="icon">📈</div>
-      <div class="title">36氪资讯</div>
-    </a>
-
-    <a href="https://tophub.today/n/G4VmGv7N4R" class="card" target="_blank">
-      <div class="icon">📱</div>
-      <div class="title">少数派热榜</div>
-    </a>
-
-  </div>
-
-  <footer>
-    数据来源：<a href="https://tophub.today/" target="_blank">今日热榜 TopHub</a> · 页面由 no996noicu.com 提供
-  </footer>
+  render(platforms);
+</script>
 
 </body>
 </html>
