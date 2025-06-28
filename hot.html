@@ -59,4 +59,40 @@
 
     function createSection(platform, items) {
       const section = document.createElement('div');
-      section.clas
+      section.className = 'hot-section';
+      const h2 = document.createElement('h2');
+      h2.textContent = titles[platform] || platform;
+      section.appendChild(h2);
+
+      const ol = document.createElement('ol');
+      items.forEach(item => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = item.url;
+        a.target = '_blank';
+        a.textContent = item.title;
+        li.appendChild(a);
+        ol.appendChild(li);
+      });
+
+      section.appendChild(ol);
+      return section;
+    }
+
+    fetch('./hotsearch.json')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('container');
+        container.innerHTML = '';
+        Object.keys(data).forEach(platform => {
+          const section = createSection(platform, data[platform]);
+          container.appendChild(section);
+        });
+      })
+      .catch(err => {
+        console.error('加载热点数据失败:', err);
+        document.getElementById('container').textContent = '热点数据加载失败，请稍后再试。';
+      });
+  </script>
+</body>
+</html>
