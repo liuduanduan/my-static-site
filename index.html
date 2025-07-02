@@ -13,141 +13,226 @@
   <meta property="og:image" content="https://no996noicu.com/assets/logo-og.png" />
   <link rel="canonical" href="https://no996noicu.com/" />
   <style>
-    body {
-      margin:0; padding:0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f9fafb;
-      color: #222;
-      max-width: 960px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 1.5rem 1rem;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    header h1 {
-      font-weight: 700;
-      font-size: 2.5rem;
-      color: #0077ff;
-      margin-bottom: 0.2rem;
-    }
-    header p {
-      font-size: 1.1rem;
-      color: #555;
-      margin-bottom: 1.2rem;
-    }
-    #search-box {
-      width: 100%;
-      max-width: 400px;
-      padding: 0.7rem 1rem;
-      font-size: 1.1rem;
-      border: 2px solid #0077ff;
-      border-radius: 30px;
-      box-sizing: border-box;
-      transition: border-color 0.3s ease;
-    }
-    #search-box:focus {
-      outline: none;
-      border-color: #0056d2;
-      box-shadow: 0 0 8px #0056d2aa;
-    }
-    main {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-top: 3rem;
-      margin-bottom: 3rem;
-    }
-    .card {
-      flex: 1 1 280px;
-      background: #0077ff;
-      color: white;
-      border-radius: 14px;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      font-weight: 700;
-      font-size: 1.3rem;
-      box-shadow: 0 6px 16px rgb(0 119 255 / 0.4);
-      cursor: pointer;
-      text-decoration: none;
-      user-select: none;
-      transition: background-color 0.3s ease;
-    }
-    .card:hover {
-      background: #0056d2;
-      box-shadow: 0 8px 24px rgb(0 86 210 / 0.6);
-    }
-    .card small {
-      display: block;
-      font-weight: 400;
-      font-size: 1rem;
-      margin-top: 0.5rem;
-      color: #cce0ff;
-    }
-    section#featured {
-      margin-bottom: 3rem;
-    }
-    section#featured h2 {
-      font-size: 1.8rem;
-      color: #0077ff;
-      margin-bottom: 1rem;
-      text-align: center;
-      font-weight: 700;
-    }
-    .featured-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-    }
-    .featured-card {
-      background: white;
-      color: #222;
-      padding: 1rem 1.2rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-      flex: 1 1 280px;
-      cursor: pointer;
-      user-select: none;
-      transition: box-shadow 0.3s ease, transform 0.2s ease;
-      text-decoration: none;
-    }
-    .featured-card:hover {
-      box-shadow: 0 6px 20px rgb(0 0 0 / 0.15);
-      transform: translateY(-5px);
-    }
-    .featured-card h3 {
-      margin: 0 0 0.5rem 0;
-      color: #0077ff;
-      font-size: 1.2rem;
-    }
-    .featured-card p {
-      margin: 0;
-      color: #555;
-      font-size: 0.95rem;
-      line-height: 1.4;
-    }
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #777;
-      margin-bottom: 1rem;
-      user-select: none;
-    }
+ body {
+  margin: 0;
+  padding: 1.5rem 1rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #fceabb, #f8b500, #f85f73, #6a11cb, #2575fc);
+  background-size: 1000% 1000%;
+  animation: gradientBG 15s ease infinite;
+  color: #1e293b;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-    @media (max-width: 600px) {
-      main, .featured-list {
-        flex-direction: column;
-        align-items: center;
-      }
-      .card, .featured-card {
-        flex: 1 1 100%;
-        max-width: 400px;
-      }
-    }
+@keyframes gradientBG {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255 255 255 / 0.3);
+  color: #fff;
+  text-shadow: 0 0 8px rgba(0,0,0,0.35);
+}
+
+header h1 {
+  font-weight: 900;
+  font-size: 2.75rem;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.3rem;
+  text-shadow:
+    0 0 6px #f85f73,
+    0 0 12px #f8b500,
+    0 0 18px #6a11cb;
+}
+
+header p {
+  font-size: 1.15rem;
+  margin-bottom: 1.6rem;
+  letter-spacing: 0.02em;
+  color: #fffddd;
+  text-shadow: 0 0 6px rgba(0,0,0,0.2);
+}
+
+#search-box {
+  width: 100%;
+  max-width: 420px;
+  padding: 0.75rem 1.2rem;
+  font-size: 1.15rem;
+  border: 2px solid transparent;
+  border-radius: 36px;
+  box-sizing: border-box;
+  background: rgba(255 255 255 / 0.9);
+  box-shadow:
+    0 4px 14px rgba(248, 95, 115, 0.6),
+    inset 0 0 12px rgba(255 255 255 / 0.8);
+  transition: all 0.3s ease;
+  color: #222;
+}
+
+#search-box::placeholder {
+  color: #bfbfbf;
+}
+
+#search-box:focus {
+  outline: none;
+  border-color: #f85f73;
+  box-shadow:
+    0 0 16px 3px #f85f73,
+    inset 0 0 14px rgba(255 255 255 / 1);
+  background: white;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.8rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.card {
+  flex: 1 1 280px;
+  background: linear-gradient(145deg, #f85f73, #f8b500, #6a11cb);
+  background-size: 300% 300%;
+  animation: gradientMove 8s ease infinite;
+  color: white;
+  border-radius: 18px;
+  padding: 2.2rem 1.8rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.4rem;
+  box-shadow:
+    0 8px 25px rgba(248, 95, 115, 0.6),
+    inset 0 -4px 8px rgba(248, 181, 0, 0.5);
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  transition:
+    box-shadow 0.35s ease,
+    transform 0.25s ease;
+}
+
+.card:hover {
+  box-shadow:
+    0 14px 35px rgba(106, 17, 203, 0.8),
+    inset 0 -6px 10px rgba(255 255 255 / 0.5);
+  transform: translateY(-6px);
+  background-position: 100% 50%;
+}
+
+.card small {
+  display: block;
+  font-weight: 400;
+  font-size: 1rem;
+  margin-top: 0.6rem;
+  color: #fff6e6;
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes gradientMove {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+section#featured {
+  margin-bottom: 3rem;
+}
+
+section#featured h2 {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: 1.2rem;
+  text-align: center;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-shadow:
+    0 0 10px #f85f73,
+    0 0 15px #f8b500,
+    0 0 20px #6a11cb;
+}
+
+.featured-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.featured-card {
+  background: rgba(255 255 255 / 0.95);
+  color: #1e293b;
+  padding: 1.4rem 1.6rem;
+  border-radius: 14px;
+  box-shadow:
+    0 4px 18px rgba(106, 17, 203, 0.15);
+  flex: 1 1 280px;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.25s ease;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.featured-card:hover {
+  box-shadow:
+    0 10px 28px rgba(248, 95, 115, 0.4);
+  transform: translateY(-5px);
+}
+
+.featured-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: #6a11cb;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.featured-card p {
+  margin: 0;
+  color: #475569;
+  font-size: 1rem;
+  line-height: 1.45;
+  user-select: text;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #fff9e6;
+  margin-bottom: 1rem;
+  user-select: none;
+  border-top: 1px solid rgba(255 255 255 / 0.3);
+  padding-top: 1rem;
+  text-shadow: 0 0 6px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 600px) {
+  main, .featured-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card, .featured-card {
+    flex: 1 1 100%;
+    max-width: 400px;
+  }
+}
+
   </style>
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 
