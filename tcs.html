@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>高级版自定义头像贪吃蛇</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+  body {
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    color: #f0f0f5;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    margin: 0; padding: 30px 20px;
+    user-select: none;
+  }
+  h1 {
+    font-weight: 700;
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  }
+  canvas {
+    background: #2c2a3c;
+    display: block;
+    margin: 30px auto 20px;
+    border-radius: 12px;
+    box-shadow:
+      0 10px 20px rgba(0,0,0,0.4),
+      inset 0 0 30px #54517e;
+    transition: box-shadow 0.3s ease;
+  }
+  canvas:hover {
+    box-shadow:
+      0 15px 30px rgba(0,0,0,0.6),
+      inset 0 0 40px #6e6bb1;
+  }
+  #controls {
+    margin-top: 10px;
+  }
+  button, label {
+    font-size: 18px;
+    padding: 12px 28px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 600;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #6a82fb, #fc5c7d);
+    color: white;
+    margin: 0 10px;
+    display: inline-block;
+  }
+  button:hover, label:hover {
+    filter: brightness(1.1);
+    box-shadow:
+      0 6px 20px rgba(252, 92, 125, 0.7),
+      0 0 10px rgba(106, 130, 251, 0.7);
+  }
+  input[type="file"] {
+    display: none;
+  }
+  #score {
+    margin-top: 20px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+</style>
+</head>
+<body>
+
+<h1>高级版自定义头像贪吃蛇</h1>
+
+<canvas id="game" width="400" height="400" tabindex="0" aria-label="贪吃蛇游戏画布"></canvas>
+
+<div id="controls" role="region" aria-label="游戏控制区域">
+  <button id="startBtn" aria-controls="game" aria-live="polite">开始游戏</button>
+  <label for="imgUpload" tabindex="0" role="button" aria-pressed="false">上传蛇头头像</label>
+  <input type="file" id="imgUpload" accept="image/*" aria-label="上传自定义蛇头头像" />
+</div>
+
+<div id="score" aria-live="polite">得分：0</div>
+
+<script>
+(() => {
+  const canvas = document.getElementById('game');
+  const ctx = canvas.getContext('2d');
+  const grid = 20;
+  const width = canvas.width;
+  const height = canvas.height;
+  const maxCellsX = width / grid;
+  const maxCellsY = height / grid;
+
+  let snake = [];
+  let dx = grid;
+  let dy = 0;
+  let food = { x: 0, y: 0 };
+  let score = 0;
+  let running = false;
+  let frameCount = 0;
+  const speed = 10;
+  let headImg = null;
+
+  const scoreEl = document.getElementById('score');
+  const startBtn = document.getElementById('startBtn');
+  const imgUpload = document.getElementById('imgUpload');
+
+  function resetGame() {
+    snake = [{ x: grid * 5, y: grid * 5 }];
+    dx = grid;
+    dy = 0;
+    placeFood();
+    score = 0;
+    scoreEl.textContent = '得分：0';
+    running = true;
+    frameCount = 0;
+    canvas.focus();
+  }
+
+  function placeFood() {
+    food.x = Math.floor(Math.random() * maxCellsX) * grid;
+    food.y = Math.floor(Math.random() * maxCellsY) * grid;
+    for (const cell of snake) {
+      if (cell.x === food.x && cell.y === food.y) {
+        placeFood();
+        break;
+      }
+    }
+  }
+
+  function draw() {
+    ctx.fillStyle = '#2c2a3c';
+    ctx.fillRect(0, 0, width, height);
+
+    // 画食物圆形
+    ctx.fillStyle = '#ff4757';
+    ctx.beginPath();
+    ctx.arc(food.x + grid/2, food.y + grid/2, grid/2 - 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 蛇身
+    ctx.fillStyle = '#7bed9f';
+    for (let i = 1; i < snake.length; i++) {
+      const s = snake[i];
+      ctx.fillRect(s.x + 2, s.y + 2, grid - 4, grid - 4);
+    }
+
+    // 蛇头
+    if (headImg && headImg.complete) {
+      ctx.drawImage(headImg, snake[0].x, snake[0].y, grid, grid);
+    } else {
+      const grad = ctx.createRadialGradient(snake[0].x + grid/2, snake[0].y + grid/2, 4, snake[0].x + grid/2, snake[0].y + grid/2, grid/2);
+      grad.addColorStop(0, '#2ed573');
+      grad.addColorStop(1, '#1eae57');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(snake[0].x + grid/2, snake[0].y + grid/2, grid/2 - 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function gameLoop() {
+    if (!running) return;
+
+    requestAnimationFrame(gameLoop);
+
+    frameCount++;
+    if (frameCount < speed) return;
+    frameCount = 0;
+
+    const newHead = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+    if (
+      newHead.x < 0 ||
+      newHead.x >= width ||
+      newHead.y < 0 ||
+      newHead.y >= height
+    ) {
+      running = false;
+      setTimeout(() => alert('游戏结束！得分：' + score), 100);
+      return;
+    }
+
+    for (const segment of snake) {
+      if (segment.x === newHead.x && segment.y === newHead.y) {
+        running = false;
+        setTimeout(() => alert('游戏结束！得分：' + score), 100);
+        return;
+      }
+    }
+
+    snake.unshift(newHead);
+
+    if (newHead.x === food.x && newHead.y === food.y) {
+      score++;
+      scoreEl.textContent = '得分：' + score;
+      placeFood();
+    } else {
+      snake.pop();
+    }
+
+    draw();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (!running) return;
+
+    if (e.key === 'ArrowLeft' && dx === 0) {
+      dx = -grid; dy = 0;
+    } else if (e.key === 'ArrowUp' && dy === 0) {
+      dx = 0; dy = -grid;
+    } else if (e.key === 'ArrowRight' && dx === 0) {
+      dx = grid; dy = 0;
+    } else if (e.key === 'ArrowDown' && dy === 0) {
+      dx = 0; dy = grid;
+    }
+  });
+
+  startBtn.addEventListener('click', () => {
+    if (!running) {
+      resetGame();
+      gameLoop();
+    }
+  });
+
+  imgUpload.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function (evt) {
+      const img = new Image();
+      img.onload = () => {
+        headImg = img;
+      };
+      img.src = evt.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // 初始画面
+  ctx.fillStyle = '#2c2a3c';
+  ctx.fillRect(0, 0, width, height);
+  ctx.fillStyle = '#ccc';
+  ctx.font = '24px Inter, sans-serif';
+  ctx.fillText('点击“开始游戏”按钮开始', width / 2 - 130, height / 2);
+})();
+</script>
+
+</body>
+</html>
