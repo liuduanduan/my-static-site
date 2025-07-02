@@ -1,0 +1,195 @@
+/* style.css */
+
+body {
+  margin: 0;
+  padding: 1.5rem 1rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(270deg, 
+    #ff0000, #ffa500, #ffff00, #00ff00, #0000ff, #4b0082, #ee82ee);
+  background-size: 1400% 1400%;
+  animation: gradientBG 20s ease infinite;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #222;
+}
+
+@keyframes gradientBG {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-weight: 900;
+  font-size: 2.5rem;
+  margin-bottom: 0.2rem;
+  background: linear-gradient(90deg, 
+    #ff0000, #ffa500, #ffff00, #00ff00, #0000ff, #4b0082, #ee82ee);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowText 6s linear infinite;
+  display: inline-block;
+}
+
+header p {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 1.2rem;
+}
+
+#search-box {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.7rem 1rem;
+  font-size: 1.1rem;
+  border: 2px solid #0077ff;
+  border-radius: 30px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+#search-box:focus {
+  outline: none;
+  border-color: #0056d2;
+  box-shadow: 0 0 8px #0056d2aa;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.card {
+  flex: 1 1 280px;
+  background: rgba(255 255 255 / 0.15);
+  color: transparent;
+  border-radius: 18px;
+  padding: 2.2rem 1.8rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.4rem;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.3s ease;
+  background: linear-gradient(90deg, 
+    #ff0000, #ffa500, #ffff00, #00ff00, #0000ff, #4b0082, #ee82ee);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowText 8s linear infinite;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card i {
+  color: inherit;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowText 8s linear infinite;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.card small {
+  display: block;
+  font-weight: 400;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  color: #cce0ff;
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  animation: none;
+}
+
+section#featured {
+  margin-bottom: 3rem;
+}
+
+section#featured h2 {
+  font-size: 1.8rem;
+  color: #0077ff;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.featured-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.featured-card {
+  background: white;
+  color: #222;
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  flex: 1 1 280px;
+  cursor: pointer;
+  user-select: none;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+
+.featured-card:hover {
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.15);
+  transform: translateY(-5px);
+}
+
+.featured-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: #0077ff;
+  font-size: 1.2rem;
+}
+
+.featured-card p {
+  margin: 0;
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 1rem;
+  user-select: none;
+}
+
+@keyframes rainbowText {
+  0% {background-position:0% 50%;}
+  100% {background-position:400% 50%;}
+}
+
+@media (max-width: 600px) {
+  main, .featured-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .card, .featured-card {
+    flex: 1 1 100%;
+    max-width: 400px;
+  }
+  #search-box {
+    max-width: 100%;
+  }
+}
