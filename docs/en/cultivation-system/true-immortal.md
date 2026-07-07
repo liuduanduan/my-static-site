@@ -1,55 +1,106 @@
 ---
-title: "True Immortal"
-zh_name: "真仙境"
-en_name: "True Immortal"
-pinyin: "Zhēnxiān Jìng"
-category: "realms"
-realm_level: "Upper Realm"
-lifespan: "immortal longevity"
-description: "The initial immortal stage after ascension, marked by immortal power."
-description_zh: "飞升后的初始仙境，褪去凡胎，掌握仙灵之力。"
+title: True Immortal
+zh_name: 真仙境
+pinyin: Zhēnxiān Jìng
+category: realms
+realm_level: upper
+lifespan: 长生
+tags: [immortal, upper-realm, eternal]
+related: [tribulation-crossing, golden-immortal, cultivation]
+description: The first realm of the Upper Realm, where cultivators shed their mortal bodies and achieve true immortality.
+description_zh: 上境界的第一个阶段，修仙者褪去凡胎，成就真仙，获得长生。
 ---
 
-# True Immortal (真仙境, Zhēnxiān Jìng)
+# 真仙境 · True Immortal (Zhēnxiān Jìng)
 
-<div class="entry-layout"><main class="entry-main">
+## 摘要 · Summary
 
-## Summary
+**中文：** 真仙境是上境界的第一个阶段，修仙者褪去凡胎，成就真仙，获得长生。真仙是仙界的基础阶位，拥有了永恒的生命。
 
-**English:** True Immortal belongs to the Upper Realm. Lifespan reference: immortal longevity. The initial immortal stage after ascension, marked by immortal power.
+**English:** True Immortal is the first realm of the Upper Realm, where cultivators shed their mortal bodies and achieve true immortality. True Immortals hold the foundational rank in the Immortal Realm, possessing eternal life.
 
-**中文：** 真仙境属于上境界，寿元参考为长生。飞升后的初始仙境，褪去凡胎，掌握仙灵之力。
+---
 
-## Description
+## 定义 · Definition
 
-**English:** This realm is one step in the fourteen-realm ladder. It changes how cultivators store power, understand the Dao, survive conflict, and interact with the world.
+**中文：**
 
-**中文：** 这一境界是十四级修炼阶梯中的关键节点，会改变修士储存力量、理解大道、面对冲突和接触世界的方式。
+真仙境是修仙境界中的第十个主要境界，位于渡劫期之后、金仙境之前。修仙者成功度过天劫后飞升仙界，褪去凡胎，获得真仙之体，从此寿元无限。
 
-## Key Characteristics
+百度百科将真仙定义为"仙道之始"，真仙虽然只是仙界的最初阶位，但已经超越了凡人的一切局限。
 
-- **Realm Tier:** Upper Realm / 上境界
-- **Lifespan:** immortal longevity
-- **Power Shift:** The initial immortal stage after ascension, marked by immortal power.
-- **Narrative Role:** It marks a new threshold of ability, status, and risk.
+**English:**
 
-## Breakthrough Conditions
+True Immortal is the tenth major cultivation realm, situated between Tribulation Transcendence and Golden Immortal. Upon surviving the tribulation and ascending to the Immortal Realm, cultivators shed their mortal bodies and obtain a True Immortal body, granting eternal life.
 
-**English:** Complete ascension baptism and adapt to immortal laws and energy.
+Baidu Baike defines True Immortal as "the beginning of the immortal path." While True Immortals hold only the lowest rank in the Immortal Realm, they have already transcended all mortal limitations.
 
-**中文：** 完成飞升洗礼，适应仙界法则与仙灵气。
+---
 
-## Related Terms
+## 核心特征 · Key Characteristics
 
-- [Qi](/en/glossary/qi)
-- [Golden Core](/en/glossary/golden-core)
-- [Tribulation](/en/glossary/heavenly-tribulation)
-- [Ascension](/en/glossary/ascension)
+**中文：**
 
-## References
+1. **长生不老**：真仙寿元无限，不再受寿命限制
+2. **褪去凡胎**：肉身转化为仙体
+3. **仙术精通**：可修炼和使用仙术
+4. **飞升仙界**：生活在仙界之中
+5. **仙道之始**：正式踏上仙道修行
 
-- Baidu Baike entries for 修仙 and 修真
-- Taoist inner-alchemy cultivation vocabulary
-- Representative settings from cultivation novels
+**English:**
 
-</main><aside class="entry-aside"><div class="info-card"><h2>Realm Info</h2><dl><dt>Chinese Name</dt><dd>真仙境</dd><dt>Pinyin</dt><dd>Zhēnxiān Jìng</dd><dt>English Name</dt><dd>True Immortal</dd><dt>Tier</dt><dd>Upper Realm</dd><dt>Lifespan</dt><dd>immortal longevity</dd></dl></div></aside></div>
+1. **Eternal Life**: True Immortals have unlimited lifespan
+2. **Mortal Shell Shed**: The body transforms into an immortal body
+3. **Immortal Arts Mastery**: Can cultivate and use immortal arts
+4. **Ascension to Immortal Realm**: Lives in the Immortal Realm
+5. **Beginning of the Immortal Path**: Officially begins the path of immortality
+
+---
+
+## 突破条件 · Breakthrough Conditions
+
+**中文：**
+
+从渡劫期突破到真仙境（飞升）需要：
+1. 成功度过天劫
+2. 褪去凡胎，转化为仙体
+3. 获得仙界接引
+4. 飞升入仙界
+
+**English:**
+
+Breaking through from Tribulation Transcendence to True Immortal (ascension) requires:
+1. Successfully surviving the heavenly tribulation
+2. Shedding the mortal body and transforming into an immortal body
+3. Receiving the Immortal Realm's invitation
+4. Ascending into the Immortal Realm
+
+---
+
+## 真仙的地位 · Status of True Immortals
+
+**中文：**
+
+真仙是仙界的最低阶位，相当于仙界中的"百姓"。真仙之上还有金仙、太乙、大罗、道祖等更高境界。真仙虽然在仙界地位不高，但在人间界已经是神话般的存在。
+
+**English:**
+
+True Immortals hold the lowest rank in the Immortal Realm, comparable to "commoners." Above them are Golden Immortals, Taiyi, Da Luo, Dao Ancestors, and higher realms. Though their status in the Immortal Realm is low, True Immortals are already mythical figures in the mortal realm.
+
+---
+
+## 相关词条 · Related Terms
+
+- [渡劫期 Tribulation Transcendence](/en/cultivation-system/tribulation-crossing)
+- [金仙境 Golden Immortal](/en/cultivation-system/golden-immortal)
+- [仙界 Immortal Realm](/en/categories/realms-and-regions)
+- [飞升 Ascension](/en/glossary/ascension)
+
+---
+
+## 参考文献 · References
+
+- 百度百科·真仙词条
+- 百度百科·修仙词条
+- 道教神仙体系
+- 《凡人修仙传》，忘语

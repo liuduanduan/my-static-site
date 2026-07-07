@@ -1,55 +1,107 @@
 ---
-title: "Taiyi / Jade Immortal"
-zh_name: "太乙境 / 玉仙境"
-en_name: "Taiyi / Jade Immortal"
-pinyin: "Tàiyǐ Jìng / Yùxiān Jìng"
-category: "realms"
-realm_level: "Upper Realm"
-lifespan: "immortal longevity"
-description: "A higher immortal stage that approaches broader systems of law."
-description_zh: "仙界高阶境界，开始触及更完整的法则体系。"
+title: Taiyi
+zh_name: 太乙境
+pinyin: Tàiyǐ Jìng
+category: realms
+realm_level: upper
+lifespan: 长生
+tags: [taiyi, jade-immortal, upper-realm]
+related: [golden-immortal, da-luo, cultivation]
+description: The third realm of the Upper Realm, where cultivators achieve the Jade Immortal body.
+description_zh: 上境界的第三个阶段，修仙者成就太乙玉仙，在仙界中拥有崇高的地位。
 ---
 
-# Taiyi / Jade Immortal (太乙境 / 玉仙境, Tàiyǐ Jìng / Yùxiān Jìng)
+# 太乙境 · Taiyi (Tàiyǐ Jìng)
 
-<div class="entry-layout"><main class="entry-main">
+## 摘要 · Summary
 
-## Summary
+**中文：** 太乙境是上境界的第三个阶段，修仙者成就太乙玉仙，在仙界中拥有崇高的地位。又称玉仙境，是仙界中的高阶存在。
 
-**English:** Taiyi / Jade Immortal belongs to the Upper Realm. Lifespan reference: immortal longevity. A higher immortal stage that approaches broader systems of law.
+**English:** Taiyi is the third realm of the Upper Realm, where cultivators achieve the Jade Immortal body. Also known as the Jade Immortal realm, it represents a high-level existence in the Immortal Realm.
 
-**中文：** 太乙境 / 玉仙境属于上境界，寿元参考为长生。仙界高阶境界，开始触及更完整的法则体系。
+---
 
-## Description
+## 定义 · Definition
 
-**English:** This realm is one step in the fourteen-realm ladder. It changes how cultivators store power, understand the Dao, survive conflict, and interact with the world.
+**中文：**
 
-**中文：** 这一境界是十四级修炼阶梯中的关键节点，会改变修士储存力量、理解大道、面对冲突和接触世界的方式。
+太乙境（又称玉仙境）是修仙境界中的第十二个主要境界，位于金仙境之后、大罗境之前。修仙者将金身进一步升华，化为玉身，达到"太乙玉仙"的境界。
 
-## Key Characteristics
+百度百科中，太乙是道教中的高阶位阶，太乙境修士在仙界中拥有崇高的地位。
 
-- **Realm Tier:** Upper Realm / 上境界
-- **Lifespan:** immortal longevity
-- **Power Shift:** A higher immortal stage that approaches broader systems of law.
-- **Narrative Role:** It marks a new threshold of ability, status, and risk.
+**English:**
 
-## Breakthrough Conditions
+Taiyi (also known as the Jade Immortal realm) is the twelfth major cultivation realm, situated between Golden Immortal and Da Luo. Cultivators further elevate their golden body into a jade body, achieving the state of "Taiyi Jade Immortal."
 
-**English:** Expand personal law into an embryonic Dao domain.
+In Baidu Baike, Taiyi is a high-ranking title in Taoism. Taiyi cultivators hold a revered status in the Immortal Realm.
 
-**中文：** 把个人法则扩展为更完整的道域雏形。
+---
 
-## Related Terms
+## 核心特征 · Key Characteristics
 
-- [Qi](/en/glossary/qi)
-- [Golden Core](/en/glossary/golden-core)
-- [Tribulation](/en/glossary/heavenly-tribulation)
-- [Ascension](/en/glossary/ascension)
+**中文：**
 
-## References
+1. **太乙玉仙**：成就太乙玉仙之体
+2. **崇高地位**：仙界中的高层存在
+3. **法力通神**：法力达到不可思议的境界
+4. **玉身不朽**：玉身比金身更为坚固
+5. **仙界高层**：参与仙界重大事务决策
 
-- Baidu Baike entries for 修仙 and 修真
-- Taoist inner-alchemy cultivation vocabulary
-- Representative settings from cultivation novels
+**English:**
 
-</main><aside class="entry-aside"><div class="info-card"><h2>Realm Info</h2><dl><dt>Chinese Name</dt><dd>太乙境 / 玉仙境</dd><dt>Pinyin</dt><dd>Tàiyǐ Jìng / Yùxiān Jìng</dd><dt>English Name</dt><dd>Taiyi / Jade Immortal</dd><dt>Tier</dt><dd>Upper Realm</dd><dt>Lifespan</dt><dd>immortal longevity</dd></dl></div></aside></div>
+1. **Taiyi Jade Immortal**: Achieving the Taiyi Jade Immortal body
+2. **Revered Status**: A high-level existence in the Immortal Realm
+3. **God-like Power**: Power reaches an inconceivable level
+4. **Indestructible Jade Body**: More robust than the golden body
+5. **Upper Realm Elite**: Participates in major Immortal Realm decisions
+
+---
+
+## 突破条件 · Breakthrough Conditions
+
+**中文：**
+
+从金仙境突破到太乙境需要：
+1. 金仙境大圆满
+2. 将金身转化为玉身
+3. 对大道法则的深刻感悟
+4. 长期的积累和修炼
+5. 极大的机缘
+
+**English:**
+
+Breaking through from Golden Immortal to Taiyi requires:
+1. Great Perfection of Golden Immortal
+2. Transforming the golden body into a jade body
+3. Deep comprehension of the laws of the Great Dao
+4. Long-term accumulation and cultivation
+5. Exceptional opportunities
+
+---
+
+## 太乙的地位 · Status of Taiyi
+
+**中文：**
+
+太乙境修士在仙界中已经是高层存在，地位尊崇，实力强大。太乙境修士可以影响仙界大势，是仙界中的巨头。
+
+**English:**
+
+Taiyi cultivators are already high-ranking existences in the Immortal Realm, with revered status and immense power. They can influence the major trends of the Immortal Realm and are considered giants within it.
+
+---
+
+## 相关词条 · Related Terms
+
+- [金仙境 Golden Immortal](/en/cultivation-system/golden-immortal)
+- [大罗境 Da Luo](/en/cultivation-system/da-luo)
+- [仙界 Immortal Realm](/en/categories/realms-and-regions)
+- [大道 Great Dao](/en/glossary/xiuzhen)
+
+---
+
+## 参考文献 · References
+
+- 百度百科·太乙词条
+- 道教神仙体系
+- 《凡人修仙传》，忘语
