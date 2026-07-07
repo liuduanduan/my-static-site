@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title">
+  <title>No996 Xianxia Codex social card</title>
+  <rect width="1200" height="630" fill="#f7f3eb"/>
+  <path d="M0 500c180-80 325-84 480-18 150 64 333 61 520-10 74-28 142-38 200-29v187H0z" fill="#2d8c6f" opacity=".20"/>
+  <path d="M110 375c160 78 382 48 518-82 73-69 179-82 298-38-152-8-270 45-354 159-130 56-313 45-462-39z" fill="#2d8c6f" opacity=".88"/>
+  <circle cx="855" cy="235" r="82" fill="none" stroke="#1a1d1b" stroke-width="14"/>
+  <path d="M855 140c43 27 43 68 0 95s-43 70 0 96" fill="none" stroke="#c9a84c" stroke-width="16" stroke-linecap="round"/>
+  <text x="92" y="166" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="900" fill="#1a1d1b">No996 Xianxia Codex</text>
+  <text x="96" y="246" font-family="Inter, Arial, sans-serif" font-size="38" fill="#46534d">English-first cultivation, qi, realms, sects, artifacts, and immortal fantasy.</text>
+</svg>
+

@@ -1,0 +1,16 @@
+{
+  "name": "No996 Xianxia Codex",
+  "short_name": "Xianxia Codex",
+  "description": "English-first xianxia and cultivation encyclopedia.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f3eb",
+  "theme_color": "#2d8c6f",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ]
+}

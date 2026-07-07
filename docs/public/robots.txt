@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://no996noicu.com/sitemap.xml
+
