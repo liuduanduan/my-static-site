@@ -1,27 +1,31 @@
 ---
-title: 道教与修仙
-description: 道教词汇对修仙小说的影响。
+title: "道教与修仙：从老子到金丹"
+description: "Xianxia fiction borrows Daoist vocabulary and transforms cultivation, Qi, inner alchemy, and immortality into genre systems."
+description_zh: "修仙叙事大量借用道教语汇，将养生、炼气、内丹和成仙理想转化为类型文学设定。"
 ---
 
-# 道教与修仙 / Taoism and Xianxia
+# 道教与修仙：从老子到金丹 · Taoism and Cultivation: From Laozi to Golden Core
 
-道教影响了修仙小说的词汇和意象，例如道、仙、山、符箓、炼丹、内在转化和顺应天地。
+## 概述 · Overview
 
-## 在小说中的变化
+**中文：** 修仙叙事大量借用道教语汇，将养生、炼气、内丹和成仙理想转化为类型文学设定。
 
-修仙小说并不等同于真实宗教实践。它把部分概念转化为叙事系统：境界变成等级，悟道变成力量，飞升变成剧情门槛。
+**English:** Xianxia fiction borrows Daoist vocabulary and transforms cultivation, Qi, inner alchemy, and immortality into genre systems.
 
-## 常见意象
+## 为什么重要 · Why It Matters
 
-- 求道、悟道
-- 仙山、洞府
-- 符箓、法印和仪式器具
-- 内在炼化与长生
-- 天劫作为天地压力
+**中文：** 文化背景让修仙不只是等级表。灵气、金丹、天劫、宗门和长生背后都有身体观、宇宙观和伦理想象。
 
-## 相关词条
+**English:** Cultural background keeps xianxia from becoming a list of power levels. It explains why Qi, Golden Core, tribulation, sects, and immortality carry symbolic weight beyond game-like progression.
 
-- [修真](/glossary/xiuzhen)
-- [内丹术](/culture/inner-alchemy)
-- [中国神话中的仙](/culture/chinese-xian)
+## 阅读提示 · Reading Notes
 
+- 可与[术语词典](/glossary/)和[修炼体系](/cultivation-system/)交叉阅读。
+- 小说设定是对传统文化的类型化改写，不应直接等同于历史事实。
+- 引用文化资料时建议概括说明并标注来源名称，避免大段复制。
+
+## 参考文献 · References
+
+- 道教内丹术相关资料
+- 中国神话与宗教文化研究资料
+- 百度百科及公开百科相关词条

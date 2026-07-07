@@ -1,35 +1,31 @@
 ---
-title: Five Elements
-description: The five elements system in xianxia fiction.
+title: "Five Elements and Eight Trigrams in Xianxia"
+description: "Five Elements and Eight Trigrams provide a rule language for roots, formations, pill properties, and counters."
+description_zh: "五行八卦为灵根、阵法、丹药属性和克制关系提供了一套可读的规则语言。"
 ---
 
-# Five Elements / 五行
+# Five Elements and Eight Trigrams in Xianxia
 
-The Five Elements are wood, fire, earth, metal, and water. They describe relationships of generation, restraint, transformation, and balance.
+## Overview
 
-## In Fiction
+**English:** Five Elements and Eight Trigrams provide a rule language for roots, formations, pill properties, and counters.
 
-Xianxia stories use the Five Elements for spiritual roots, formations, talismans, pills, geography, techniques, and combat counters.
+**中文：** 五行八卦为灵根、阵法、丹药属性和克制关系提供了一套可读的规则语言。
 
-## Generating Cycle
+## Why It Matters
 
-- Wood feeds fire
-- Fire creates earth
-- Earth bears metal
-- Metal enriches water
-- Water nourishes wood
+**English:** Cultural background keeps xianxia from becoming a list of power levels. It explains why Qi, Golden Core, tribulation, sects, and immortality carry symbolic weight beyond game-like progression.
 
-## Restraining Cycle
+**中文：** 文化背景让修仙不只是等级表。灵气、金丹、天劫、宗门和长生背后都有身体观、宇宙观和伦理想象。
 
-- Wood parts earth
-- Earth blocks water
-- Water quenches fire
-- Fire melts metal
-- Metal cuts wood
+## Reading Notes
 
-## Related Entries
+- Compare the glossary terms with the cultivation system pages.
+- Treat novel settings as creative adaptations, not literal history.
+- When citing cultural sources, prefer concise summaries and clear source names.
 
-- [Formations & Talismans](/en/categories/formations-and-talismans)
-- [Techniques & Arts](/en/categories/techniques-and-arts)
-- [Natural Treasures](/en/categories/natural-treasures)
+## References
 
+- Taoist inner-alchemy background materials
+- Classical Chinese myth and religious studies references
+- Baidu Baike and public encyclopedia entries for related concepts

@@ -1,28 +1,56 @@
 ---
-title: 合体
-description: 肉身、神魂与道悟整合的阶段。
+title: "合体期"
+zh_name: "合体期"
+en_name: "Unity / Integration"
+pinyin: "Hétǐ Qī"
+category: "realms"
+realm_level: "中境界"
+lifespan: "数万年"
+description: "Spirit, power, and body integrate, improving combat and survival dramatically."
+description_zh: "元神、法力与肉身高度融合，战力和生存力显著提升。"
 ---
 
-# 合体 / Body Integration
+# 合体期 · Unity / Integration (Hétǐ Qī)
 
-<div class="term-meta">
-  <div><strong>中文</strong><br />合体</div>
-  <div><strong>拼音</strong><br />he ti</div>
-  <div><strong>常见位置</strong><br />第七境</div>
-  <div><strong>核心主题</strong><br />整合身、魂、法与道。</div>
-</div>
+<div class="entry-layout"><main class="entry-main">
 
-## 描述
+## 摘要 · Summary
 
-合体把此前积累的肉身、神魂、法力和道悟整合成更完整的修炼体系。
+**中文：** 合体期属于中境界，寿元参考为数万年。元神、法力与肉身高度融合，战力和生存力显著提升。
 
-## 特征
+**English:** Unity / Integration belongs to the Middle Realm. Lifespan reference: tens of thousands of years. Spirit, power, and body integrate, improving combat and survival dramatically.
 
-- 肉身强度与恢复能力大增
-- 物质力量与精神力量更协调
-- 更能承受高阶环境与法则压力
+## 描述 · Description
 
-## 叙事作用
+**中文：** 这一境界是十四级修炼阶梯中的关键节点，会改变修士储存力量、理解大道、面对冲突和接触世界的方式。
 
-合体常为凡界最终冲突和飞升前考验做铺垫。
+**English:** This realm is one step in the fourteen-realm ladder. It changes how cultivators store power, understand the Dao, survive conflict, and interact with the world.
 
+## 核心特征 · Key Characteristics
+
+- **境界层级 / Realm Tier:** 中境界 / Middle Realm
+- **寿元 / Lifespan:** 数万年
+- **力量变化 / Power Shift:** 元神、法力与肉身高度融合，战力和生存力显著提升。
+- **叙事作用 / Narrative Role:** 标志能力、身份和风险进入新的门槛。
+
+## 突破条件 · Breakthrough Conditions
+
+**中文：** 调和神魂与肉身，避免力量互相排斥。
+
+**English:** Harmonize soul and body so that higher power does not reject the vessel.
+
+## 相关词条 · Related Terms
+
+- [灵气 Qi](/glossary/qi)
+- [金丹 Golden Core](/glossary/golden-core)
+- [天劫 Tribulation](/glossary/heavenly-tribulation)
+- [飞升 Ascension](/glossary/ascension)
+
+## 参考文献 · References
+
+- 百度百科 · 修仙词条
+- 百度百科 · 修真词条
+- 道教内丹术修炼语汇
+- 代表性修真小说设定
+
+</main><aside class="entry-aside"><div class="info-card"><h2>境界信息 · Realm Info</h2><dl><dt>中文名称</dt><dd>合体期</dd><dt>拼音</dt><dd>Hétǐ Qī</dd><dt>英文名称</dt><dd>Unity / Integration</dd><dt>层级</dt><dd>中境界</dd><dt>寿元</dt><dd>数万年</dd></dl></div></aside></div>

@@ -1,35 +1,31 @@
 ---
-title: 五行
-description: 五行系统在修仙小说中的用法。
+title: "五行八卦在修仙世界中的应用"
+description: "Five Elements and Eight Trigrams provide a rule language for roots, formations, pill properties, and counters."
+description_zh: "五行八卦为灵根、阵法、丹药属性和克制关系提供了一套可读的规则语言。"
 ---
 
-# 五行 / Five Elements
+# 五行八卦在修仙世界中的应用 · Five Elements and Eight Trigrams in Xianxia
 
-五行包括木、火、土、金、水，用来描述生成、克制、转化与平衡关系。
+## 概述 · Overview
 
-## 在小说中的用法
+**中文：** 五行八卦为灵根、阵法、丹药属性和克制关系提供了一套可读的规则语言。
 
-修仙小说常把五行用于灵根、阵法、符箓、丹药、地理、功法和战斗克制。
+**English:** Five Elements and Eight Trigrams provide a rule language for roots, formations, pill properties, and counters.
 
-## 相生
+## 为什么重要 · Why It Matters
 
-- 木生火
-- 火生土
-- 土生金
-- 金生水
-- 水生木
+**中文：** 文化背景让修仙不只是等级表。灵气、金丹、天劫、宗门和长生背后都有身体观、宇宙观和伦理想象。
 
-## 相克
+**English:** Cultural background keeps xianxia from becoming a list of power levels. It explains why Qi, Golden Core, tribulation, sects, and immortality carry symbolic weight beyond game-like progression.
 
-- 木克土
-- 土克水
-- 水克火
-- 火克金
-- 金克木
+## 阅读提示 · Reading Notes
 
-## 相关词条
+- 可与[术语词典](/glossary/)和[修炼体系](/cultivation-system/)交叉阅读。
+- 小说设定是对传统文化的类型化改写，不应直接等同于历史事实。
+- 引用文化资料时建议概括说明并标注来源名称，避免大段复制。
 
-- [阵法符箓](/categories/formations-and-talismans)
-- [功法武学](/categories/techniques-and-arts)
-- [天材地宝](/categories/natural-treasures)
+## 参考文献 · References
 
+- 道教内丹术相关资料
+- 中国神话与宗教文化研究资料
+- 百度百科及公开百科相关词条

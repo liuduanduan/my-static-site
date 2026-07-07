@@ -1,21 +1,19 @@
 ---
-title: Realms & Regions
-description: Worlds, planes, secret realms, immortal domains, and dangerous lands.
+title: "Realms & Regions"
+description: "Mortal worlds, spirit worlds, immortal realms, and hidden domains."
 ---
 
-# Realms & Regions
+# Realms & Regions · 修仙地域
 
-Realms and regions describe where cultivation happens: mortal continents, immortal worlds, demon realms, secret realms, cave heavens, sect mountains, forbidden zones, and pocket worlds.
+Mortal worlds, spirit worlds, immortal realms, and hidden domains.
 
-## Example Terms
+## Included Entries
 
-- Mortal world
-- Immortal realm
-- Secret realm
-- Cave heaven
-- Forbidden land
+- 人界
+- 灵界
+- 仙界
+- 秘境
 
-## Notes
+## Scope
 
-Expanding geography is a common long-form device. When the protagonist outgrows one map, a higher world often appears.
-
+This category is part of the eleven-part taxonomy used by NoICU Cultivator. It helps readers connect terms by narrative function and worldbuilding role.

@@ -1,7 +1,7 @@
 {
-  "name": "No996 Xianxia Wiki",
-  "short_name": "Xianxia Wiki",
-  "description": "English-first xianxia and cultivation encyclopedia.",
+  "name": "NoICU Cultivator",
+  "short_name": "NoICU Cultivator",
+  "description": "Bilingual xianxia and cultivation encyclopedia.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f7f3eb",

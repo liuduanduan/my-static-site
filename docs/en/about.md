@@ -1,26 +1,25 @@
 ---
 title: About
-description: Project overview for No996 Xianxia Wiki.
+description: Project overview for NoICU Cultivator and its Chinese title Xiaoyao Changsheng Lu.
 ---
 
-# About No996 Xianxia Wiki
+# About NoICU Cultivator
 
-No996 Xianxia Wiki is an English-first encyclopedia for readers who want to understand xianxia and cultivation fiction without losing the Chinese terms that give the genre its flavor.
+NoICU Cultivator, Chinese title 《逍遥长生录》, is a bilingual encyclopedia for xianxia culture, cultivation terminology, realm systems, classic works, and cultural background.
 
-The project focuses on concise definitions, pinyin, cultural context, genre patterns, and links between related ideas. It avoids copying novel text and points readers toward official or licensed reading platforms when discussing specific works.
+## Brand Idea
 
-## What This Site Covers
+**No 996, No ICU, Just Cultivation.**
 
-- Core terms such as [Qi](/en/glossary/qi), [Cultivation](/en/glossary/cultivation), [Golden Core](/en/glossary/golden-core), and [Tribulation](/en/glossary/tribulation)
-- Realm progressions from [Qi Refining](/en/cultivation-system/qi-refining) to [Immortal](/en/cultivation-system/immortal)
-- Eleven taxonomy categories for browsing xianxia vocabulary
-- Cultural background from Taoism, inner alchemy, five elements, myth, and longevity traditions
-- Classic works described at a high level, with spoiler-light notes
+The line is playful, but the product goal is practical: make complex cultivation vocabulary understandable for global readers, translators, writers, game designers, and researchers.
 
-## Editorial Principles
+## Scope
 
-- English explanations first, with Chinese terms and pinyin preserved
-- Short pages that are easy to scan on mobile
-- Internal links between related ideas
-- Respect for original authors, translators, and licensed sources
+- [Glossary](/en/glossary/): Qi, Golden Core, Nascent Soul, Tribulation, Ascension, and other core terms
+- [Cultivation System](/en/cultivation-system/): a fourteen-realm ladder from Qi Refining to Dao Ancestor
+- [Classic Works](/en/classic-works/): spoiler-light context for influential xianxia and cultivation novels
+- [Cultural Background](/en/culture/): Taoism, inner alchemy, five elements, mythology, and genre history
 
+## Sources
+
+Entries synthesize public encyclopedia references, Taoist inner-alchemy background, classical textual context, literary research, and well-known cultivation-fiction settings. The site is a reference guide only and does not reproduce novel chapters.

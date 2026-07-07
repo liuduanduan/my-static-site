@@ -1,34 +1,54 @@
 ---
-title: 我欲封天
-description: 我欲封天的轻剧透介绍。
+title: "我欲封天"
+zh_name: "我欲封天"
+en_name: "I Shall Seal the Heavens"
+author: "耳根"
+author_en: "Er Gen"
+status: "已完结"
+genre: "仙侠"
+description: "A major Er Gen cultivation adventure with fate, humor, and broad progression."
+description_zh: "耳根代表作之一，兼具热血冒险、宿命感和宏大修行体系。"
 ---
 
-# 我欲封天 / I Shall Seal the Heavens
+# 《我欲封天》· I Shall Seal the Heavens
 
-<div class="term-meta">
-  <div><strong>中文标题</strong><br />我欲封天</div>
-  <div><strong>作者</strong><br />耳根</div>
-  <div><strong>流派</strong><br />修仙冒险</div>
-  <div><strong>核心主题</strong><br />宗门、传承、幽默与宇宙级升级。</div>
-</div>
+## 基本信息 · Basic Info
 
-## 概览
+| 项目 | 详情 |
+| --- | --- |
+| 中文名 | 我欲封天 |
+| 英文名 | I Shall Seal the Heavens |
+| 作者 | 耳根 (Er Gen) |
+| 状态 | 已完结 |
+| 流派 | 仙侠 / Xianxia |
 
-《我欲封天》是大体量修仙冒险作品，包含宗门试炼、奇异传承、幽默反转和持续扩大的宇宙尺度。
+## 简介 · Synopsis
 
-## 世界观要点
+**中文：** 耳根代表作之一，兼具热血冒险、宿命感和宏大修行体系。本站只做介绍和设定说明，不收录小说正文。
 
-- 宗门考核、竞争和传承空间很重要。
-- 修炼境界逐渐连接到更大的宇宙冲突。
-- 在英文修仙读者群体中辨识度很高。
+**English:** A major Er Gen cultivation adventure with fate, humor, and broad progression. This page is a reference guide and does not reproduce novel chapters.
 
-## 相关词条
+## 主要角色 · Main Characters
 
-- [宗门](/glossary/sect)
-- [金丹](/glossary/golden-core)
-- [飞升](/glossary/ascension)
+| 中文名 | English | 简介 |
+| --- | --- | --- |
+| 孟浩 | Meng Hao | 主角，机缘与选择共同推动成长。 |
+| 许清 | Xu Qing | 重要角色。 |
+| 靠山宗人物 | Reliance Sect figures | 早期修行环境。 |
 
-## 阅读链接
+## 修炼体系 · Cultivation System
 
-后续只添加已验证的正版或授权阅读链接。
+**中文：** 可结合[修炼体系总览](/cultivation-system/)理解作品中的境界、宗门、资源与突破逻辑。
 
+**English:** Use the [Cultivation System overview](/cultivation-system/) to compare the realms, sects, resources, and breakthrough logic used by this work.
+
+## 官方阅读 · Official Reading
+
+- 请前往起点中文网、纵横中文网、Webnovel 或作者/出版方授权平台搜索书名。
+- 本站仅做术语和文化背景参考，不收录章节正文。
+
+## 相关词条 · Related Terms
+
+- [修仙 Cultivation](/glossary/cultivation)
+- [宗门 Sect](/glossary/sect)
+- [金丹 Golden Core](/glossary/golden-core)

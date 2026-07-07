@@ -1,27 +1,31 @@
 ---
-title: 内丹术
-description: 内丹术与修仙小说的关系。
+title: "内丹术：修仙境界的哲学基础"
+description: "Inner alchemy treats body and mind as the furnace for refinement, shaping terms such as Golden Core and spirit transformation."
+description_zh: "内丹术把人体视为炉鼎，以炼精化气、炼气化神等语言解释身心修炼。"
 ---
 
-# 内丹术 / Inner Alchemy
+# 内丹术：修仙境界的哲学基础 · Inner Alchemy: The Philosophical Foundation
 
-内丹术为修仙小说提供了许多隐喻，如炼化、炉鼎、丹、金丹和身心转化。
+## 概述 · Overview
 
-## 在小说中的变化
+**中文：** 内丹术把人体视为炉鼎，以炼精化气、炼气化神等语言解释身心修炼。
 
-小说常把内在修炼外显为可见机制。[金丹](/glossary/golden-core)可能变成真实能量核心，炼化则变成可计量的进阶过程。
+**English:** Inner alchemy treats body and mind as the furnace for refinement, shaping terms such as Golden Core and spirit transformation.
 
-## 常见意象
+## 为什么重要 · Why It Matters
 
-- 丹与内在精华
-- 炉鼎和火候
-- 周天运转
-- 身体作为小宇宙
-- 通过修炼追求长生
+**中文：** 文化背景让修仙不只是等级表。灵气、金丹、天劫、宗门和长生背后都有身体观、宇宙观和伦理想象。
 
-## 相关词条
+**English:** Cultural background keeps xianxia from becoming a list of power levels. It explains why Qi, Golden Core, tribulation, sects, and immortality carry symbolic weight beyond game-like progression.
 
-- [金丹](/glossary/golden-core)
-- [灵药丹方](/categories/elixirs-and-pills)
-- [修仙](/glossary/cultivation)
+## 阅读提示 · Reading Notes
 
+- 可与[术语词典](/glossary/)和[修炼体系](/cultivation-system/)交叉阅读。
+- 小说设定是对传统文化的类型化改写，不应直接等同于历史事实。
+- 引用文化资料时建议概括说明并标注来源名称，避免大段复制。
+
+## 参考文献 · References
+
+- 道教内丹术相关资料
+- 中国神话与宗教文化研究资料
+- 百度百科及公开百科相关词条

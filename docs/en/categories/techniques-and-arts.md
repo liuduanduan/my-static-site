@@ -1,21 +1,17 @@
 ---
-title: Techniques & Arts
-description: Cultivation methods, martial arts, and supernatural techniques.
+title: "Techniques & Arts"
+description: "Cultivation methods, divine abilities, movement arts, and combat skills."
 ---
 
-# Techniques & Arts
+# Techniques & Arts · 功法武学
 
-Techniques and arts are the methods that turn raw cultivation into usable power. They may train breathing, qi circulation, sword intent, body refinement, talisman use, movement, illusions, divine sense, or Dao comprehension.
+Cultivation methods, divine abilities, movement arts, and combat skills.
 
-## Example Terms
+## Included Entries
 
-- Cultivation manuals
-- Sword art
-- Body-refining method
-- Movement technique
-- Divine ability
+- [Cultivation Technique / 功法](/en/glossary/cultivation-technique)
+- [Immortal Arts / 仙术](/en/glossary/immortal-arts)
 
-## Notes
+## Scope
 
-Technique names are often novel-specific. This category should explain generic patterns while avoiding long copied passages from any specific work.
-
+This category is part of the eleven-part taxonomy used by NoICU Cultivator. It helps readers connect terms by narrative function and worldbuilding role.

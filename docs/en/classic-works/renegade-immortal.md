@@ -1,34 +1,54 @@
 ---
-title: Renegade Immortal
-description: Spoiler-light overview of Renegade Immortal.
+title: "Xian Ni / Reverse Immortal"
+zh_name: "仙逆"
+en_name: "Xian Ni / Reverse Immortal"
+author: "耳根"
+author_en: "Er Gen"
+status: "Completed"
+genre: "Xianxia"
+description: "A major xianxia work following Wang Lin, obsession, Dao-seeking, and defying fate."
+description_zh: "以王林求道、执念和逆天而行为主线的经典仙侠作品。"
 ---
 
-# Renegade Immortal / 仙逆
+# Xian Ni / Reverse Immortal · 《仙逆》
 
-<div class="term-meta">
-  <div><strong>Chinese Title</strong><br />仙逆</div>
-  <div><strong>Author</strong><br />Er Gen</div>
-  <div><strong>Genre Branch</strong><br />Dark Cultivation</div>
-  <div><strong>Core Theme</strong><br />Survival, obsession, loss, and Dao heart.</div>
-</div>
+## Basic Info
 
-## Overview
+| Field | Detail |
+| --- | --- |
+| Chinese Title | 仙逆 |
+| English Title | Xian Ni / Reverse Immortal |
+| Author | 耳根 (Er Gen) |
+| Status | Completed |
+| Genre | Xianxia / 仙侠 |
 
-Renegade Immortal is a major cultivation novel known for harsh struggle, emotional intensity, and a protagonist shaped by loss and persistence.
+## Synopsis
 
-## Worldbuilding Notes
+**English:** A major xianxia work following Wang Lin, obsession, Dao-seeking, and defying fate. This page is a reference guide and does not reproduce novel chapters.
 
-- Advancement is tied to danger, enemies, and psychological pressure.
-- Dao comprehension and personal obsession become important sources of power.
-- The story helps readers understand darker cultivation tone and escalation.
+**中文：** 以王林求道、执念和逆天而行为主线的经典仙侠作品。本站只做介绍和设定说明，不收录小说正文。
 
-## Related Entries
+## Main Characters
 
-- [Xiuzhen](/en/glossary/xiuzhen)
-- [Spirit Transformation](/en/cultivation-system/spirit-transformation)
-- [Tribulation](/en/glossary/tribulation)
+| 中文名 | English | Notes |
+| --- | --- | --- |
+| 王林 | Wang Lin | 主角，求道意志强烈。 |
+| 李慕婉 | Li Muwan | 重要角色。 |
+| 司徒南 | Situ Nan | 关键引导者。 |
 
-## Reading Links
+## Cultivation System
 
-Add only official or licensed links that are verified for the target language and region.
+**English:** Use the [Cultivation System overview](/en/cultivation-system/) to compare the realms, sects, resources, and breakthrough logic used by this work.
 
+**中文：** 可结合[修炼体系总览](/en/cultivation-system/)理解作品中的境界、宗门、资源与突破逻辑。
+
+## Official Reading
+
+- Please read through official or licensed platforms such as Qidian, Webnovel, or the publisher-authorized channel available in your region.
+- This site is a terminology and cultural reference only.
+
+## Related Terms
+
+- [Cultivation](/en/glossary/cultivation)
+- [Sect](/en/glossary/sect)
+- [Golden Core](/en/glossary/golden-core)

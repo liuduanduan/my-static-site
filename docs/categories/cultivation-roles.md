@@ -1,21 +1,18 @@
 ---
-title: 修仙职业
-description: 修仙世界中的身份与职业。
+title: "修仙职业"
+description: "散修、丹师、阵师、魔修等身份。"
 ---
 
-# 修仙职业 / Cultivation Roles
+# 修仙职业 · Cultivation Roles
 
-修仙职业描述人物在力量经济中的位置，例如散修、丹师、阵师、符师、剑修、魔修、长老、弟子和拍卖师。
+散修、丹师、阵师、魔修等身份。
 
-## 示例词条
+## 已收录词条 · Included Entries
 
-- [散修](/glossary/rogue-cultivator)
-- 丹师
-- 阵师
-- 剑修
-- 宗门长老
+- [散修 / Rogue Cultivator](/glossary/rogue-cultivator)
+- [魔修 / Demonic Cultivator](/glossary/demonic-cultivator)
+- [正道 / Righteous Cultivator](/glossary/righteous-cultivator)
 
-## 说明
+## 分类说明 · Scope
 
-职业和资源强绑定。一个境界不高的丹师，可能比更强的战斗修士更有价值。
-
+本分类属于 NoICU Cultivator 的 11 大内容体系，用于按叙事功能和世界观角色组织词条。

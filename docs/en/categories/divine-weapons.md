@@ -1,21 +1,17 @@
 ---
-title: Divine Weapons
-description: Artifacts, magical treasures, weapons, and protective items.
+title: "Divine Weapons"
+description: "Flying swords, artifacts, spiritual tools, and bonded treasures."
 ---
 
-# Divine Weapons
+# Divine Weapons · 神兵利器
 
-Divine weapons cover combat artifacts, defensive treasures, travel tools, storage rings, refining vessels, robes, seals, bells, flags, and ancient inheritance items.
+Flying swords, artifacts, spiritual tools, and bonded treasures.
 
-## Example Terms
+## Included Entries
 
-- [Artifact / 法宝](/en/glossary/artifact)
+- [Artifact / Dharma Treasure / 法宝](/en/glossary/artifact)
 - [Flying Sword / 飞剑](/en/glossary/flying-sword)
-- Treasure cauldron
-- Storage ring
-- Soul banner
 
-## Notes
+## Scope
 
-Many artifacts are not only objects but also plot memory: they carry old owners, sealed spirits, broken inheritances, and hidden conditions.
-
+This category is part of the eleven-part taxonomy used by NoICU Cultivator. It helps readers connect terms by narrative function and worldbuilding role.

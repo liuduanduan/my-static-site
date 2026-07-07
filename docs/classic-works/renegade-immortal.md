@@ -1,34 +1,54 @@
 ---
-title: 仙逆
-description: 仙逆的轻剧透介绍。
+title: "仙逆"
+zh_name: "仙逆"
+en_name: "Xian Ni / Reverse Immortal"
+author: "耳根"
+author_en: "Er Gen"
+status: "已完结"
+genre: "仙侠"
+description: "A major xianxia work following Wang Lin, obsession, Dao-seeking, and defying fate."
+description_zh: "以王林求道、执念和逆天而行为主线的经典仙侠作品。"
 ---
 
-# 仙逆 / Renegade Immortal
+# 《仙逆》· Xian Ni / Reverse Immortal
 
-<div class="term-meta">
-  <div><strong>中文标题</strong><br />仙逆</div>
-  <div><strong>作者</strong><br />耳根</div>
-  <div><strong>流派</strong><br />残酷修真</div>
-  <div><strong>核心主题</strong><br />求生、执念、失去与道心。</div>
-</div>
+## 基本信息 · Basic Info
 
-## 概览
+| 项目 | 详情 |
+| --- | --- |
+| 中文名 | 仙逆 |
+| 英文名 | Xian Ni / Reverse Immortal |
+| 作者 | 耳根 (Er Gen) |
+| 状态 | 已完结 |
+| 流派 | 仙侠 / Xianxia |
 
-《仙逆》是重要修真作品，以残酷环境、情绪强度和由执念塑造的修炼道路著称。
+## 简介 · Synopsis
 
-## 世界观要点
+**中文：** 以王林求道、执念和逆天而行为主线的经典仙侠作品。本站只做介绍和设定说明，不收录小说正文。
 
-- 进阶与危险、仇敌和心理压力相互绑定。
-- 道悟和个人执念成为力量来源。
-- 适合理解更冷峻的修真叙事。
+**English:** A major xianxia work following Wang Lin, obsession, Dao-seeking, and defying fate. This page is a reference guide and does not reproduce novel chapters.
 
-## 相关词条
+## 主要角色 · Main Characters
 
-- [修真](/glossary/xiuzhen)
-- [化神](/cultivation-system/spirit-transformation)
-- [渡劫](/glossary/tribulation)
+| 中文名 | English | 简介 |
+| --- | --- | --- |
+| 王林 | Wang Lin | 主角，求道意志强烈。 |
+| 李慕婉 | Li Muwan | 重要角色。 |
+| 司徒南 | Situ Nan | 关键引导者。 |
 
-## 阅读链接
+## 修炼体系 · Cultivation System
 
-后续只添加已验证的正版或授权阅读链接。
+**中文：** 可结合[修炼体系总览](/cultivation-system/)理解作品中的境界、宗门、资源与突破逻辑。
 
+**English:** Use the [Cultivation System overview](/cultivation-system/) to compare the realms, sects, resources, and breakthrough logic used by this work.
+
+## 官方阅读 · Official Reading
+
+- 请前往起点中文网、纵横中文网、Webnovel 或作者/出版方授权平台搜索书名。
+- 本站仅做术语和文化背景参考，不收录章节正文。
+
+## 相关词条 · Related Terms
+
+- [修仙 Cultivation](/glossary/cultivation)
+- [宗门 Sect](/glossary/sect)
+- [金丹 Golden Core](/glossary/golden-core)

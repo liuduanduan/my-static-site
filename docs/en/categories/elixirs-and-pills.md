@@ -1,21 +1,16 @@
 ---
-title: Elixirs & Pills
-description: Alchemy, medicinal pills, and breakthrough resources.
+title: "Elixirs & Pills"
+description: "Pills, herbs, and alchemical resources for cultivation."
 ---
 
-# Elixirs & Pills
+# Elixirs & Pills · 灵药丹方
 
-Elixirs and pills convert rare materials into concentrated cultivation effects. They may restore qi, heal wounds, cleanse impurities, extend lifespan, suppress poison, or support breakthroughs.
+Pills, herbs, and alchemical resources for cultivation.
 
-## Example Terms
+## Included Entries
 
 - [Foundation Establishment Pill / 筑基丹](/en/glossary/foundation-establishment-pill)
-- Spirit-gathering pill
-- Longevity pill
-- Detoxification pill
-- Pill furnace
 
-## Notes
+## Scope
 
-Pills often create social pressure because access to alchemy determines who can advance quickly and who remains stuck at a bottleneck.
-
+This category is part of the eleven-part taxonomy used by NoICU Cultivator. It helps readers connect terms by narrative function and worldbuilding role.

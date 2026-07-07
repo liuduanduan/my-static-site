@@ -1,26 +1,26 @@
 ---
 title: Cloudflare Pages 部署
-description: Cloudflare Pages 部署配置。
+description: NoICU Cultivator 部署到 Cloudflare Pages 的配置说明。
 ---
 
 # Cloudflare Pages 部署
 
-Cloudflare Pages 设置如下：
+本站是纯静态 VitePress 项目，适合部署在 Cloudflare Pages，并通过 Cloudflare CDN 全球访问。
 
-| 设置 | 值 |
+## 构建配置
+
+| 项目 | 值 |
 | --- | --- |
-| 生产分支 | `main` |
-| 构建命令 | `npm run docs:build` |
-| 输出目录 | `docs/.vitepress/dist` |
-| Node 版本 | Cloudflare 默认版本或 Node 20+ |
+| Production branch | `main` |
+| Build command | `npm run docs:build` |
+| Build output directory | `docs/.vitepress/dist` |
+| Node.js | Cloudflare 默认 Node 20+ |
 
-站点构建后是纯静态文件，Cloudflare 会通过全球边缘网络分发。自定义域名配置正确后，正常情况下全球都能访问。
+## 上线验收
 
-## 部署后检查
-
-- `/`
-- `/`
-- `/glossary/qi`
-- `/cultivation-system/`
-- `/sitemap.xml`
-
+- 首页、术语词典、修炼体系、经典作品、文化背景、关于页面均可访问
+- `/` 为中文主站，`/en/` 为英文站
+- 右上角语言切换正常
+- 站内搜索可搜索中文和英文术语
+- `sitemap.xml` 自动生成
+- `favicon.svg`、`site.webmanifest`、`social-card.svg` 可访问

@@ -1,26 +1,31 @@
 ---
-title: The Chinese Xian
-description: The xian or immortal figure in Chinese fantasy and cultivation fiction.
+title: "Immortals in Chinese Mythology"
+description: "Chinese immortals combine myth, arts, mountains, and transcendence, influencing ascension and immortal-world fiction."
+description_zh: "中国神话中的仙既有神格、方术和山海想象，也影响了网络仙侠中的飞升与仙界。"
 ---
 
-# The Chinese Xian / 仙
+# Immortals in Chinese Mythology
 
-Xian is often translated as immortal, transcendent, or celestial being. In fiction, xian can mean a person who has escaped ordinary mortality and entered a higher order of existence.
+## Overview
 
-## In Fiction
+**English:** Chinese immortals combine myth, arts, mountains, and transcendence, influencing ascension and immortal-world fiction.
 
-Xianxia turns the xian into both a goal and a social category. A cultivator may seek to become an immortal, enter the immortal realm, or inherit techniques from ancient immortals.
+**中文：** 中国神话中的仙既有神格、方术和山海想象，也影响了网络仙侠中的飞升与仙界。
 
-## Common Motifs
+## Why It Matters
 
-- Remote mountains and hidden caves
-- Long life and detachment from ordinary society
-- Immortal robes, swords, cranes, clouds, and elixirs
-- Higher realms with stricter laws and stronger enemies
+**English:** Cultural background keeps xianxia from becoming a list of power levels. It explains why Qi, Golden Core, tribulation, sects, and immortality carry symbolic weight beyond game-like progression.
 
-## Related Entries
+**中文：** 文化背景让修仙不只是等级表。灵气、金丹、天劫、宗门和长生背后都有身体观、宇宙观和伦理想象。
 
-- [Immortal](/en/cultivation-system/immortal)
-- [Ascension](/en/glossary/ascension)
-- [Immortality and Longevity](/en/culture/immortality)
+## Reading Notes
 
+- Compare the glossary terms with the cultivation system pages.
+- Treat novel settings as creative adaptations, not literal history.
+- When citing cultural sources, prefer concise summaries and clear source names.
+
+## References
+
+- Taoist inner-alchemy background materials
+- Classical Chinese myth and religious studies references
+- Baidu Baike and public encyclopedia entries for related concepts

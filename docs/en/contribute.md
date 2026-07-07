@@ -1,59 +1,48 @@
 ---
 title: Contribute
-description: How to contribute terms, corrections, and xianxia background notes.
+description: How to contribute terms, corrections, and cultural notes to NoICU Cultivator.
 ---
 
 # Contribute
 
-Contributions should make the site more useful for English-language readers while preserving important Chinese terms.
+Contributions are welcome through GitHub pull requests.
+
+## Guidelines
+
+- Chinese is the source language; English is the translation language
+- Each entry should include Chinese name, English name, pinyin, category, summary, body text, related terms, and references
+- Realm pages should include lifespan, key traits, breakthrough conditions, and narrative function
+- Classic-work pages should provide context only and must not reproduce novel chapters
+- Cite sources and avoid long copied passages
 
 ## Entry Template
 
-Use this structure for new glossary pages:
-
 ```md
 ---
-title: English Term
-zh: 中文术语
-pinyin: pinyin
-category: core-terms
-aliases:
-  - Alternate Name
-related:
-  - qi
+title: Qi
+zh_name: 灵气
+pinyin: Língqì
+category: core
+description: The fundamental spiritual energy in cultivation fiction.
+description_zh: 修仙世界中最基础的天地灵能。
 ---
 
-# English Term / 中文术语
+# 灵气 · Qi (Língqì)
 
-<div class="term-meta">
-  <div><strong>Chinese</strong><br />中文术语</div>
-  <div><strong>Pinyin</strong><br />pinyin</div>
-  <div><strong>Category</strong><br /><span class="tag">Core Terms</span></div>
-  <div><strong>Short Definition</strong><br />One sentence definition.</div>
-</div>
+## 摘要 · Summary
 
-## Definition
+**中文：** ...
 
-Write a concise English definition.
+**English:** ...
 
-## Detailed Explanation
+## 定义与概述 · Definition
 
-Explain how the term appears in xianxia stories.
+## 相关概念 · Related Concepts
 
-## Related Terms
-
-- [Qi](/en/glossary/qi)
-
-## Source Notes
-
-Add cultural or genre notes. Link to official or licensed sources when discussing a specific work.
+## 参考文献 · References
 ```
 
-## Style Guide
+## Contact
 
-- Keep copied quotations out unless they are brief and necessary.
-- Prefer spoiler-light summaries for classic works.
-- Use Chinese characters, pinyin, and an English name when possible.
-- Link related terms instead of repeating the same explanation everywhere.
-- Mark uncertain or novel-specific usage clearly.
-
+- GitHub: <https://github.com/liuduanduan/my-static-site>
+- Domain: <https://no996noicu.com>

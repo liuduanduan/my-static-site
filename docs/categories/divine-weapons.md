@@ -1,21 +1,17 @@
 ---
-title: 神兵利器
-description: 法宝、兵器与护身宝物。
+title: "神兵利器"
+description: "飞剑、法宝、灵器与本命法器。"
 ---
 
-# 神兵利器 / Divine Weapons
+# 神兵利器 · Divine Weapons
 
-神兵利器包括攻击法宝、防御宝物、飞行器具、储物戒、炼丹鼎、法衣、印玺、钟、旗和古老传承宝物。
+飞剑、法宝、灵器与本命法器。
 
-## 示例词条
+## 已收录词条 · Included Entries
 
-- [法宝](/glossary/artifact)
-- [飞剑](/glossary/flying-sword)
-- 宝鼎
-- 储物戒
-- 魂幡
+- [法宝 / Artifact / Dharma Treasure](/glossary/artifact)
+- [飞剑 / Flying Sword](/glossary/flying-sword)
 
-## 说明
+## 分类说明 · Scope
 
-强大法宝往往不只是装备，也承载旧主人、器灵、封印和隐藏传承。
-
+本分类属于 NoICU Cultivator 的 11 大内容体系，用于按叙事功能和世界观角色组织词条。

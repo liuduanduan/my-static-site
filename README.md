@@ -1,8 +1,8 @@
-# No996 Xianxia Wiki
+# NoICU Cultivator
 
-An English-first xianxia and cultivation encyclopedia built with VitePress.
+《逍遥长生录》 is a bilingual VitePress encyclopedia for xianxia, cultivation realms, glossary terms, classic works, and cultural background.
 
-## Local Development
+## Development
 
 ```bash
 npm install
@@ -23,3 +23,4 @@ The static output is generated in `docs/.vitepress/dist`.
 - Build output directory: `docs/.vitepress/dist`
 - Production branch: `main`
 
+See [DEPLOY.md](./DEPLOY.md) and [docs/deploy.md](./docs/deploy.md).

@@ -1,21 +1,17 @@
 ---
-title: 功法武学
-description: 修仙小说中的功法、武技与神通。
+title: "功法武学"
+description: "修炼功法、神通、身法与战斗技艺。"
 ---
 
-# 功法武学 / Techniques & Arts
+# 功法武学 · Techniques & Arts
 
-功法武学是把修为转化为实际力量的方法，包括吐纳、运气、剑术、身法、炼体、幻术、神识、神通和道法。
+修炼功法、神通、身法与战斗技艺。
 
-## 示例词条
+## 已收录词条 · Included Entries
 
-- 修炼功法
-- 剑诀
-- 炼体术
-- 身法
-- 神通
+- [功法 / Cultivation Technique](/glossary/cultivation-technique)
+- [仙术 / Immortal Arts](/glossary/immortal-arts)
 
-## 说明
+## 分类说明 · Scope
 
-具体功法名称往往属于作品专有设定，百科更适合解释通用类型和常见模式。
-
+本分类属于 NoICU Cultivator 的 11 大内容体系，用于按叙事功能和世界观角色组织词条。

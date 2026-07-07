@@ -1,18 +1,18 @@
 :root {
   --vp-c-brand-1: #2d8c6f;
-  --vp-c-brand-2: #277a62;
-  --vp-c-brand-3: #3aa985;
-  --vp-c-brand-soft: rgba(45, 140, 111, 0.15);
-  --vp-c-bg: #f7f3eb;
-  --vp-c-bg-alt: #eee7dc;
-  --vp-c-bg-soft: #fbf8f1;
-  --vp-c-text-1: #1b2420;
-  --vp-c-text-2: #46534d;
-  --vp-c-divider: rgba(28, 38, 34, 0.14);
-  --wiki-gold: #b8943a;
-  --wiki-ink: #1a1d1b;
-  --wiki-paper: #f7f3eb;
-  --vp-font-family-base: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --vp-c-brand-2: #1a5c4a;
+  --vp-c-brand-3: #37a582;
+  --vp-c-brand-soft: #e8f5ed;
+  --vp-c-bg: #f5f0eb;
+  --vp-c-bg-alt: #eee6dc;
+  --vp-c-bg-soft: #ffffff;
+  --vp-c-text-1: #1a1a1a;
+  --vp-c-text-2: #4a4a4a;
+  --vp-c-divider: #e0d8d0;
+  --wiki-gold: #c9a84c;
+  --wiki-ink: #1a1a1a;
+  --wiki-paper: #f5f0eb;
+  --vp-font-family-base: Inter, "Noto Sans SC", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --vp-font-family-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 }
 
@@ -28,9 +28,26 @@
 
 body {
   background:
-    radial-gradient(circle at 12% 8%, rgba(201, 168, 76, 0.11), transparent 24rem),
-    linear-gradient(180deg, rgba(45, 140, 111, 0.08), transparent 22rem),
+    linear-gradient(180deg, rgba(45, 140, 111, 0.08), transparent 20rem),
+    repeating-linear-gradient(90deg, rgba(26, 26, 26, 0.018) 0, rgba(26, 26, 26, 0.018) 1px, transparent 1px, transparent 34px),
     var(--vp-c-bg);
+}
+
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 3px;
+  pointer-events: none;
+}
+
+.reading-progress span {
+  display: block;
+  height: 100%;
+  background: var(--wiki-gold);
+  transition: width 0.12s ease;
 }
 
 .VPNavBarTitle .title {
@@ -42,7 +59,7 @@ body {
 }
 
 .VPHomeHero .image-src {
-  max-width: 260px;
+  max-width: 250px;
   filter: drop-shadow(0 18px 35px rgba(20, 66, 54, 0.22));
 }
 
@@ -53,10 +70,12 @@ body {
 .term-meta,
 .realm-step,
 .work-card,
-.category-row {
+.category-row,
+.info-card,
+.hero-panel {
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
-  background: color-mix(in srgb, var(--vp-c-bg-soft) 86%, white 14%);
+  background: color-mix(in srgb, var(--vp-c-bg-soft) 88%, white 12%);
   box-shadow: 0 8px 24px rgba(16, 34, 28, 0.07);
 }
 
@@ -67,26 +86,44 @@ body {
 .dark .term-meta,
 .dark .realm-step,
 .dark .work-card,
-.dark .category-row {
+.dark .category-row,
+.dark .info-card,
+.dark .hero-panel {
   background: color-mix(in srgb, var(--vp-c-bg-soft) 90%, black 10%);
   box-shadow: none;
+}
+
+.hero-panel {
+  margin: 4px 0 34px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(45, 140, 111, 0.12), rgba(201, 168, 76, 0.08));
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--vp-c-brand-1);
+  font-weight: 800;
 }
 
 .home-search {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 12px;
-  margin: 8px 0 32px;
+  margin: 8px 0 18px;
 }
 
 .home-search input,
-.home-search button {
+.home-search button,
+.explorer-toolbar input,
+.explorer-toolbar select {
   min-height: 44px;
   border-radius: 8px;
   font: inherit;
 }
 
-.home-search input {
+.home-search input,
+.explorer-toolbar input,
+.explorer-toolbar select {
   border: 1px solid var(--vp-c-divider);
   background: var(--vp-c-bg-soft);
   color: var(--vp-c-text-1);
@@ -102,11 +139,47 @@ body {
   cursor: pointer;
 }
 
+.home-search button:hover {
+  background: var(--vp-c-brand-2);
+}
+
+.hot-tags,
+.alphabet-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hot-tags a,
+.alphabet-index button,
+.random-entry button {
+  min-height: 34px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  padding: 6px 12px;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.hot-tags a:hover,
+.alphabet-index button.active,
+.alphabet-index button:hover,
+.random-entry button:hover {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+}
+
 .wiki-grid,
 .entry-grid,
 .stats-grid,
 .works-grid,
-.category-grid {
+.category-grid,
+.stage-grid,
+.explorer-toolbar {
   display: grid;
   gap: 16px;
 }
@@ -116,10 +189,19 @@ body {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.stats-grid,
 .works-grid,
-.category-grid {
+.stage-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.stats-grid,
+.category-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.explorer-toolbar {
+  grid-template-columns: minmax(0, 1fr) 220px 180px;
+  margin-bottom: 14px;
 }
 
 .wiki-card,
@@ -149,11 +231,28 @@ body {
   font-size: 18px;
 }
 
+.category-row .icon {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background: var(--vp-c-brand-soft);
+}
+
+.category-row strong,
+.read-more {
+  color: var(--vp-c-brand-1);
+  font-weight: 800;
+}
+
 .muted {
   color: var(--vp-c-text-2);
 }
 
-.stat-card {
+.stat-card,
+.info-card {
   padding: 18px;
 }
 
@@ -184,10 +283,50 @@ body {
   min-height: 26px;
   border-radius: 999px;
   padding: 0 10px;
+  margin: 4px 6px 4px 0;
   background: var(--vp-c-brand-soft);
   color: var(--vp-c-brand-1);
   font-weight: 700;
   font-size: 13px;
+}
+
+.entry-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 22px;
+  align-items: start;
+}
+
+.entry-main {
+  min-width: 0;
+}
+
+.entry-aside {
+  position: sticky;
+  top: 92px;
+  display: grid;
+  gap: 14px;
+}
+
+.info-card h2 {
+  margin-top: 0;
+  font-size: 17px;
+}
+
+.info-card dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.info-card dt {
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+}
+
+.info-card dd {
+  margin: -6px 0 0;
+  font-weight: 700;
 }
 
 .realm-timeline {
@@ -222,10 +361,30 @@ body {
   margin: 0;
 }
 
+.explorer {
+  margin: 24px 0;
+}
+
+.alphabet-index {
+  margin: 10px 0;
+}
+
+.random-entry {
+  margin: 30px 0 6px;
+  text-align: center;
+}
+
 .VPDoc h1,
 .VPDoc h2,
 .VPDoc h3 {
   letter-spacing: 0;
+}
+
+@media (max-width: 920px) {
+  .stats-grid,
+  .category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 720px) {
@@ -235,12 +394,18 @@ body {
   .stats-grid,
   .works-grid,
   .category-grid,
-  .term-meta {
+  .term-meta,
+  .entry-layout,
+  .stage-grid,
+  .explorer-toolbar {
     grid-template-columns: 1fr;
+  }
+
+  .entry-aside {
+    position: static;
   }
 
   .realm-step {
     grid-template-columns: 40px minmax(0, 1fr);
   }
 }
-

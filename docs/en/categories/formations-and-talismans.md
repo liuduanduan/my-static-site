@@ -1,21 +1,18 @@
 ---
-title: Formations & Talismans
-description: Arrays, seals, talismans, restrictions, and barriers.
+title: "Formations & Talismans"
+description: "Formations, talismans, restrictions, and spatial layouts."
 ---
 
-# Formations & Talismans
+# Formations & Talismans · 阵法符箓
 
-Formations and talismans turn symbols, materials, geography, and spiritual power into repeatable effects. They can conceal, protect, attack, teleport, suppress, detect, or seal.
+Formations, talismans, restrictions, and spatial layouts.
 
-## Example Terms
+## Included Entries
 
-- Five Elements formation
-- Spirit-gathering array
-- Restriction
-- Movement talisman
-- Sealing talisman
+- 五行阵
+- 聚灵阵
+- 神行符
 
-## Notes
+## Scope
 
-Formation masters and talisman masters are valuable because they solve problems that raw combat power cannot always handle.
-
+This category is part of the eleven-part taxonomy used by NoICU Cultivator. It helps readers connect terms by narrative function and worldbuilding role.

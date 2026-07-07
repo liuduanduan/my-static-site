@@ -1,21 +1,16 @@
 ---
-title: 灵药丹方
-description: 炼丹、丹药与突破资源。
+title: "灵药丹方"
+description: "丹药、灵草与辅助突破的炼丹体系。"
 ---
 
-# 灵药丹方 / Elixirs & Pills
+# 灵药丹方 · Elixirs & Pills
 
-灵药丹方把稀有材料转化为可服用或可炼化的效果，用于恢复灵力、治疗伤势、洗髓、延寿、解毒和辅助突破。
+丹药、灵草与辅助突破的炼丹体系。
 
-## 示例词条
+## 已收录词条 · Included Entries
 
-- [筑基丹](/glossary/foundation-establishment-pill)
-- 聚灵丹
-- 延寿丹
-- 解毒丹
-- 丹炉
+- [筑基丹 / Foundation Establishment Pill](/glossary/foundation-establishment-pill)
 
-## 说明
+## 分类说明 · Scope
 
-丹药常制造资源压力，因为能否获得丹药会直接影响修炼速度和突破概率。
-
+本分类属于 NoICU Cultivator 的 11 大内容体系，用于按叙事功能和世界观角色组织词条。

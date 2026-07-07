@@ -1,21 +1,18 @@
 ---
-title: Beasts & Demons
-description: Demonic beasts, spirit animals, monsters, ghosts, and bloodlines.
+title: "Beasts & Demons"
+description: "Demonic beasts, monsters, spirit beasts, and mythic beings."
 ---
 
-# Beasts & Demons
+# Beasts & Demons · 妖魔鬼怪
 
-This category covers non-human threats and allies: demonic beasts, spirit animals, yao, ghosts, demons, ancient bloodlines, and transformed creatures.
+Demonic beasts, monsters, spirit beasts, and mythic beings.
 
-## Example Terms
+## Included Entries
 
-- Demonic beast
-- Spirit beast
-- Nine-tailed fox
-- Flood dragon
-- Ghost cultivator
+- 九尾狐
+- 蛟龙
+- 心魔
 
-## Notes
+## Scope
 
-Many stories distinguish between beasts that cultivate, demons as moral or cosmic forces, and yao as intelligent non-human beings.
-
+This category is part of the eleven-part taxonomy used by NoICU Cultivator. It helps readers connect terms by narrative function and worldbuilding role.

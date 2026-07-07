@@ -1,28 +1,55 @@
 ---
-title: Immortal
-description: The immortal state or higher-realm status after mortal cultivation.
+title: "Immortal"
+zh_name: "仙人"
+en_name: "Immortal"
+pinyin: "Xiānrén"
+category: "realms"
+realm_level: "Upper Realm"
+lifespan: "immortal longevity"
+description: "A transcendent being who has moved beyond ordinary mortality."
+description_zh: "修炼有成、脱离凡俗寿命限制的超凡存在。"
 ---
 
-# Immortal / 仙人
+# Immortal (仙人, Xiānrén)
 
-<div class="term-meta">
-  <div><strong>Chinese</strong><br />仙人</div>
-  <div><strong>Pinyin</strong><br />xian ren</div>
-  <div><strong>Typical Position</strong><br />Post-ascension</div>
-  <div><strong>Core Theme</strong><br />Transcending mortal limits.</div>
-</div>
+<div class="entry-layout"><main class="entry-main">
+
+## Summary
+
+**English:** Immortal belongs to the Upper Realm. Lifespan reference: immortal longevity. A transcendent being who has moved beyond ordinary mortality.
+
+**中文：** 仙人属于上境界，寿元参考为长生。修炼有成、脱离凡俗寿命限制的超凡存在。
 
 ## Description
 
-An immortal is a being who has crossed beyond ordinary mortality, usually entering a higher realm, extended lifespan, or divine social order.
+**English:** This realm is one step in the fourteen-realm ladder. It changes how cultivators store power, understand the Dao, survive conflict, and interact with the world.
 
-## Traits
+**中文：** 这一境界是十四级修炼阶梯中的关键节点，会改变修士储存力量、理解大道、面对冲突和接触世界的方式。
 
-- Vast lifespan or practical immortality
-- Higher laws, immortal qi, and new resource systems
-- New hierarchies such as earth immortal, heavenly immortal, true immortal, or golden immortal
+## Key Characteristics
 
-## Narrative Function
+- **Realm Tier:** Upper Realm / 上境界
+- **Lifespan:** immortal longevity
+- **Power Shift:** A transcendent being who has moved beyond ordinary mortality.
+- **Narrative Role:** It marks a new threshold of ability, status, and risk.
 
-Immortality is rarely the end of the story. It often reveals a larger world where the protagonist becomes a beginner again.
+## Breakthrough Conditions
 
+**English:** Complete mortal cultivation, ascend, or obtain an immortal status.
+
+**中文：** 完成凡俗修炼、飞升或获得类似仙道位格。
+
+## Related Terms
+
+- [Qi](/en/glossary/qi)
+- [Golden Core](/en/glossary/golden-core)
+- [Tribulation](/en/glossary/heavenly-tribulation)
+- [Ascension](/en/glossary/ascension)
+
+## References
+
+- Baidu Baike entries for 修仙 and 修真
+- Taoist inner-alchemy cultivation vocabulary
+- Representative settings from cultivation novels
+
+</main><aside class="entry-aside"><div class="info-card"><h2>Realm Info</h2><dl><dt>Chinese Name</dt><dd>仙人</dd><dt>Pinyin</dt><dd>Xiānrén</dd><dt>English Name</dt><dd>Immortal</dd><dt>Tier</dt><dd>Upper Realm</dd><dt>Lifespan</dt><dd>immortal longevity</dd></dl></div></aside></div>

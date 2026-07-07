@@ -1,21 +1,16 @@
 ---
-title: 天材地宝
-description: 灵草、灵矿、龙脉与稀有材料。
+title: "天材地宝"
+description: "灵石、矿脉、灵草和天地灵物。"
 ---
 
-# 天材地宝 / Natural Treasures
+# 天材地宝 · Natural Treasures
 
-天材地宝是由时间、灵气、地脉、秘境或古战场孕育出的稀有资源，是炼丹、炼器和突破的基础。
+灵石、矿脉、灵草和天地灵物。
 
-## 示例词条
+## 已收录词条 · Included Entries
 
-- 灵草
-- 龙脉
-- 天材
-- 地宝
-- 仙草
+- [灵石 / Spirit Stone](/glossary/spirit-stone)
 
-## 说明
+## 分类说明 · Scope
 
-夺宝情节常展现修仙世界的经济逻辑：稀缺、危险、归属、拍卖和背叛。
-
+本分类属于 NoICU Cultivator 的 11 大内容体系，用于按叙事功能和世界观角色组织词条。

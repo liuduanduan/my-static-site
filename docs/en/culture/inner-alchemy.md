@@ -1,27 +1,31 @@
 ---
-title: Inner Alchemy
-description: Background on inner alchemy and its influence on cultivation fiction.
+title: "Inner Alchemy: The Philosophical Foundation"
+description: "Inner alchemy treats body and mind as the furnace for refinement, shaping terms such as Golden Core and spirit transformation."
+description_zh: "内丹术把人体视为炉鼎，以炼精化气、炼气化神等语言解释身心修炼。"
 ---
 
-# Inner Alchemy / 内丹术
+# Inner Alchemy: The Philosophical Foundation
 
-Inner alchemy is a real-world religious and philosophical background for many cultivation metaphors, including refinement, furnaces, elixirs, cores, and transformation.
+## Overview
 
-## In Fiction
+**English:** Inner alchemy treats body and mind as the furnace for refinement, shaping terms such as Golden Core and spirit transformation.
 
-Novels often externalize inner transformation into visible mechanics. A [Golden Core](/en/glossary/golden-core) may become a literal energy core, while refinement becomes a measurable path through realms.
+**中文：** 内丹术把人体视为炉鼎，以炼精化气、炼气化神等语言解释身心修炼。
 
-## Common Motifs
+## Why It Matters
 
-- Dan or elixir as refined essence
-- Furnace imagery
-- Circulation and transformation
-- Body as a small cosmos
-- Longevity through disciplined practice
+**English:** Cultural background keeps xianxia from becoming a list of power levels. It explains why Qi, Golden Core, tribulation, sects, and immortality carry symbolic weight beyond game-like progression.
 
-## Related Entries
+**中文：** 文化背景让修仙不只是等级表。灵气、金丹、天劫、宗门和长生背后都有身体观、宇宙观和伦理想象。
 
-- [Golden Core](/en/glossary/golden-core)
-- [Elixirs & Pills](/en/categories/elixirs-and-pills)
-- [Cultivation](/en/glossary/cultivation)
+## Reading Notes
 
+- Compare the glossary terms with the cultivation system pages.
+- Treat novel settings as creative adaptations, not literal history.
+- When citing cultural sources, prefer concise summaries and clear source names.
+
+## References
+
+- Taoist inner-alchemy background materials
+- Classical Chinese myth and religious studies references
+- Baidu Baike and public encyclopedia entries for related concepts

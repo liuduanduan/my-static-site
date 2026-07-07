@@ -1,32 +1,70 @@
 ---
-title: 筑基丹
-description: 筑基丹在修仙小说中的含义。
+title: "筑基丹"
+zh_name: "筑基丹"
+en_name: "Foundation Establishment Pill"
+pinyin: "Zhùjī Dān"
+category: "elixirs"
+tags: ["pill", "breakthrough"]
+description: "A common pill used to help Qi Refining cultivators reach Foundation Establishment."
+description_zh: "辅助炼气修士突破筑基期的常见丹药设定。"
 ---
 
-# 筑基丹 / Foundation Establishment Pill
+# 筑基丹 · Foundation Establishment Pill (Zhùjī Dān)
 
-<div class="term-meta">
-  <div><strong>中文</strong><br />筑基丹</div>
-  <div><strong>拼音</strong><br />zhu ji dan</div>
-  <div><strong>分类</strong><br /><span class="tag">灵药丹方</span></div>
-  <div><strong>简短定义</strong><br />帮助炼气修士突破筑基的丹药。</div>
+<div class="entry-layout">
+  <main class="entry-main">
+
+## 摘要 · Summary
+
+**中文：** 辅助炼气修士突破筑基期的常见丹药设定。
+
+**English:** A common pill used to help Qi Refining cultivators reach Foundation Establishment.
+
+## 定义与概述 · Definition
+
+**中文：** 筑基丹（Zhùjī Dān）是修仙叙事中的常见概念。辅助炼气修士突破筑基期的常见丹药设定。不同作品会有各自设定，但它通常用于解释境界进阶、资源分配、修炼风险或文化想象。
+
+**English:** Foundation Establishment Pill is a recurring xianxia and cultivation concept. A common pill used to help Qi Refining cultivators reach Foundation Establishment. The exact rules change from novel to novel, but the term usually helps explain progression, conflict, resources, or cultural imagination.
+
+## 在修炼中的作用 · Role in Cultivation
+
+**中文：** 筑基丹把突破与资源竞争绑定，常引发宗门任务、拍卖和争夺。
+
+**English:** The pill ties breakthroughs to resource competition, auctions, and sect missions.
+
+## 在经典作品中的体现 · In Classic Works
+
+**中文：** 在《凡人修仙传》《飘邈之旅》《仙逆》等作品中，这一概念通常与境界、功法、宗门和资源体系共同出现，帮助读者理解角色成长逻辑。
+
+**English:** In works such as *A Record of a Mortal's Journey to Immortality*, *Stellar Travel*, and *Xian Ni*, this concept is usually embedded in a larger system of realms, techniques, sects, and resources.
+
+## 相关概念 · Related Concepts
+
+- [灵气 Qi / Spiritual Energy](/glossary/qi)
+- [功法 Cultivation Technique](/glossary/cultivation-technique)
+- [灵石 Spirit Stone](/glossary/spirit-stone)
+
+## 参考文献 · References
+
+- 百度百科 · 修仙词条
+- 百度百科 · 修真词条
+- 道教内丹术相关资料
+- 代表性修真小说设定
+
+</main>
+<aside class="entry-aside">
+    <div class="info-card">
+      <h2>基本信息 · Basic Info</h2>
+      <dl>
+        <dt>中文名称</dt><dd>筑基丹</dd>
+        <dt>拼音</dt><dd>Zhùjī Dān</dd>
+        <dt>英文名称</dt><dd>Foundation Establishment Pill</dd>
+        <dt>分类</dt><dd>灵药丹方 / Elixirs & Pills</dd>
+      </dl>
+    </div>
+    <div class="info-card">
+      <h2>分享 · Share</h2>
+      <p><a href="https://twitter.com/intent/tweet" target="_blank" rel="noopener">Twitter</a> · <a href="https://www.facebook.com/sharer/sharer.php" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.reddit.com/submit" target="_blank" rel="noopener">Reddit</a> · <a href="https://service.weibo.com/share/share.php" target="_blank" rel="noopener">微博</a></p>
+    </div>
+</aside>
 </div>
-
-## 定义
-
-筑基丹是一种突破辅助丹药，常用于稳定肉身、经脉和灵力根基，帮助修士进入筑基期。
-
-## 详细解释
-
-在许多作品中，筑基丹稀缺而昂贵，宗门会严格分配，拍卖会价格高昂，散修甚至会为此冒险夺宝。
-
-## 相关词条
-
-- [筑基](/cultivation-system/foundation-building)
-- [灵药丹方](/categories/elixirs-and-pills)
-- [灵气](/glossary/qi)
-
-## 来源说明
-
-英文可译作 Foundation Establishment Pill 或 Foundation Building Pill。
-

@@ -1,28 +1,55 @@
 ---
-title: Void Refining
-description: A high realm associated with emptiness, space, and higher law.
+title: "Void Refinement"
+zh_name: "炼虚期"
+en_name: "Void Refinement"
+pinyin: "Liànxū Qī"
+category: "realms"
+realm_level: "Middle Realm"
+lifespan: "over ten thousand years"
+description: "Spirit and body develop a deeper relationship with void and world power."
+description_zh: "神魂与虚空、天地之力产生更深层联系。"
 ---
 
-# Void Refining / 炼虚
+# Void Refinement (炼虚期, Liànxū Qī)
 
-<div class="term-meta">
-  <div><strong>Chinese</strong><br />炼虚</div>
-  <div><strong>Pinyin</strong><br />lian xu</div>
-  <div><strong>Typical Position</strong><br />Realm 6</div>
-  <div><strong>Core Theme</strong><br />Refining emptiness and higher principles.</div>
-</div>
+<div class="entry-layout"><main class="entry-main">
+
+## Summary
+
+**English:** Void Refinement belongs to the Middle Realm. Lifespan reference: over ten thousand years. Spirit and body develop a deeper relationship with void and world power.
+
+**中文：** 炼虚期属于中境界，寿元参考为上万年。神魂与虚空、天地之力产生更深层联系。
 
 ## Description
 
-Void Refining is commonly associated with space, emptiness, law comprehension, and more abstract powers than earlier qi-based combat.
+**English:** This realm is one step in the fourteen-realm ladder. It changes how cultivators store power, understand the Dao, survive conflict, and interact with the world.
 
-## Traits
+**中文：** 这一境界是十四级修炼阶梯中的关键节点，会改变修士储存力量、理解大道、面对冲突和接触世界的方式。
 
-- Greater interaction with spatial techniques or domains
-- Power based on comprehension, not only accumulated energy
-- Rare status in lower worlds
+## Key Characteristics
 
-## Narrative Function
+- **Realm Tier:** Middle Realm / 中境界
+- **Lifespan:** over ten thousand years
+- **Power Shift:** Spirit and body develop a deeper relationship with void and world power.
+- **Narrative Role:** It marks a new threshold of ability, status, and risk.
 
-This realm helps signal that cultivation is becoming cosmic and conceptual.
+## Breakthrough Conditions
 
+**English:** Integrate spirit-transformation gains with world comprehension and void power.
+
+**中文：** 将化神积累融入天地感悟，稳定承载虚空之力。
+
+## Related Terms
+
+- [Qi](/en/glossary/qi)
+- [Golden Core](/en/glossary/golden-core)
+- [Tribulation](/en/glossary/heavenly-tribulation)
+- [Ascension](/en/glossary/ascension)
+
+## References
+
+- Baidu Baike entries for 修仙 and 修真
+- Taoist inner-alchemy cultivation vocabulary
+- Representative settings from cultivation novels
+
+</main><aside class="entry-aside"><div class="info-card"><h2>Realm Info</h2><dl><dt>Chinese Name</dt><dd>炼虚期</dd><dt>Pinyin</dt><dd>Liànxū Qī</dd><dt>English Name</dt><dd>Void Refinement</dd><dt>Tier</dt><dd>Middle Realm</dd><dt>Lifespan</dt><dd>over ten thousand years</dd></dl></div></aside></div>

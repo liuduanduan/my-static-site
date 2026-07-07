@@ -1,26 +1,31 @@
 ---
-title: 中国神话中的仙
-description: 仙人在中国幻想与修仙小说中的形象。
+title: "中国神话中的仙：从西王母到八仙"
+description: "Chinese immortals combine myth, arts, mountains, and transcendence, influencing ascension and immortal-world fiction."
+description_zh: "中国神话中的仙既有神格、方术和山海想象，也影响了网络仙侠中的飞升与仙界。"
 ---
 
-# 中国神话中的仙 / The Chinese Xian
+# 中国神话中的仙：从西王母到八仙 · Immortals in Chinese Mythology
 
-“仙”常被译作 immortal、transcendent 或 celestial being。在小说里，它通常表示超越凡俗死亡和社会秩序的存在。
+## 概述 · Overview
 
-## 在小说中的用法
+**中文：** 中国神话中的仙既有神格、方术和山海想象，也影响了网络仙侠中的飞升与仙界。
 
-修仙小说把仙既写成目标，也写成社会身份。修士可能追求成仙、飞升仙界，或继承古仙遗留的功法和法宝。
+**English:** Chinese immortals combine myth, arts, mountains, and transcendence, influencing ascension and immortal-world fiction.
 
-## 常见意象
+## 为什么重要 · Why It Matters
 
-- 远山、洞府与云雾
-- 长寿与脱离凡俗
-- 仙衣、飞剑、云、鹤、丹药
-- 更高世界和更强敌人
+**中文：** 文化背景让修仙不只是等级表。灵气、金丹、天劫、宗门和长生背后都有身体观、宇宙观和伦理想象。
 
-## 相关词条
+**English:** Cultural background keeps xianxia from becoming a list of power levels. It explains why Qi, Golden Core, tribulation, sects, and immortality carry symbolic weight beyond game-like progression.
 
-- [仙人](/cultivation-system/immortal)
-- [飞升](/glossary/ascension)
-- [长生与不朽](/culture/immortality)
+## 阅读提示 · Reading Notes
 
+- 可与[术语词典](/glossary/)和[修炼体系](/cultivation-system/)交叉阅读。
+- 小说设定是对传统文化的类型化改写，不应直接等同于历史事实。
+- 引用文化资料时建议概括说明并标注来源名称，避免大段复制。
+
+## 参考文献 · References
+
+- 道教内丹术相关资料
+- 中国神话与宗教文化研究资料
+- 百度百科及公开百科相关词条

@@ -1,21 +1,16 @@
 ---
-title: Natural Treasures
-description: Rare herbs, ores, spiritual roots, dragon veins, and heavenly materials.
+title: "Natural Treasures"
+description: "Spirit stones, veins, herbs, and rare natural resources."
 ---
 
-# Natural Treasures
+# Natural Treasures · 天材地宝
 
-Natural treasures are rare materials formed by time, qi density, unusual geography, ancient battlefields, or secret realms. They are the fuel behind alchemy, artifact refining, and breakthroughs.
+Spirit stones, veins, herbs, and rare natural resources.
 
-## Example Terms
+## Included Entries
 
-- Spirit herb
-- Dragon vein
-- Heavenly material
-- Earthly treasure
-- Immortal grass
+- [Spirit Stone / 灵石](/en/glossary/spirit-stone)
 
-## Notes
+## Scope
 
-Treasure hunts often reveal the economic logic of a cultivation world: danger, scarcity, ownership, auctions, and betrayal.
-
+This category is part of the eleven-part taxonomy used by NoICU Cultivator. It helps readers connect terms by narrative function and worldbuilding role.

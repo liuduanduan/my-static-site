@@ -1,29 +1,26 @@
 ---
 title: Cloudflare Pages Deploy
-description: Deployment settings for Cloudflare Pages.
+description: Deployment settings for NoICU Cultivator on Cloudflare Pages.
 ---
 
 # Cloudflare Pages Deploy
 
-Use these settings for Cloudflare Pages:
+NoICU Cultivator is a static VitePress site and is deployed through Cloudflare Pages with global CDN delivery.
+
+## Build Settings
 
 | Setting | Value |
 | --- | --- |
 | Production branch | `main` |
 | Build command | `npm run docs:build` |
 | Build output directory | `docs/.vitepress/dist` |
-| Node version | Current Cloudflare default or Node 20+ |
+| Node.js | Cloudflare default Node 20+ |
 
-The site is static after build, so Cloudflare can serve it globally from its edge network. If the custom domain is connected correctly, users worldwide should be able to open it unless their local network blocks the domain.
+## Acceptance Checks
 
-## After Deploy
-
-Check these routes:
-
-- `/`
-- `/glossary/qi`
-- `/cultivation-system/`
-- `/classic-works/`
-- `/culture/`
-- `/sitemap.xml`
-
+- Home, glossary, cultivation system, classic works, culture, and about pages are reachable
+- `/` is Simplified Chinese and `/en/` is English
+- Language switching works globally
+- Local search returns Chinese and English terms
+- `sitemap.xml` is generated
+- `favicon.svg`, `site.webmanifest`, and `social-card.svg` are available

@@ -1,34 +1,54 @@
 ---
-title: Buddha Is the Tao
-description: Spoiler-light overview of Buddha Is the Tao.
+title: "Buddha Is The Way"
+zh_name: "佛本是道"
+en_name: "Buddha Is The Way"
+author: "梦入神机"
+author_en: "Meng Ru Shen Ji"
+status: "Completed"
+genre: "Primordial Myth"
+description: "A formative primordial-myth novel that blends Investiture, Journey to the West, Daoist, and Buddhist motifs."
+description_zh: "洪荒流网络小说的重要开创作品，融合封神、西游与道佛神话。"
 ---
 
-# Buddha Is the Tao / 佛本是道
+# Buddha Is The Way · 《佛本是道》
 
-<div class="term-meta">
-  <div><strong>Chinese Title</strong><br />佛本是道</div>
-  <div><strong>Author</strong><br />Meng Ru Shen Ji</div>
-  <div><strong>Genre Branch</strong><br />Primordial Myth Flow</div>
-  <div><strong>Core Theme</strong><br />Myth, religion, and vast cosmological conflict.</div>
-</div>
+## Basic Info
 
-## Overview
+| Field | Detail |
+| --- | --- |
+| Chinese Title | 佛本是道 |
+| English Title | Buddha Is The Way |
+| Author | 梦入神机 (Meng Ru Shen Ji) |
+| Status | Completed |
+| Genre | Primordial Myth / 洪荒流 |
 
-Buddha Is the Tao is associated with large-scale mythic imagination and Honghuang-style genre development. It blends cultivation with religious, mythological, and cosmic elements.
+## Synopsis
 
-## Worldbuilding Notes
+**English:** A formative primordial-myth novel that blends Investiture, Journey to the West, Daoist, and Buddhist motifs. This page is a reference guide and does not reproduce novel chapters.
 
-- Mythic figures and cosmic forces shape the story world.
-- The scale can move beyond sect training into heaven, earth, fate, and calamity.
-- The work is useful context for readers who encounter Honghuang references.
+**中文：** 洪荒流网络小说的重要开创作品，融合封神、西游与道佛神话。本站只做介绍和设定说明，不收录小说正文。
 
-## Related Entries
+## Main Characters
 
-- [Taoism and Xianxia](/en/culture/taoism-and-xianxia)
-- [The Chinese Xian](/en/culture/chinese-xian)
-- [Tribulation](/en/glossary/tribulation)
+| 中文名 | English | Notes |
+| --- | --- | --- |
+| 周青 | Zhou Qing | 主角，卷入宏大的洪荒神话格局。 |
+| 道门人物 | Daoist figures | 推动神话体系展开。 |
+| 佛门人物 | Buddhist figures | 构成道佛冲突与融合。 |
 
-## Reading Links
+## Cultivation System
 
-Add only official or licensed links that are verified for the target language and region.
+**English:** Use the [Cultivation System overview](/en/cultivation-system/) to compare the realms, sects, resources, and breakthrough logic used by this work.
 
+**中文：** 可结合[修炼体系总览](/en/cultivation-system/)理解作品中的境界、宗门、资源与突破逻辑。
+
+## Official Reading
+
+- Please read through official or licensed platforms such as Qidian, Webnovel, or the publisher-authorized channel available in your region.
+- This site is a terminology and cultural reference only.
+
+## Related Terms
+
+- [Cultivation](/en/glossary/cultivation)
+- [Sect](/en/glossary/sect)
+- [Golden Core](/en/glossary/golden-core)

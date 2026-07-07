@@ -1,21 +1,25 @@
 ---
-title: 核心术语
-description: 修仙小说中的基础概念。
+title: "核心术语"
+description: "理解修仙文本所需的基础概念。"
 ---
 
-# 核心术语 / Core Terms
+# 核心术语 · Core Terms
 
-核心术语是跨作品高频出现的基础概念，用来解释能量、进阶、组织、生存和超脱。
+理解修仙文本所需的基础概念。
 
-## 示例词条
+## 已收录词条 · Included Entries
 
-- [修仙](/glossary/cultivation)
-- [灵气](/glossary/qi)
-- [修真](/glossary/xiuzhen)
-- [飞升](/glossary/ascension)
-- [渡劫](/glossary/tribulation)
+- [修仙 / Cultivation](/glossary/cultivation)
+- [修真 / Xiuzhen](/glossary/xiuzhen)
+- [灵气 / Qi / Spiritual Energy](/glossary/qi)
+- [金丹 / Golden Core](/glossary/golden-core)
+- [元婴 / Nascent Soul](/glossary/nascent-soul)
+- [飞升 / Ascension](/glossary/ascension)
+- [天劫 / Tribulation](/glossary/heavenly-tribulation)
+- [轮回 / Reincarnation](/glossary/reincarnation)
+- [走火入魔 / Qi Deviation](/glossary/qi-deviation)
+- [内丹 / Inner Alchemy](/glossary/inner-alchemy)
 
-## 说明
+## 分类说明 · Scope
 
-如果你刚开始读修仙小说，建议先从本类开始。
-
+本分类属于 NoICU Cultivator 的 11 大内容体系，用于按叙事功能和世界观角色组织词条。

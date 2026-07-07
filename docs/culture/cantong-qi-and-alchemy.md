@@ -1,0 +1,31 @@
+---
+title: "《周易参同契》与炼丹术"
+description: "Alchemy texts such as the Cantong Qi helped carry Yin-Yang, Five Elements, furnace, and Golden Core language into cultivation imagination."
+description_zh: "《周易参同契》等丹道文本让阴阳、五行、炉鼎、金丹等词汇进入修仙想象。"
+---
+
+# 《周易参同契》与炼丹术 · The Cantong Qi and Alchemy
+
+## 概述 · Overview
+
+**中文：** 《周易参同契》等丹道文本让阴阳、五行、炉鼎、金丹等词汇进入修仙想象。
+
+**English:** Alchemy texts such as the Cantong Qi helped carry Yin-Yang, Five Elements, furnace, and Golden Core language into cultivation imagination.
+
+## 为什么重要 · Why It Matters
+
+**中文：** 文化背景让修仙不只是等级表。灵气、金丹、天劫、宗门和长生背后都有身体观、宇宙观和伦理想象。
+
+**English:** Cultural background keeps xianxia from becoming a list of power levels. It explains why Qi, Golden Core, tribulation, sects, and immortality carry symbolic weight beyond game-like progression.
+
+## 阅读提示 · Reading Notes
+
+- 可与[术语词典](/glossary/)和[修炼体系](/cultivation-system/)交叉阅读。
+- 小说设定是对传统文化的类型化改写，不应直接等同于历史事实。
+- 引用文化资料时建议概括说明并标注来源名称，避免大段复制。
+
+## 参考文献 · References
+
+- 道教内丹术相关资料
+- 中国神话与宗教文化研究资料
+- 百度百科及公开百科相关词条

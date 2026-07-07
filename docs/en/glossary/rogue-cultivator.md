@@ -1,41 +1,69 @@
 ---
-title: Rogue Cultivator
-description: Definition of Rogue Cultivator in xianxia fiction.
-zh: 散修
-pinyin: san xiu
-category: cultivation-roles
-aliases:
-  - Loose Cultivator
-  - Independent Cultivator
-related:
-  - sect
-  - cultivation-roles
+title: "Rogue Cultivator"
+zh_name: "散修"
+en_name: "Rogue Cultivator"
+pinyin: "Sǎnxiū"
+category: "roles"
+tags: ["role", "independent"]
+description: "An independent cultivator without strong sect backing."
+description_zh: "无门无派或缺乏强大背景、主要依靠个人机缘修行的修士。"
 ---
 
-# Rogue Cultivator / 散修
+# Rogue Cultivator (散修, Sǎnxiū)
 
-<div class="term-meta">
-  <div><strong>Chinese</strong><br />散修</div>
-  <div><strong>Pinyin</strong><br />san xiu</div>
-  <div><strong>Category</strong><br /><span class="tag">Cultivation Roles</span></div>
-  <div><strong>Short Definition</strong><br />A cultivator without strong sect, clan, or institutional backing.</div>
-</div>
+<div class="entry-layout">
+  <main class="entry-main">
+
+## Summary
+
+**English:** An independent cultivator without strong sect backing.
+
+**中文：** 无门无派或缺乏强大背景、主要依靠个人机缘修行的修士。
 
 ## Definition
 
-A rogue cultivator is an independent cultivator who usually lacks the resources, protection, and inherited techniques of a major sect or clan.
+**English:** Rogue Cultivator is a recurring xianxia and cultivation concept. An independent cultivator without strong sect backing. The exact rules change from novel to novel, but the term usually helps explain progression, conflict, resources, or cultural imagination.
 
-## Detailed Explanation
+**中文：** 散修（Sǎnxiū）是修仙叙事中的常见概念。无门无派或缺乏强大背景、主要依靠个人机缘修行的修士。不同作品会有各自设定，但它通常用于解释境界进阶、资源分配、修炼风险或文化想象。
 
-Rogue cultivators often trade freedom for hardship. They may rely on risky expeditions, auctions, opportunistic alliances, and personal cunning. Protagonists often begin as rogue or low-status cultivators to create a climb-from-the-bottom arc.
+## Role in Cultivation
 
-## Related Terms
+**English:** Rogue-cultivator stories emphasize scarcity, caution, and hard-earned opportunity.
 
-- [Sect](/en/glossary/sect)
-- [Cultivation Roles](/en/categories/cultivation-roles)
-- [Natural Treasures](/en/categories/natural-treasures)
+**中文：** 散修线强调资源匮乏、生存谨慎和个人机缘，适合表现底层修士视角。
 
-## Source Notes
+## In Classic Works
 
-The role highlights the resource economy of cultivation worlds: techniques, pills, spirit stones, caves, and mentors all matter.
+**English:** In works such as *A Record of a Mortal's Journey to Immortality*, *Stellar Travel*, and *Xian Ni*, this concept is usually embedded in a larger system of realms, techniques, sects, and resources.
 
+**中文：** 在《凡人修仙传》《飘邈之旅》《仙逆》等作品中，这一概念通常与境界、功法、宗门和资源体系共同出现，帮助读者理解角色成长逻辑。
+
+## Related Concepts
+
+- [宗门 Sect](/en/glossary/sect)
+- [修仙 Cultivation](/en/glossary/cultivation)
+- [灵石 Spirit Stone](/en/glossary/spirit-stone)
+
+## References
+
+- Baidu Baike entries for 修仙 and 修真
+- Taoist inner-alchemy background materials
+- Representative cultivation-fiction settings
+
+</main>
+<aside class="entry-aside">
+    <div class="info-card">
+      <h2>Basic Info</h2>
+      <dl>
+        <dt>Chinese Name</dt><dd>散修</dd>
+        <dt>Pinyin</dt><dd>Sǎnxiū</dd>
+        <dt>English Name</dt><dd>Rogue Cultivator</dd>
+        <dt>Category</dt><dd>Cultivation Roles / 修仙职业</dd>
+      </dl>
+    </div>
+    <div class="info-card">
+      <h2>Share</h2>
+      <p><a href="https://twitter.com/intent/tweet" target="_blank" rel="noopener">Twitter</a> · <a href="https://www.facebook.com/sharer/sharer.php" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.reddit.com/submit" target="_blank" rel="noopener">Reddit</a> · <a href="https://service.weibo.com/share/share.php" target="_blank" rel="noopener">微博</a></p>
+    </div>
+</aside>
+</div>

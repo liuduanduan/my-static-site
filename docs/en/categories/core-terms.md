@@ -1,21 +1,25 @@
 ---
-title: Core Terms
-description: Foundational vocabulary for xianxia and cultivation stories.
+title: "Core Terms"
+description: "Foundational concepts required to understand cultivation fiction."
 ---
 
-# Core Terms
+# Core Terms · 核心术语
 
-Core terms are the concepts readers meet repeatedly across many novels. They explain the logic of energy, advancement, groups, survival, and transcendence.
+Foundational concepts required to understand cultivation fiction.
 
-## Example Terms
+## Included Entries
 
 - [Cultivation / 修仙](/en/glossary/cultivation)
-- [Qi / 灵气](/en/glossary/qi)
 - [Xiuzhen / 修真](/en/glossary/xiuzhen)
+- [Qi / Spiritual Energy / 灵气](/en/glossary/qi)
+- [Golden Core / 金丹](/en/glossary/golden-core)
+- [Nascent Soul / 元婴](/en/glossary/nascent-soul)
 - [Ascension / 飞升](/en/glossary/ascension)
-- [Tribulation / 渡劫](/en/glossary/tribulation)
+- [Tribulation / 天劫](/en/glossary/heavenly-tribulation)
+- [Reincarnation / 轮回](/en/glossary/reincarnation)
+- [Qi Deviation / 走火入魔](/en/glossary/qi-deviation)
+- [Inner Alchemy / 内丹](/en/glossary/inner-alchemy)
 
-## Notes
+## Scope
 
-Start here if you are new to the genre. Once these ideas are familiar, realm pages and classic work pages become much easier to parse.
-
+This category is part of the eleven-part taxonomy used by NoICU Cultivator. It helps readers connect terms by narrative function and worldbuilding role.
