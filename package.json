@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "content:generate": "node scripts/generate-content.mjs",
+    "content:rmji": "node scripts/generate-rmji.mjs",
     "docs:dev": "vitepress dev docs --host 0.0.0.0",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs --host 0.0.0.0"

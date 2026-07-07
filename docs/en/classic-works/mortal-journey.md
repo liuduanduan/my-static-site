@@ -42,6 +42,10 @@ description_zh: "资质平庸的少年韩立，凭借谨慎、毅力和机缘在
 
 **中文：** 可结合[修炼体系总览](/en/cultivation-system/)理解作品中的境界、宗门、资源与突破逻辑。
 
+## Universe Index
+
+This site now includes an [RMJI Universe](/en/rmji/) topic with the first 109 bilingual seed entries for techniques, artifacts, elixirs, factions, races, regions, laws, and timeline.
+
 ## Official Reading
 
 - Please read through official or licensed platforms such as Qidian, Webnovel, or the publisher-authorized channel available in your region.

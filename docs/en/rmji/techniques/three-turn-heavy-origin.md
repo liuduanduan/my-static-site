@@ -1,0 +1,54 @@
+---
+title: "Three-Turn Heavy Origin Technique"
+zh_name: "三转重元功"
+en_name: "Three-Turn Heavy Origin Technique"
+pinyin: "San Zhuan Chongyuan Gong"
+category: "Techniques & Abilities"
+arc: "Mortal Realm middle arc"
+check_status: "medium"
+description: "A support technique concept around re-cultivation, foundation compression, and improving mana quality."
+---
+
+# Three-Turn Heavy Origin Technique / 三转重元功
+
+<div class="term-meta">
+  <div><strong>Chinese</strong><span>三转重元功</span></div>
+  <div><strong>English</strong><span>Three-Turn Heavy Origin Technique</span></div>
+  <div><strong>Pinyin</strong><span>San Zhuan Chongyuan Gong</span></div>
+  <div><strong>Topic</strong><span>Techniques & Abilities</span></div>
+</div>
+
+## Summary
+
+A support technique concept around re-cultivation, foundation compression, and improving mana quality.
+
+## Role in RMJI
+
+It reflects the series logic of paying cost and time for higher ceilings rather than rushing breakthroughs.
+
+## Placement
+
+| Field | Detail |
+| --- | --- |
+| Chinese name | 三转重元功 |
+| English name | Three-Turn Heavy Origin Technique |
+| Pinyin | San Zhuan Chongyuan Gong |
+| Topic | [Techniques & Abilities](/en/rmji/techniques/) |
+| Main arc | Mortal Realm middle arc |
+| Check status | medium |
+
+## Related Entries
+
+- [Azure Essence Sword Art / 青元剑诀](/en/rmji/techniques/qingyuan-sword-art)
+- [Spirit Stone / 灵石](/en/rmji/elixirs/spirit-stone)
+
+## Legal Reading
+
+- [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
+- [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
+- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+
+## Content Policy
+
+This page is an original reference summary for terminology, worldbuilding, and reading context. It does not copy novel chapters.

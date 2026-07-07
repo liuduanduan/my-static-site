@@ -42,6 +42,10 @@ description_zh: "资质平庸的少年韩立，凭借谨慎、毅力和机缘在
 
 **English:** Use the [Cultivation System overview](/cultivation-system/) to compare the realms, sects, resources, and breakthrough logic used by this work.
 
+## 专题索引 · Universe Index
+
+本站已建立[凡人修仙传专题](/rmji/)，按功法神通、法宝灵兽、丹药灵材、宗门势力、种族族群、界域地理、法则大道和剧情脉络整理第一批 109 个种子词条。
+
 ## 官方阅读 · Official Reading
 
 - 请前往起点中文网、纵横中文网、Webnovel 或作者/出版方授权平台搜索书名。

@@ -14,6 +14,10 @@ const entries = [
   '/glossary/tribulation-transcendence',
   '/cultivation-system/dao-ancestor',
   '/classic-works/mortal-journey',
+  '/rmji/',
+  '/rmji/artifacts/zhangtian-bottle',
+  '/rmji/regions/gray-realm',
+  '/rmji/laws/time-law',
   '/culture/inner-alchemy'
 ]
 

@@ -84,10 +84,33 @@ const culture = [
   { zh: '长生与不朽想象', en: 'Immortality', slug: 'immortality' }
 ]
 
-const toZh = (items: typeof glossary, base: string): SidebarItem[] =>
+const rmjiSections = [
+  { zh: '专题总览', en: 'Overview', slug: '' },
+  { zh: '功法神通', en: 'Techniques & Abilities', slug: 'techniques/' },
+  { zh: '法宝灵兽', en: 'Artifacts & Companions', slug: 'artifacts/' },
+  { zh: '丹药灵材', en: 'Elixirs & Materials', slug: 'elixirs/' },
+  { zh: '宗门势力', en: 'Sects & Factions', slug: 'sects/' },
+  { zh: '种族族群', en: 'Races & Peoples', slug: 'races/' },
+  { zh: '界域地理', en: 'Realms & Regions', slug: 'regions/' },
+  { zh: '法则大道', en: 'Laws & Dao', slug: 'laws/' },
+  { zh: '剧情脉络', en: 'Timeline', slug: 'timeline/' }
+]
+
+const rmjiFeatured = [
+  { zh: '掌天瓶 / 小绿瓶', en: 'Heavenly Bottle / Green Bottle', slug: 'artifacts/zhangtian-bottle' },
+  { zh: '青元剑诀', en: 'Azure Essence Sword Art', slug: 'techniques/qingyuan-sword-art' },
+  { zh: '青竹蜂云剑', en: 'Bamboo Cloudswarm Swords', slug: 'artifacts/green-bamboo-cloudswarm-swords' },
+  { zh: '筑基丹', en: 'Foundation Establishment Pill', slug: 'elixirs/foundation-establishment-pill' },
+  { zh: '天庭', en: 'Heavenly Court', slug: 'sects/heavenly-court' },
+  { zh: '轮回殿', en: 'Reincarnation Palace', slug: 'sects/reincarnation-palace' },
+  { zh: '灰界', en: 'Gray Realm', slug: 'regions/gray-realm' },
+  { zh: '时间法则', en: 'Law of Time', slug: 'laws/time-law' }
+]
+
+const toZh = (items: Array<{ zh: string, en: string, slug: string }>, base: string): SidebarItem[] =>
   items.map((item) => ({ text: `${item.zh} / ${item.en}`, link: `${base}${item.slug}` }))
 
-const toEn = (items: typeof glossary, base: string): SidebarItem[] =>
+const toEn = (items: Array<{ zh: string, en: string, slug: string }>, base: string): SidebarItem[] =>
   items.map((item) => ({ text: `${item.en} / ${item.zh}`, link: `${base}${item.slug}` }))
 
 const zhGlossary = toZh(glossary, '/glossary/')
@@ -100,6 +123,10 @@ const zhWorks = toZh(works, '/classic-works/')
 const enWorks = toEn(works, '/en/classic-works/')
 const zhCulture = toZh(culture, '/culture/')
 const enCulture = toEn(culture, '/en/culture/')
+const zhRmjiSections = toZh(rmjiSections, '/rmji/')
+const enRmjiSections = toEn(rmjiSections, '/en/rmji/')
+const zhRmjiFeatured = toZh(rmjiFeatured, '/rmji/')
+const enRmjiFeatured = toEn(rmjiFeatured, '/en/rmji/')
 
 function zhSidebar() {
   return {
@@ -118,6 +145,10 @@ function zhSidebar() {
     '/classic-works/': [
       { text: '经典作品', items: [{ text: '总览', link: '/classic-works/' }, ...zhWorks] }
     ],
+    '/rmji/': [
+      { text: '凡人修仙传专题', items: zhRmjiSections },
+      { text: '推荐先看', collapsed: true, items: zhRmjiFeatured }
+    ],
     '/culture/': [
       { text: '文化背景', items: [{ text: '总览', link: '/culture/' }, ...zhCulture] }
     ],
@@ -126,7 +157,8 @@ function zhSidebar() {
         { text: '首页', link: '/' },
         { text: '术语词典', link: '/glossary/' },
         { text: '分类体系', link: '/categories/' },
-        { text: '修炼体系', link: '/cultivation-system/' }
+        { text: '修炼体系', link: '/cultivation-system/' },
+        { text: '凡人专题', link: '/rmji/' }
       ] },
       { text: '核心术语', collapsed: true, items: zhGlossary.slice(0, 10) },
       { text: '站点', items: [
@@ -155,6 +187,10 @@ function enSidebar() {
     '/en/classic-works/': [
       { text: 'Classic Works', items: [{ text: 'Overview', link: '/en/classic-works/' }, ...enWorks] }
     ],
+    '/en/rmji/': [
+      { text: 'RMJI Universe', items: enRmjiSections },
+      { text: 'Start Here', collapsed: true, items: enRmjiFeatured }
+    ],
     '/en/culture/': [
       { text: 'Cultural Background', items: [{ text: 'Overview', link: '/en/culture/' }, ...enCulture] }
     ],
@@ -163,7 +199,8 @@ function enSidebar() {
         { text: 'Home', link: '/en/' },
         { text: 'Glossary', link: '/en/glossary/' },
         { text: 'Categories', link: '/en/categories/' },
-        { text: 'Cultivation System', link: '/en/cultivation-system/' }
+        { text: 'Cultivation System', link: '/en/cultivation-system/' },
+        { text: 'RMJI Universe', link: '/en/rmji/' }
       ] },
       { text: 'Core Terms', collapsed: true, items: enGlossary.slice(0, 10) },
       { text: 'Site', items: [
@@ -203,6 +240,7 @@ export default defineConfig({
       { text: '术语词典', link: '/glossary/' },
       { text: '修炼体系', link: '/cultivation-system/' },
       { text: '经典作品', link: '/classic-works/' },
+      { text: '凡人专题', link: '/rmji/' },
       { text: '文化背景', link: '/culture/' },
       { text: '关于', link: '/about' },
       { text: '贡献', link: '/contribute' },
@@ -273,6 +311,7 @@ export default defineConfig({
           { text: 'Glossary', link: '/en/glossary/' },
           { text: 'Cultivation System', link: '/en/cultivation-system/' },
           { text: 'Classic Works', link: '/en/classic-works/' },
+          { text: 'RMJI', link: '/en/rmji/' },
           { text: 'Culture', link: '/en/culture/' },
           { text: 'About', link: '/en/about' },
           { text: 'Contribute', link: '/en/contribute' },
