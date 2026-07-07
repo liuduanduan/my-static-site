@@ -249,7 +249,7 @@ export default defineConfig({
     darkModeSwitchLabel: '外观',
     footer: {
       message: 'No 996, No ICU, Just Cultivation. 「不加班，不 ICU，只修仙」',
-      copyright: '© 2026 NoICU Cultivator. 与任何修仙宗门无关。'
+      copyright: '© 1970 NoICU Cultivator. 与任何修仙宗门无关。'
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/liuduanduan/my-static-site' }
@@ -292,7 +292,7 @@ export default defineConfig({
         darkModeSwitchLabel: 'Appearance',
         footer: {
           message: 'No 996, No ICU, Just Cultivation.',
-          copyright: '© 2026 NoICU Cultivator. Not affiliated with any cultivation sect.'
+          copyright: '© 1970 NoICU Cultivator. Not affiliated with any cultivation sect.'
         }
       }
     }
