@@ -37,20 +37,20 @@ features:
 
 ## 快速入口
 
-<div class="codex-grid">
-  <a class="codex-card" href="/cultivation-system/">
+<div class="wiki-grid">
+  <a class="wiki-card" href="/cultivation-system/">
     <h3>修炼体系</h3>
     <p class="muted">境界、瓶颈、天劫、寿命与从凡人到仙人的叙事阶梯。</p>
   </a>
-  <a class="codex-card" href="/glossary/">
+  <a class="wiki-card" href="/glossary/">
     <h3>术语词典</h3>
     <p class="muted">核心修仙词汇的中英对照、拼音、英文解释与内部链接。</p>
   </a>
-  <a class="codex-card" href="/classic-works/">
+  <a class="wiki-card" href="/classic-works/">
     <h3>经典作品</h3>
     <p class="muted">代表作品、作者、流派类型与世界观模式。</p>
   </a>
-  <a class="codex-card" href="/culture/">
+  <a class="wiki-card" href="/culture/">
     <h3>文化背景</h3>
     <p class="muted">道教、内丹术、五行、仙人与修仙文化的历史语感。</p>
   </a>

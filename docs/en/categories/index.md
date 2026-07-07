@@ -1,6 +1,6 @@
 ---
 title: Categories
-description: Eleven-part taxonomy for the Xianxia Codex glossary.
+description: Eleven-part taxonomy for the Xianxia Wiki glossary.
 ---
 
 # Categories

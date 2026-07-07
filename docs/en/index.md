@@ -2,12 +2,12 @@
 layout: home
 title: Home
 hero:
-  name: No996 Xianxia Codex
+  name: No996 Xianxia Wiki
   text: Decode cultivation worlds without losing the plot.
   tagline: English-first references for Chinese xianxia, immortal cultivation, realms, qi, sects, artifacts, pills, and genre culture.
   image:
     src: /logo.svg
-    alt: No996 Xianxia Codex jade cloud logo
+    alt: No996 Xianxia Wiki jade cloud logo
   actions:
     - theme: brand
       text: Browse Glossary
@@ -37,20 +37,20 @@ features:
 
 ## Quick Entrances
 
-<div class="codex-grid">
-  <a class="codex-card" href="/en/cultivation-system/">
+<div class="wiki-grid">
+  <a class="wiki-card" href="/en/cultivation-system/">
     <h3>Cultivation System</h3>
     <p class="muted">Realms, bottlenecks, tribulations, lifespan, and the narrative ladder from mortal to immortal.</p>
   </a>
-  <a class="codex-card" href="/en/glossary/">
+  <a class="wiki-card" href="/en/glossary/">
     <h3>Terminology Dictionary</h3>
     <p class="muted">Core xianxia terms with Chinese, pinyin, English definitions, and cross-links.</p>
   </a>
-  <a class="codex-card" href="/en/classic-works/">
+  <a class="wiki-card" href="/en/classic-works/">
     <h3>Classic Works</h3>
     <p class="muted">Influential novels, authors, genre types, and worldbuilding patterns.</p>
   </a>
-  <a class="codex-card" href="/en/culture/">
+  <a class="wiki-card" href="/en/culture/">
     <h3>Cultural Background</h3>
     <p class="muted">Taoism, inner alchemy, five elements, immortals, and the mythic vocabulary behind the genre.</p>
   </a>

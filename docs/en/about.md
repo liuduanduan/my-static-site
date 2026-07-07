@@ -1,11 +1,11 @@
 ---
 title: About
-description: Project overview for No996 Xianxia Codex.
+description: Project overview for No996 Xianxia Wiki.
 ---
 
-# About No996 Xianxia Codex
+# About No996 Xianxia Wiki
 
-No996 Xianxia Codex is an English-first encyclopedia for readers who want to understand xianxia and cultivation fiction without losing the Chinese terms that give the genre its flavor.
+No996 Xianxia Wiki is an English-first encyclopedia for readers who want to understand xianxia and cultivation fiction without losing the Chinese terms that give the genre its flavor.
 
 The project focuses on concise definitions, pinyin, cultural context, genre patterns, and links between related ideas. It avoids copying novel text and points readers toward official or licensed reading platforms when discussing specific works.
 

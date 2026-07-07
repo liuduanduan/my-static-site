@@ -1,4 +1,4 @@
-# No996 Xianxia Codex
+# No996 Xianxia Wiki
 
 An English-first xianxia and cultivation encyclopedia built with VitePress.
 

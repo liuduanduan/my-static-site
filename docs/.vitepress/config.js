@@ -333,7 +333,7 @@ export default defineConfig({
     en: {
       label: 'English',
       lang: 'en-US',
-      title: 'No996 Xianxia Codex',
+      title: 'No996 Xianxia Wiki',
       description: 'An English encyclopedia for xianxia, immortal cultivation, and Chinese fantasy terminology.',
       themeConfig: {
         nav: enNav,
@@ -344,7 +344,7 @@ export default defineConfig({
         darkModeSwitchLabel: 'Appearance',
         footer: {
           message: 'An English map of xianxia, cultivation, and immortal fantasy.',
-          copyright: 'Copyright © 2026 No996 Xianxia Codex'
+          copyright: 'Copyright © 2026 No996 Xianxia Wiki'
         }
       }
     }
