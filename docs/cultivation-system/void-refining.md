@@ -1,28 +1,28 @@
 ---
-title: Void Refining
-description: A high realm associated with emptiness, space, and higher law.
+title: 炼虚
+description: 与虚空、空间和高阶法则相关的境界。
 ---
 
-# Void Refining / 炼虚
+# 炼虚 / Void Refining
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />炼虚</div>
-  <div><strong>Pinyin</strong><br />lian xu</div>
-  <div><strong>Typical Position</strong><br />Realm 6</div>
-  <div><strong>Core Theme</strong><br />Refining emptiness and higher principles.</div>
+  <div><strong>中文</strong><br />炼虚</div>
+  <div><strong>拼音</strong><br />lian xu</div>
+  <div><strong>常见位置</strong><br />第六境</div>
+  <div><strong>核心主题</strong><br />炼化虚空与高阶法则。</div>
 </div>
 
-## Description
+## 描述
 
-Void Refining is commonly associated with space, emptiness, law comprehension, and more abstract powers than earlier qi-based combat.
+炼虚常与空间、虚无、法则理解和更抽象的力量有关，不再只是灵力多少的比拼。
 
-## Traits
+## 特征
 
-- Greater interaction with spatial techniques or domains
-- Power based on comprehension, not only accumulated energy
-- Rare status in lower worlds
+- 更常涉及空间术法或领域
+- 力量来自理解，而不仅是积累
+- 在低阶世界中极为稀少
 
-## Narrative Function
+## 叙事作用
 
-This realm helps signal that cultivation is becoming cosmic and conceptual.
+炼虚让修炼体系开始显得宇宙化、概念化。
 

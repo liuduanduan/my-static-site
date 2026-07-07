@@ -1,21 +1,21 @@
 ---
-title: Formations & Talismans
-description: Arrays, seals, talismans, restrictions, and barriers.
+title: 阵法符箓
+description: 阵法、符箓、禁制与结界。
 ---
 
-# Formations & Talismans
+# 阵法符箓 / Formations & Talismans
 
-Formations and talismans turn symbols, materials, geography, and spiritual power into repeatable effects. They can conceal, protect, attack, teleport, suppress, detect, or seal.
+阵法符箓把符号、材料、地势和灵力转化为稳定效果，可用于隐藏、防御、攻击、传送、镇压、探测和封印。
 
-## Example Terms
+## 示例词条
 
-- Five Elements formation
-- Spirit-gathering array
-- Restriction
-- Movement talisman
-- Sealing talisman
+- 五行阵
+- 聚灵阵
+- 禁制
+- 神行符
+- 封印符
 
-## Notes
+## 说明
 
-Formation masters and talisman masters are valuable because they solve problems that raw combat power cannot always handle.
+阵法师和符师之所以珍贵，是因为他们能解决单纯战斗力无法解决的问题。
 

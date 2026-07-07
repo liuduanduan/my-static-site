@@ -1,27 +1,27 @@
 ---
-title: Taoism and Xianxia
-description: How Daoist vocabulary influences xianxia fiction.
+title: 道教与修仙
+description: 道教词汇对修仙小说的影响。
 ---
 
-# Taoism and Xianxia
+# 道教与修仙 / Taoism and Xianxia
 
-Taoism influences xianxia through vocabulary, imagery, and ideals: the Dao, immortals, mountains, talismans, alchemy, inner transformation, and harmony with cosmic patterns.
+道教影响了修仙小说的词汇和意象，例如道、仙、山、符箓、炼丹、内在转化和顺应天地。
 
-## In Fiction
+## 在小说中的变化
 
-Xianxia does not reproduce religious practice directly. It turns selected ideas into story systems: realms become levels, Dao comprehension becomes power, and ascension becomes a plot threshold.
+修仙小说并不等同于真实宗教实践。它把部分概念转化为叙事系统：境界变成等级，悟道变成力量，飞升变成剧情门槛。
 
-## Common Motifs
+## 常见意象
 
-- Seeking the Dao
-- Immortal mountains and caves
-- Talismans, seals, and ritual tools
-- Inner refinement and longevity
-- Heavenly tribulation as cosmic pressure
+- 求道、悟道
+- 仙山、洞府
+- 符箓、法印和仪式器具
+- 内在炼化与长生
+- 天劫作为天地压力
 
-## Related Entries
+## 相关词条
 
-- [Xiuzhen](/glossary/xiuzhen)
-- [Inner Alchemy](/culture/inner-alchemy)
-- [The Chinese Xian](/culture/chinese-xian)
+- [修真](/glossary/xiuzhen)
+- [内丹术](/culture/inner-alchemy)
+- [中国神话中的仙](/culture/chinese-xian)
 

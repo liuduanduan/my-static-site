@@ -1,35 +1,35 @@
 ---
-title: Five Elements
-description: The five elements system in xianxia fiction.
+title: 五行
+description: 五行系统在修仙小说中的用法。
 ---
 
-# Five Elements / 五行
+# 五行 / Five Elements
 
-The Five Elements are wood, fire, earth, metal, and water. They describe relationships of generation, restraint, transformation, and balance.
+五行包括木、火、土、金、水，用来描述生成、克制、转化与平衡关系。
 
-## In Fiction
+## 在小说中的用法
 
-Xianxia stories use the Five Elements for spiritual roots, formations, talismans, pills, geography, techniques, and combat counters.
+修仙小说常把五行用于灵根、阵法、符箓、丹药、地理、功法和战斗克制。
 
-## Generating Cycle
+## 相生
 
-- Wood feeds fire
-- Fire creates earth
-- Earth bears metal
-- Metal enriches water
-- Water nourishes wood
+- 木生火
+- 火生土
+- 土生金
+- 金生水
+- 水生木
 
-## Restraining Cycle
+## 相克
 
-- Wood parts earth
-- Earth blocks water
-- Water quenches fire
-- Fire melts metal
-- Metal cuts wood
+- 木克土
+- 土克水
+- 水克火
+- 火克金
+- 金克木
 
-## Related Entries
+## 相关词条
 
-- [Formations & Talismans](/categories/formations-and-talismans)
-- [Techniques & Arts](/categories/techniques-and-arts)
-- [Natural Treasures](/categories/natural-treasures)
+- [阵法符箓](/categories/formations-and-talismans)
+- [功法武学](/categories/techniques-and-arts)
+- [天材地宝](/categories/natural-treasures)
 

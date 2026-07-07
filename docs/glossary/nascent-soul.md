@@ -1,42 +1,32 @@
 ---
-title: Nascent Soul
-description: Definition of Nascent Soul in xianxia fiction.
-zh: 元婴
-pinyin: yuan ying
-category: cultivation-realms
-aliases:
-  - Yuan Ying
-  - Primal Infant
-related:
-  - golden-core
-  - spirit-transformation
-  - tribulation
+title: 元婴
+description: 元婴在修仙小说中的含义。
 ---
 
-# Nascent Soul / 元婴
+# 元婴 / Nascent Soul
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />元婴</div>
-  <div><strong>Pinyin</strong><br />yuan ying</div>
-  <div><strong>Category</strong><br /><span class="tag">Cultivation Realms</span></div>
-  <div><strong>Short Definition</strong><br />A spiritual infant or second self formed from advanced cultivation.</div>
+  <div><strong>中文</strong><br />元婴</div>
+  <div><strong>拼音</strong><br />yuan ying</div>
+  <div><strong>分类</strong><br /><span class="tag">修炼境界</span></div>
+  <div><strong>简短定义</strong><br />高阶修士凝成的灵性婴儿或第二自我。</div>
 </div>
 
-## Definition
+## 定义
 
-Nascent Soul is a realm where a cultivator forms a spiritual infant-like self, often allowing the soul to survive beyond ordinary bodily damage.
+元婴是修士在更高阶段形成的灵性存在，常被描述为可离体、可保命、可施展神识力量的第二生命核心。
 
-## Detailed Explanation
+## 详细解释
 
-Nascent Soul cultivators are usually treated as major powers. Their spiritual self can sense farther, use stronger divine sense, and in some settings flee the body after defeat. The realm often follows [Golden Core](/glossary/golden-core).
+元婴期修士通常已是宗门长老或一方强者。元婴可以让斗法从肉身层面进入神魂层面，带来夺舍、逃遁、分身和神识攻击等设定。
 
-## Related Terms
+## 相关词条
 
-- [Golden Core](/glossary/golden-core)
-- [Nascent Soul Realm](/cultivation-system/nascent-soul)
-- [Spirit Transformation](/cultivation-system/spirit-transformation)
+- [金丹](/glossary/golden-core)
+- [元婴期](/cultivation-system/nascent-soul)
+- [化神](/cultivation-system/spirit-transformation)
 
-## Source Notes
+## 来源说明
 
-Exact mechanics differ by novel. Some settings make the Nascent Soul a literal small figure, while others treat it as a condensed spiritual body.
+有的小说把元婴写成清晰的小人，有的则把它处理为灵魂或元神的凝聚形态。
 

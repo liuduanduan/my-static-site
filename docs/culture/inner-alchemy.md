@@ -1,27 +1,27 @@
 ---
-title: Inner Alchemy
-description: Background on inner alchemy and its influence on cultivation fiction.
+title: 内丹术
+description: 内丹术与修仙小说的关系。
 ---
 
-# Inner Alchemy / 内丹术
+# 内丹术 / Inner Alchemy
 
-Inner alchemy is a real-world religious and philosophical background for many cultivation metaphors, including refinement, furnaces, elixirs, cores, and transformation.
+内丹术为修仙小说提供了许多隐喻，如炼化、炉鼎、丹、金丹和身心转化。
 
-## In Fiction
+## 在小说中的变化
 
-Novels often externalize inner transformation into visible mechanics. A [Golden Core](/glossary/golden-core) may become a literal energy core, while refinement becomes a measurable path through realms.
+小说常把内在修炼外显为可见机制。[金丹](/glossary/golden-core)可能变成真实能量核心，炼化则变成可计量的进阶过程。
 
-## Common Motifs
+## 常见意象
 
-- Dan or elixir as refined essence
-- Furnace imagery
-- Circulation and transformation
-- Body as a small cosmos
-- Longevity through disciplined practice
+- 丹与内在精华
+- 炉鼎和火候
+- 周天运转
+- 身体作为小宇宙
+- 通过修炼追求长生
 
-## Related Entries
+## 相关词条
 
-- [Golden Core](/glossary/golden-core)
-- [Elixirs & Pills](/categories/elixirs-and-pills)
-- [Cultivation](/glossary/cultivation)
+- [金丹](/glossary/golden-core)
+- [灵药丹方](/categories/elixirs-and-pills)
+- [修仙](/glossary/cultivation)
 

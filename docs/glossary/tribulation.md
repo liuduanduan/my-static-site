@@ -1,42 +1,32 @@
 ---
-title: Tribulation
-description: Definition of Tribulation in cultivation fiction.
-zh: 渡劫
-pinyin: du jie
-category: core-terms
-aliases:
-  - Heavenly Tribulation
-  - Lightning Tribulation
-related:
-  - ascension
-  - great-ascension
-  - tribulation-crossing
+title: 渡劫
+description: 渡劫在修仙小说中的含义。
 ---
 
-# Tribulation / 渡劫
+# 渡劫 / Tribulation
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />渡劫</div>
-  <div><strong>Pinyin</strong><br />du jie</div>
-  <div><strong>Category</strong><br /><span class="tag">Core Terms</span></div>
-  <div><strong>Short Definition</strong><br />A heavenly trial that tests whether a cultivator can cross a major threshold.</div>
+  <div><strong>中文</strong><br />渡劫</div>
+  <div><strong>拼音</strong><br />du jie</div>
+  <div><strong>分类</strong><br /><span class="tag">核心术语</span></div>
+  <div><strong>简短定义</strong><br />突破重大关口时面对的天道考验。</div>
 </div>
 
-## Definition
+## 定义
 
-Tribulation is a cosmic test, commonly shown as lightning, inner demons, karmic backlash, or heavenly pressure during a breakthrough.
+渡劫是修士在突破大境界或飞升前经历的考验，常表现为雷劫、心魔、业力反噬或法则压制。
 
-## Detailed Explanation
+## 详细解释
 
-Tribulation makes power costly. It can destroy arrogant cultivators, reveal hidden flaws, or force characters to refine body, mind, artifacts, and Dao comprehension before advancing.
+渡劫让力量增长具有代价。修士需要准备丹药、法宝、阵法和心境，否则可能身死道消，或在某些设定中成为散仙。
 
-## Related Terms
+## 相关词条
 
-- [Ascension](/glossary/ascension)
-- [Great Ascension](/cultivation-system/great-ascension)
-- [Tribulation Crossing](/cultivation-system/tribulation-crossing)
+- [飞升](/glossary/ascension)
+- [大乘](/cultivation-system/great-ascension)
+- [渡劫期](/cultivation-system/tribulation-crossing)
 
-## Source Notes
+## 来源说明
 
-Lightning tribulations are a genre convention, but different novels may emphasize moral karma, fate, heart demons, or natural law instead.
+雷劫是常见写法，但不同作品也可能强调心魔、因果、命数或天道法则。
 

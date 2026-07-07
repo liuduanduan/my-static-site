@@ -1,26 +1,26 @@
 ---
-title: The Chinese Xian
-description: The xian or immortal figure in Chinese fantasy and cultivation fiction.
+title: 中国神话中的仙
+description: 仙人在中国幻想与修仙小说中的形象。
 ---
 
-# The Chinese Xian / 仙
+# 中国神话中的仙 / The Chinese Xian
 
-Xian is often translated as immortal, transcendent, or celestial being. In fiction, xian can mean a person who has escaped ordinary mortality and entered a higher order of existence.
+“仙”常被译作 immortal、transcendent 或 celestial being。在小说里，它通常表示超越凡俗死亡和社会秩序的存在。
 
-## In Fiction
+## 在小说中的用法
 
-Xianxia turns the xian into both a goal and a social category. A cultivator may seek to become an immortal, enter the immortal realm, or inherit techniques from ancient immortals.
+修仙小说把仙既写成目标，也写成社会身份。修士可能追求成仙、飞升仙界，或继承古仙遗留的功法和法宝。
 
-## Common Motifs
+## 常见意象
 
-- Remote mountains and hidden caves
-- Long life and detachment from ordinary society
-- Immortal robes, swords, cranes, clouds, and elixirs
-- Higher realms with stricter laws and stronger enemies
+- 远山、洞府与云雾
+- 长寿与脱离凡俗
+- 仙衣、飞剑、云、鹤、丹药
+- 更高世界和更强敌人
 
-## Related Entries
+## 相关词条
 
-- [Immortal](/cultivation-system/immortal)
-- [Ascension](/glossary/ascension)
-- [Immortality and Longevity](/culture/immortality)
+- [仙人](/cultivation-system/immortal)
+- [飞升](/glossary/ascension)
+- [长生与不朽](/culture/immortality)
 

@@ -1,21 +1,21 @@
 ---
-title: Elixirs & Pills
-description: Alchemy, medicinal pills, and breakthrough resources.
+title: 灵药丹方
+description: 炼丹、丹药与突破资源。
 ---
 
-# Elixirs & Pills
+# 灵药丹方 / Elixirs & Pills
 
-Elixirs and pills convert rare materials into concentrated cultivation effects. They may restore qi, heal wounds, cleanse impurities, extend lifespan, suppress poison, or support breakthroughs.
+灵药丹方把稀有材料转化为可服用或可炼化的效果，用于恢复灵力、治疗伤势、洗髓、延寿、解毒和辅助突破。
 
-## Example Terms
+## 示例词条
 
-- [Foundation Establishment Pill / 筑基丹](/glossary/foundation-establishment-pill)
-- Spirit-gathering pill
-- Longevity pill
-- Detoxification pill
-- Pill furnace
+- [筑基丹](/glossary/foundation-establishment-pill)
+- 聚灵丹
+- 延寿丹
+- 解毒丹
+- 丹炉
 
-## Notes
+## 说明
 
-Pills often create social pressure because access to alchemy determines who can advance quickly and who remains stuck at a bottleneck.
+丹药常制造资源压力，因为能否获得丹药会直接影响修炼速度和突破概率。
 

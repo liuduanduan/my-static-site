@@ -1,34 +1,34 @@
 ---
-title: The Journey of Piao Miao
-description: Spoiler-light overview of The Journey of Piao Miao.
+title: 飘渺之旅
+description: 飘渺之旅的轻剧透介绍。
 ---
 
-# The Journey of Piao Miao / 飘渺之旅
+# 飘渺之旅 / The Journey of Piao Miao
 
 <div class="term-meta">
-  <div><strong>Chinese Title</strong><br />飘渺之旅</div>
-  <div><strong>Author</strong><br />Xiao Qian</div>
-  <div><strong>Genre Branch</strong><br />Early Cultivation Web Fiction</div>
-  <div><strong>Core Theme</strong><br />Adventure through cultivation worlds and higher realms.</div>
+  <div><strong>中文标题</strong><br />飘渺之旅</div>
+  <div><strong>作者</strong><br />萧潜</div>
+  <div><strong>流派</strong><br />早期修真网文</div>
+  <div><strong>核心主题</strong><br />修炼世界与高层界域的冒险。</div>
 </div>
 
-## Overview
+## 概览
 
-The Journey of Piao Miao is often discussed as an influential early cultivation web novel. It helped establish the feeling of moving through layered worlds, rare treasures, and increasingly vast power scales.
+《飘渺之旅》常被视作早期修真网文的重要作品之一，建立了层层世界、稀有宝物和不断扩大的力量尺度。
 
-## Worldbuilding Notes
+## 世界观要点
 
-- The story connects cultivation progress with exploration.
-- Higher realms expand the map beyond the initial world.
-- Artifacts, inheritances, and unusual encounters drive advancement.
+- 修炼进阶与冒险探索紧密相连。
+- 高层世界不断拓展地图。
+- 法宝、传承和奇遇推动成长。
 
-## Related Entries
+## 相关词条
 
-- [Ascension](/glossary/ascension)
-- [Realms & Regions](/categories/realms-and-regions)
-- [Artifact](/glossary/artifact)
+- [飞升](/glossary/ascension)
+- [修仙地域](/categories/realms-and-regions)
+- [法宝](/glossary/artifact)
 
-## Reading Links
+## 阅读链接
 
-Add only official or licensed links that are verified for the target language and region.
+后续只添加已验证的正版或授权阅读链接。
 

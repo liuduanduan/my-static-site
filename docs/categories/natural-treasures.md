@@ -1,21 +1,21 @@
 ---
-title: Natural Treasures
-description: Rare herbs, ores, spiritual roots, dragon veins, and heavenly materials.
+title: 天材地宝
+description: 灵草、灵矿、龙脉与稀有材料。
 ---
 
-# Natural Treasures
+# 天材地宝 / Natural Treasures
 
-Natural treasures are rare materials formed by time, qi density, unusual geography, ancient battlefields, or secret realms. They are the fuel behind alchemy, artifact refining, and breakthroughs.
+天材地宝是由时间、灵气、地脉、秘境或古战场孕育出的稀有资源，是炼丹、炼器和突破的基础。
 
-## Example Terms
+## 示例词条
 
-- Spirit herb
-- Dragon vein
-- Heavenly material
-- Earthly treasure
-- Immortal grass
+- 灵草
+- 龙脉
+- 天材
+- 地宝
+- 仙草
 
-## Notes
+## 说明
 
-Treasure hunts often reveal the economic logic of a cultivation world: danger, scarcity, ownership, auctions, and betrayal.
+夺宝情节常展现修仙世界的经济逻辑：稀缺、危险、归属、拍卖和背叛。
 

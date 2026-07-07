@@ -1,28 +1,28 @@
 ---
-title: Tribulation Crossing
-description: The stage of surviving heavenly trial before ascension.
+title: 渡劫期
+description: 飞升或成仙前经受天劫的阶段。
 ---
 
-# Tribulation Crossing / 渡劫
+# 渡劫 / Tribulation Crossing
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />渡劫</div>
-  <div><strong>Pinyin</strong><br />du jie</div>
-  <div><strong>Typical Position</strong><br />Realm 9</div>
-  <div><strong>Core Theme</strong><br />Surviving heavenly trial.</div>
+  <div><strong>中文</strong><br />渡劫</div>
+  <div><strong>拼音</strong><br />du jie</div>
+  <div><strong>常见位置</strong><br />第九境</div>
+  <div><strong>核心主题</strong><br />经受天劫考验。</div>
 </div>
 
-## Description
+## 描述
 
-Tribulation Crossing is the threshold where the cultivator must survive a decisive heavenly trial before ascension or immortal transformation.
+渡劫期是修士跨越凡人与仙之间门槛的关键阶段，需要承受天雷、心魔、业力或法则反噬。
 
-## Traits
+## 特征
 
-- Lightning, heart demons, karmic pressure, or law backlash
-- Heavy use of defensive artifacts, pills, formations, and preparation
-- Failure may mean death, crippling, or becoming a loose immortal in some settings
+- 雷劫、心魔、因果或法则压力
+- 需要大量丹药、法宝和阵法准备
+- 失败可能死亡、重伤或转为散仙
 
-## Narrative Function
+## 叙事作用
 
-It turns advancement into judgment. Power alone may not be enough if the cultivator's foundation, karma, or Dao heart is flawed.
+渡劫把突破写成审判：根基、心性、因果和道心都可能成为成败关键。
 

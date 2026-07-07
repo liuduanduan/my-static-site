@@ -1,42 +1,32 @@
 ---
-title: Ascension
-description: Definition of Ascension in cultivation stories.
-zh: 飞升
-pinyin: fei sheng
-category: core-terms
-aliases:
-  - Immortal Ascension
-  - Flying Up
-related:
-  - tribulation
-  - immortal
-  - realms-and-regions
+title: 飞升
+description: 飞升在修仙小说中的含义。
 ---
 
-# Ascension / 飞升
+# 飞升 / Ascension
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />飞升</div>
-  <div><strong>Pinyin</strong><br />fei sheng</div>
-  <div><strong>Category</strong><br /><span class="tag">Core Terms</span></div>
-  <div><strong>Short Definition</strong><br />The passage from the mortal world to a higher realm or immortal state.</div>
+  <div><strong>中文</strong><br />飞升</div>
+  <div><strong>拼音</strong><br />fei sheng</div>
+  <div><strong>分类</strong><br /><span class="tag">核心术语</span></div>
+  <div><strong>简短定义</strong><br />从下界进入更高世界或仙道状态。</div>
 </div>
 
-## Definition
+## 定义
 
-Ascension is the process of leaving a lower world after reaching a required level of cultivation, often through a tribulation or cosmic threshold.
+飞升是修士达到某个修为门槛后，离开原本世界、进入仙界或更高层空间的过程。
 
-## Detailed Explanation
+## 详细解释
 
-Ascension can be a reward, a forced transfer, or the beginning of a harsher stage. Many stories use it to expand the map from mortal kingdoms and sects into immortal realms, celestial courts, or higher planes.
+飞升有时是奖励，有时是被天道强制接引，也可能只是更残酷修炼阶段的开始。长篇小说常用飞升扩展地图和战力上限。
 
-## Related Terms
+## 相关词条
 
-- [Tribulation](/glossary/tribulation)
-- [Immortal](/cultivation-system/immortal)
-- [Realms & Regions](/categories/realms-and-regions)
+- [渡劫](/glossary/tribulation)
+- [仙人](/cultivation-system/immortal)
+- [修仙地域](/categories/realms-and-regions)
 
-## Source Notes
+## 来源说明
 
-The idea draws on Chinese traditions of immortals rising beyond the ordinary human world, then becomes a structural device for long-form web fiction.
+飞升意象来自仙人离开凡俗世界的传统想象，网文中常被用作世界升级节点。
 

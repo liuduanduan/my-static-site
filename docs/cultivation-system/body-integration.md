@@ -1,28 +1,28 @@
 ---
-title: Body Integration
-description: A realm of integrating body, spirit, and Dao comprehension.
+title: 合体
+description: 肉身、神魂与道悟整合的阶段。
 ---
 
-# Body Integration / 合体
+# 合体 / Body Integration
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />合体</div>
-  <div><strong>Pinyin</strong><br />he ti</div>
-  <div><strong>Typical Position</strong><br />Realm 7</div>
-  <div><strong>Core Theme</strong><br />Integrating body, soul, and Dao.</div>
+  <div><strong>中文</strong><br />合体</div>
+  <div><strong>拼音</strong><br />he ti</div>
+  <div><strong>常见位置</strong><br />第七境</div>
+  <div><strong>核心主题</strong><br />整合身、魂、法与道。</div>
 </div>
 
-## Description
+## 描述
 
-Body Integration unifies earlier gains into a more complete cultivator. The body, soul, magical power, and comprehension begin to operate as one system.
+合体把此前积累的肉身、神魂、法力和道悟整合成更完整的修炼体系。
 
-## Traits
+## 特征
 
-- Tremendous durability and recovery
-- Stronger harmony between physical and spiritual power
-- Greater ability to withstand high-level environments
+- 肉身强度与恢复能力大增
+- 物质力量与精神力量更协调
+- 更能承受高阶环境与法则压力
 
-## Narrative Function
+## 叙事作用
 
-This stage often prepares the character for final mortal-world conflicts and higher-plane thresholds.
+合体常为凡界最终冲突和飞升前考验做铺垫。
 

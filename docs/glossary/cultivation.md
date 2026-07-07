@@ -1,42 +1,32 @@
 ---
-title: Cultivation
-description: Definition of Cultivation in xianxia fiction.
-zh: 修仙
-pinyin: xiu xian
-category: core-terms
-aliases:
-  - Immortal Cultivation
-  - Cultivating Immortality
-related:
-  - qi
-  - xiuzhen
-  - ascension
+title: 修仙
+description: 修仙在仙侠与修真小说中的含义。
 ---
 
-# Cultivation / 修仙
+# 修仙 / Cultivation
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />修仙</div>
-  <div><strong>Pinyin</strong><br />xiu xian</div>
-  <div><strong>Category</strong><br /><span class="tag">Core Terms</span></div>
-  <div><strong>Short Definition</strong><br />The path of refining oneself toward supernatural power and immortality.</div>
+  <div><strong>中文</strong><br />修仙</div>
+  <div><strong>拼音</strong><br />xiu xian</div>
+  <div><strong>分类</strong><br /><span class="tag">核心术语</span></div>
+  <div><strong>简短定义</strong><br />通过修炼身心、灵力与道行，追求长生或成仙。</div>
 </div>
 
-## Definition
+## 定义
 
-Cultivation is the practice of training body, spirit, mind, and energy to break mortal limits and pursue longevity, transcendence, or immortality.
+修仙是修士通过功法、灵气、丹药、法宝、悟道和历练，不断突破凡人限制的过程。
 
-## Detailed Explanation
+## 详细解释
 
-In xianxia fiction, cultivation is both a power system and a social order. Characters gather [Qi](/glossary/qi), practice techniques, join or oppose [Sects](/glossary/sect), hunt resources, survive bottlenecks, and move through realms such as [Qi Refining](/cultivation-system/qi-refining), [Foundation Building](/cultivation-system/foundation-building), and [Golden Core](/glossary/golden-core).
+修仙既是力量体系，也是社会结构。角色会吸收[灵气](/glossary/qi)、加入或对抗[宗门](/glossary/sect)、争夺资源、突破瓶颈，并沿着炼气、筑基、金丹、元婴等境界前进。
 
-## Related Terms
+## 相关词条
 
-- [Xiuzhen](/glossary/xiuzhen)
-- [Qi](/glossary/qi)
-- [Ascension](/glossary/ascension)
+- [修真](/glossary/xiuzhen)
+- [灵气](/glossary/qi)
+- [飞升](/glossary/ascension)
 
-## Source Notes
+## 来源说明
 
-The word adapts older Chinese ideas about self-cultivation, immortality seeking, Daoist practice, and martial discipline into a fantasy genre framework.
+这个概念吸收了中国传统的修身、求仙、道教修炼和武侠训练想象，在网络小说中发展为清晰的等级体系。
 

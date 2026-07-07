@@ -1,34 +1,34 @@
 ---
-title: Renegade Immortal
-description: Spoiler-light overview of Renegade Immortal.
+title: 仙逆
+description: 仙逆的轻剧透介绍。
 ---
 
-# Renegade Immortal / 仙逆
+# 仙逆 / Renegade Immortal
 
 <div class="term-meta">
-  <div><strong>Chinese Title</strong><br />仙逆</div>
-  <div><strong>Author</strong><br />Er Gen</div>
-  <div><strong>Genre Branch</strong><br />Dark Cultivation</div>
-  <div><strong>Core Theme</strong><br />Survival, obsession, loss, and Dao heart.</div>
+  <div><strong>中文标题</strong><br />仙逆</div>
+  <div><strong>作者</strong><br />耳根</div>
+  <div><strong>流派</strong><br />残酷修真</div>
+  <div><strong>核心主题</strong><br />求生、执念、失去与道心。</div>
 </div>
 
-## Overview
+## 概览
 
-Renegade Immortal is a major cultivation novel known for harsh struggle, emotional intensity, and a protagonist shaped by loss and persistence.
+《仙逆》是重要修真作品，以残酷环境、情绪强度和由执念塑造的修炼道路著称。
 
-## Worldbuilding Notes
+## 世界观要点
 
-- Advancement is tied to danger, enemies, and psychological pressure.
-- Dao comprehension and personal obsession become important sources of power.
-- The story helps readers understand darker cultivation tone and escalation.
+- 进阶与危险、仇敌和心理压力相互绑定。
+- 道悟和个人执念成为力量来源。
+- 适合理解更冷峻的修真叙事。
 
-## Related Entries
+## 相关词条
 
-- [Xiuzhen](/glossary/xiuzhen)
-- [Spirit Transformation](/cultivation-system/spirit-transformation)
-- [Tribulation](/glossary/tribulation)
+- [修真](/glossary/xiuzhen)
+- [化神](/cultivation-system/spirit-transformation)
+- [渡劫](/glossary/tribulation)
 
-## Reading Links
+## 阅读链接
 
-Add only official or licensed links that are verified for the target language and region.
+后续只添加已验证的正版或授权阅读链接。
 

@@ -1,28 +1,28 @@
 ---
-title: Qi Refining
-description: The first common realm of xianxia cultivation.
+title: 炼气
+description: 修仙小说中常见的入门境界。
 ---
 
-# Qi Refining / 炼气
+# 炼气 / Qi Refining
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />炼气</div>
-  <div><strong>Pinyin</strong><br />lian qi</div>
-  <div><strong>Typical Position</strong><br />Realm 1</div>
-  <div><strong>Core Theme</strong><br />Sensing and refining spiritual energy.</div>
+  <div><strong>中文</strong><br />炼气</div>
+  <div><strong>拼音</strong><br />lian qi</div>
+  <div><strong>常见位置</strong><br />第一境</div>
+  <div><strong>核心主题</strong><br />感应并炼化灵气。</div>
 </div>
 
-## Description
+## 描述
 
-Qi Refining is the entry point where a cultivator learns to sense [Qi](/glossary/qi), draw it into the body, circulate it through meridians, and use it for basic techniques.
+炼气是修士入门阶段，重点是感应[灵气](/glossary/qi)、引气入体、运转经脉并施展基础术法。
 
-## Traits
+## 特征
 
-- Early supernatural strength, stamina, perception, or spell use
-- Dependence on qi density, spirit stones, basic pills, and manuals
-- Frequent subdivisions such as first to ninth layer
+- 初步获得超凡体力、感知或法术能力
+- 依赖灵气浓度、灵石、基础丹药和功法
+- 常分为一层到九层或更多小层次
 
-## Narrative Function
+## 叙事作用
 
-This realm introduces the rules of the cultivation world and makes resource scarcity visible.
+炼气阶段用来介绍修仙世界的基本规则和资源压力。
 

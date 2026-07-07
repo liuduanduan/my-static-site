@@ -1,21 +1,21 @@
 ---
-title: Realms & Regions
-description: Worlds, planes, secret realms, immortal domains, and dangerous lands.
+title: 修仙地域
+description: 世界、界域、秘境与禁地。
 ---
 
-# Realms & Regions
+# 修仙地域 / Realms & Regions
 
-Realms and regions describe where cultivation happens: mortal continents, immortal worlds, demon realms, secret realms, cave heavens, sect mountains, forbidden zones, and pocket worlds.
+修仙地域描述故事发生的空间：人界、仙界、魔界、秘境、洞天、宗门山门、禁地和小世界。
 
-## Example Terms
+## 示例词条
 
-- Mortal world
-- Immortal realm
-- Secret realm
-- Cave heaven
-- Forbidden land
+- 人界
+- 仙界
+- 秘境
+- 洞天
+- 禁地
 
-## Notes
+## 说明
 
-Expanding geography is a common long-form device. When the protagonist outgrows one map, a higher world often appears.
+地图扩张是长篇修仙小说的重要手法。主角走到一个世界顶端后，常会进入更高世界重新开始。
 

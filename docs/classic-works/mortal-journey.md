@@ -1,34 +1,34 @@
 ---
-title: A Record of a Mortal's Journey to Immortality
-description: Spoiler-light overview of A Record of a Mortal's Journey to Immortality.
+title: 凡人修仙传
+description: 凡人修仙传的轻剧透介绍。
 ---
 
-# A Record of a Mortal's Journey to Immortality
+# 凡人修仙传 / A Record of a Mortal's Journey to Immortality
 
 <div class="term-meta">
-  <div><strong>Chinese Title</strong><br />凡人修仙传</div>
-  <div><strong>Author</strong><br />Wang Yu</div>
-  <div><strong>Genre Branch</strong><br />Mortal Flow</div>
-  <div><strong>Core Theme</strong><br />Cautious survival and resource-driven advancement.</div>
+  <div><strong>中文标题</strong><br />凡人修仙传</div>
+  <div><strong>作者</strong><br />忘语</div>
+  <div><strong>流派</strong><br />凡人流</div>
+  <div><strong>核心主题</strong><br />谨慎求生与资源驱动的进阶。</div>
 </div>
 
-## Overview
+## 概览
 
-This work is a major reference point for mortal-flow cultivation. It emphasizes a low-status protagonist, careful planning, scarce resources, practical choices, and a long climb through the cultivation world.
+《凡人修仙传》是凡人流修仙的重要参照，强调低起点、谨慎行动、资源稀缺、实用选择和漫长成长。
 
-## Worldbuilding Notes
+## 世界观要点
 
-- Cultivation advancement depends heavily on pills, materials, techniques, and opportunity.
-- Sects and markets create pressure around access to resources.
-- The protagonist's caution helps define the tone of many later mortal-flow stories.
+- 进阶依赖丹药、材料、功法和机缘。
+- 宗门与坊市制造资源竞争。
+- 主角的谨慎风格影响了许多后来的凡人流作品。
 
-## Related Entries
+## 相关词条
 
-- [Cultivation](/glossary/cultivation)
-- [Foundation Establishment Pill](/glossary/foundation-establishment-pill)
-- [Rogue Cultivator](/glossary/rogue-cultivator)
+- [修仙](/glossary/cultivation)
+- [筑基丹](/glossary/foundation-establishment-pill)
+- [散修](/glossary/rogue-cultivator)
 
-## Reading Links
+## 阅读链接
 
-Add only official or licensed links that are verified for the target language and region.
+后续只添加已验证的正版或授权阅读链接。
 

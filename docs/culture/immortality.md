@@ -1,27 +1,27 @@
 ---
-title: Immortality and Longevity
-description: Longevity and immortality as central themes in xianxia fiction.
+title: 长生与不朽
+description: 长生在修仙小说中的主题意义。
 ---
 
-# Immortality and Longevity / 长生
+# 长生与不朽 / Immortality and Longevity
 
-Immortality is the promise behind many cultivation stories, but it is rarely simple. Longer life creates more ambition, more enemies, deeper loneliness, and more cosmic obligations.
+长生是修仙故事的核心承诺，但并不简单。寿命越长，野心、敌人、孤独和因果也可能越深。
 
-## In Fiction
+## 在小说中的用法
 
-Characters may seek immortality to escape death, protect loved ones, pursue the Dao, gain status, or challenge heaven. The higher they climb, the more the world expands.
+角色追求长生，可能是为了逃避死亡、保护亲友、追寻大道、获得地位或挑战天命。境界越高，世界也越大。
 
-## Common Motifs
+## 常见意象
 
-- Lifespan as a resource
-- Pills that extend life
-- Realms that add centuries or millennia
-- Ascension to higher worlds
-- The cost of outliving ordinary attachments
+- 寿元作为资源
+- 延寿丹药
+- 境界增加寿命
+- 飞升进入高界
+- 亲缘与凡俗羁绊的代价
 
-## Related Entries
+## 相关词条
 
-- [Cultivation](/glossary/cultivation)
-- [Ascension](/glossary/ascension)
-- [Tribulation](/glossary/tribulation)
+- [修仙](/glossary/cultivation)
+- [飞升](/glossary/ascension)
+- [渡劫](/glossary/tribulation)
 

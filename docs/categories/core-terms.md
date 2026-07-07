@@ -1,21 +1,21 @@
 ---
-title: Core Terms
-description: Foundational vocabulary for xianxia and cultivation stories.
+title: 核心术语
+description: 修仙小说中的基础概念。
 ---
 
-# Core Terms
+# 核心术语 / Core Terms
 
-Core terms are the concepts readers meet repeatedly across many novels. They explain the logic of energy, advancement, groups, survival, and transcendence.
+核心术语是跨作品高频出现的基础概念，用来解释能量、进阶、组织、生存和超脱。
 
-## Example Terms
+## 示例词条
 
-- [Cultivation / 修仙](/glossary/cultivation)
-- [Qi / 灵气](/glossary/qi)
-- [Xiuzhen / 修真](/glossary/xiuzhen)
-- [Ascension / 飞升](/glossary/ascension)
-- [Tribulation / 渡劫](/glossary/tribulation)
+- [修仙](/glossary/cultivation)
+- [灵气](/glossary/qi)
+- [修真](/glossary/xiuzhen)
+- [飞升](/glossary/ascension)
+- [渡劫](/glossary/tribulation)
 
-## Notes
+## 说明
 
-Start here if you are new to the genre. Once these ideas are familiar, realm pages and classic work pages become much easier to parse.
+如果你刚开始读修仙小说，建议先从本类开始。
 

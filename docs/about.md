@@ -1,26 +1,24 @@
 ---
-title: About
-description: Project overview for No996 Xianxia Codex.
+title: 关于
+description: No996 修仙百科项目介绍。
 ---
 
-# About No996 Xianxia Codex
+# 关于 No996 修仙百科
 
-No996 Xianxia Codex is an English-first encyclopedia for readers who want to understand xianxia and cultivation fiction without losing the Chinese terms that give the genre its flavor.
+No996 修仙百科是一个中英文修仙、修真与中国幻想术语百科。它保留中文术语、拼音和英文表达，帮助读者、译者和写作者更快理解修仙小说里的常见概念。
 
-The project focuses on concise definitions, pinyin, cultural context, genre patterns, and links between related ideas. It avoids copying novel text and points readers toward official or licensed reading platforms when discussing specific works.
+## 站点覆盖
 
-## What This Site Covers
+- [灵气](/glossary/qi)、[修仙](/glossary/cultivation)、[金丹](/glossary/golden-core)、[渡劫](/glossary/tribulation) 等核心术语
+- 从 [炼气](/cultivation-system/qi-refining) 到 [仙人](/cultivation-system/immortal) 的境界体系
+- 11 个术语分类
+- 道教、内丹术、五行、神话与长生观念等文化背景
+- 经典作品的轻量介绍与正版阅读提醒
 
-- Core terms such as [Qi](/glossary/qi), [Cultivation](/glossary/cultivation), [Golden Core](/glossary/golden-core), and [Tribulation](/glossary/tribulation)
-- Realm progressions from [Qi Refining](/cultivation-system/qi-refining) to [Immortal](/cultivation-system/immortal)
-- Eleven taxonomy categories for browsing xianxia vocabulary
-- Cultural background from Taoism, inner alchemy, five elements, myth, and longevity traditions
-- Classic works described at a high level, with spoiler-light notes
+## 编辑原则
 
-## Editorial Principles
-
-- English explanations first, with Chinese terms and pinyin preserved
-- Short pages that are easy to scan on mobile
-- Internal links between related ideas
-- Respect for original authors, translators, and licensed sources
+- 中文说明为主，同时保留英文名与拼音
+- 页面短、清楚、适合手机阅读
+- 用内部链接连接相关概念
+- 尊重原作者、译者与正版平台，不搬运小说正文
 

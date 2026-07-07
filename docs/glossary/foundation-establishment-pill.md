@@ -1,42 +1,32 @@
 ---
-title: Foundation Establishment Pill
-description: Definition of Foundation Establishment Pill in xianxia fiction.
-zh: 筑基丹
-pinyin: zhu ji dan
-category: elixirs-and-pills
-aliases:
-  - Foundation Building Pill
-  - Zhuji Pill
-related:
-  - foundation-building
-  - elixirs-and-pills
-  - qi
+title: 筑基丹
+description: 筑基丹在修仙小说中的含义。
 ---
 
-# Foundation Establishment Pill / 筑基丹
+# 筑基丹 / Foundation Establishment Pill
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />筑基丹</div>
-  <div><strong>Pinyin</strong><br />zhu ji dan</div>
-  <div><strong>Category</strong><br /><span class="tag">Elixirs & Pills</span></div>
-  <div><strong>Short Definition</strong><br />A pill that helps Qi Refining cultivators enter Foundation Building.</div>
+  <div><strong>中文</strong><br />筑基丹</div>
+  <div><strong>拼音</strong><br />zhu ji dan</div>
+  <div><strong>分类</strong><br /><span class="tag">灵药丹方</span></div>
+  <div><strong>简短定义</strong><br />帮助炼气修士突破筑基的丹药。</div>
 </div>
 
-## Definition
+## 定义
 
-The Foundation Establishment Pill is a breakthrough aid used to stabilize the body and spiritual foundation during the transition into Foundation Building.
+筑基丹是一种突破辅助丹药，常用于稳定肉身、经脉和灵力根基，帮助修士进入筑基期。
 
-## Detailed Explanation
+## 详细解释
 
-Because early cultivators often lack resources, this pill can become a major plot driver. Sects ration it, auctions inflate its price, and rogue cultivators may risk their lives to obtain one.
+在许多作品中，筑基丹稀缺而昂贵，宗门会严格分配，拍卖会价格高昂，散修甚至会为此冒险夺宝。
 
-## Related Terms
+## 相关词条
 
-- [Foundation Building](/cultivation-system/foundation-building)
-- [Elixirs & Pills](/categories/elixirs-and-pills)
-- [Qi](/glossary/qi)
+- [筑基](/cultivation-system/foundation-building)
+- [灵药丹方](/categories/elixirs-and-pills)
+- [灵气](/glossary/qi)
 
-## Source Notes
+## 来源说明
 
-Different novels may call it Foundation Establishment Pill or Foundation Building Pill. The underlying function is usually the same.
+英文可译作 Foundation Establishment Pill 或 Foundation Building Pill。
 

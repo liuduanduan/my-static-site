@@ -1,21 +1,21 @@
 ---
-title: Cultivation Roles
-description: Common identities and jobs in cultivation worlds.
+title: 修仙职业
+description: 修仙世界中的身份与职业。
 ---
 
-# Cultivation Roles
+# 修仙职业 / Cultivation Roles
 
-Cultivation roles describe what people do in the power economy: rogue cultivator, alchemist, formation master, talisman master, sword cultivator, demonic cultivator, elder, disciple, auctioneer, and sect master.
+修仙职业描述人物在力量经济中的位置，例如散修、丹师、阵师、符师、剑修、魔修、长老、弟子和拍卖师。
 
-## Example Terms
+## 示例词条
 
-- [Rogue Cultivator / 散修](/glossary/rogue-cultivator)
-- Alchemist
-- Formation master
-- Sword cultivator
-- Sect elder
+- [散修](/glossary/rogue-cultivator)
+- 丹师
+- 阵师
+- 剑修
+- 宗门长老
 
-## Notes
+## 说明
 
-Roles are often tied to resource access. A low-realm alchemist may still be more valuable than a stronger fighter.
+职业和资源强绑定。一个境界不高的丹师，可能比更强的战斗修士更有价值。
 

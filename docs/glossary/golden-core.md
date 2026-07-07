@@ -1,42 +1,32 @@
 ---
-title: Golden Core
-description: Definition of Golden Core in cultivation fiction.
-zh: 金丹
-pinyin: jin dan
-category: cultivation-realms
-aliases:
-  - Jindan
-  - Core Formation
-related:
-  - core-formation
-  - nascent-soul
-  - inner-alchemy
+title: 金丹
+description: 金丹在修仙小说中的含义。
 ---
 
-# Golden Core / 金丹
+# 金丹 / Golden Core
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />金丹</div>
-  <div><strong>Pinyin</strong><br />jin dan</div>
-  <div><strong>Category</strong><br /><span class="tag">Cultivation Realms</span></div>
-  <div><strong>Short Definition</strong><br />A condensed inner core that marks a major cultivation breakthrough.</div>
+  <div><strong>中文</strong><br />金丹</div>
+  <div><strong>拼音</strong><br />jin dan</div>
+  <div><strong>分类</strong><br /><span class="tag">修炼境界</span></div>
+  <div><strong>简短定义</strong><br />修为凝练成内在核心后的重要突破。</div>
 </div>
 
-## Definition
+## 定义
 
-Golden Core is a realm or inner state where refined qi condenses into a stable core, often marking the cultivator as a true high-level practitioner.
+金丹是修士将灵力和精气神凝练为稳定核心的境界或状态，常对应结丹期。
 
-## Detailed Explanation
+## 详细解释
 
-The Golden Core frequently represents a shift from accumulating energy to stabilizing a personal power source. In many novels, the quality of the core affects future potential. It can also become a target for enemies because it contains condensed cultivation.
+金丹意味着修士从单纯积累灵气转向拥有更稳定的内在力量来源。许多作品会强调金丹品质，因为它会影响之后的元婴乃至更高境界。
 
-## Related Terms
+## 相关词条
 
-- [Core Formation](/cultivation-system/core-formation)
-- [Nascent Soul](/glossary/nascent-soul)
-- [Inner Alchemy](/culture/inner-alchemy)
+- [结丹](/cultivation-system/core-formation)
+- [元婴](/glossary/nascent-soul)
+- [内丹术](/culture/inner-alchemy)
 
-## Source Notes
+## 来源说明
 
-The term echoes inner alchemy language, where the dan or elixir is a symbol of refined spiritual transformation.
+金丹一词与内丹术中的“丹”有关，小说将其转化为具象的境界标志。
 

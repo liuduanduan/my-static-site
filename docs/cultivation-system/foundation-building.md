@@ -1,28 +1,28 @@
 ---
-title: Foundation Building
-description: The stabilization stage after Qi Refining.
+title: 筑基
+description: 炼气之后稳定根基的境界。
 ---
 
-# Foundation Building / 筑基
+# 筑基 / Foundation Building
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />筑基</div>
-  <div><strong>Pinyin</strong><br />zhu ji</div>
-  <div><strong>Typical Position</strong><br />Realm 2</div>
-  <div><strong>Core Theme</strong><br />Building a stable cultivation foundation.</div>
+  <div><strong>中文</strong><br />筑基</div>
+  <div><strong>拼音</strong><br />zhu ji</div>
+  <div><strong>常见位置</strong><br />第二境</div>
+  <div><strong>核心主题</strong><br />建立稳定修炼根基。</div>
 </div>
 
-## Description
+## 描述
 
-Foundation Building stabilizes the cultivator's body, meridians, and spiritual base. It is often the first major bottleneck after [Qi Refining](/cultivation-system/qi-refining).
+筑基稳定修士的肉身、经脉与灵力基础，通常是炼气之后的第一个重要瓶颈。
 
-## Traits
+## 特征
 
-- Longer lifespan and stronger qi control
-- Better access to sect status, missions, and inheritances
-- Breakthrough aids such as the [Foundation Establishment Pill](/glossary/foundation-establishment-pill)
+- 寿命、灵力控制和术法强度提升
+- 更容易获得宗门地位与传承
+- 常需要[筑基丹](/glossary/foundation-establishment-pill)等突破资源
 
-## Narrative Function
+## 叙事作用
 
-Reaching this realm often changes a character from disposable novice to recognized cultivator.
+筑基常标志角色从新手变成真正被认可的修士。
 

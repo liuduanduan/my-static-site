@@ -1,34 +1,34 @@
 ---
-title: Buddha Is the Tao
-description: Spoiler-light overview of Buddha Is the Tao.
+title: 佛本是道
+description: 佛本是道的轻剧透介绍。
 ---
 
-# Buddha Is the Tao / 佛本是道
+# 佛本是道 / Buddha Is the Tao
 
 <div class="term-meta">
-  <div><strong>Chinese Title</strong><br />佛本是道</div>
-  <div><strong>Author</strong><br />Meng Ru Shen Ji</div>
-  <div><strong>Genre Branch</strong><br />Primordial Myth Flow</div>
-  <div><strong>Core Theme</strong><br />Myth, religion, and vast cosmological conflict.</div>
+  <div><strong>中文标题</strong><br />佛本是道</div>
+  <div><strong>作者</strong><br />梦入神机</div>
+  <div><strong>流派</strong><br />洪荒神话流</div>
+  <div><strong>核心主题</strong><br />宗教、神话与宏大宇宙冲突。</div>
 </div>
 
-## Overview
+## 概览
 
-Buddha Is the Tao is associated with large-scale mythic imagination and Honghuang-style genre development. It blends cultivation with religious, mythological, and cosmic elements.
+《佛本是道》与洪荒流、神话宇宙想象关系密切，把修炼叙事扩展到宗教、神话、天道和大劫层面。
 
-## Worldbuilding Notes
+## 世界观要点
 
-- Mythic figures and cosmic forces shape the story world.
-- The scale can move beyond sect training into heaven, earth, fate, and calamity.
-- The work is useful context for readers who encounter Honghuang references.
+- 神话人物和宇宙力量塑造故事结构。
+- 尺度从宗门修炼扩展到天地、命数和劫数。
+- 对理解洪荒类作品很有帮助。
 
-## Related Entries
+## 相关词条
 
-- [Taoism and Xianxia](/culture/taoism-and-xianxia)
-- [The Chinese Xian](/culture/chinese-xian)
-- [Tribulation](/glossary/tribulation)
+- [道教与修仙](/culture/taoism-and-xianxia)
+- [中国神话中的仙](/culture/chinese-xian)
+- [渡劫](/glossary/tribulation)
 
-## Reading Links
+## 阅读链接
 
-Add only official or licensed links that are verified for the target language and region.
+后续只添加已验证的正版或授权阅读链接。
 

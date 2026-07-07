@@ -1,21 +1,21 @@
 ---
-title: Divine Weapons
-description: Artifacts, magical treasures, weapons, and protective items.
+title: 神兵利器
+description: 法宝、兵器与护身宝物。
 ---
 
-# Divine Weapons
+# 神兵利器 / Divine Weapons
 
-Divine weapons cover combat artifacts, defensive treasures, travel tools, storage rings, refining vessels, robes, seals, bells, flags, and ancient inheritance items.
+神兵利器包括攻击法宝、防御宝物、飞行器具、储物戒、炼丹鼎、法衣、印玺、钟、旗和古老传承宝物。
 
-## Example Terms
+## 示例词条
 
-- [Artifact / 法宝](/glossary/artifact)
-- [Flying Sword / 飞剑](/glossary/flying-sword)
-- Treasure cauldron
-- Storage ring
-- Soul banner
+- [法宝](/glossary/artifact)
+- [飞剑](/glossary/flying-sword)
+- 宝鼎
+- 储物戒
+- 魂幡
 
-## Notes
+## 说明
 
-Many artifacts are not only objects but also plot memory: they carry old owners, sealed spirits, broken inheritances, and hidden conditions.
+强大法宝往往不只是装备，也承载旧主人、器灵、封印和隐藏传承。
 

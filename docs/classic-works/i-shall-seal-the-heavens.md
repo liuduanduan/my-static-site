@@ -1,34 +1,34 @@
 ---
-title: I Shall Seal the Heavens
-description: Spoiler-light overview of I Shall Seal the Heavens.
+title: 我欲封天
+description: 我欲封天的轻剧透介绍。
 ---
 
-# I Shall Seal the Heavens / 我欲封天
+# 我欲封天 / I Shall Seal the Heavens
 
 <div class="term-meta">
-  <div><strong>Chinese Title</strong><br />我欲封天</div>
-  <div><strong>Author</strong><br />Er Gen</div>
-  <div><strong>Genre Branch</strong><br />Cultivation Adventure</div>
-  <div><strong>Core Theme</strong><br />Comedy, sect politics, inheritance, and cosmic escalation.</div>
+  <div><strong>中文标题</strong><br />我欲封天</div>
+  <div><strong>作者</strong><br />耳根</div>
+  <div><strong>流派</strong><br />修仙冒险</div>
+  <div><strong>核心主题</strong><br />宗门、传承、幽默与宇宙级升级。</div>
 </div>
 
-## Overview
+## 概览
 
-I Shall Seal the Heavens is a large-scale cultivation adventure with memorable sect arcs, strange inheritances, comic reversals, and escalating cosmology.
+《我欲封天》是大体量修仙冒险作品，包含宗门试炼、奇异传承、幽默反转和持续扩大的宇宙尺度。
 
-## Worldbuilding Notes
+## 世界观要点
 
-- Sect tests, rivalries, and inheritance spaces are important early structures.
-- Cultivation levels grow into cosmic conflict and identity questions.
-- The story is a useful reference for modern English-language xianxia fandom.
+- 宗门考核、竞争和传承空间很重要。
+- 修炼境界逐渐连接到更大的宇宙冲突。
+- 在英文修仙读者群体中辨识度很高。
 
-## Related Entries
+## 相关词条
 
-- [Sect](/glossary/sect)
-- [Golden Core](/glossary/golden-core)
-- [Ascension](/glossary/ascension)
+- [宗门](/glossary/sect)
+- [金丹](/glossary/golden-core)
+- [飞升](/glossary/ascension)
 
-## Reading Links
+## 阅读链接
 
-Add only official or licensed links that are verified for the target language and region.
+后续只添加已验证的正版或授权阅读链接。
 

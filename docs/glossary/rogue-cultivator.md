@@ -1,41 +1,32 @@
 ---
-title: Rogue Cultivator
-description: Definition of Rogue Cultivator in xianxia fiction.
-zh: 散修
-pinyin: san xiu
-category: cultivation-roles
-aliases:
-  - Loose Cultivator
-  - Independent Cultivator
-related:
-  - sect
-  - cultivation-roles
+title: 散修
+description: 散修在修仙小说中的含义。
 ---
 
-# Rogue Cultivator / 散修
+# 散修 / Rogue Cultivator
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />散修</div>
-  <div><strong>Pinyin</strong><br />san xiu</div>
-  <div><strong>Category</strong><br /><span class="tag">Cultivation Roles</span></div>
-  <div><strong>Short Definition</strong><br />A cultivator without strong sect, clan, or institutional backing.</div>
+  <div><strong>中文</strong><br />散修</div>
+  <div><strong>拼音</strong><br />san xiu</div>
+  <div><strong>分类</strong><br /><span class="tag">修仙职业</span></div>
+  <div><strong>简短定义</strong><br />缺少宗门、家族或大势力支持的独立修士。</div>
 </div>
 
-## Definition
+## 定义
 
-A rogue cultivator is an independent cultivator who usually lacks the resources, protection, and inherited techniques of a major sect or clan.
+散修通常没有稳定传承和资源，只能依靠个人机缘、交易、冒险和谋略继续修炼。
 
-## Detailed Explanation
+## 详细解释
 
-Rogue cultivators often trade freedom for hardship. They may rely on risky expeditions, auctions, opportunistic alliances, and personal cunning. Protagonists often begin as rogue or low-status cultivators to create a climb-from-the-bottom arc.
+散修拥有自由，但资源匮乏、风险更高。许多主角会从散修或低阶弟子起步，用艰难环境制造成长张力。
 
-## Related Terms
+## 相关词条
 
-- [Sect](/glossary/sect)
-- [Cultivation Roles](/categories/cultivation-roles)
-- [Natural Treasures](/categories/natural-treasures)
+- [宗门](/glossary/sect)
+- [修仙职业](/categories/cultivation-roles)
+- [天材地宝](/categories/natural-treasures)
 
-## Source Notes
+## 来源说明
 
-The role highlights the resource economy of cultivation worlds: techniques, pills, spirit stones, caves, and mentors all matter.
+散修凸显修仙世界的资源经济：功法、丹药、灵石、洞府和师承都决定修炼速度。
 

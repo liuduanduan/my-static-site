@@ -1,41 +1,32 @@
 ---
-title: Xiuzhen
-description: Definition of Xiuzhen in xianxia and cultivation fiction.
-zh: 修真
-pinyin: xiu zhen
-category: core-terms
-aliases:
-  - Cultivating Truth
-  - Cultivating Reality
-related:
-  - cultivation
-  - taoism-and-xianxia
+title: 修真
+description: 修真在修仙小说中的含义。
 ---
 
-# Xiuzhen / 修真
+# 修真 / Xiuzhen
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />修真</div>
-  <div><strong>Pinyin</strong><br />xiu zhen</div>
-  <div><strong>Category</strong><br /><span class="tag">Core Terms</span></div>
-  <div><strong>Short Definition</strong><br />A term for cultivation that emphasizes seeking truth, reality, or the Dao.</div>
+  <div><strong>中文</strong><br />修真</div>
+  <div><strong>拼音</strong><br />xiu zhen</div>
+  <div><strong>分类</strong><br /><span class="tag">核心术语</span></div>
+  <div><strong>简短定义</strong><br />带有求真、悟道意味的修炼概念。</div>
 </div>
 
-## Definition
+## 定义
 
-Xiuzhen means cultivating truth or reality. In web fiction, it often overlaps with immortal cultivation while carrying a more philosophical or Daoist flavor.
+修真可以理解为“修炼真我、追求真道”。在网文语境中，它常与修仙接近，但更强调道、真、法则和心性。
 
-## Detailed Explanation
+## 详细解释
 
-Some novels use xiuzhen for the whole genre world, while others distinguish it from xianxia, martial arts, or magic. The term can imply that power is not only combat ability but also alignment with deeper cosmic principles.
+有些作品把修真当作整个世界体系，有些作品则把它与仙侠、武道、魔法区分开。它通常暗示力量不只是战斗能力，也包含对世界本质的理解。
 
-## Related Terms
+## 相关词条
 
-- [Cultivation](/glossary/cultivation)
-- [Taoism and Xianxia](/culture/taoism-and-xianxia)
-- [Inner Alchemy](/culture/inner-alchemy)
+- [修仙](/glossary/cultivation)
+- [道教与修仙](/culture/taoism-and-xianxia)
+- [内丹术](/culture/inner-alchemy)
 
-## Source Notes
+## 来源说明
 
-The term is influenced by Chinese religious and philosophical vocabulary, but genre usage varies widely by author.
+不同小说用法差异很大，阅读时应以作品自身设定为准。
 

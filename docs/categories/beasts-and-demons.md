@@ -1,21 +1,21 @@
 ---
-title: Beasts & Demons
-description: Demonic beasts, spirit animals, monsters, ghosts, and bloodlines.
+title: 妖魔鬼怪
+description: 妖兽、灵兽、鬼怪与血脉。
 ---
 
-# Beasts & Demons
+# 妖魔鬼怪 / Beasts & Demons
 
-This category covers non-human threats and allies: demonic beasts, spirit animals, yao, ghosts, demons, ancient bloodlines, and transformed creatures.
+本类包括妖兽、灵兽、妖族、鬼物、魔物、古老血脉和可化形的非人存在。
 
-## Example Terms
+## 示例词条
 
-- Demonic beast
-- Spirit beast
-- Nine-tailed fox
-- Flood dragon
-- Ghost cultivator
+- 妖兽
+- 灵兽
+- 九尾狐
+- 蛟龙
+- 鬼修
 
-## Notes
+## 说明
 
-Many stories distinguish between beasts that cultivate, demons as moral or cosmic forces, and yao as intelligent non-human beings.
+不同作品会区分可修炼的妖兽、道德意义上的魔、智慧妖族和鬼修体系。
 

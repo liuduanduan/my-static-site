@@ -1,28 +1,28 @@
 ---
-title: Immortal
-description: The immortal state or higher-realm status after mortal cultivation.
+title: 仙人
+description: 凡修之后的仙道状态。
 ---
 
-# Immortal / 仙人
+# 仙人 / Immortal
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />仙人</div>
-  <div><strong>Pinyin</strong><br />xian ren</div>
-  <div><strong>Typical Position</strong><br />Post-ascension</div>
-  <div><strong>Core Theme</strong><br />Transcending mortal limits.</div>
+  <div><strong>中文</strong><br />仙人</div>
+  <div><strong>拼音</strong><br />xian ren</div>
+  <div><strong>常见位置</strong><br />飞升之后</div>
+  <div><strong>核心主题</strong><br />超越凡俗限制。</div>
 </div>
 
-## Description
+## 描述
 
-An immortal is a being who has crossed beyond ordinary mortality, usually entering a higher realm, extended lifespan, or divine social order.
+仙人是跨越普通死亡和凡界限制后的存在，通常进入仙界或更高层秩序。
 
-## Traits
+## 特征
 
-- Vast lifespan or practical immortality
-- Higher laws, immortal qi, and new resource systems
-- New hierarchies such as earth immortal, heavenly immortal, true immortal, or golden immortal
+- 极长寿命或近似不朽
+- 接触仙气、仙法和更高法则
+- 可能再分地仙、天仙、真仙、金仙等层次
 
-## Narrative Function
+## 叙事作用
 
-Immortality is rarely the end of the story. It often reveals a larger world where the protagonist becomes a beginner again.
+成仙通常不是终点，而是打开更大世界，让主角再次从低处开始。
 

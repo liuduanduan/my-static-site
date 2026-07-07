@@ -1,21 +1,21 @@
 ---
-title: Techniques & Arts
-description: Cultivation methods, martial arts, and supernatural techniques.
+title: 功法武学
+description: 修仙小说中的功法、武技与神通。
 ---
 
-# Techniques & Arts
+# 功法武学 / Techniques & Arts
 
-Techniques and arts are the methods that turn raw cultivation into usable power. They may train breathing, qi circulation, sword intent, body refinement, talisman use, movement, illusions, divine sense, or Dao comprehension.
+功法武学是把修为转化为实际力量的方法，包括吐纳、运气、剑术、身法、炼体、幻术、神识、神通和道法。
 
-## Example Terms
+## 示例词条
 
-- Cultivation manuals
-- Sword art
-- Body-refining method
-- Movement technique
-- Divine ability
+- 修炼功法
+- 剑诀
+- 炼体术
+- 身法
+- 神通
 
-## Notes
+## 说明
 
-Technique names are often novel-specific. This category should explain generic patterns while avoiding long copied passages from any specific work.
+具体功法名称往往属于作品专有设定，百科更适合解释通用类型和常见模式。
 

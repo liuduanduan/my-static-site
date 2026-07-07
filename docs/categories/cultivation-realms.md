@@ -1,19 +1,19 @@
 ---
-title: Cultivation Realms
-description: Realm levels and breakthrough stages in xianxia.
+title: 修炼境界
+description: 修仙小说中的境界与突破阶段。
 ---
 
-# Cultivation Realms
+# 修炼境界 / Cultivation Realms
 
-Cultivation realms describe the ladder from mortal training to immortal transformation. A common sequence is [Qi Refining](/cultivation-system/qi-refining), [Foundation Building](/cultivation-system/foundation-building), [Core Formation](/cultivation-system/core-formation), [Nascent Soul](/cultivation-system/nascent-soul), [Spirit Transformation](/cultivation-system/spirit-transformation), [Void Refining](/cultivation-system/void-refining), [Body Integration](/cultivation-system/body-integration), [Great Ascension](/cultivation-system/great-ascension), [Tribulation Crossing](/cultivation-system/tribulation-crossing), and [Immortal](/cultivation-system/immortal).
+修炼境界描述修士从凡人到仙人的进阶阶梯。常见顺序包括[炼气](/cultivation-system/qi-refining)、[筑基](/cultivation-system/foundation-building)、[结丹](/cultivation-system/core-formation)、[元婴](/cultivation-system/nascent-soul)、[化神](/cultivation-system/spirit-transformation)、[炼虚](/cultivation-system/void-refining)、[合体](/cultivation-system/body-integration)、[大乘](/cultivation-system/great-ascension)、[渡劫](/cultivation-system/tribulation-crossing) 和 [仙人](/cultivation-system/immortal)。
 
-## Example Terms
+## 示例词条
 
-- [Golden Core / 金丹](/glossary/golden-core)
-- [Nascent Soul / 元婴](/glossary/nascent-soul)
-- [Tribulation / 渡劫](/glossary/tribulation)
+- [金丹](/glossary/golden-core)
+- [元婴](/glossary/nascent-soul)
+- [渡劫](/glossary/tribulation)
 
-## Notes
+## 说明
 
-Every novel can rename, reorder, split, or compress realms. Treat this category as a shared reference map rather than a universal law.
+每部小说都可能重新命名、拆分或调整境界，因此这里是通用参考，不是绝对设定。
 

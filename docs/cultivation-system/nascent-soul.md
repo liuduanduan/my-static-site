@@ -1,28 +1,28 @@
 ---
-title: Nascent Soul Realm
-description: The realm where a spiritual infant or second self is formed.
+title: 元婴期
+description: 形成元婴或灵性第二自我的阶段。
 ---
 
-# Nascent Soul / 元婴
+# 元婴 / Nascent Soul
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />元婴</div>
-  <div><strong>Pinyin</strong><br />yuan ying</div>
-  <div><strong>Typical Position</strong><br />Realm 4</div>
-  <div><strong>Core Theme</strong><br />Creating a spiritual second self.</div>
+  <div><strong>中文</strong><br />元婴</div>
+  <div><strong>拼音</strong><br />yuan ying</div>
+  <div><strong>常见位置</strong><br />第四境</div>
+  <div><strong>核心主题</strong><br />形成灵性第二自我。</div>
 </div>
 
-## Description
+## 描述
 
-Nascent Soul forms a powerful spiritual body or infant. In many settings, it can survive when the physical body is destroyed.
+元婴期修士形成强大的灵性存在。在许多设定中，即便肉身被毁，元婴也可能逃离或夺舍。
 
-## Traits
+## 特征
 
-- Greatly expanded divine sense
-- Stronger soul techniques and avatar-like abilities
-- Higher status as elder, ancestor, or regional ruler
+- 神识大幅增强
+- 神魂类术法和分身能力更常见
+- 可成为长老、老祖或区域强者
 
-## Narrative Function
+## 叙事作用
 
-This realm raises the stakes from physical danger to soul survival, possession, escape, and reincarnation.
+元婴把危险从肉身层面推进到神魂层面。
 

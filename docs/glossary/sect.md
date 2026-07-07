@@ -1,41 +1,32 @@
 ---
-title: Sect
-description: Definition of Sect in xianxia fiction.
-zh: 宗门
-pinyin: zong men
-category: sects-and-clans
-aliases:
-  - Cultivation Sect
-  - School
-related:
-  - rogue-cultivator
-  - techniques-and-arts
+title: 宗门
+description: 宗门在修仙小说中的含义。
 ---
 
-# Sect / 宗门
+# 宗门 / Sect
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />宗门</div>
-  <div><strong>Pinyin</strong><br />zong men</div>
-  <div><strong>Category</strong><br /><span class="tag">Sects & Clans</span></div>
-  <div><strong>Short Definition</strong><br />A cultivation institution with hierarchy, resources, techniques, and territory.</div>
+  <div><strong>中文</strong><br />宗门</div>
+  <div><strong>拼音</strong><br />zong men</div>
+  <div><strong>分类</strong><br /><span class="tag">修仙门派</span></div>
+  <div><strong>简短定义</strong><br />传承功法、管理弟子、掌控资源的修仙组织。</div>
 </div>
 
-## Definition
+## 定义
 
-A sect is an organized cultivation group that trains disciples, controls resources, preserves techniques, and competes with other powers.
+宗门是修仙世界中的制度化力量，负责收徒、授法、分配资源、镇守地盘并参与势力竞争。
 
-## Detailed Explanation
+## 详细解释
 
-Sects usually include outer disciples, inner disciples, core disciples, elders, peak masters, and a sect leader. They provide safety and inheritance but also politics, rivalry, duty, and rules.
+宗门常见结构包括外门弟子、内门弟子、核心弟子、长老、峰主和掌门。它提供庇护与传承，也带来等级、派系、任务和竞争。
 
-## Related Terms
+## 相关词条
 
-- [Rogue Cultivator](/glossary/rogue-cultivator)
-- [Techniques & Arts](/categories/techniques-and-arts)
-- [Divine Weapons](/categories/divine-weapons)
+- [散修](/glossary/rogue-cultivator)
+- [功法武学](/categories/techniques-and-arts)
+- [神兵利器](/categories/divine-weapons)
 
-## Source Notes
+## 来源说明
 
-Sect structures vary by setting, but they often combine martial school, monastery, aristocratic institution, and resource corporation.
+宗门常同时像学校、门派、修道院、世家和军事组织。
 

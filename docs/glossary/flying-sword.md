@@ -1,42 +1,32 @@
 ---
-title: Flying Sword
-description: Definition of Flying Sword in xianxia fiction.
-zh: 飞剑
-pinyin: fei jian
-category: divine-weapons
-aliases:
-  - Sword Flight
-  - Spiritual Sword
-related:
-  - artifact
-  - divine-weapons
-  - techniques-and-arts
+title: 飞剑
+description: 飞剑在修仙小说中的含义。
 ---
 
-# Flying Sword / 飞剑
+# 飞剑 / Flying Sword
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />飞剑</div>
-  <div><strong>Pinyin</strong><br />fei jian</div>
-  <div><strong>Category</strong><br /><span class="tag">Divine Weapons</span></div>
-  <div><strong>Short Definition</strong><br />A sword controlled through spiritual power for combat, travel, or sword cultivation.</div>
+  <div><strong>中文</strong><br />飞剑</div>
+  <div><strong>拼音</strong><br />fei jian</div>
+  <div><strong>分类</strong><br /><span class="tag">神兵利器</span></div>
+  <div><strong>简短定义</strong><br />可由灵力御使的剑器，用于攻击、飞行或剑修修炼。</div>
 </div>
 
-## Definition
+## 定义
 
-A flying sword is a magically controlled sword that can strike at range, carry a cultivator through the air, or serve as the central tool of sword techniques.
+飞剑是修士以灵力或神识操控的剑，可远程杀敌、御剑飞行，也可作为剑修道路的核心载体。
 
-## Detailed Explanation
+## 详细解释
 
-Flying swords are among the clearest visual symbols of xianxia. They make cultivation feel mobile, sharp, and elegant. Sword cultivators may treat their sword as both weapon and path.
+飞剑是仙侠视觉符号之一。它让修仙世界具备轻灵、锋利、飘逸的气质。剑修往往把剑当作武器、道途和意志的延伸。
 
-## Related Terms
+## 相关词条
 
-- [Artifact](/glossary/artifact)
-- [Divine Weapons](/categories/divine-weapons)
-- [Techniques & Arts](/categories/techniques-and-arts)
+- [法宝](/glossary/artifact)
+- [神兵利器](/categories/divine-weapons)
+- [功法武学](/categories/techniques-and-arts)
 
-## Source Notes
+## 来源说明
 
-Some novels separate sword flight, sword control, and sword intent into distinct techniques or stages.
+有些作品会区分御剑飞行、飞剑术、剑意和剑道境界。
 

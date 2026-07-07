@@ -1,21 +1,21 @@
 ---
-title: Sects & Clans
-description: Cultivation organizations, lineages, families, and power structures.
+title: 修仙门派
+description: 宗门、家族、传承与势力结构。
 ---
 
-# Sects & Clans
+# 修仙门派 / Sects & Clans
 
-Sects and clans organize knowledge, territory, inheritance, resources, and rank. They can protect disciples, exploit them, or become the main political landscape of a story.
+修仙门派管理知识、地盘、资源和等级秩序。它们可以庇护弟子，也可以制造政治、派系和压迫。
 
-## Example Terms
+## 示例词条
 
-- [Sect / 宗门](/glossary/sect)
-- Outer disciple
-- Inner disciple
-- Core disciple
-- Elder
+- [宗门](/glossary/sect)
+- 外门弟子
+- 内门弟子
+- 核心弟子
+- 长老
 
-## Notes
+## 说明
 
-Sects often operate like schools, monasteries, guilds, aristocratic houses, and military powers all at once.
+宗门常像学校、武馆、修道院、世家和军政组织的混合体。
 

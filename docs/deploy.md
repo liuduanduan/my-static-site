@@ -1,29 +1,26 @@
 ---
-title: Cloudflare Pages Deploy
-description: Deployment settings for Cloudflare Pages.
+title: Cloudflare Pages 部署
+description: Cloudflare Pages 部署配置。
 ---
 
-# Cloudflare Pages Deploy
+# Cloudflare Pages 部署
 
-Use these settings for Cloudflare Pages:
+Cloudflare Pages 设置如下：
 
-| Setting | Value |
+| 设置 | 值 |
 | --- | --- |
-| Production branch | `main` |
-| Build command | `npm run docs:build` |
-| Build output directory | `docs/.vitepress/dist` |
-| Node version | Current Cloudflare default or Node 20+ |
+| 生产分支 | `main` |
+| 构建命令 | `npm run docs:build` |
+| 输出目录 | `docs/.vitepress/dist` |
+| Node 版本 | Cloudflare 默认版本或 Node 20+ |
 
-The site is static after build, so Cloudflare can serve it globally from its edge network. If the custom domain is connected correctly, users worldwide should be able to open it unless their local network blocks the domain.
+站点构建后是纯静态文件，Cloudflare 会通过全球边缘网络分发。自定义域名配置正确后，正常情况下全球都能访问。
 
-## After Deploy
+## 部署后检查
 
-Check these routes:
-
+- `/`
 - `/`
 - `/glossary/qi`
 - `/cultivation-system/`
-- `/classic-works/`
-- `/culture/`
 - `/sitemap.xml`
 

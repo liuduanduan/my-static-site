@@ -1,28 +1,28 @@
 ---
-title: Great Ascension
-description: A late mortal realm before tribulation and immortality.
+title: 大乘
+description: 接近凡修极限的后期境界。
 ---
 
-# Great Ascension / 大乘
+# 大乘 / Great Ascension
 
 <div class="term-meta">
-  <div><strong>Chinese</strong><br />大乘</div>
-  <div><strong>Pinyin</strong><br />da cheng</div>
-  <div><strong>Typical Position</strong><br />Realm 8</div>
-  <div><strong>Core Theme</strong><br />Approaching the limit of mortal cultivation.</div>
+  <div><strong>中文</strong><br />大乘</div>
+  <div><strong>拼音</strong><br />da cheng</div>
+  <div><strong>常见位置</strong><br />第八境</div>
+  <div><strong>核心主题</strong><br />接近凡修极限。</div>
 </div>
 
-## Description
+## 描述
 
-Great Ascension is a late stage where a cultivator nears the boundary between mortal existence and immortal transformation.
+大乘是许多体系中飞升前的后期境界，修士已接近凡界承载上限。
 
-## Traits
+## 特征
 
-- World-shaking power and authority
-- Preparation for [Tribulation](/glossary/tribulation)
-- Increasing pressure from heaven, fate, or higher realms
+- 具备撼动世界格局的力量
+- 开始准备[渡劫](/glossary/tribulation)
+- 天道、命数或高界压力增强
 
-## Narrative Function
+## 叙事作用
 
-This realm is a waiting room for the final test: the cultivator is powerful enough to threaten the world but not yet free from it.
+大乘像最后考场前的等待室：修士足够强，却仍未真正超脱。
 

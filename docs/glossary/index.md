@@ -1,30 +1,30 @@
 ---
-title: Glossary
-description: Browse xianxia and cultivation terminology by English term, Chinese term, pinyin, and category.
+title: 术语词典
+description: 按中英术语、拼音与分类浏览修仙词汇。
 ---
 
-# Glossary
+# 术语词典
 
-Browse core cultivation vocabulary with English definitions, Chinese terms, pinyin, category labels, and related links.
+这里收录修仙小说中的常见概念。每个词条都尽量包含中文、英文、拼音、分类、定义、详细解释和相关链接。
 
-## A-Z Starter List
+## 首批词条
 
 <div class="entry-grid">
-  <a class="entry-card" href="/glossary/artifact"><h3>Artifact / 法宝</h3><p class="muted">A refined magical item, weapon, vessel, or utility treasure.</p></a>
-  <a class="entry-card" href="/glossary/ascension"><h3>Ascension / 飞升</h3><p class="muted">The passage from the mortal world into a higher realm.</p></a>
-  <a class="entry-card" href="/glossary/cultivation"><h3>Cultivation / 修仙</h3><p class="muted">The practice of refining body, spirit, and power toward transcendence.</p></a>
-  <a class="entry-card" href="/glossary/flying-sword"><h3>Flying Sword / 飞剑</h3><p class="muted">A sword used as weapon, mount, and symbol of sword cultivation.</p></a>
-  <a class="entry-card" href="/glossary/foundation-establishment-pill"><h3>Foundation Establishment Pill / 筑基丹</h3><p class="muted">A pill that helps a cultivator cross into Foundation Building.</p></a>
-  <a class="entry-card" href="/glossary/golden-core"><h3>Golden Core / 金丹</h3><p class="muted">A condensed inner core of cultivation power.</p></a>
-  <a class="entry-card" href="/glossary/nascent-soul"><h3>Nascent Soul / 元婴</h3><p class="muted">A spiritual infant or second self formed from higher cultivation.</p></a>
-  <a class="entry-card" href="/glossary/qi"><h3>Qi / 灵气</h3><p class="muted">Spiritual energy absorbed and refined by cultivators.</p></a>
-  <a class="entry-card" href="/glossary/rogue-cultivator"><h3>Rogue Cultivator / 散修</h3><p class="muted">A cultivator without strong sect or clan backing.</p></a>
-  <a class="entry-card" href="/glossary/sect"><h3>Sect / 宗门</h3><p class="muted">An organized cultivation institution with techniques, hierarchy, and territory.</p></a>
-  <a class="entry-card" href="/glossary/tribulation"><h3>Tribulation / 渡劫</h3><p class="muted">A heavenly trial that tests major breakthroughs.</p></a>
-  <a class="entry-card" href="/glossary/xiuzhen"><h3>Xiuzhen / 修真</h3><p class="muted">Cultivating truth or reality, often close to cultivation in genre usage.</p></a>
+  <a class="entry-card" href="/glossary/cultivation"><h3>修仙 / Cultivation</h3><p class="muted">通过修炼突破凡人限制，追求长生与超脱。</p></a>
+  <a class="entry-card" href="/glossary/qi"><h3>灵气 / Qi</h3><p class="muted">修士吸收、炼化和运转的天地灵能。</p></a>
+  <a class="entry-card" href="/glossary/xiuzhen"><h3>修真 / Xiuzhen</h3><p class="muted">带有求真、悟道意味的修炼表达。</p></a>
+  <a class="entry-card" href="/glossary/golden-core"><h3>金丹 / Golden Core</h3><p class="muted">修为凝练为内在核心的重要境界。</p></a>
+  <a class="entry-card" href="/glossary/nascent-soul"><h3>元婴 / Nascent Soul</h3><p class="muted">高阶修士凝成的灵性第二自我。</p></a>
+  <a class="entry-card" href="/glossary/ascension"><h3>飞升 / Ascension</h3><p class="muted">从下界进入更高层世界或仙道状态。</p></a>
+  <a class="entry-card" href="/glossary/tribulation"><h3>渡劫 / Tribulation</h3><p class="muted">突破大关时面对天道考验。</p></a>
+  <a class="entry-card" href="/glossary/rogue-cultivator"><h3>散修 / Rogue Cultivator</h3><p class="muted">缺少宗门或家族支持的独立修士。</p></a>
+  <a class="entry-card" href="/glossary/sect"><h3>宗门 / Sect</h3><p class="muted">传承功法、管理弟子和掌控资源的修仙组织。</p></a>
+  <a class="entry-card" href="/glossary/artifact"><h3>法宝 / Artifact</h3><p class="muted">用于攻防、遁行、收纳或仪式的炼制宝物。</p></a>
+  <a class="entry-card" href="/glossary/foundation-establishment-pill"><h3>筑基丹 / Foundation Establishment Pill</h3><p class="muted">辅助炼气修士突破筑基的丹药。</p></a>
+  <a class="entry-card" href="/glossary/flying-sword"><h3>飞剑 / Flying Sword</h3><p class="muted">可御使攻击、飞行或承载剑修道路的剑器。</p></a>
 </div>
 
-## Browse by Category
+## 按分类浏览
 
-See the [category index](/categories/) for the full eleven-part taxonomy.
+查看 [分类体系](/categories/)。
 
