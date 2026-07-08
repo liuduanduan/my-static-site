@@ -18,6 +18,19 @@ description: "按阶段整理韩立的年龄段、所在地点、所得资源与
 
 本轮估算参考：[韩立年龄线公开整理](https://zhuanlan.zhihu.com/p/476520969)、[仙界篇年历公开整理](https://www.cnblogs.com/doseoer/p/17834353.html)。
 
+## 章节核对进度
+
+| 界域 / 篇章 | 词条数 | 已核对或阶段核对 | 估算 | 待逐章核对 |
+| --- | ---: | ---: | ---: | ---: |
+| 人界 | 215 | 141 | 72 | 2 |
+| 乱星海 | 32 | 30 | 2 | 0 |
+| 灵界 | 74 | 49 | 24 | 1 |
+| 魔界线 | 25 | 21 | 4 | 0 |
+| 仙界篇 | 137 | 101 | 31 | 5 |
+| 灰界 | 23 | 22 | 1 | 0 |
+
+[打开完整章节核对台账](/rmji/audit/)。
+
 ## 主角路线速览
 
 <p class="muted">年龄已按人界、灵界、仙界三段基准重新校准，页面仍保留约数口径。</p>
@@ -455,6 +468,18 @@ description: "按阶段整理韩立的年龄段、所在地点、所得资源与
     <p>遗迹线把掌天瓶、时间法则和仙界旧史连到一起。</p>
   </div>
 </a>
+<a class="storyline-row" href="/rmji/timeline/laws-final-conflict">
+  <span class="storyline-order">41</span>
+  <div class="storyline-body">
+    <h3>法则终局 / Final Law Conflict</h3>
+    <dl class="storyline-facts">
+      <div><dt>年龄</dt><dd>约16190岁以后</dd></div>
+      <div><dt>地点</dt><dd>仙界高层战场、天庭与轮回相关空间</dd></div>
+      <div><dt>所得</dt><dd>大道冲突认知、终局身份抉择</dd></div>
+    </dl>
+    <p>法则、道祖、天庭和轮回等最高层冲突进入终局。</p>
+  </div>
+</a>
 <a class="storyline-row" href="/rmji/timeline/reincarnation-palace-thread">
   <span class="storyline-order">37</span>
   <div class="storyline-body">
@@ -503,18 +528,6 @@ description: "按阶段整理韩立的年龄段、所在地点、所得资源与
     <p>灰界求生线把地点转换写成真正的规则差异与生态压力。</p>
   </div>
 </a>
-<a class="storyline-row" href="/rmji/timeline/laws-final-conflict">
-  <span class="storyline-order">41</span>
-  <div class="storyline-body">
-    <h3>法则终局 / Final Law Conflict</h3>
-    <dl class="storyline-facts">
-      <div><dt>年龄</dt><dd>约16190岁以后</dd></div>
-      <div><dt>地点</dt><dd>仙界高层战场、天庭与轮回相关空间</dd></div>
-      <div><dt>所得</dt><dd>大道冲突认知、终局身份抉择</dd></div>
-    </dl>
-    <p>法则、道祖、天庭和轮回等最高层冲突进入终局。</p>
-  </div>
-</a>
 <a class="storyline-row" href="/rmji/timeline/dao-ancestor-endgame-thread">
   <span class="storyline-order">42</span>
   <div class="storyline-body">
@@ -529,52 +542,121 @@ description: "按阶段整理韩立的年龄段、所在地点、所得资源与
 </a>
 </div>
 
-## 词条索引
+## 按时间节点索引
 
-| 词条 | 阶段 | 核对 | 摘要 |
+下面先按剧情时间排序，再按专题阅读。人物、法宝、功法、丹药、地点和事件都统一放进“人界篇 -> 灵界篇 -> 仙界篇”的顺序里，避免混在一起。
+
+### 人界篇 01｜凡俗开局与七玄门
+
+青牛镇、七玄门、墨大夫、江湖门派和修仙门槛，主要承担“凡人低起点”的开局。
+
+| 词条 | 阶段 | 章节核对 | 摘要 |
 | --- | --- | --- | --- |
-| [山村离家 / Departure from the Village](/rmji/timeline/mortal-family-departure) | 开篇 | 高 | 韩立从凡俗家庭进入七玄门的起点阶段。 |
-| [七玄门入门 / Entry into Qixuanmen](/rmji/timeline/qixuan-men-entry) | 开篇 | 高 | 韩立从普通山村少年进入江湖门派，故事由此接近修仙门槛。 |
-| [墨大夫危机 / Doctor Mo Crisis](/rmji/timeline/doctor-mo-crisis) | 开篇 | 高 | 韩立从江湖少年被卷入修仙残酷逻辑的关键转折。 |
-| [墨大夫夺舍危机 / Doctor Mo Possession Crisis](/rmji/timeline/doctor-mo-conflict) | 七玄门阶段 | 高 | 韩立第一次真正面对修仙世界残酷规则的关键事件。 |
-| [入黄枫谷 / Entering Yellow Maple Valley](/rmji/timeline/yellow-maple-entry) | 人界早期 | 高 | 韩立从江湖边缘进入正式修仙宗门制度的阶段。 |
-| [黄枫谷修行 / Cultivation in Yellow Maple Valley](/rmji/timeline/yellow-maple-cultivation) | 人界早期 | 高 | 韩立正式进入修仙宗门生态，面对弟子身份、任务、资源和筑基竞争。 |
-| [筑基资源争夺 / Foundation Resource Contest](/rmji/timeline/foundation-pill-contest) | 人界早期 | 高 | 围绕筑基丹、灵药和低阶秘境展开的早期核心竞争。 |
-| [血色禁地试炼 / Blood Forbidden Land Trial](/rmji/timeline/blood-forbidden-land-arc) | 人界早期 | 高 | 越国七派弟子为筑基资源进入秘境争夺，是韩立早期修仙残酷性的集中展示。 |
-| [越国正魔战争 / Yue Righteous-Demonic War](/rmji/timeline/yue-demonic-war) | 人界早中期 | 高 | 越国七派与魔道势力压力下的区域战争线。 |
-| [乱星海历练 / Chaotic Star Sea Journey](/rmji/timeline/chaotic-star-sea-journey) | 人界中期 | 高 | 韩立离开早期宗门格局，进入海域、秘境和大势力冲突阶段。 |
-| [乱星海猎妖经营 / Chaotic Star Sea Beast-Hunting Economy](/rmji/timeline/chaotic-star-sea-hunt) | 乱星海 | 高 | 韩立在海域阶段通过猎妖、材料、丹药和身份隐藏积累资源的阶段。 |
-| [外星海猎妖 / Outer Star Sea Beast Hunt](/rmji/timeline/outer-star-sea-hunting) | 乱星海 | 高 | 韩立在乱星海围绕妖兽、妖丹和海域资源展开的重要历练线。 |
-| [虚天殿夺宝 / Void Heaven Hall Treasure Hunt](/rmji/timeline/xutian-hall-treasure-hunt) | 乱星海 | 高 | 围绕虚天殿、虚天鼎和多方高阶修士展开的争夺。 |
-| [返回天南 / Return to Heavenly South](/rmji/timeline/return-to-heavenly-south) | 人界中后期 | 中 | 韩立带着更高实力回到熟悉区域，地区格局与个人身份都发生变化。 |
-| [天南回归与大战 / Heavenly South Return and War](/rmji/timeline/heavenly-south-return-and-war) | 人界中后期 | 中 | 韩立回到天南后面对旧地新局、区域战争和身份变化的阶段。 |
-| [结婴大关 / Nascent Soul Formation Thread](/rmji/timeline/nascent-soul-formation-thread) | 人界中后期 | 高 | 韩立冲击元婴、资源准备和高阶身份转变的阶段入口。 |
-| [结婴突破线 / Nascent Soul Breakthrough Thread](/rmji/timeline/nascent-soul-breakthrough-thread) | 人界中后期 | 高 | 围绕元婴门槛、丹药、心魔和高阶身份变化展开的阶段。 |
-| [坠魔谷事件 / Demonfall Valley Arc](/rmji/timeline/demonfall-valley-arc) | 人界中后期 | 高 | 人界中后期重要险地事件，连接古魔、遗迹、宝物和高阶修士算计。 |
-| [大晋之行 / Great Jin Journey](/rmji/timeline/great-jin-journey) | 人界后期 | 高 | 韩立进入更大的人界修仙舞台，接触更高密度的资源、势力和风险。 |
-| [昆吾山遗迹 / Kunwu Mountain Ruins Arc](/rmji/timeline/kunwu-mountain-arc) | 人界后期 | 高 | 围绕昆吾山展开的人界后期大事件，牵动大晋势力和古修遗留。 |
-| [大晋老怪博弈 / Great Jin Old-Monster Games](/rmji/timeline/great-jin-old-monster-stage) | 人界后期 | 高 | 韩立进入大晋后面对更复杂遗迹、老怪和宗门家族棋局的阶段。 |
-| [空间节点飞升线 / Spatial Node Ascension Thread](/rmji/timeline/spatial-node-ascension-thread) | 人界至灵界 | 高 | 围绕空间节点、界面之力和飞升风险展开的跨界阶段。 |
-| [飞升灵界 / Ascension to the Spirit Realm](/rmji/timeline/spirit-realm-ascension) | 飞升后 | 高 | 韩立跨入更高界面，原有境界、资源和敌我格局全面升级。 |
-| [天渊城阶段 / Heavenly Abyss City Arc](/rmji/timeline/heavenly-abyss-city-arc) | 灵界早期 | 高 | 韩立飞升灵界后接触人族防线、族群战争和更高修炼秩序的重要阶段。 |
-| [灵界多族冲突线 / Spirit Realm Multi-Race Conflict Thread](/rmji/timeline/spirit-world-race-conflict-thread) | 灵界 | 高 | 韩立飞升后面对人妖两族、异族、真灵血脉和边境压力的阶段总入口。 |
-| [灵界族群战争 / Spirit Realm Racial War](/rmji/timeline/spirit-world-racial-war) | 灵界 | 高 | 灵界多族压力、人妖两族防线和大规模冲突的总入口。 |
-| [广寒界机缘 / Broad Cold Realm Opportunity](/rmji/timeline/broad-cold-realm-arc) | 灵界 | 中 | 灵界特殊空间相关阶段，集中呈现多族参与、机缘争夺和秘境规则。 |
-| [魔劫前奏 / Prelude to the Devil Calamity](/rmji/timeline/devil-war-prelude) | 灵界至魔界线 | 高 | 魔族压力由零散威胁逐步转为大规模战争阴影的阶段。 |
-| [魔界远行 / Devil Realm Expedition](/rmji/timeline/devil-realm-expedition) | 灵界至魔界线 | 高 | 韩立进入魔界相关叙事、接触魔族资源和高阶魔族人物的阶段。 |
-| [魔劫大线 / Devil Calamity Thread](/rmji/timeline/devil-calamity) | 灵界至魔界线 | 高 | 围绕魔族、魔界和跨界冲突展开的大规模压力线。 |
-| [仙界篇开局 / Opening of the Immortal World Arc](/rmji/timeline/immortal-realm-opening) | 仙界篇早期 | 高 | 韩立进入仙界篇叙事后，身份、记忆、追捕和仙界秩序构成新的开局压力。 |
-| [黑风海开局 / Black Wind Sea Opening](/rmji/timeline/black-wind-sea-opening) | 仙界篇早期 | 高 | 仙界篇开局中韩立落入地方海域、恢复实力并重建身份的阶段。 |
-| [烛龙道阶段 / Candle Dragon Dao Arc](/rmji/timeline/candle-dragon-dao-arc) | 仙界篇早期 | 高 | 韩立在仙界组织生态中落脚、学习和卷入更大冲突的重要阶段。 |
-| [北寒仙域追逃 / North Cold Immortal Domain Pursuit](/rmji/timeline/north-cold-immortal-domain-pursuit) | 仙界篇早期 | 高 | 韩立在北寒仙域秩序、追索和身份压力下周旋的阶段入口。 |
-| [仙窍修炼线 / Immortal Aperture Cultivation Thread](/rmji/timeline/immortal-aperture-cultivation-thread) | 仙界篇 | 高 | 仙界篇中围绕仙窍、仙灵力、境界推进和法则积累展开的长期修炼线。 |
-| [真言门遗迹线 / True Word Sect Ruins Thread](/rmji/timeline/true-word-sect-ruins-arc) | 仙界篇 | 高 | 仙界篇围绕真言门、时间法则和历史因果展开的重要遗迹线。 |
-| [轮回殿暗线 / Reincarnation Palace Thread](/rmji/timeline/reincarnation-palace-thread) | 仙界篇 | 高 | 围绕轮回殿任务、身份、反天庭秩序和轮回法则展开的长期暗线。 |
-| [天庭冲突线 / Heavenly Court Conflict Thread](/rmji/timeline/heavenly-court-conflict-thread) | 仙界篇 | 高 | 围绕天庭追索、秩序统治、道祖体系和高阶法则斗争展开的主线压力。 |
-| [灰界阶段 / Gray Realm Arc](/rmji/timeline/gray-realm-arc) | 仙界篇中后期 | 高 | 韩立进入灰界相关叙事，接触不同生态、族群、材料和法则差异。 |
-| [灰界求生线 / Gray Realm Survival Thread](/rmji/timeline/gray-realm-survival-thread) | 仙界篇灰界阶段 | 高 | 韩立在灰界面对异质环境、灰界势力和荒域危险的阶段总入口。 |
-| [法则终局 / Final Law Conflict](/rmji/timeline/laws-final-conflict) | 仙界篇后期 | 中 | 仙界篇后期围绕法则、道祖、天庭和轮回等最高层冲突展开。 |
-| [道祖终局线 / Dao Ancestor Endgame Thread](/rmji/timeline/dao-ancestor-endgame-thread) | 仙界篇后期 | 高 | 围绕道祖位格、天庭秩序、轮回与时间大道冲突展开的终局阶段。 |
+| [山村离家 / Departure from the Village](/rmji/timeline/mortal-family-departure) | 开篇 | 已核对章节段 | 韩立从凡俗家庭进入七玄门的起点阶段。 |
+| [七玄门入门 / Entry into Qixuanmen](/rmji/timeline/qixuan-men-entry) | 开篇 | 已核对章节段 | 韩立从普通山村少年进入江湖门派，故事由此接近修仙门槛。 |
+| [墨大夫危机 / Doctor Mo Crisis](/rmji/timeline/doctor-mo-crisis) | 开篇 | 已核对章节段 | 韩立从江湖少年被卷入修仙残酷逻辑的关键转折。 |
+| [墨大夫夺舍危机 / Doctor Mo Possession Crisis](/rmji/timeline/doctor-mo-conflict) | 七玄门阶段 | 已核对章节段 | 韩立第一次真正面对修仙世界残酷规则的关键事件。 |
+
+### 人界篇 03｜越国七派与筑基阶段
+
+太南小会、黄枫谷、血色禁地、筑基丹、越国正魔压力和早期宗门关系。
+
+| 词条 | 阶段 | 章节核对 | 摘要 |
+| --- | --- | --- | --- |
+| [入黄枫谷 / Entering Yellow Maple Valley](/rmji/timeline/yellow-maple-entry) | 人界早期 | 已核对章节段 | 韩立从江湖边缘进入正式修仙宗门制度的阶段。 |
+| [黄枫谷修行 / Cultivation in Yellow Maple Valley](/rmji/timeline/yellow-maple-cultivation) | 人界早期 | 阶段核对 | 韩立正式进入修仙宗门生态，面对弟子身份、任务、资源和筑基竞争。 |
+| [筑基资源争夺 / Foundation Resource Contest](/rmji/timeline/foundation-pill-contest) | 人界早期 | 阶段核对 | 围绕筑基丹、灵药和低阶秘境展开的早期核心竞争。 |
+| [血色禁地试炼 / Blood Forbidden Land Trial](/rmji/timeline/blood-forbidden-land-arc) | 人界早期 | 已核对章节段 | 越国七派弟子为筑基资源进入秘境争夺，是韩立早期修仙残酷性的集中展示。 |
+| [越国正魔战争 / Yue Righteous-Demonic War](/rmji/timeline/yue-demonic-war) | 人界早中期 | 已核对章节段 | 越国七派与魔道势力压力下的区域战争线。 |
+
+### 人界篇 04｜乱星海与虚天殿
+
+魁星岛、天星城、外星海猎妖、虚天殿、玄骨、极阴、紫灵、元瑶与海域资源循环。
+
+| 词条 | 阶段 | 章节核对 | 摘要 |
+| --- | --- | --- | --- |
+| [乱星海历练 / Chaotic Star Sea Journey](/rmji/timeline/chaotic-star-sea-journey) | 人界中期 | 已核对章节段 | 韩立离开早期宗门格局，进入海域、秘境和大势力冲突阶段。 |
+| [乱星海猎妖经营 / Chaotic Star Sea Beast-Hunting Economy](/rmji/timeline/chaotic-star-sea-hunt) | 乱星海 | 已核对章节段 | 韩立在海域阶段通过猎妖、材料、丹药和身份隐藏积累资源的阶段。 |
+| [外星海猎妖 / Outer Star Sea Beast Hunt](/rmji/timeline/outer-star-sea-hunting) | 乱星海 | 阶段核对 | 韩立在乱星海围绕妖兽、妖丹和海域资源展开的重要历练线。 |
+| [虚天殿夺宝 / Void Heaven Hall Treasure Hunt](/rmji/timeline/xutian-hall-treasure-hunt) | 乱星海 | 已核对章节段 | 围绕虚天殿、虚天鼎和多方高阶修士展开的争夺。 |
+
+### 人界篇 05｜返回天南、大晋与飞升前
+
+结丹、结婴、坠魔谷、大晋、昆吾山、化神和空间节点，整理人界中后期老怪与遗迹线。
+
+| 词条 | 阶段 | 章节核对 | 摘要 |
+| --- | --- | --- | --- |
+| [返回天南 / Return to Heavenly South](/rmji/timeline/return-to-heavenly-south) | 人界中后期 | 已核对章节段 | 韩立带着更高实力回到熟悉区域，地区格局与个人身份都发生变化。 |
+| [天南回归与大战 / Heavenly South Return and War](/rmji/timeline/heavenly-south-return-and-war) | 人界中后期 | 阶段核对 | 韩立回到天南后面对旧地新局、区域战争和身份变化的阶段。 |
+| [结婴大关 / Nascent Soul Formation Thread](/rmji/timeline/nascent-soul-formation-thread) | 人界中后期 | 阶段核对 | 韩立冲击元婴、资源准备和高阶身份转变的阶段入口。 |
+| [结婴突破线 / Nascent Soul Breakthrough Thread](/rmji/timeline/nascent-soul-breakthrough-thread) | 人界中后期 | 已核对章节段 | 围绕元婴门槛、丹药、心魔和高阶身份变化展开的阶段。 |
+| [坠魔谷事件 / Demonfall Valley Arc](/rmji/timeline/demonfall-valley-arc) | 人界中后期 | 已核对章节段 | 人界中后期重要险地事件，连接古魔、遗迹、宝物和高阶修士算计。 |
+| [大晋之行 / Great Jin Journey](/rmji/timeline/great-jin-journey) | 人界后期 | 已核对章节段 | 韩立进入更大的人界修仙舞台，接触更高密度的资源、势力和风险。 |
+| [昆吾山遗迹 / Kunwu Mountain Ruins Arc](/rmji/timeline/kunwu-mountain-arc) | 人界后期 | 已核对章节段 | 围绕昆吾山展开的人界后期大事件，牵动大晋势力和古修遗留。 |
+| [大晋老怪博弈 / Great Jin Old-Monster Games](/rmji/timeline/great-jin-old-monster-stage) | 人界后期 | 阶段核对 | 韩立进入大晋后面对更复杂遗迹、老怪和宗门家族棋局的阶段。 |
+| [空间节点飞升线 / Spatial Node Ascension Thread](/rmji/timeline/spatial-node-ascension-thread) | 人界至灵界 | 已核对章节段 | 围绕空间节点、界面之力和飞升风险展开的跨界阶段。 |
+
+### 灵界篇 01｜飞升落点与天渊城
+
+韩立进入灵界后的身份重建、人妖两族防线、天渊城秩序和更高界面资源。
+
+| 词条 | 阶段 | 章节核对 | 摘要 |
+| --- | --- | --- | --- |
+| [飞升灵界 / Ascension to the Spirit Realm](/rmji/timeline/spirit-realm-ascension) | 飞升后 | 已核对章节段 | 韩立跨入更高界面，原有境界、资源和敌我格局全面升级。 |
+| [天渊城阶段 / Heavenly Abyss City Arc](/rmji/timeline/heavenly-abyss-city-arc) | 灵界早期 | 已核对章节段 | 韩立飞升灵界后接触人族防线、族群战争和更高修炼秩序的重要阶段。 |
+| [灵界多族冲突线 / Spirit Realm Multi-Race Conflict Thread](/rmji/timeline/spirit-world-race-conflict-thread) | 灵界 | 已核对章节段 | 韩立飞升后面对人妖两族、异族、真灵血脉和边境压力的阶段总入口。 |
+| [灵界族群战争 / Spirit Realm Racial War](/rmji/timeline/spirit-world-racial-war) | 灵界 | 阶段核对 | 灵界多族压力、人妖两族防线和大规模冲突的总入口。 |
+| [广寒界机缘 / Broad Cold Realm Opportunity](/rmji/timeline/broad-cold-realm-arc) | 灵界 | 已核对章节段 | 灵界特殊空间相关阶段，集中呈现多族参与、机缘争夺和秘境规则。 |
+
+### 灵界篇 03｜魔劫与魔界远行
+
+魔族压力、魔界资源、宝花、元刹、六极等圣祖人物，以及灵界后期战争尺度。
+
+| 词条 | 阶段 | 章节核对 | 摘要 |
+| --- | --- | --- | --- |
+| [魔劫前奏 / Prelude to the Devil Calamity](/rmji/timeline/devil-war-prelude) | 灵界至魔界线 | 阶段核对 | 魔族压力由零散威胁逐步转为大规模战争阴影的阶段。 |
+| [魔界远行 / Devil Realm Expedition](/rmji/timeline/devil-realm-expedition) | 灵界至魔界线 | 阶段核对 | 韩立进入魔界相关叙事、接触魔族资源和高阶魔族人物的阶段。 |
+| [魔劫大线 / Devil Calamity Thread](/rmji/timeline/devil-calamity) | 灵界至魔界线 | 已核对章节段 | 围绕魔族、魔界和跨界冲突展开的大规模压力线。 |
+
+### 仙界篇 01｜黑风海、北寒仙域与烛龙道
+
+仙界篇低处重启、黑风海、北寒仙域、仙宫追索、烛龙道、无常盟和早期同行人物。
+
+| 词条 | 阶段 | 章节核对 | 摘要 |
+| --- | --- | --- | --- |
+| [仙界篇开局 / Opening of the Immortal World Arc](/rmji/timeline/immortal-realm-opening) | 仙界篇早期 | 已核对章节段 | 韩立进入仙界篇叙事后，身份、记忆、追捕和仙界秩序构成新的开局压力。 |
+| [黑风海开局 / Black Wind Sea Opening](/rmji/timeline/black-wind-sea-opening) | 仙界篇早期 | 已核对章节段 | 仙界篇开局中韩立落入地方海域、恢复实力并重建身份的阶段。 |
+| [烛龙道阶段 / Candle Dragon Dao Arc](/rmji/timeline/candle-dragon-dao-arc) | 仙界篇早期 | 已核对章节段 | 韩立在仙界组织生态中落脚、学习和卷入更大冲突的重要阶段。 |
+| [北寒仙域追逃 / North Cold Immortal Domain Pursuit](/rmji/timeline/north-cold-immortal-domain-pursuit) | 仙界篇早期 | 已核对章节段 | 韩立在北寒仙域秩序、追索和身份压力下周旋的阶段入口。 |
+| [仙窍修炼线 / Immortal Aperture Cultivation Thread](/rmji/timeline/immortal-aperture-cultivation-thread) | 仙界篇 | 阶段核对 | 仙界篇中围绕仙窍、仙灵力、境界推进和法则积累展开的长期修炼线。 |
+| [真言门遗迹线 / True Word Sect Ruins Thread](/rmji/timeline/true-word-sect-ruins-arc) | 仙界篇 | 已核对章节段 | 仙界篇围绕真言门、时间法则和历史因果展开的重要遗迹线。 |
+| [法则终局 / Final Law Conflict](/rmji/timeline/laws-final-conflict) | 仙界篇后期 | 阶段核对 | 仙界篇后期围绕法则、道祖、天庭和轮回等最高层冲突展开。 |
+
+### 仙界篇 02｜真言门、轮回殿、天庭与九元观
+
+真言化轮经、时间法则、轮回殿任务、天庭秩序、九元观和仙界中后期政治主线。
+
+| 词条 | 阶段 | 章节核对 | 摘要 |
+| --- | --- | --- | --- |
+| [轮回殿暗线 / Reincarnation Palace Thread](/rmji/timeline/reincarnation-palace-thread) | 仙界篇 | 阶段核对 | 围绕轮回殿任务、身份、反天庭秩序和轮回法则展开的长期暗线。 |
+| [天庭冲突线 / Heavenly Court Conflict Thread](/rmji/timeline/heavenly-court-conflict-thread) | 仙界篇 | 阶段核对 | 围绕天庭追索、秩序统治、道祖体系和高阶法则斗争展开的主线压力。 |
+
+### 仙界篇 03｜灰界与积鳞空境
+
+灰界城池、荒域、灰晶、异质生态、生存规则和石穿空相关路线。
+
+| 词条 | 阶段 | 章节核对 | 摘要 |
+| --- | --- | --- | --- |
+| [灰界阶段 / Gray Realm Arc](/rmji/timeline/gray-realm-arc) | 仙界篇中后期 | 已核对章节段 | 韩立进入灰界相关叙事，接触不同生态、族群、材料和法则差异。 |
+| [灰界求生线 / Gray Realm Survival Thread](/rmji/timeline/gray-realm-survival-thread) | 仙界篇灰界阶段 | 阶段核对 | 韩立在灰界面对异质环境、灰界势力和荒域危险的阶段总入口。 |
+
+### 仙界篇 04｜道祖终局
+
+古或今、轮回殿主、时间道祖、天庭终局、轮回与时间大道冲突。
+
+| 词条 | 阶段 | 章节核对 | 摘要 |
+| --- | --- | --- | --- |
+| [道祖终局线 / Dao Ancestor Endgame Thread](/rmji/timeline/dao-ancestor-endgame-thread) | 仙界篇后期 | 阶段核对 | 围绕道祖位格、天庭秩序、轮回与时间大道冲突展开的终局阶段。 |
 
 ## 编辑说明
 

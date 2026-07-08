@@ -5,7 +5,9 @@ en_name: "Kunwu Mountain Contenders"
 pinyin: "Kunwu Shan Zhengduo Shili"
 category: "Sects & Factions"
 arc: "Late Mortal Realm arc"
-check_status: "high"
+timeline_node: "Mortal Realm 05 | Return to Heavenly South, Great Jin, and pre-ascension"
+check_status: "arc checked"
+legacy_check_status: "high"
 description: "A hub for the multiple forces contending around the Kunwu Mountain ruins."
 ---
 
@@ -29,9 +31,43 @@ It gathers late Mortal Realm ruins, ancient treasures, and high-level interests 
 ## Curation Notes
 
 - Topic lane: Sects & Factions.
+- Chronology node: Mortal Realm 05 | Return to Heavenly South, Great Jin, and pre-ascension.
 - Reading focus: Read it through regional order, resource allocation, mission systems, pursuit pressure, or political alliances.
 - Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Mortal Realm 05 | Return to Heavenly South, Great Jin, and pre-ascension |
+| Major realm | Mortal Realm |
+| Arc label | Late Mortal Realm arc |
+| Chapter segment | Late Mortal Realm arc related chapter segment |
+| Why it is here | Core Formation, Nascent Soul, Demonfall Valley, Great Jin, Kunwu Mountain, Spirit Transformation, and spatial nodes. |
+
+
+
+
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | A Record of a Mortal's Journey to Immortality |
+| Chapter segment | Late Mortal Realm arc related chapter segment |
+| First check point | First appearance of Kunwu Mountain Contenders remains to be refined by chapter |
+| Main place | Mortal Realm |
+| People | Han Li and related figures |
+| Event | A hub for the multiple forces contending around the Kunwu Mountain ruins. |
+| Materials / arts | Material / technique details to be expanded through related links |
+| Han Li age estimate | estimated by arc; chapter-level refinement pending |
+| Check status | arc checked |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/), [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji) |
+| Note | This is located to an arc or event segment; later passes can add exact chapter numbers and cross-links. |
+
 
 
 
@@ -43,8 +79,10 @@ It gathers late Mortal Realm ruins, ancient treasures, and high-level interests 
 | English name | Kunwu Mountain Contenders |
 | Pinyin | Kunwu Shan Zhengduo Shili |
 | Topic | [Sects & Factions](/en/rmji/sects/) |
+| Timeline node | Mortal Realm 05 | Return to Heavenly South, Great Jin, and pre-ascension |
 | Main arc | Late Mortal Realm arc |
-| Check status | high |
+| Chapter check | arc checked |
+| Legacy confidence | high |
 
 ## Related Entries
 
@@ -56,8 +94,9 @@ It gathers late Mortal Realm ruins, ancient treasures, and high-level interests 
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

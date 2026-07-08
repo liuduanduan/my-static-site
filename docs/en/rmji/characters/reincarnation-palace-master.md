@@ -5,8 +5,10 @@ en_name: "Reincarnation Palace Master"
 pinyin: "Lunhui Dianzhu"
 category: "Characters"
 arc: "High-level sequel"
-check_status: "needs chapter check"
-description: "A top-level Reincarnation Palace figure tied to reincarnation law and immortal-world political conflict."
+timeline_node: "Immortal World 02 | True Word Sect, Reincarnation Palace, Heavenly Court, and Nine Origin Temple"
+check_status: "arc checked"
+legacy_check_status: "high"
+description: "The top Reincarnation Palace figure tied to reincarnation law, Nangong Wan past-life karma, Jiao San identity, and resistance against Heavenly Court."
 ---
 
 # Reincarnation Palace Master / 轮回殿主
@@ -20,18 +22,65 @@ description: "A top-level Reincarnation Palace figure tied to reincarnation law 
 
 ## Summary
 
-A top-level Reincarnation Palace figure tied to reincarnation law and immortal-world political conflict.
+The top Reincarnation Palace figure tied to reincarnation law, Nangong Wan past-life karma, Jiao San identity, and resistance against Heavenly Court.
 
 ## Role in RMJI
 
-Included first as a high-level character index without over-spoiling; later passes can add law-path details.
+This is a major spoiler-core figure and should be documented through reincarnation law, Heavenly Court conflict, and endgame karma.
 
 ## Curation Notes
 
 - Topic lane: Characters.
+- Chronology node: Immortal World 02 | True Word Sect, Reincarnation Palace, Heavenly Court, and Nine Origin Temple.
 - Reading focus: Read the character as mentor, emotional karma, hostile pressure, companion support, or symbol of higher order.
 - Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Immortal World 02 | True Word Sect, Reincarnation Palace, Heavenly Court, and Nine Origin Temple |
+| Major realm | Immortal World Arc |
+| Arc label | High-level sequel |
+| Chapter segment | Middle-late sequel: True Word Sect, Reincarnation Palace, Heavenly Court, Nine Origin Temple, and Dao Ancestor system segment |
+| Why it is here | Mantra Wheel Scripture, time law, Reincarnation Palace missions, Heavenly Court order, Nine Origin Temple, and sequel politics. |
+
+
+## Character File
+
+| Field | Detail |
+| --- | --- |
+| Timeline node | Immortal World 02 | True Word Sect, Reincarnation Palace, Heavenly Court, and Nine Origin Temple |
+| First / major meeting | Gradually emerges in the middle-late sequel as a core figure of Reincarnation Palace, Heavenly Court conflict, and the endgame Dao struggle. |
+| Cultivation at meeting / main stage | Dao-Ancestor-level or top-layer figure tied to reincarnation law. |
+| Identity and faction | Top Reincarnation Palace figure, strongly tied to Nangong Wan past-life karma, Jiao San identity, and Han Li endgame. |
+| Arts, laws, or treasures | Reincarnation law, Reincarnation Palace organization, and long resistance against Heavenly Court. |
+| Relation to Han Li | One of Han Li largest sequel karmic nodes and the pivot for Nangong Wan and Jiao San relationship lines. |
+| Outcome / later thread | In the finale, he forms a core contrast with Gu Huojin, Han Li, and Heavenly Court order. |
+| Age precision | The text usually locates this figure by realm and arc; exact age remains chapter-level work. |
+| Note | Original encyclopedia notes only; if cultivation changes, the meeting or main arc takes priority. |
+
+
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | RMJI: Immortal World Arc |
+| Chapter segment | Middle-late sequel: True Word Sect, Reincarnation Palace, Heavenly Court, Nine Origin Temple, and Dao Ancestor system segment |
+| First check point | Completes the main structure of time law, reincarnation law, Heavenly Court order, and Dao Ancestor status. |
+| Main place | True Word Sect ruins, Reincarnation Palace bases, Heavenly Court territory, Nine Origin Temple spaces |
+| People | Han Li, Gan Jiuzhen, Gu Huajin, Reincarnation Palace Master, Heavenly Court / Nine Origin Temple figures |
+| Event | Completes the main structure of time law, reincarnation law, Heavenly Court order, and Dao Ancestor status. |
+| Materials / arts | Mantra Wheel Scripture, time materials, reincarnation law, Dao Ancestor system, Heavenly Bottle karma |
+| Han Li age estimate | after about age 12500 into the finale |
+| Check status | arc checked |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/), [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58), [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir) |
+| Note | This pass records chapter segments, event facts, and entity links without reproducing novel prose. |
+
 
 
 
@@ -43,21 +92,26 @@ Included first as a high-level character index without over-spoiling; later pass
 | English name | Reincarnation Palace Master |
 | Pinyin | Lunhui Dianzhu |
 | Topic | [Characters](/en/rmji/characters/) |
+| Timeline node | Immortal World 02 | True Word Sect, Reincarnation Palace, Heavenly Court, and Nine Origin Temple |
 | Main arc | High-level sequel |
-| Check status | needs chapter check |
+| Chapter check | arc checked |
+| Legacy confidence | high |
 
 ## Related Entries
 
 - [Reincarnation Palace / 轮回殿](/en/rmji/sects/reincarnation-palace)
 - [Law of Reincarnation / 轮回法则](/en/rmji/laws/reincarnation-law)
 - [Heavenly Court / 天庭](/en/rmji/sects/heavenly-court)
+- [Jiao San / 蛟三](/en/rmji/characters/jiao-san)
+- [Nangong Wan / 南宫婉](/en/rmji/characters/nangong-wan)
 
 ## Legal Reading
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

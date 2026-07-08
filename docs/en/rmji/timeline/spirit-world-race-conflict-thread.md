@@ -5,7 +5,9 @@ en_name: "Spirit Realm Multi-Race Conflict Thread"
 pinyin: "Lingjie Duozu Chongtu Xian"
 category: "Timeline"
 arc: "Spirit Realm"
-check_status: "high"
+timeline_node: "Spirit Realm 01 | Ascension landing and Heavenly Abyss City"
+check_status: "verified chapter segment"
+legacy_check_status: "high"
 description: "A Spirit Realm hub for human-demon alliance, alien peoples, true-spirit bloodlines, and frontier pressure."
 ---
 
@@ -29,9 +31,43 @@ It expands Spirit Realm storytelling from personal cultivation into a world of p
 ## Curation Notes
 
 - Topic lane: Timeline.
+- Chronology node: Spirit Realm 01 | Ascension landing and Heavenly Abyss City.
 - Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
 - Series placement: This entry belongs mostly to the Spirit Realm transition, where Han Li faces racial politics, higher materials, and broader realm-scale conflict.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Spirit Realm 01 | Ascension landing and Heavenly Abyss City |
+| Major realm | Spirit Realm |
+| Arc label | Spirit Realm |
+| Chapter segment | Spirit Realm multi-race, Flying Spirit, and frontier-pressure segment |
+| Why it is here | Identity rebuilding after ascension, human-demon defenses, Heavenly Abyss City order, and higher-realm resources. |
+
+
+
+
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | A Record of a Mortal's Journey to Immortality |
+| Chapter segment | Spirit Realm multi-race, Flying Spirit, and frontier-pressure segment |
+| First check point | Han Li encounters multi-race territories and true-spirit bloodline threads |
+| Main place | Flying Spirit regions, Spirit Realm frontiers, wilderness areas |
+| People | Han Li, Flying Spirit figures, alien cultivators |
+| Event | The Spirit Realm arc expands into multi-race ecology and frontier conflict. |
+| Materials / arts | True-spirit blood, alien materials, Spirit Realm mission resources |
+| Han Li age estimate | about age 1160-2468 |
+| Check status | verified chapter segment |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/), [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji) |
+| Note | This pass records chapter segments, event facts, and entity links without reproducing novel prose. |
+
 
 ## Protagonist Timeline Profile
 
@@ -52,8 +88,10 @@ It expands Spirit Realm storytelling from personal cultivation into a world of p
 | English name | Spirit Realm Multi-Race Conflict Thread |
 | Pinyin | Lingjie Duozu Chongtu Xian |
 | Topic | [Timeline](/en/rmji/timeline/) |
+| Timeline node | Spirit Realm 01 | Ascension landing and Heavenly Abyss City |
 | Main arc | Spirit Realm |
-| Check status | high |
+| Chapter check | verified chapter segment |
+| Legacy confidence | high |
 
 ## Related Entries
 
@@ -65,8 +103,9 @@ It expands Spirit Realm storytelling from personal cultivation into a world of p
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

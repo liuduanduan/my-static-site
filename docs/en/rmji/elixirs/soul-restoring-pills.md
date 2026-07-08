@@ -5,7 +5,9 @@ en_name: "Soul-Restoring Pills"
 pinyin: "Yangshen Danyao"
 category: "Elixirs & Materials"
 arc: "Mortal Realm to Immortal World Arc"
-check_status: "medium"
+timeline_node: "Immortal World 01 | Black Wind Sea, North Cold domain, and Candle Dragon Dao"
+check_status: "estimated"
+legacy_check_status: "medium"
 description: "A pill concept for restoring divine sense, nourishing souls, or easing backlash from soul methods."
 ---
 
@@ -29,9 +31,55 @@ It adds the resource side of spirit refinement and soul-nurturing wood.
 ## Curation Notes
 
 - Topic lane: Elixirs & Materials.
+- Chronology node: Immortal World 01 | Black Wind Sea, North Cold domain, and Candle Dragon Dao.
 - Reading focus: Read it through the resource chain: herb source, formula value, breakthrough use, trade value, and scarcity.
 - Series placement: This entry spans a long series arc, making it useful for tracking continuity across both the original novel and the sequel.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Immortal World 01 | Black Wind Sea, North Cold domain, and Candle Dragon Dao |
+| Major realm | Immortal World Arc |
+| Arc label | Mortal Realm to Immortal World Arc |
+| Chapter segment | Mortal Realm to Immortal World Arc related chapter segment |
+| Why it is here | The sequel restart, Black Wind Sea, North Cold domain, immortal-palace pursuit, Candle Dragon Dao, Impermanence Alliance, and early companions. |
+
+
+
+
+## Crafting and Effect File
+
+| Field | Detail |
+| --- | --- |
+| Timeline node | Immortal World 01 | Black Wind Sea, North Cold domain, and Candle Dragon Dao |
+| Source / acquisition | Mortal Realm to Immortal World Arc related chapter segment |
+| Materials / conditions | Specific materials pending chapter check; currently records known resource class and chain. |
+| Method | Organized by acquisition, refinement conditions, and use. |
+| Effect | It adds the resource side of spirit refinement and soul-nurturing wood. |
+| Users / related people | Han Li and related figures |
+| Limits | Materials, formula, or refinement details remain subject to chapter-level checking; this page does not invent complete recipes. |
+| Note | Records materials, method, and effects only; no novel prose is reproduced. |
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | RMJI: Immortal World Arc |
+| Chapter segment | Mortal Realm to Immortal World Arc related chapter segment |
+| First check point | First appearance of Soul-Restoring Pills remains to be refined by chapter |
+| Main place | Immortal World Arc |
+| People | Han Li and related figures |
+| Event | A pill concept for restoring divine sense, nourishing souls, or easing backlash from soul methods. |
+| Materials / arts | Soul-Restoring Pills |
+| Han Li age estimate | estimated by arc; chapter-level refinement pending |
+| Check status | estimated |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/), [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58), [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir) |
+| Note | This is located to an arc or event segment; later passes can add exact chapter numbers and cross-links. |
+
 
 
 
@@ -43,8 +91,10 @@ It adds the resource side of spirit refinement and soul-nurturing wood.
 | English name | Soul-Restoring Pills |
 | Pinyin | Yangshen Danyao |
 | Topic | [Elixirs & Materials](/en/rmji/elixirs/) |
+| Timeline node | Immortal World 01 | Black Wind Sea, North Cold domain, and Candle Dragon Dao |
 | Main arc | Mortal Realm to Immortal World Arc |
-| Check status | medium |
+| Chapter check | estimated |
+| Legacy confidence | medium |
 
 ## Related Entries
 
@@ -56,8 +106,9 @@ It adds the resource side of spirit refinement and soul-nurturing wood.
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

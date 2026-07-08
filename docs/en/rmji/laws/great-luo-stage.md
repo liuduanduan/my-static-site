@@ -5,7 +5,9 @@ en_name: "Great Luo Stage"
 pinyin: "Daluo Jing"
 category: "Laws & Dao"
 arc: "High-level Immortal World Arc"
-check_status: "medium"
+timeline_node: "Immortal World 02 | True Word Sect, Reincarnation Palace, Heavenly Court, and Nine Origin Temple"
+check_status: "arc checked"
+legacy_check_status: "medium"
 description: "One of the sequel top power tiers, tied to Dao authority and highest factions."
 ---
 
@@ -29,9 +31,43 @@ It helps stratify late sequel power and the Dao Ancestor system.
 ## Curation Notes
 
 - Topic lane: Laws & Dao.
+- Chronology node: Immortal World 02 | True Word Sect, Reincarnation Palace, Heavenly Court, and Nine Origin Temple.
 - Reading focus: Read it through its links to realms, spiritual domains, Dao Ancestors, and high-level sequel combat.
 - Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Immortal World 02 | True Word Sect, Reincarnation Palace, Heavenly Court, and Nine Origin Temple |
+| Major realm | Immortal World Arc |
+| Arc label | High-level Immortal World Arc |
+| Chapter segment | Early-middle sequel: Black Wind Sea, North Cold domain, Candle Dragon Dao, Impermanence Alliance, and immortal-aperture cultivation segment |
+| Why it is here | Mantra Wheel Scripture, time law, Reincarnation Palace missions, Heavenly Court order, Nine Origin Temple, and sequel politics. |
+
+
+
+
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | RMJI: Immortal World Arc |
+| Chapter segment | Early-middle sequel: Black Wind Sea, North Cold domain, Candle Dragon Dao, Impermanence Alliance, and immortal-aperture cultivation segment |
+| First check point | Completes the sequel low-foothold restart, immortal-domain order, organization missions, and immortal-aperture cultivation system. |
+| Main place | Black Wind Sea, North Cold domain, Candle Dragon Dao, Impermanence Alliance mission routes |
+| People | Han Li, Liu Leer, Lu Yuqing, Crab Daoist, Golden Child, Hu Yan Daoist, Hot Flame Immortal, Jiao San, Fox Three |
+| Event | Completes the sequel low-foothold restart, immortal-domain order, organization missions, and immortal-aperture cultivation system. |
+| Materials / arts | Immortal origin stones, Dao pills, immortal-aperture resources, Spirit Refining Art, mission resources |
+| Han Li age estimate | about age 11190-13280 |
+| Check status | arc checked |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/), [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58), [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir) |
+| Note | This pass records chapter segments, event facts, and entity links without reproducing novel prose. |
+
 
 
 
@@ -43,8 +79,10 @@ It helps stratify late sequel power and the Dao Ancestor system.
 | English name | Great Luo Stage |
 | Pinyin | Daluo Jing |
 | Topic | [Laws & Dao](/en/rmji/laws/) |
+| Timeline node | Immortal World 02 | True Word Sect, Reincarnation Palace, Heavenly Court, and Nine Origin Temple |
 | Main arc | High-level Immortal World Arc |
-| Check status | medium |
+| Chapter check | arc checked |
+| Legacy confidence | medium |
 
 ## Related Entries
 
@@ -55,8 +93,9 @@ It helps stratify late sequel power and the Dao Ancestor system.
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

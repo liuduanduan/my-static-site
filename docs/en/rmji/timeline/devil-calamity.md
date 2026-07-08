@@ -5,7 +5,9 @@ en_name: "Devil Calamity Thread"
 pinyin: "Mojie Daxian"
 category: "Timeline"
 arc: "Spirit to Devil Realm thread"
-check_status: "high"
+timeline_node: "Spirit Realm 03 | Devil Calamity and Devil Realm journey"
+check_status: "verified chapter segment"
+legacy_check_status: "high"
 description: "A large-scale pressure thread around devil races, the Devil Realm, and cross-realm conflict."
 ---
 
@@ -29,9 +31,43 @@ It pushes personal Dao-seeking into racial war, realm security, and great-power 
 ## Curation Notes
 
 - Topic lane: Timeline.
+- Chronology node: Spirit Realm 03 | Devil Calamity and Devil Realm journey.
 - Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
 - Series placement: This entry belongs mostly to the Spirit Realm transition, where Han Li faces racial politics, higher materials, and broader realm-scale conflict.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Spirit Realm 03 | Devil Calamity and Devil Realm journey |
+| Major realm | Spirit Realm |
+| Arc label | Spirit to Devil Realm thread |
+| Chapter segment | Late Spirit Realm: Devil Calamity and cross-realm war segment |
+| Why it is here | Devil pressure, Devil Realm resources, Baohua, Yuan Cha, Six Extremes, and late Spirit Realm war scale. |
+
+
+
+
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | A Record of a Mortal's Journey to Immortality |
+| Chapter segment | Late Spirit Realm: Devil Calamity and cross-realm war segment |
+| First check point | Devil-race pressure escalates into large-scale realm war |
+| Main place | Spirit Realm defenses, devil-pressure zones, cross-realm battlefields |
+| People | Han Li, Baohua, Yuan Cha, devil-ancestor figures |
+| Event | The devil thread shifts from external threat into lived war and resource contact. |
+| Materials / arts | Devil crystals, true devil Qi, devil materials, battlefield resources |
+| Han Li age estimate | after about age 2468 before Immortal Realm ascension |
+| Check status | verified chapter segment |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/), [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji) |
+| Note | This pass records chapter segments, event facts, and entity links without reproducing novel prose. |
+
 
 ## Protagonist Timeline Profile
 
@@ -52,8 +88,10 @@ It pushes personal Dao-seeking into racial war, realm security, and great-power 
 | English name | Devil Calamity Thread |
 | Pinyin | Mojie Daxian |
 | Topic | [Timeline](/en/rmji/timeline/) |
+| Timeline node | Spirit Realm 03 | Devil Calamity and Devil Realm journey |
 | Main arc | Spirit to Devil Realm thread |
-| Check status | high |
+| Chapter check | verified chapter segment |
+| Legacy confidence | high |
 
 ## Related Entries
 
@@ -65,8 +103,9 @@ It pushes personal Dao-seeking into racial war, realm security, and great-power 
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

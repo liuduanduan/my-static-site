@@ -118,6 +118,40 @@ const realmMaps: RealmMap[] = [
   }
 ]
 
+const mapAuditNotes = {
+  mortal: {
+    'green-ox': { chapterZh: '开篇至七玄门选拔段', chapterEn: 'Opening through Qixuanmen selection', eventZh: '离家入门，凡俗起点确立。', eventEn: 'Departure and entry establish the mortal origin.' },
+    yue: { chapterZh: '太南小会至黄枫谷入门段', chapterEn: 'Tainan gathering through Yellow Maple Valley entry', eventZh: '进入越国七派制度。', eventEn: 'Entry into the Yue Seven Sects system.' },
+    forbidden: { chapterZh: '血色禁地试炼段', chapterEn: 'Blood Forbidden Land trial segment', eventZh: '争夺筑基灵药。', eventEn: 'Contest for Foundation Establishment herbs.' },
+    tiannan: { chapterZh: '越国正魔战争与返回天南段', chapterEn: 'Yue war and return to Heavenly South segments', eventZh: '区域战争和旧地关系重组。', eventEn: 'Regional war and reshaped old ties.' },
+    'star-sea': { chapterZh: '乱星海立足与虚天殿前后', chapterEn: 'Chaotic Star Sea foothold around Void Heaven Hall', eventZh: '海域资源循环和高阶势力博弈。', eventEn: 'Maritime resource loop and high-level faction games.' },
+    'outer-sea': { chapterZh: '外星海猎妖经营段', chapterEn: 'Outer Star Sea beast-hunting segment', eventZh: '妖丹、材料和交易资源积累。', eventEn: 'Demon cores, materials, and trade resources accumulate.' },
+    'great-jin': { chapterZh: '大晋游历段', chapterEn: 'Great Jin journey segment', eventZh: '人界后期地图扩张。', eventEn: 'Late Mortal Realm map expansion.' },
+    ruins: { chapterZh: '坠魔谷与昆吾山遗迹段', chapterEn: 'Demonfall Valley and Kunwu Mountain ruins segments', eventZh: '古魔、古宝和老怪博弈集中。', eventEn: 'Ancient devils, treasures, and old-monster games converge.' },
+    node: { chapterZh: '化神后空间节点飞升段', chapterEn: 'Post-Spirit-Transformation spatial-node ascension segment', eventZh: '人界进入跨界风险。', eventEn: 'Mortal Realm story enters cross-realm risk.' }
+  },
+  spirit: {
+    arrival: { chapterZh: '灵界开局飞升落点段', chapterEn: 'Spirit Realm opening ascension landing', eventZh: '身份和高界面规则重建。', eventEn: 'Identity and higher-realm rules are rebuilt.' },
+    abyss: { chapterZh: '天渊城与人妖两族防线段', chapterEn: 'Heavenly Abyss City and human-demon defense segment', eventZh: '个人修炼进入族群防线背景。', eventEn: 'Personal cultivation enters racial-defense context.' },
+    flying: { chapterZh: '飞灵族地域与真灵血脉段', chapterEn: 'Flying Spirit region and true-spirit bloodline segment', eventZh: '多族身份和血脉资源线展开。', eventEn: 'Multi-race identity and bloodline resources unfold.' },
+    'broad-cold': { chapterZh: '广寒界机缘段', chapterEn: 'Broad Cold Realm opportunity segment', eventZh: '多族秘境争夺升级。', eventEn: 'Multi-race secret-space competition escalates.' },
+    nether: { chapterZh: '冥河/阴冥险地相关段', chapterEn: 'Nether / yin-danger segment', eventZh: '魂魄、阴冥和特殊材料风险。', eventEn: 'Soul, yin, and special-material risks.' },
+    wild: { chapterZh: '蛮荒与异族压力段', chapterEn: 'Wilderness and alien-pressure segment', eventZh: '灵界荒野和异族资源扩图。', eventEn: 'Spirit Realm wilderness and alien resources expand the map.' },
+    'devil-pressure': { chapterZh: '魔劫前奏至魔界远行段', chapterEn: 'Devil Calamity prelude through Devil Realm journey', eventZh: '魔族压力升级为跨界战争。', eventEn: 'Devil pressure escalates into cross-realm war.' },
+    'immortal-gate': { chapterZh: '大乘后飞升仙界段', chapterEn: 'Post-Great-Ascension immortal ascension segment', eventZh: '灵界线转入仙界篇。', eventEn: 'Spirit Realm thread turns into the sequel.' }
+  },
+  immortal: {
+    'black-wind': { chapterZh: '仙界篇黑风海开局段', chapterEn: 'Sequel Black Wind Sea opening segment', eventZh: '低处重启和恢复身份。', eventEn: 'Low-foothold restart and identity recovery.' },
+    'north-cold': { chapterZh: '北寒仙域冲突段', chapterEn: 'North Cold domain conflict segment', eventZh: '仙宫秩序与追逃压力。', eventEn: 'Immortal-palace order and pursuit pressure.' },
+    candle: { chapterZh: '烛龙道入门与任务段', chapterEn: 'Candle Dragon Dao entry and mission segment', eventZh: '仙界组织生态展开。', eventEn: 'Immortal organization ecology unfolds.' },
+    'true-word': { chapterZh: '真言门遗迹与时间法则段', chapterEn: 'True Word Sect ruins and time-law segment', eventZh: '时间大道和旧史线索汇合。', eventEn: 'Time Dao and old-history clues converge.' },
+    reincarnation: { chapterZh: '轮回殿任务与据点段', chapterEn: 'Reincarnation Palace mission and base segment', eventZh: '反天庭暗线和身份切换。', eventEn: 'Anti-Heavenly-Court undercurrent and identity switches.' },
+    'heavenly-court': { chapterZh: '天庭追索与秩序压力段', chapterEn: 'Heavenly Court pursuit and order-pressure segment', eventZh: '道祖级秩序压力显现。', eventEn: 'Dao-Ancestor-level order pressure appears.' },
+    gray: { chapterZh: '灰界城池与荒域求生段', chapterEn: 'Gray Realm cities and wilderness survival segment', eventZh: '异质生态、灰晶和生存规则。', eventEn: 'Alien ecology, gray crystals, and survival rules.' },
+    endgame: { chapterZh: '仙界篇终局道祖冲突段', chapterEn: 'Sequel finale Dao Ancestor conflict segment', eventZh: '时间、轮回、天庭和最高因果收束。', eventEn: 'Time, reincarnation, Heavenly Court, and top karma converge.' }
+  }
+} as const
+
 const isEn = computed(() => props.locale === 'en')
 const prefix = computed(() => isEn.value ? '/en' : '')
 const currentMap = computed(() => realmMaps.find((map) => map.key === active.value) ?? realmMaps[0])
@@ -128,6 +162,26 @@ function label(place: MapPlace) {
 
 function note(place: MapPlace) {
   return isEn.value ? place.noteEn : place.noteZh
+}
+
+function auditNote(place: MapPlace) {
+  const notesForMap = mapAuditNotes[currentMap.value.key] as Record<string, {
+    chapterZh: string
+    chapterEn: string
+    eventZh: string
+    eventEn: string
+  }> | undefined
+  return notesForMap?.[place.id]
+}
+
+function chapter(place: MapPlace) {
+  const item = auditNote(place)
+  return item ? (isEn.value ? item.chapterEn : item.chapterZh) : ''
+}
+
+function event(place: MapPlace) {
+  const item = auditNote(place)
+  return item ? (isEn.value ? item.eventEn : item.eventZh) : ''
 }
 
 function linkFor(place: MapPlace) {
@@ -194,6 +248,10 @@ function routePath(route: { from: string, to: string, bend?: number }) {
               <strong>{{ label(place) }}</strong>
             </a>
             <p>{{ note(place) }}</p>
+            <p v-if="chapter(place) || event(place)" class="map-node-meta">
+              <span>{{ chapter(place) }}</span>
+              <span>{{ event(place) }}</span>
+            </p>
           </li>
         </ol>
       </div>
@@ -389,6 +447,19 @@ function routePath(route: { from: string, to: string, bend?: number }) {
   color: var(--vp-c-text-2);
   font-size: 13px;
   line-height: 1.45;
+}
+
+.realm-map-legend .map-node-meta {
+  display: grid;
+  gap: 2px;
+  margin-top: 5px;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.map-node-meta span:first-child {
+  color: var(--vp-c-brand-1);
+  font-weight: 700;
 }
 
 .realm-map-note {

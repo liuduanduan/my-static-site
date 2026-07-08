@@ -5,7 +5,9 @@ en_name: "Spirit Realm Human Cultivators"
 pinyin: "Lingjie Renzu Xiushi"
 category: "Characters"
 arc: "Spirit Realm arc"
-check_status: "high"
+timeline_node: "Spirit Realm 01 | Ascension landing and Heavenly Abyss City"
+check_status: "arc checked"
+legacy_check_status: "high"
 description: "A group entry for Spirit Realm human cities, defenses, elders, and ordinary cultivators."
 ---
 
@@ -29,9 +31,56 @@ It shows Han Li enters a full racial society after ascension.
 ## Curation Notes
 
 - Topic lane: Characters.
+- Chronology node: Spirit Realm 01 | Ascension landing and Heavenly Abyss City.
 - Reading focus: Read the character as mentor, emotional karma, hostile pressure, companion support, or symbol of higher order.
 - Series placement: This entry belongs mostly to the Spirit Realm transition, where Han Li faces racial politics, higher materials, and broader realm-scale conflict.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Spirit Realm 01 | Ascension landing and Heavenly Abyss City |
+| Major realm | Spirit Realm |
+| Arc label | Spirit Realm arc |
+| Chapter segment | Spirit Realm opening, Heavenly Abyss City, multi-race regions, Broad Cold Realm, and Great Ascension progression segment |
+| Why it is here | Identity rebuilding after ascension, human-demon defenses, Heavenly Abyss City order, and higher-realm resources. |
+
+
+## Character File
+
+| Field | Detail |
+| --- | --- |
+| Timeline node | Spirit Realm 01 | Ascension landing and Heavenly Abyss City |
+| First / major meeting | Completes Spirit Realm multi-race ecology, true-spirit bloodlines, frontier pressure, and pre-immortal ascension preparation. |
+| Cultivation at meeting / main stage | Spirit Realm arc realm details remain chapter-level work; currently located by arc and role. |
+| Identity and faction | A group entry for Spirit Realm human cities, defenses, elders, and ordinary cultivators. |
+| Arts, laws, or treasures | Human Race, Heavenly Abyss City Region |
+| Relation to Han Li | It shows Han Li enters a full racial society after ascension. |
+| Outcome / later thread | Located by arc; exact chapters and relationship changes can be refined later. |
+| Age precision | about age 1007-11190 |
+| Note | Original encyclopedia notes only; if cultivation changes, the meeting or main arc takes priority. |
+
+
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | A Record of a Mortal's Journey to Immortality |
+| Chapter segment | Spirit Realm opening, Heavenly Abyss City, multi-race regions, Broad Cold Realm, and Great Ascension progression segment |
+| First check point | Completes Spirit Realm multi-race ecology, true-spirit bloodlines, frontier pressure, and pre-immortal ascension preparation. |
+| Main place | Spirit Realm, human-demon defenses, Flying Spirit regions, Broad Cold Realm, wilderness regions |
+| People | Han Li, Silvermoon, Ice Phoenix, Qing Yuanzi, Mo Jianli, Ao Xiao Ancestor, Long Han |
+| Event | Completes Spirit Realm multi-race ecology, true-spirit bloodlines, frontier pressure, and pre-immortal ascension preparation. |
+| Materials / arts | True-spirit blood, Spirit Realm materials, Weeping Soul, Brahma Saint True Demon Art, Bright King Art |
+| Han Li age estimate | about age 1007-11190 |
+| Check status | arc checked |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/), [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji) |
+| Note | This pass records chapter segments, event facts, and entity links without reproducing novel prose. |
+
 
 
 
@@ -43,8 +92,10 @@ It shows Han Li enters a full racial society after ascension.
 | English name | Spirit Realm Human Cultivators |
 | Pinyin | Lingjie Renzu Xiushi |
 | Topic | [Characters](/en/rmji/characters/) |
+| Timeline node | Spirit Realm 01 | Ascension landing and Heavenly Abyss City |
 | Main arc | Spirit Realm arc |
-| Check status | high |
+| Chapter check | arc checked |
+| Legacy confidence | high |
 
 ## Related Entries
 
@@ -55,8 +106,9 @@ It shows Han Li enters a full racial society after ascension.
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

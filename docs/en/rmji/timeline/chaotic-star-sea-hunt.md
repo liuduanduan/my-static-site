@@ -5,7 +5,9 @@ en_name: "Chaotic Star Sea Beast-Hunting Economy"
 pinyin: "Luanxinghai Lieyao Jingying"
 category: "Timeline"
 arc: "Chaotic Star Sea"
-check_status: "high"
+timeline_node: "Mortal Realm 04 | Chaotic Star Sea and Void Heaven Hall"
+check_status: "verified chapter segment"
+legacy_check_status: "high"
 description: "A Chaotic Star Sea stage of accumulating resources through beast hunting, materials, pills, and hidden identity."
 ---
 
@@ -29,9 +31,43 @@ It turns monster hunting into economic cycle and risk management.
 ## Curation Notes
 
 - Topic lane: Timeline.
+- Chronology node: Mortal Realm 04 | Chaotic Star Sea and Void Heaven Hall.
 - Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
 - Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Mortal Realm 04 | Chaotic Star Sea and Void Heaven Hall |
+| Major realm | Mortal Realm |
+| Arc label | Chaotic Star Sea |
+| Chapter segment | Outer Star Sea beast-hunting economy segment |
+| Why it is here | Kuixing Island, Sky Star City, Outer Star Sea hunting, Void Heaven Hall, Xuan Gu, Jiyin, Zi Ling, Yuan Yao, and sea-resource loops. |
+
+
+
+
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | A Record of a Mortal's Journey to Immortality |
+| Chapter segment | Outer Star Sea beast-hunting economy segment |
+| First check point | Accumulates middle-stage resources through beast hunting, alchemy, and trade |
+| Main place | Outer Star Sea, hunting waters, trade spaces |
+| People | Han Li, Outer Star Sea cultivators, demon beasts |
+| Event | Beast hunting becomes a resource cycle rather than only combat plot. |
+| Materials / arts | Demon cores, Rainbow Skirt Grass, beast materials, pills |
+| Han Li age estimate | about age 31-96 |
+| Check status | verified chapter segment |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/), [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji) |
+| Note | This pass records chapter segments, event facts, and entity links without reproducing novel prose. |
+
 
 ## Protagonist Timeline Profile
 
@@ -52,8 +88,10 @@ It turns monster hunting into economic cycle and risk management.
 | English name | Chaotic Star Sea Beast-Hunting Economy |
 | Pinyin | Luanxinghai Lieyao Jingying |
 | Topic | [Timeline](/en/rmji/timeline/) |
+| Timeline node | Mortal Realm 04 | Chaotic Star Sea and Void Heaven Hall |
 | Main arc | Chaotic Star Sea |
-| Check status | high |
+| Chapter check | verified chapter segment |
+| Legacy confidence | high |
 
 ## Related Entries
 
@@ -65,8 +103,9 @@ It turns monster hunting into economic cycle and risk management.
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

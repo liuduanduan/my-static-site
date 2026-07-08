@@ -5,7 +5,9 @@ en_name: "Realm Interface Force"
 pinyin: "Jiemian Zhili"
 category: "Laws & Dao"
 arc: "Ascension and cross-realm thread"
-check_status: "high"
+timeline_node: "Mortal Realm 03 | Yue Seven Sects and Foundation Establishment"
+check_status: "arc checked"
+legacy_check_status: "high"
 description: "The rule differences, rejection, channels, and ascension pressure between realms."
 ---
 
@@ -29,9 +31,43 @@ It makes ascension a rule transition rather than a simple map change.
 ## Curation Notes
 
 - Topic lane: Laws & Dao.
+- Chronology node: Mortal Realm 03 | Yue Seven Sects and Foundation Establishment.
 - Reading focus: Read it through its links to realms, spiritual domains, Dao Ancestors, and high-level sequel combat.
 - Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Mortal Realm 03 | Yue Seven Sects and Foundation Establishment |
+| Major realm | Mortal Realm |
+| Arc label | Ascension and cross-realm thread |
+| Chapter segment | Ascension and cross-realm thread related chapter segment |
+| Why it is here | Tainan gathering, Yellow Maple Valley, Blood Forbidden Land, Foundation pills, Yue conflict pressure, and early sect ties. |
+
+
+
+
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | A Record of a Mortal's Journey to Immortality |
+| Chapter segment | Ascension and cross-realm thread related chapter segment |
+| First check point | First appearance of Realm Interface Force remains to be refined by chapter |
+| Main place | Mortal Realm |
+| People | Han Li and related figures |
+| Event | The rule differences, rejection, channels, and ascension pressure between realms. |
+| Materials / arts | Realm Interface Force |
+| Han Li age estimate | estimated by arc; chapter-level refinement pending |
+| Check status | arc checked |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/), [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji) |
+| Note | This is located to an arc or event segment; later passes can add exact chapter numbers and cross-links. |
+
 
 
 
@@ -43,8 +79,10 @@ It makes ascension a rule transition rather than a simple map change.
 | English name | Realm Interface Force |
 | Pinyin | Jiemian Zhili |
 | Topic | [Laws & Dao](/en/rmji/laws/) |
+| Timeline node | Mortal Realm 03 | Yue Seven Sects and Foundation Establishment |
 | Main arc | Ascension and cross-realm thread |
-| Check status | high |
+| Chapter check | arc checked |
+| Legacy confidence | high |
 
 ## Related Entries
 
@@ -55,8 +93,9 @@ It makes ascension a rule transition rather than a simple map change.
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

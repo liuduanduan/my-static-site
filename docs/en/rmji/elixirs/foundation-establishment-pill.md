@@ -5,7 +5,9 @@ en_name: "Foundation Establishment Pill"
 pinyin: "Zhuji Dan"
 category: "Elixirs & Materials"
 arc: "Mortal Realm early arc"
-check_status: "high"
+timeline_node: "Mortal Realm 03 | Yue Seven Sects and Foundation Establishment"
+check_status: "verified chapter segment"
+legacy_check_status: "high"
 description: "A key pill for Qi Refining cultivators attempting Foundation Establishment, tied to sect allocation and lower-level competition."
 ---
 
@@ -29,9 +31,55 @@ It captures the early ecology of scarcity, limited chances, and breakthrough thr
 ## Curation Notes
 
 - Topic lane: Elixirs & Materials.
+- Chronology node: Mortal Realm 03 | Yue Seven Sects and Foundation Establishment.
 - Reading focus: Read it through the resource chain: herb source, formula value, breakthrough use, trade value, and scarcity.
 - Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Mortal Realm 03 | Yue Seven Sects and Foundation Establishment |
+| Major realm | Mortal Realm |
+| Arc label | Mortal Realm early arc |
+| Chapter segment | Yellow Maple entry through Blood Forbidden Land and foundation seclusion segment |
+| Why it is here | Tainan gathering, Yellow Maple Valley, Blood Forbidden Land, Foundation pills, Yue conflict pressure, and early sect ties. |
+
+
+
+
+## Crafting and Effect File
+
+| Field | Detail |
+| --- | --- |
+| Timeline node | Mortal Realm 03 | Yue Seven Sects and Foundation Establishment |
+| Source / acquisition | Early Mortal Realm Yellow Maple, Blood Forbidden Land, and Yue Seven Sects foundation-resource thread. |
+| Materials / conditions | The text emphasizes contest over foundation herbs; Han Li obtains key herbs and seeds through Blood Forbidden Land and matures them with the green bottle. Full formula names need chapter-level checking. |
+| Method | Requires a formula, cauldron, fire control, and mature herbs; Han Li turns stable herb supply into multiple attempts. |
+| Effect | Assists Qi Refining cultivators in reaching Foundation Establishment; core to early scarcity and sect allocation. |
+| Users / related people | Han Li and low-level disciples of the Yue Seven Sects. |
+| Limits | Materials, formula, or refinement details remain subject to chapter-level checking; this page does not invent complete recipes. |
+| Note | Records materials, method, and effects only; no novel prose is reproduced. |
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | A Record of a Mortal's Journey to Immortality |
+| Chapter segment | Yellow Maple entry through Blood Forbidden Land and foundation seclusion segment |
+| First check point | Repeatedly appears around foundation opportunities and herb collection |
+| Main place | Yellow Maple Valley, Blood Forbidden Land, cave dwelling |
+| People | Han Li, Yellow Maple cultivators, Yue sect disciples |
+| Event | The pill represents the early Mortal Realm scarcity logic. |
+| Materials / arts | Foundation Establishment Pill, mature herbs, green-bottle resource loop |
+| Han Li age estimate | about age 21-26 |
+| Check status | verified chapter segment |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/), [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji) |
+| Note | This pass records chapter segments, event facts, and entity links without reproducing novel prose. |
+
 
 
 
@@ -43,8 +91,10 @@ It captures the early ecology of scarcity, limited chances, and breakthrough thr
 | English name | Foundation Establishment Pill |
 | Pinyin | Zhuji Dan |
 | Topic | [Elixirs & Materials](/en/rmji/elixirs/) |
+| Timeline node | Mortal Realm 03 | Yue Seven Sects and Foundation Establishment |
 | Main arc | Mortal Realm early arc |
-| Check status | high |
+| Chapter check | verified chapter segment |
+| Legacy confidence | high |
 
 ## Related Entries
 
@@ -55,8 +105,9 @@ It captures the early ecology of scarcity, limited chances, and breakthrough thr
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

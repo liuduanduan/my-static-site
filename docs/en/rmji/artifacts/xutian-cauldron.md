@@ -5,7 +5,9 @@ en_name: "Void Heaven Cauldron"
 pinyin: "Xutian Ding"
 category: "Artifacts & Companions"
 arc: "Chaotic Star Sea arc"
-check_status: "high"
+timeline_node: "Mortal Realm 04 | Chaotic Star Sea and Void Heaven Hall"
+check_status: "arc checked"
+legacy_check_status: "high"
 description: "An important treasure thread around the Chaotic Star Sea, tied to secret realms, competition, and high-level schemes."
 ---
 
@@ -29,9 +31,55 @@ Best grouped with Chaotic Star Sea, Star Palace, and the Anti-Star Alliance as a
 ## Curation Notes
 
 - Topic lane: Artifacts & Companions.
+- Chronology node: Mortal Realm 04 | Chaotic Star Sea and Void Heaven Hall.
 - Reading focus: Read it through origin, refinement, material attribute, growth potential, and Han Li trump-card system.
 - Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Mortal Realm 04 | Chaotic Star Sea and Void Heaven Hall |
+| Major realm | Mortal Realm |
+| Arc label | Chaotic Star Sea arc |
+| Chapter segment | Chaotic Star Sea journey, Outer Star Sea hunting, Void Heaven Hall, Star Palace / Anti-Star Alliance segment |
+| Why it is here | Kuixing Island, Sky Star City, Outer Star Sea hunting, Void Heaven Hall, Xuan Gu, Jiyin, Zi Ling, Yuan Yao, and sea-resource loops. |
+
+
+
+
+## Crafting and Effect File
+
+| Field | Detail |
+| --- | --- |
+| Timeline node | Mortal Realm 04 | Chaotic Star Sea and Void Heaven Hall |
+| Source / acquisition | Chaotic Star Sea Void Heaven Hall treasure-contest thread. |
+| Materials / conditions | Ancient or major treasure, not presented as an ordinary crafting recipe. |
+| Method | The focus is secret-realm contest, control conditions, and high-level faction games. |
+| Effect | Carries the Chaotic Star Sea treasure contest and high-level scheming. |
+| Users / related people | Han Li and the Chaotic Star Sea high-level contender web. |
+| Limits | Materials, formula, or refinement details remain subject to chapter-level checking; this page does not invent complete recipes. |
+| Note | Records materials, method, and effects only; no novel prose is reproduced. |
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | A Record of a Mortal's Journey to Immortality |
+| Chapter segment | Chaotic Star Sea journey, Outer Star Sea hunting, Void Heaven Hall, Star Palace / Anti-Star Alliance segment |
+| First check point | Completes maritime economy, beast-hunting resources, Void Heaven Hall treasure contest, and Chaotic Star Sea power conflict. |
+| Main place | Chaotic Star Sea, Kuixing Island, Sky Star City, Outer Star Sea, Void Heaven Hall |
+| People | Han Li, Zi Ling, Yuan Yao, Zenith Yin Ancestor, Heavenly Star Sages, Ling Yuling |
+| Event | Completes maritime economy, beast-hunting resources, Void Heaven Hall treasure contest, and Chaotic Star Sea power conflict. |
+| Materials / arts | Demon cores, Void Heaven Cauldron, Bamboo Cloudswarm Swords, Golden Thunder Bamboo, gold-devouring beetles, Rainbow Skirt Grass |
+| Han Li age estimate | about age 31-155 |
+| Check status | arc checked |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/), [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji) |
+| Note | This pass records chapter segments, event facts, and entity links without reproducing novel prose. |
+
 
 
 
@@ -43,8 +91,10 @@ Best grouped with Chaotic Star Sea, Star Palace, and the Anti-Star Alliance as a
 | English name | Void Heaven Cauldron |
 | Pinyin | Xutian Ding |
 | Topic | [Artifacts & Companions](/en/rmji/artifacts/) |
+| Timeline node | Mortal Realm 04 | Chaotic Star Sea and Void Heaven Hall |
 | Main arc | Chaotic Star Sea arc |
-| Check status | high |
+| Chapter check | arc checked |
+| Legacy confidence | high |
 
 ## Related Entries
 
@@ -56,8 +106,9 @@ Best grouped with Chaotic Star Sea, Star Palace, and the Anti-Star Alliance as a
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

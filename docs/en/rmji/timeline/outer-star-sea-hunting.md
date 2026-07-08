@@ -5,7 +5,9 @@ en_name: "Outer Star Sea Beast Hunt"
 pinyin: "Waixing Hai Lieyao"
 category: "Timeline"
 arc: "Chaotic Star Sea arc"
-check_status: "high"
+timeline_node: "Mortal Realm 04 | Chaotic Star Sea and Void Heaven Hall"
+check_status: "arc checked"
+legacy_check_status: "high"
 description: "An important Chaotic Star Sea training thread around demon beasts, demon cores, and maritime resources."
 ---
 
@@ -29,9 +31,43 @@ It combines combat, resources, and maritime ecology.
 ## Curation Notes
 
 - Topic lane: Timeline.
+- Chronology node: Mortal Realm 04 | Chaotic Star Sea and Void Heaven Hall.
 - Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
 - Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Mortal Realm 04 | Chaotic Star Sea and Void Heaven Hall |
+| Major realm | Mortal Realm |
+| Arc label | Chaotic Star Sea arc |
+| Chapter segment | Chaotic Star Sea arc: event segment around Outer Star Sea hunting grounds |
+| Why it is here | Kuixing Island, Sky Star City, Outer Star Sea hunting, Void Heaven Hall, Xuan Gu, Jiyin, Zi Ling, Yuan Yao, and sea-resource loops. |
+
+
+
+
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | A Record of a Mortal's Journey to Immortality |
+| Chapter segment | Chaotic Star Sea arc: event segment around Outer Star Sea hunting grounds |
+| First check point | High-risk beast hunting supplies breakthrough and trade resources. |
+| Main place | Outer Star Sea hunting grounds |
+| People | Han Li and related figures |
+| Event | An important Chaotic Star Sea training thread around demon beasts, demon cores, and maritime resources. |
+| Materials / arts | Material / technique details to be expanded through related links |
+| Han Li age estimate | about age 31-96 |
+| Check status | arc checked |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/), [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji) |
+| Note | This is located to an arc or event segment; later passes can add exact chapter numbers and cross-links. |
+
 
 ## Protagonist Timeline Profile
 
@@ -52,8 +88,10 @@ It combines combat, resources, and maritime ecology.
 | English name | Outer Star Sea Beast Hunt |
 | Pinyin | Waixing Hai Lieyao |
 | Topic | [Timeline](/en/rmji/timeline/) |
+| Timeline node | Mortal Realm 04 | Chaotic Star Sea and Void Heaven Hall |
 | Main arc | Chaotic Star Sea arc |
-| Check status | high |
+| Chapter check | arc checked |
+| Legacy confidence | high |
 
 ## Related Entries
 
@@ -65,8 +103,9 @@ It combines combat, resources, and maritime ecology.
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

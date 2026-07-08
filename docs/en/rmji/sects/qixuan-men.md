@@ -5,7 +5,9 @@ en_name: "Qixuanmen"
 pinyin: "Qixuan Men"
 category: "Sects & Factions"
 arc: "Mortal Realm early arc"
-check_status: "high"
+timeline_node: "Mortal Realm 03 | Yue Seven Sects and Foundation Establishment"
+check_status: "arc checked"
+legacy_check_status: "high"
 description: "The early martial-world environment where Han Li first approaches the edge of cultivation."
 ---
 
@@ -29,9 +31,43 @@ It is not a high cultivation sect, but it shapes Han Li early caution and surviv
 ## Curation Notes
 
 - Topic lane: Sects & Factions.
+- Chronology node: Mortal Realm 03 | Yue Seven Sects and Foundation Establishment.
 - Reading focus: Read it through regional order, resource allocation, mission systems, pursuit pressure, or political alliances.
 - Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Mortal Realm 03 | Yue Seven Sects and Foundation Establishment |
+| Major realm | Mortal Realm |
+| Arc label | Mortal Realm early arc |
+| Chapter segment | Opening through Qixuanmen / Jia Yuan City aftermath segment |
+| Why it is here | Tainan gathering, Yellow Maple Valley, Blood Forbidden Land, Foundation pills, Yue conflict pressure, and early sect ties. |
+
+
+
+
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | A Record of a Mortal's Journey to Immortality |
+| Chapter segment | Opening through Qixuanmen / Jia Yuan City aftermath segment |
+| First check point | Completes the people-place web of the mortal opening, martial sect, medicine, and possession crisis. |
+| Main place | Green Ox Town, Qixuanmen, Jia Yuan City-related spaces |
+| People | Han Li, Doctor Mo, Li Feiyu, Zhang Tie, Mo household figures |
+| Event | Completes the people-place web of the mortal opening, martial sect, medicine, and possession crisis. |
+| Materials / arts | Everlasting Spring Art, medicine garden, medicine-poison methods, early survival tools |
+| Han Li age estimate | about age 10-18 |
+| Check status | arc checked |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/), [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji) |
+| Note | This pass records chapter segments, event facts, and entity links without reproducing novel prose. |
+
 
 
 
@@ -43,8 +79,10 @@ It is not a high cultivation sect, but it shapes Han Li early caution and surviv
 | English name | Qixuanmen |
 | Pinyin | Qixuan Men |
 | Topic | [Sects & Factions](/en/rmji/sects/) |
+| Timeline node | Mortal Realm 03 | Yue Seven Sects and Foundation Establishment |
 | Main arc | Mortal Realm early arc |
-| Check status | high |
+| Chapter check | arc checked |
+| Legacy confidence | high |
 
 ## Related Entries
 
@@ -55,8 +93,9 @@ It is not a high cultivation sect, but it shapes Han Li early caution and surviv
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

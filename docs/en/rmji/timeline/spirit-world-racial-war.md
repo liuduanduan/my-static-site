@@ -5,7 +5,9 @@ en_name: "Spirit Realm Racial War"
 pinyin: "Lingjie Zuqun Zhanzheng"
 category: "Timeline"
 arc: "Spirit Realm arc"
-check_status: "high"
+timeline_node: "Spirit Realm 01 | Ascension landing and Heavenly Abyss City"
+check_status: "arc checked"
+legacy_check_status: "high"
 description: "A hub for Spirit Realm multi-race pressure, human-demon defenses, and large-scale conflict."
 ---
 
@@ -29,9 +31,43 @@ It pushes personal cultivation into racial survival.
 ## Curation Notes
 
 - Topic lane: Timeline.
+- Chronology node: Spirit Realm 01 | Ascension landing and Heavenly Abyss City.
 - Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
 - Series placement: This entry belongs mostly to the Spirit Realm transition, where Han Li faces racial politics, higher materials, and broader realm-scale conflict.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Spirit Realm 01 | Ascension landing and Heavenly Abyss City |
+| Major realm | Spirit Realm |
+| Arc label | Spirit Realm arc |
+| Chapter segment | Spirit Realm arc: event segment around human-demon defensive lines and alien battlefields |
+| Why it is here | Identity rebuilding after ascension, human-demon defenses, Heavenly Abyss City order, and higher-realm resources. |
+
+
+
+
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | A Record of a Mortal's Journey to Immortality |
+| Chapter segment | Spirit Realm arc: event segment around human-demon defensive lines and alien battlefields |
+| First check point | Multi-race pressure escalates, pulling Han Li into realm and racial conflict. |
+| Main place | human-demon defensive lines and alien battlefields |
+| People | Han Li and related figures |
+| Event | A hub for Spirit Realm multi-race pressure, human-demon defenses, and large-scale conflict. |
+| Materials / arts | Material / technique details to be expanded through related links |
+| Han Li age estimate | about age 1420-2468 |
+| Check status | arc checked |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/), [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji) |
+| Note | This is located to an arc or event segment; later passes can add exact chapter numbers and cross-links. |
+
 
 ## Protagonist Timeline Profile
 
@@ -52,8 +88,10 @@ It pushes personal cultivation into racial survival.
 | English name | Spirit Realm Racial War |
 | Pinyin | Lingjie Zuqun Zhanzheng |
 | Topic | [Timeline](/en/rmji/timeline/) |
+| Timeline node | Spirit Realm 01 | Ascension landing and Heavenly Abyss City |
 | Main arc | Spirit Realm arc |
-| Check status | high |
+| Chapter check | arc checked |
+| Legacy confidence | high |
 
 ## Related Entries
 
@@ -64,8 +102,9 @@ It pushes personal cultivation into racial survival.
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

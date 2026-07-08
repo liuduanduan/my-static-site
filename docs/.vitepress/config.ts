@@ -95,12 +95,24 @@ const rmjiSections = [
   { zh: '界域地理', en: 'Realms & Regions', slug: 'regions/' },
   { zh: '法则大道', en: 'Laws & Dao', slug: 'laws/' },
   { zh: '人物角色', en: 'Characters', slug: 'characters/' },
-  { zh: '剧情脉络', en: 'Timeline', slug: 'timeline/' }
+  { zh: '剧情脉络', en: 'Timeline', slug: 'timeline/' },
+  { zh: '章节核对台账', en: 'Chapter Check Ledger', slug: 'audit/' }
 ]
 
 const rmjiFeatured = [
   { zh: '韩立', en: 'Han Li', slug: 'characters/han-li' },
   { zh: '南宫婉', en: 'Nangong Wan', slug: 'characters/nangong-wan' },
+  { zh: '紫灵', en: 'Zi Ling', slug: 'characters/zi-ling' },
+  { zh: '金童', en: 'Golden Child', slug: 'characters/golden-child' },
+  { zh: '啼魂', en: 'Weeping Soul', slug: 'characters/weeping-soul-character' },
+  { zh: '蟹道人', en: 'Crab Daoist', slug: 'characters/crab-daoist' },
+  { zh: '蛟三', en: 'Jiao San', slug: 'characters/jiao-san' },
+  { zh: '石穿空', en: 'Shi Chuankong', slug: 'characters/shi-chuankong' },
+  { zh: '玄骨上人', en: 'Master Xuan Gu', slug: 'characters/xuan-gu' },
+  { zh: '弥罗老祖', en: 'Mi Luo Ancestor', slug: 'characters/mi-luo-ancestor' },
+  { zh: '奇摩子', en: 'Qi Mozi', slug: 'characters/qi-mozi' },
+  { zh: '轮回殿主', en: 'Reincarnation Palace Master', slug: 'characters/reincarnation-palace-master' },
+  { zh: '古或今', en: 'Gu Huojin', slug: 'characters/gu-huajin' },
   { zh: '墨大夫', en: 'Doctor Mo', slug: 'characters/doctor-mo' },
   { zh: '掌天瓶 / 小绿瓶', en: 'Heavenly Bottle / Green Bottle', slug: 'artifacts/zhangtian-bottle' },
   { zh: '青元剑诀', en: 'Azure Essence Sword Art', slug: 'techniques/qingyuan-sword-art' },

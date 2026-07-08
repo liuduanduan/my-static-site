@@ -5,7 +5,9 @@ en_name: "North Cold Immortal Domain Pursuit"
 pinyin: "Beihan Xianyu Zhuitao"
 category: "Timeline"
 arc: "Early Immortal World Arc"
-check_status: "high"
+timeline_node: "Immortal World 01 | Black Wind Sea, North Cold domain, and Candle Dragon Dao"
+check_status: "verified chapter segment"
+legacy_check_status: "high"
 description: "A stage entry for Han Li maneuvering under North Cold domain order, pursuit, and identity pressure."
 ---
 
@@ -29,9 +31,43 @@ It supports the sequel pursuit and immortal-palace order themes.
 ## Curation Notes
 
 - Topic lane: Timeline.
+- Chronology node: Immortal World 01 | Black Wind Sea, North Cold domain, and Candle Dragon Dao.
 - Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
 - Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Immortal World 01 | Black Wind Sea, North Cold domain, and Candle Dragon Dao |
+| Major realm | Immortal World Arc |
+| Arc label | Early Immortal World Arc |
+| Chapter segment | North Cold domain conflict and immortal-palace pursuit segment |
+| Why it is here | The sequel restart, Black Wind Sea, North Cold domain, immortal-palace pursuit, Candle Dragon Dao, Impermanence Alliance, and early companions. |
+
+
+
+
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | RMJI: Immortal World Arc |
+| Chapter segment | North Cold domain conflict and immortal-palace pursuit segment |
+| First check point | Han Li faces immortal-palace order pressure and adjusts identity and routes |
+| Main place | Core North Cold domain and immortal-palace territory |
+| People | Han Li, North Cold Immortal Palace figures, Candle Dragon Dao contacts |
+| Event | The pursuit thread expands the early immortal map from sect life to domain order. |
+| Materials / arts | Identity disguise, transfer routes, immortal-domain intelligence |
+| Han Li age estimate | about age 11850-12520 |
+| Check status | verified chapter segment |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/), [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58), [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir) |
+| Note | This pass records chapter segments, event facts, and entity links without reproducing novel prose. |
+
 
 ## Protagonist Timeline Profile
 
@@ -52,8 +88,10 @@ It supports the sequel pursuit and immortal-palace order themes.
 | English name | North Cold Immortal Domain Pursuit |
 | Pinyin | Beihan Xianyu Zhuitao |
 | Topic | [Timeline](/en/rmji/timeline/) |
+| Timeline node | Immortal World 01 | Black Wind Sea, North Cold domain, and Candle Dragon Dao |
 | Main arc | Early Immortal World Arc |
-| Check status | high |
+| Chapter check | verified chapter segment |
+| Legacy confidence | high |
 
 ## Related Entries
 
@@ -65,8 +103,9 @@ It supports the sequel pursuit and immortal-palace order themes.
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

@@ -5,7 +5,9 @@ en_name: "Dao Ancestor Endgame Thread"
 pinyin: "Daozu Zhongju Xian"
 category: "Timeline"
 arc: "Late Immortal World Arc"
-check_status: "high"
+timeline_node: "Immortal World 04 | Dao Ancestor endgame"
+check_status: "arc checked"
+legacy_check_status: "high"
 description: "The endgame stage around Dao Ancestor status, Heavenly Court order, reincarnation, and time-law conflict."
 ---
 
@@ -29,9 +31,43 @@ It gives the final law conflict its own timeline trunk.
 ## Curation Notes
 
 - Topic lane: Timeline.
+- Chronology node: Immortal World 04 | Dao Ancestor endgame.
 - Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
 - Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Immortal World 04 | Dao Ancestor endgame |
+| Major realm | Immortal World Arc |
+| Arc label | Late Immortal World Arc |
+| Chapter segment | Immortal World Arc finale segment |
+| Why it is here | Gu Huojin, the Reincarnation Palace Master, Time Dao Ancestor, Heavenly Court finale, and the time-reincarnation conflict. |
+
+
+
+
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | RMJI: Immortal World Arc |
+| Chapter segment | Immortal World Arc finale segment |
+| First check point | Dao Ancestor status, time Dao, and reincarnation karma resolve |
+| Main place | Core Dao-Ancestor-level conflict spaces |
+| People | Han Li, Gu Huajin, Reincarnation Palace Master, time-Dao figures |
+| Event | The finale answers the core conflict among Heavenly Court order, reincarnation, and time Dao. |
+| Materials / arts | Time Dao patterns, law conflict, reincarnation karma |
+| Han Li age estimate | after about age 16190 into the finale |
+| Check status | arc checked |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/), [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58), [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir) |
+| Note | This pass records chapter segments, event facts, and entity links without reproducing novel prose. |
+
 
 ## Protagonist Timeline Profile
 
@@ -52,8 +88,10 @@ It gives the final law conflict its own timeline trunk.
 | English name | Dao Ancestor Endgame Thread |
 | Pinyin | Daozu Zhongju Xian |
 | Topic | [Timeline](/en/rmji/timeline/) |
+| Timeline node | Immortal World 04 | Dao Ancestor endgame |
 | Main arc | Late Immortal World Arc |
-| Check status | high |
+| Chapter check | arc checked |
+| Legacy confidence | high |
 
 ## Related Entries
 
@@ -65,8 +103,9 @@ It gives the final law conflict its own timeline trunk.
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

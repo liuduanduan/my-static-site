@@ -5,7 +5,9 @@ en_name: "True Spirits"
 pinyin: "Zhenling"
 category: "Races & Peoples"
 arc: "Spirit to Immortal Realm"
-check_status: "high"
+timeline_node: "Immortal World 01 | Black Wind Sea, North Cold domain, and Candle Dragon Dao"
+check_status: "arc checked"
+legacy_check_status: "high"
 description: "Mythic high-level beings whose bloodlines influence body refinement, lineage, and racial legends."
 ---
 
@@ -29,9 +31,43 @@ It is the key hub for transformations, bloodline power, and high-level demon-rac
 ## Curation Notes
 
 - Topic lane: Races & Peoples.
+- Chronology node: Immortal World 01 | Black Wind Sea, North Cold domain, and Candle Dragon Dao.
 - Reading focus: Read it through ecology, hierarchy, resource habits, cross-realm conflict, and relations with human cultivators.
 - Series placement: This entry spans the Spirit-to-Immortal Realm transition, where earlier resources and methods are upgraded into immortal-world scale.
 - Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Timeline Placement
+
+| Field | Detail |
+| --- | --- |
+| Reading order | Mortal Realm -> Spirit Realm -> Immortal World |
+| This entry belongs to | Immortal World 01 | Black Wind Sea, North Cold domain, and Candle Dragon Dao |
+| Major realm | Immortal World Arc |
+| Arc label | Spirit to Immortal Realm |
+| Chapter segment | Spirit to Immortal Realm related chapter segment |
+| Why it is here | The sequel restart, Black Wind Sea, North Cold domain, immortal-palace pursuit, Candle Dragon Dao, Impermanence Alliance, and early companions. |
+
+
+
+
+
+
+## Chapter Check Ledger
+
+| Field | Detail |
+| --- | --- |
+| Work | RMJI: Immortal World Arc |
+| Chapter segment | Spirit to Immortal Realm related chapter segment |
+| First check point | First appearance of True Spirits remains to be refined by chapter |
+| Main place | Immortal World Arc |
+| People | Han Li and related figures |
+| Event | Mythic high-level beings whose bloodlines influence body refinement, lineage, and racial legends. |
+| Materials / arts | Material / technique details to be expanded through related links |
+| Han Li age estimate | estimated by arc; chapter-level refinement pending |
+| Check status | arc checked |
+| Legal sources | [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/), [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58), [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir) |
+| Note | This is located to an arc or event segment; later passes can add exact chapter numbers and cross-links. |
+
 
 
 
@@ -43,8 +79,10 @@ It is the key hub for transformations, bloodline power, and high-level demon-rac
 | English name | True Spirits |
 | Pinyin | Zhenling |
 | Topic | [Races & Peoples](/en/rmji/races/) |
+| Timeline node | Immortal World 01 | Black Wind Sea, North Cold domain, and Candle Dragon Dao |
 | Main arc | Spirit to Immortal Realm |
-| Check status | high |
+| Chapter check | arc checked |
+| Legacy confidence | high |
 
 ## Related Entries
 
@@ -55,8 +93,9 @@ It is the key hub for transformations, bloodline power, and high-level demon-rac
 
 - [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
 - [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
-- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
-- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/1cd32a70713c621c1cdee58)
+- [Wuxiaworld English RMJI reading page](https://www.wuxiaworld.com/novel/rmji)
+- [Wuxiaworld English Immortal Realm reading page](https://www.wuxiaworld.com/novel/rmjiir)
 
 ## Content Policy
 

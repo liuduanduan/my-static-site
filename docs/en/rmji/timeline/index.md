@@ -18,6 +18,19 @@ A staged route tracking Han Li age band, location, gains, and key events.
 
 References used for this estimate: [Han Li age timeline](https://zhuanlan.zhihu.com/p/476520969), [Immortal World Arc calendar](https://www.cnblogs.com/doseoer/p/17834353.html).
 
+## Chapter Check Progress
+
+| Realm / arc | Entries | Verified or arc-checked | Estimated | Needs chapter check |
+| --- | ---: | ---: | ---: | ---: |
+| Mortal Realm | 215 | 141 | 72 | 2 |
+| Chaotic Star Sea | 32 | 30 | 2 | 0 |
+| Spirit Realm | 74 | 49 | 24 | 1 |
+| Devil Realm Thread | 25 | 21 | 4 | 0 |
+| Immortal World Arc | 137 | 101 | 31 | 5 |
+| Gray Realm | 23 | 22 | 1 | 0 |
+
+[Open the full chapter-check ledger](/en/rmji/audit/).
+
 ## Protagonist Route
 
 <p class="muted">Age values are now calibrated by the Mortal Realm, Spirit Realm, and Immortal World Arc reference bands above, while still using approximate ranges.</p>
@@ -455,6 +468,18 @@ References used for this estimate: [Han Li age timeline](https://zhuanlan.zhihu.
     <p>The ruin thread connects the Heavenly Bottle, time law, and old immortal-world history.</p>
   </div>
 </a>
+<a class="storyline-row" href="/en/rmji/timeline/laws-final-conflict">
+  <span class="storyline-order">41</span>
+  <div class="storyline-body">
+    <h3>Final Law Conflict / 法则终局</h3>
+    <dl class="storyline-facts">
+      <div><dt>Age</dt><dd>after about age 16190</dd></div>
+      <div><dt>Location</dt><dd>high-level immortal battlefields and Heavenly Court/Reincarnation spaces</dd></div>
+      <div><dt>Gains</dt><dd>understanding of Dao conflict and endgame identity choices</dd></div>
+    </dl>
+    <p>Laws, Dao Ancestors, Heavenly Court, and Reincarnation enter the endgame.</p>
+  </div>
+</a>
 <a class="storyline-row" href="/en/rmji/timeline/reincarnation-palace-thread">
   <span class="storyline-order">37</span>
   <div class="storyline-body">
@@ -503,18 +528,6 @@ References used for this estimate: [Han Li age timeline](https://zhuanlan.zhihu.
     <p>The Gray Realm survival thread makes the map shift a real change of rules and ecology.</p>
   </div>
 </a>
-<a class="storyline-row" href="/en/rmji/timeline/laws-final-conflict">
-  <span class="storyline-order">41</span>
-  <div class="storyline-body">
-    <h3>Final Law Conflict / 法则终局</h3>
-    <dl class="storyline-facts">
-      <div><dt>Age</dt><dd>after about age 16190</dd></div>
-      <div><dt>Location</dt><dd>high-level immortal battlefields and Heavenly Court/Reincarnation spaces</dd></div>
-      <div><dt>Gains</dt><dd>understanding of Dao conflict and endgame identity choices</dd></div>
-    </dl>
-    <p>Laws, Dao Ancestors, Heavenly Court, and Reincarnation enter the endgame.</p>
-  </div>
-</a>
 <a class="storyline-row" href="/en/rmji/timeline/dao-ancestor-endgame-thread">
   <span class="storyline-order">42</span>
   <div class="storyline-body">
@@ -529,52 +542,121 @@ References used for this estimate: [Han Li age timeline](https://zhuanlan.zhihu.
 </a>
 </div>
 
-## Entry Index
+## Chronological Index
 
-| Entry | Arc | Check | Summary |
+The entries below are ordered by narrative time first, then by topic. Use this order to read characters, treasures, techniques, pills, places, and events without mixing the Mortal, Spirit, and Immortal arcs.
+
+### Mortal Realm 01 | Mortal opening and Qixuanmen
+
+Green Ox Town, Qixuanmen, Doctor Mo, martial-sect life, and the first cultivation threshold.
+
+| Entry | Arc | Chapter check | Summary |
 | --- | --- | --- | --- |
-| [Departure from the Village / 山村离家](/en/rmji/timeline/mortal-family-departure) | Opening | high | The opening stage where Han Li leaves a mortal family and enters Qixuanmen. |
-| [Entry into Qixuanmen / 七玄门入门](/en/rmji/timeline/qixuan-men-entry) | Opening arc | high | Han Li moves from ordinary village youth into a martial sect, bringing the story close to cultivation. |
-| [Doctor Mo Crisis / 墨大夫危机](/en/rmji/timeline/doctor-mo-crisis) | Opening arc | high | The key turn where Han Li moves from martial youth into cruel cultivation logic. |
-| [Doctor Mo Possession Crisis / 墨大夫夺舍危机](/en/rmji/timeline/doctor-mo-conflict) | Qixuanmen stage | high | The key event where Han Li first confronts the cruel rules of cultivation. |
-| [Entering Yellow Maple Valley / 入黄枫谷](/en/rmji/timeline/yellow-maple-entry) | Early Mortal Realm | high | The stage where Han Li moves from martial edges into formal sect cultivation. |
-| [Cultivation in Yellow Maple Valley / 黄枫谷修行](/en/rmji/timeline/yellow-maple-cultivation) | Mortal Realm early arc | high | Han Li formally enters sect cultivation society, facing disciple status, missions, resources, and Foundation Establishment competition. |
-| [Foundation Resource Contest / 筑基资源争夺](/en/rmji/timeline/foundation-pill-contest) | Early Mortal Realm | high | The early core competition around Foundation Establishment Pills, herbs, and low-level secret realms. |
-| [Blood Forbidden Land Trial / 血色禁地试炼](/en/rmji/timeline/blood-forbidden-land-arc) | Early Mortal Realm arc | high | Yue sect disciples enter a secret realm for Foundation resources, concentrating the cruelty of Han Li early cultivation. |
-| [Yue Righteous-Demonic War / 越国正魔战争](/en/rmji/timeline/yue-demonic-war) | Early-middle Mortal Realm arc | high | A regional war thread under pressure between Yue sects and devil-path forces. |
-| [Chaotic Star Sea Journey / 乱星海历练](/en/rmji/timeline/chaotic-star-sea-journey) | Mortal Realm middle arc | high | Han Li leaves the early sect pattern and enters maritime, secret-realm, and great-faction conflict. |
-| [Chaotic Star Sea Beast-Hunting Economy / 乱星海猎妖经营](/en/rmji/timeline/chaotic-star-sea-hunt) | Chaotic Star Sea | high | A Chaotic Star Sea stage of accumulating resources through beast hunting, materials, pills, and hidden identity. |
-| [Outer Star Sea Beast Hunt / 外星海猎妖](/en/rmji/timeline/outer-star-sea-hunting) | Chaotic Star Sea arc | high | An important Chaotic Star Sea training thread around demon beasts, demon cores, and maritime resources. |
-| [Void Heaven Hall Treasure Hunt / 虚天殿夺宝](/en/rmji/timeline/xutian-hall-treasure-hunt) | Chaotic Star Sea arc | high | The contest around Void Heaven Hall, the Void Heaven Cauldron, and multiple high-level cultivators. |
-| [Return to Heavenly South / 返回天南](/en/rmji/timeline/return-to-heavenly-south) | Mortal Realm middle-late arc | medium | Han Li returns to a familiar region with greater power, changing both local structure and personal status. |
-| [Heavenly South Return and War / 天南回归与大战](/en/rmji/timeline/heavenly-south-return-and-war) | Mortal Realm middle-late arc | medium | Han Li returns to Heavenly South and faces old places, new power structures, regional war, and changed status. |
-| [Nascent Soul Formation Thread / 结婴大关](/en/rmji/timeline/nascent-soul-formation-thread) | Mortal Realm middle-late arc | high | A stage entry for Han Li reaching Nascent Soul, resource preparation, and identity shift. |
-| [Nascent Soul Breakthrough Thread / 结婴突破线](/en/rmji/timeline/nascent-soul-breakthrough-thread) | Middle-late Mortal Realm | high | A stage around Nascent Soul threshold, pills, inner demons, and high-level identity change. |
-| [Demonfall Valley Arc / 坠魔谷事件](/en/rmji/timeline/demonfall-valley-arc) | Mortal Realm middle-late arc | high | A major middle-late Mortal Realm danger-zone event linking ancient devils, ruins, treasures, and high-level schemes. |
-| [Great Jin Journey / 大晋之行](/en/rmji/timeline/great-jin-journey) | Mortal Realm late arc | high | Han Li enters a larger Mortal Realm stage with denser resources, factions, and risks. |
-| [Kunwu Mountain Ruins Arc / 昆吾山遗迹](/en/rmji/timeline/kunwu-mountain-arc) | Late Mortal Realm arc | high | A late Mortal Realm event around Kunwu Mountain, involving Great Jin powers and ancient inheritances. |
-| [Great Jin Old-Monster Games / 大晋老怪博弈](/en/rmji/timeline/great-jin-old-monster-stage) | Late Mortal Realm | high | The Great Jin stage where Han Li faces more complex ruins, old monsters, and clan-sect games. |
-| [Spatial Node Ascension Thread / 空间节点飞升线](/en/rmji/timeline/spatial-node-ascension-thread) | Mortal to Spirit transition | high | A cross-realm stage around spatial nodes, interface force, and ascension risks. |
-| [Ascension to the Spirit Realm / 飞升灵界](/en/rmji/timeline/spirit-realm-ascension) | After ascension | high | Han Li enters a higher realm, upgrading realms, resources, and conflict structures. |
-| [Heavenly Abyss City Arc / 天渊城阶段](/en/rmji/timeline/heavenly-abyss-city-arc) | Early Spirit Realm arc | high | After ascending to the Spirit Realm, Han Li encounters human defenses, racial war, and higher cultivation order. |
-| [Spirit Realm Multi-Race Conflict Thread / 灵界多族冲突线](/en/rmji/timeline/spirit-world-race-conflict-thread) | Spirit Realm | high | A Spirit Realm hub for human-demon alliance, alien peoples, true-spirit bloodlines, and frontier pressure. |
-| [Spirit Realm Racial War / 灵界族群战争](/en/rmji/timeline/spirit-world-racial-war) | Spirit Realm arc | high | A hub for Spirit Realm multi-race pressure, human-demon defenses, and large-scale conflict. |
-| [Broad Cold Realm Opportunity / 广寒界机缘](/en/rmji/timeline/broad-cold-realm-arc) | Spirit Realm arc | medium | A Spirit Realm special-space stage showing multi-race participation, opportunity competition, and secret-realm rules. |
-| [Prelude to the Devil Calamity / 魔劫前奏](/en/rmji/timeline/devil-war-prelude) | Spirit to Devil Realm thread | high | The stage where devil-race pressure grows from scattered threat into large-scale war shadow. |
-| [Devil Realm Expedition / 魔界远行](/en/rmji/timeline/devil-realm-expedition) | Spirit to Devil Realm thread | high | A stage where Han Li enters Devil Realm-related narrative and encounters devil resources and high-level figures. |
-| [Devil Calamity Thread / 魔劫大线](/en/rmji/timeline/devil-calamity) | Spirit to Devil Realm thread | high | A large-scale pressure thread around devil races, the Devil Realm, and cross-realm conflict. |
-| [Opening of the Immortal World Arc / 仙界篇开局](/en/rmji/timeline/immortal-realm-opening) | Early Immortal World Arc | high | After entering the sequel, identity, memory, pursuit, and immortal-world order create new opening pressures. |
-| [Black Wind Sea Opening / 黑风海开局](/en/rmji/timeline/black-wind-sea-opening) | Early Immortal World Arc | high | An early sequel stage where Han Li lands in a maritime region, recovers, and rebuilds identity. |
-| [Candle Dragon Dao Arc / 烛龙道阶段](/en/rmji/timeline/candle-dragon-dao-arc) | Early Immortal World Arc | high | An important stage where Han Li settles into immortal-world organization ecology, learns, and is drawn into larger conflict. |
-| [North Cold Immortal Domain Pursuit / 北寒仙域追逃](/en/rmji/timeline/north-cold-immortal-domain-pursuit) | Early Immortal World Arc | high | A stage entry for Han Li maneuvering under North Cold domain order, pursuit, and identity pressure. |
-| [Immortal Aperture Cultivation Thread / 仙窍修炼线](/en/rmji/timeline/immortal-aperture-cultivation-thread) | Immortal World Arc | high | A long sequel cultivation thread around immortal apertures, immortal spiritual power, realm progress, and law accumulation. |
-| [True Word Sect Ruins Thread / 真言门遗迹线](/en/rmji/timeline/true-word-sect-ruins-arc) | Immortal World Arc | high | A key sequel ruin thread around True Word Sect, time law, and historical karma. |
-| [Reincarnation Palace Thread / 轮回殿暗线](/en/rmji/timeline/reincarnation-palace-thread) | Immortal World Arc | high | A long-term sequel undercurrent around Reincarnation Palace missions, identity, anti-Heavenly-Court order, and reincarnation law. |
-| [Heavenly Court Conflict Thread / 天庭冲突线](/en/rmji/timeline/heavenly-court-conflict-thread) | Immortal World Arc | high | A main sequel pressure thread around Heavenly Court pursuit, order, Dao Ancestors, and high-level law conflict. |
-| [Gray Realm Arc / 灰界阶段](/en/rmji/timeline/gray-realm-arc) | Immortal World middle-late arc | high | Han Li enters Gray Realm-related narrative and encounters different ecology, peoples, materials, and law differences. |
-| [Gray Realm Survival Thread / 灰界求生线](/en/rmji/timeline/gray-realm-survival-thread) | Immortal World Gray Realm arc | high | A stage hub for Han Li facing alien environment, Gray Realm powers, and wilderness dangers. |
-| [Final Law Conflict / 法则终局](/en/rmji/timeline/laws-final-conflict) | Late Immortal World Arc | medium | The late sequel conflict around laws, Dao Ancestors, Heavenly Court, Reincarnation, and highest-level power. |
-| [Dao Ancestor Endgame Thread / 道祖终局线](/en/rmji/timeline/dao-ancestor-endgame-thread) | Late Immortal World Arc | high | The endgame stage around Dao Ancestor status, Heavenly Court order, reincarnation, and time-law conflict. |
+| [Departure from the Village / 山村离家](/en/rmji/timeline/mortal-family-departure) | Opening | verified chapter segment | The opening stage where Han Li leaves a mortal family and enters Qixuanmen. |
+| [Entry into Qixuanmen / 七玄门入门](/en/rmji/timeline/qixuan-men-entry) | Opening arc | verified chapter segment | Han Li moves from ordinary village youth into a martial sect, bringing the story close to cultivation. |
+| [Doctor Mo Crisis / 墨大夫危机](/en/rmji/timeline/doctor-mo-crisis) | Opening arc | verified chapter segment | The key turn where Han Li moves from martial youth into cruel cultivation logic. |
+| [Doctor Mo Possession Crisis / 墨大夫夺舍危机](/en/rmji/timeline/doctor-mo-conflict) | Qixuanmen stage | verified chapter segment | The key event where Han Li first confronts the cruel rules of cultivation. |
+
+### Mortal Realm 03 | Yue Seven Sects and Foundation Establishment
+
+Tainan gathering, Yellow Maple Valley, Blood Forbidden Land, Foundation pills, Yue conflict pressure, and early sect ties.
+
+| Entry | Arc | Chapter check | Summary |
+| --- | --- | --- | --- |
+| [Entering Yellow Maple Valley / 入黄枫谷](/en/rmji/timeline/yellow-maple-entry) | Early Mortal Realm | verified chapter segment | The stage where Han Li moves from martial edges into formal sect cultivation. |
+| [Cultivation in Yellow Maple Valley / 黄枫谷修行](/en/rmji/timeline/yellow-maple-cultivation) | Mortal Realm early arc | arc checked | Han Li formally enters sect cultivation society, facing disciple status, missions, resources, and Foundation Establishment competition. |
+| [Foundation Resource Contest / 筑基资源争夺](/en/rmji/timeline/foundation-pill-contest) | Early Mortal Realm | arc checked | The early core competition around Foundation Establishment Pills, herbs, and low-level secret realms. |
+| [Blood Forbidden Land Trial / 血色禁地试炼](/en/rmji/timeline/blood-forbidden-land-arc) | Early Mortal Realm arc | verified chapter segment | Yue sect disciples enter a secret realm for Foundation resources, concentrating the cruelty of Han Li early cultivation. |
+| [Yue Righteous-Demonic War / 越国正魔战争](/en/rmji/timeline/yue-demonic-war) | Early-middle Mortal Realm arc | verified chapter segment | A regional war thread under pressure between Yue sects and devil-path forces. |
+
+### Mortal Realm 04 | Chaotic Star Sea and Void Heaven Hall
+
+Kuixing Island, Sky Star City, Outer Star Sea hunting, Void Heaven Hall, Xuan Gu, Jiyin, Zi Ling, Yuan Yao, and sea-resource loops.
+
+| Entry | Arc | Chapter check | Summary |
+| --- | --- | --- | --- |
+| [Chaotic Star Sea Journey / 乱星海历练](/en/rmji/timeline/chaotic-star-sea-journey) | Mortal Realm middle arc | verified chapter segment | Han Li leaves the early sect pattern and enters maritime, secret-realm, and great-faction conflict. |
+| [Chaotic Star Sea Beast-Hunting Economy / 乱星海猎妖经营](/en/rmji/timeline/chaotic-star-sea-hunt) | Chaotic Star Sea | verified chapter segment | A Chaotic Star Sea stage of accumulating resources through beast hunting, materials, pills, and hidden identity. |
+| [Outer Star Sea Beast Hunt / 外星海猎妖](/en/rmji/timeline/outer-star-sea-hunting) | Chaotic Star Sea arc | arc checked | An important Chaotic Star Sea training thread around demon beasts, demon cores, and maritime resources. |
+| [Void Heaven Hall Treasure Hunt / 虚天殿夺宝](/en/rmji/timeline/xutian-hall-treasure-hunt) | Chaotic Star Sea arc | verified chapter segment | The contest around Void Heaven Hall, the Void Heaven Cauldron, and multiple high-level cultivators. |
+
+### Mortal Realm 05 | Return to Heavenly South, Great Jin, and pre-ascension
+
+Core Formation, Nascent Soul, Demonfall Valley, Great Jin, Kunwu Mountain, Spirit Transformation, and spatial nodes.
+
+| Entry | Arc | Chapter check | Summary |
+| --- | --- | --- | --- |
+| [Return to Heavenly South / 返回天南](/en/rmji/timeline/return-to-heavenly-south) | Mortal Realm middle-late arc | verified chapter segment | Han Li returns to a familiar region with greater power, changing both local structure and personal status. |
+| [Heavenly South Return and War / 天南回归与大战](/en/rmji/timeline/heavenly-south-return-and-war) | Mortal Realm middle-late arc | arc checked | Han Li returns to Heavenly South and faces old places, new power structures, regional war, and changed status. |
+| [Nascent Soul Formation Thread / 结婴大关](/en/rmji/timeline/nascent-soul-formation-thread) | Mortal Realm middle-late arc | arc checked | A stage entry for Han Li reaching Nascent Soul, resource preparation, and identity shift. |
+| [Nascent Soul Breakthrough Thread / 结婴突破线](/en/rmji/timeline/nascent-soul-breakthrough-thread) | Middle-late Mortal Realm | verified chapter segment | A stage around Nascent Soul threshold, pills, inner demons, and high-level identity change. |
+| [Demonfall Valley Arc / 坠魔谷事件](/en/rmji/timeline/demonfall-valley-arc) | Mortal Realm middle-late arc | verified chapter segment | A major middle-late Mortal Realm danger-zone event linking ancient devils, ruins, treasures, and high-level schemes. |
+| [Great Jin Journey / 大晋之行](/en/rmji/timeline/great-jin-journey) | Mortal Realm late arc | verified chapter segment | Han Li enters a larger Mortal Realm stage with denser resources, factions, and risks. |
+| [Kunwu Mountain Ruins Arc / 昆吾山遗迹](/en/rmji/timeline/kunwu-mountain-arc) | Late Mortal Realm arc | verified chapter segment | A late Mortal Realm event around Kunwu Mountain, involving Great Jin powers and ancient inheritances. |
+| [Great Jin Old-Monster Games / 大晋老怪博弈](/en/rmji/timeline/great-jin-old-monster-stage) | Late Mortal Realm | arc checked | The Great Jin stage where Han Li faces more complex ruins, old monsters, and clan-sect games. |
+| [Spatial Node Ascension Thread / 空间节点飞升线](/en/rmji/timeline/spatial-node-ascension-thread) | Mortal to Spirit transition | verified chapter segment | A cross-realm stage around spatial nodes, interface force, and ascension risks. |
+
+### Spirit Realm 01 | Ascension landing and Heavenly Abyss City
+
+Identity rebuilding after ascension, human-demon defenses, Heavenly Abyss City order, and higher-realm resources.
+
+| Entry | Arc | Chapter check | Summary |
+| --- | --- | --- | --- |
+| [Ascension to the Spirit Realm / 飞升灵界](/en/rmji/timeline/spirit-realm-ascension) | After ascension | verified chapter segment | Han Li enters a higher realm, upgrading realms, resources, and conflict structures. |
+| [Heavenly Abyss City Arc / 天渊城阶段](/en/rmji/timeline/heavenly-abyss-city-arc) | Early Spirit Realm arc | verified chapter segment | After ascending to the Spirit Realm, Han Li encounters human defenses, racial war, and higher cultivation order. |
+| [Spirit Realm Multi-Race Conflict Thread / 灵界多族冲突线](/en/rmji/timeline/spirit-world-race-conflict-thread) | Spirit Realm | verified chapter segment | A Spirit Realm hub for human-demon alliance, alien peoples, true-spirit bloodlines, and frontier pressure. |
+| [Spirit Realm Racial War / 灵界族群战争](/en/rmji/timeline/spirit-world-racial-war) | Spirit Realm arc | arc checked | A hub for Spirit Realm multi-race pressure, human-demon defenses, and large-scale conflict. |
+| [Broad Cold Realm Opportunity / 广寒界机缘](/en/rmji/timeline/broad-cold-realm-arc) | Spirit Realm arc | verified chapter segment | A Spirit Realm special-space stage showing multi-race participation, opportunity competition, and secret-realm rules. |
+
+### Spirit Realm 03 | Devil Calamity and Devil Realm journey
+
+Devil pressure, Devil Realm resources, Baohua, Yuan Cha, Six Extremes, and late Spirit Realm war scale.
+
+| Entry | Arc | Chapter check | Summary |
+| --- | --- | --- | --- |
+| [Prelude to the Devil Calamity / 魔劫前奏](/en/rmji/timeline/devil-war-prelude) | Spirit to Devil Realm thread | arc checked | The stage where devil-race pressure grows from scattered threat into large-scale war shadow. |
+| [Devil Realm Expedition / 魔界远行](/en/rmji/timeline/devil-realm-expedition) | Spirit to Devil Realm thread | arc checked | A stage where Han Li enters Devil Realm-related narrative and encounters devil resources and high-level figures. |
+| [Devil Calamity Thread / 魔劫大线](/en/rmji/timeline/devil-calamity) | Spirit to Devil Realm thread | verified chapter segment | A large-scale pressure thread around devil races, the Devil Realm, and cross-realm conflict. |
+
+### Immortal World 01 | Black Wind Sea, North Cold domain, and Candle Dragon Dao
+
+The sequel restart, Black Wind Sea, North Cold domain, immortal-palace pursuit, Candle Dragon Dao, Impermanence Alliance, and early companions.
+
+| Entry | Arc | Chapter check | Summary |
+| --- | --- | --- | --- |
+| [Opening of the Immortal World Arc / 仙界篇开局](/en/rmji/timeline/immortal-realm-opening) | Early Immortal World Arc | verified chapter segment | After entering the sequel, identity, memory, pursuit, and immortal-world order create new opening pressures. |
+| [Black Wind Sea Opening / 黑风海开局](/en/rmji/timeline/black-wind-sea-opening) | Early Immortal World Arc | verified chapter segment | An early sequel stage where Han Li lands in a maritime region, recovers, and rebuilds identity. |
+| [Candle Dragon Dao Arc / 烛龙道阶段](/en/rmji/timeline/candle-dragon-dao-arc) | Early Immortal World Arc | verified chapter segment | An important stage where Han Li settles into immortal-world organization ecology, learns, and is drawn into larger conflict. |
+| [North Cold Immortal Domain Pursuit / 北寒仙域追逃](/en/rmji/timeline/north-cold-immortal-domain-pursuit) | Early Immortal World Arc | verified chapter segment | A stage entry for Han Li maneuvering under North Cold domain order, pursuit, and identity pressure. |
+| [Immortal Aperture Cultivation Thread / 仙窍修炼线](/en/rmji/timeline/immortal-aperture-cultivation-thread) | Immortal World Arc | arc checked | A long sequel cultivation thread around immortal apertures, immortal spiritual power, realm progress, and law accumulation. |
+| [True Word Sect Ruins Thread / 真言门遗迹线](/en/rmji/timeline/true-word-sect-ruins-arc) | Immortal World Arc | verified chapter segment | A key sequel ruin thread around True Word Sect, time law, and historical karma. |
+| [Final Law Conflict / 法则终局](/en/rmji/timeline/laws-final-conflict) | Late Immortal World Arc | arc checked | The late sequel conflict around laws, Dao Ancestors, Heavenly Court, Reincarnation, and highest-level power. |
+
+### Immortal World 02 | True Word Sect, Reincarnation Palace, Heavenly Court, and Nine Origin Temple
+
+Mantra Wheel Scripture, time law, Reincarnation Palace missions, Heavenly Court order, Nine Origin Temple, and sequel politics.
+
+| Entry | Arc | Chapter check | Summary |
+| --- | --- | --- | --- |
+| [Reincarnation Palace Thread / 轮回殿暗线](/en/rmji/timeline/reincarnation-palace-thread) | Immortal World Arc | arc checked | A long-term sequel undercurrent around Reincarnation Palace missions, identity, anti-Heavenly-Court order, and reincarnation law. |
+| [Heavenly Court Conflict Thread / 天庭冲突线](/en/rmji/timeline/heavenly-court-conflict-thread) | Immortal World Arc | arc checked | A main sequel pressure thread around Heavenly Court pursuit, order, Dao Ancestors, and high-level law conflict. |
+
+### Immortal World 03 | Gray Realm and Accumulated Scale Realm
+
+Gray Realm cities, wilderness, gray crystals, alien ecology, survival rules, and Shi Chuankong-related routes.
+
+| Entry | Arc | Chapter check | Summary |
+| --- | --- | --- | --- |
+| [Gray Realm Arc / 灰界阶段](/en/rmji/timeline/gray-realm-arc) | Immortal World middle-late arc | verified chapter segment | Han Li enters Gray Realm-related narrative and encounters different ecology, peoples, materials, and law differences. |
+| [Gray Realm Survival Thread / 灰界求生线](/en/rmji/timeline/gray-realm-survival-thread) | Immortal World Gray Realm arc | arc checked | A stage hub for Han Li facing alien environment, Gray Realm powers, and wilderness dangers. |
+
+### Immortal World 04 | Dao Ancestor endgame
+
+Gu Huojin, the Reincarnation Palace Master, Time Dao Ancestor, Heavenly Court finale, and the time-reincarnation conflict.
+
+| Entry | Arc | Chapter check | Summary |
+| --- | --- | --- | --- |
+| [Dao Ancestor Endgame Thread / 道祖终局线](/en/rmji/timeline/dao-ancestor-endgame-thread) | Late Immortal World Arc | arc checked | The endgame stage around Dao Ancestor status, Heavenly Court order, reincarnation, and time-law conflict. |
 
 ## Editorial Note
 
