@@ -26,6 +26,15 @@ A sequel-era pill concept tied to law cultivation, dao comprehension, and high-l
 
 This batch creates a hub; later passes should split specific Dao Pill types and their refining systems.
 
+## Curation Notes
+
+- Topic lane: Elixirs & Materials.
+- Reading focus: Read it through the resource chain: herb source, formula value, breakthrough use, trade value, and scarcity.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

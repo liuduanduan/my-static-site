@@ -26,6 +26,24 @@ Han Li enters a higher realm, upgrading realms, resources, and conflict structur
 
 This is the structural threshold from the Mortal Realm portion into the Spirit Realm portion.
 
+## Curation Notes
+
+- Topic lane: Timeline.
+- Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Protagonist Timeline Profile
+
+| Field | Detail |
+| --- | --- |
+| Han Li age band | about age 1007 |
+| Main location | Spirit Realm and human-race territories |
+| Gains or changes | Spirit Realm identity and higher-realm rules |
+| Key event | Han Li enters the Spirit Realm, upgrading resources, realm scale, and conflict structure. |
+| Precision note | Estimated from public timeline references; kept as approximate. |
+
+
 ## Placement
 
 | Field | Detail |

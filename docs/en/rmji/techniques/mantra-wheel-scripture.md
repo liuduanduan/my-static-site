@@ -26,6 +26,15 @@ One of the Immortal World Arc core arts closely related to the law of time.
 
 It moves the system from resource cultivation into law-based cultivation and should be a key sequel entry.
 
+## Curation Notes
+
+- Topic lane: Techniques & Abilities.
+- Reading focus: Read it through cultivation efficiency, combat style, survival value, or law comprehension.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

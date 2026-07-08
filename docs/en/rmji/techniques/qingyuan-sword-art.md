@@ -26,6 +26,15 @@ One of Han Li long-running sword paths, closely tied to paired flying swords and
 
 Read it with the Bamboo Cloudswarm Swords, sword formations, and evil-warding thunder to understand Han Li combat style.
 
+## Curation Notes
+
+- Topic lane: Techniques & Abilities.
+- Reading focus: Read it through cultivation efficiency, combat style, survival value, or law comprehension.
+- Series placement: This entry spans the Mortal-to-Spirit Realm transition, so it is useful for tracking how early tools grow into higher-realm systems.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

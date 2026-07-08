@@ -26,6 +26,15 @@ A core Chaotic Star Sea faction representing maritime order and high-level gover
 
 It should form a regional group with the Anti-Star Alliance, Void Heaven Cauldron, and Chaotic Star Sea.
 
+## Curation Notes
+
+- Topic lane: Sects & Factions.
+- Reading focus: Read it through regional order, resource allocation, mission systems, pursuit pressure, or political alliances.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

@@ -26,6 +26,24 @@ Han Li leaves the early sect pattern and enters maritime, secret-realm, and grea
 
 This arc is ideal for the Void Heaven Cauldron, Star Palace, Anti-Star Alliance, and maritime ecology.
 
+## Curation Notes
+
+- Topic lane: Timeline.
+- Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
+- Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Protagonist Timeline Profile
+
+| Field | Detail |
+| --- | --- |
+| Han Li age band | about age 31-155 |
+| Main location | Chaotic Star Sea, Kuixing Island, Inner and Outer Star Sea |
+| Gains or changes | maritime identity, demon-beast resources, and rogue-cultivator operating space |
+| Key event | Han Li moves into maritime society and rebuilds resources under an unfamiliar order. |
+| Precision note | Estimated from public timeline references; kept as approximate. |
+
+
 ## Placement
 
 | Field | Detail |

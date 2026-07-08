@@ -26,6 +26,15 @@ A highly recognizable thunder-attribute material, foundational to the Bamboo Clo
 
 It belongs simultaneously to artifacts, materials, and thunder arts, making it one of the densest cross-link nodes.
 
+## Curation Notes
+
+- Topic lane: Artifacts & Companions.
+- Reading focus: Read it through origin, refinement, material attribute, growth potential, and Han Li trump-card system.
+- Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

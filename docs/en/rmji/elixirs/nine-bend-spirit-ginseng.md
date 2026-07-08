@@ -26,6 +26,15 @@ A representative high-level herb useful for explaining age, medicinal property, 
 
 Later expansion can add formulas and links with breakthrough resources such as the Nascent-Soul Formation Pill.
 
+## Curation Notes
+
+- Topic lane: Elixirs & Materials.
+- Reading focus: Read it through the resource chain: herb source, formula value, breakthrough use, trade value, and scarcity.
+- Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

@@ -26,6 +26,15 @@ One of the Yue sects and the stage where Han Li formally enters sect-based culti
 
 It is ideal for explaining Foundation Establishment Pills, sect missions, disciple hierarchy, and early resource competition.
 
+## Curation Notes
+
+- Topic lane: Sects & Factions.
+- Reading focus: Read it through regional order, resource allocation, mission systems, pursuit pressure, or political alliances.
+- Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

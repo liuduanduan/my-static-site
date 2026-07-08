@@ -26,6 +26,24 @@ Han Li enters a larger Mortal Realm stage with denser resources, factions, and r
 
 It carries the late Mortal Realm map upgrade and pre-ascension preparation.
 
+## Curation Notes
+
+- Topic lane: Timeline.
+- Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
+- Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Protagonist Timeline Profile
+
+| Field | Detail |
+| --- | --- |
+| Han Li age band | about age 300-600 |
+| Main location | Great Jin |
+| Gains or changes | Great Jin map knowledge, ancient-cultivator ruins, and clan-faction threads |
+| Key event | Han Li enters a larger Mortal Realm stage with denser resources and stronger opponents. |
+| Precision note | Estimated from public timeline references; kept as approximate. |
+
+
 ## Placement
 
 | Field | Detail |

@@ -26,6 +26,15 @@ A recurring technical combat resource used for scouting, decoys, group combat, a
 
 Best cross-linked with the Great Development Art, formation tools, and divine-sense control.
 
+## Curation Notes
+
+- Topic lane: Artifacts & Companions.
+- Reading focus: Read it through origin, refinement, material attribute, growth potential, and Han Li trump-card system.
+- Series placement: This entry spans the Mortal-to-Spirit Realm transition, so it is useful for tracking how early tools grow into higher-realm systems.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

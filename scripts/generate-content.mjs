@@ -424,6 +424,7 @@ const works = [
   { slug: 'piao-miao-journey', zh: '飘邈之旅', en: 'Stellar Travel', author: '萧潜', authorEn: 'Xiao Qian', genre: '星际仙侠流', genreEn: 'Interstellar Xianxia', statusZh: '已完结', statusEn: 'Completed', descZh: '星际仙侠流的早期代表作，把修真进阶与星际旅行结合起来。', descEn: 'An early interstellar xianxia reference that combines cultivation progression with cosmic travel.', characters: [['李强', 'Li Qiang', '主角，从凡俗经历踏入更广阔的修真世界。'], ['傅山', 'Fu Shan', '重要引路人。'], ['赵豪', 'Zhao Hao', '重要伙伴。']] },
   { slug: 'buddha-is-the-tao', zh: '佛本是道', en: 'Buddha Is The Way', author: '梦入神机', authorEn: 'Meng Ru Shen Ji', genre: '洪荒流', genreEn: 'Primordial Myth', statusZh: '已完结', statusEn: 'Completed', descZh: '洪荒流网络小说的重要开创作品，融合封神、西游与道佛神话。', descEn: 'A formative primordial-myth novel that blends Investiture, Journey to the West, Daoist, and Buddhist motifs.', characters: [['周青', 'Zhou Qing', '主角，卷入宏大的洪荒神话格局。'], ['道门人物', 'Daoist figures', '推动神话体系展开。'], ['佛门人物', 'Buddhist figures', '构成道佛冲突与融合。']] },
   { slug: 'mortal-journey', zh: '凡人修仙传', en: "A Record of a Mortal's Journey to Immortality", author: '忘语', authorEn: 'Wang Yu', genre: '凡人流', genreEn: 'Mortal Flow', statusZh: '已完结', statusEn: 'Completed', descZh: '资质平庸的少年韩立，凭借谨慎、毅力和机缘在修仙界中一步步崛起。', descEn: 'Han Li, an ordinary youth, rises through a dangerous cultivation world through caution, grit, and opportunity.', characters: [['韩立', 'Han Li', '主角，谨慎务实的凡人流代表。'], ['南宫婉', 'Nangong Wan', '重要角色。'], ['墨大夫', 'Doctor Mo', '韩立早期命运的关键人物。']] },
+  { slug: 'rmji-immortal-world', zh: '凡人修仙之仙界篇', en: 'RMJI: Immortal World Arc', author: '忘语', authorEn: 'Wang Yu', genre: '仙界篇', genreEn: 'Immortal World Arc', statusZh: '已完结', statusEn: 'Completed', descZh: '韩立飞升后的续篇，叙事重心转向仙界秩序、法则修炼、高阶势力和身份因果。', descEn: 'The sequel follows Han Li after ascension into a higher immortal-world order shaped by laws, factions, pursuit, and memory.', characters: [['韩立', 'Han Li', '续篇主角，继续以谨慎和长期积累面对仙界高压秩序。'], ['轮回殿人物', 'Reincarnation Palace figures', '推动轮回、身份和反秩序线索。'], ['仙界高阶存在', 'High-level immortal figures', '构成法则与道祖层面的冲突。']] },
   { slug: 'sect-leader', zh: '修真门派掌门路', en: 'The Path of a Sect Leader', author: '齐可休', authorEn: 'Qi Kexiu', genre: '宗门流', genreEn: 'Sect Management', statusZh: '连载中', statusEn: 'Ongoing', descZh: '以宗门经营、资源分配和修真生态为核心的代表作品。', descEn: 'A representative sect-management cultivation work centered on institutions, resources, and survival.', characters: [['齐休', 'Qi Xiu', '主角，承担宗门兴衰的压力。'], ['楚秦门众', 'Chu Qin Sect members', '宗门共同体。'], ['周边势力', 'Neighboring factions', '构成经营压力。']] },
   { slug: 'zhu-xian', zh: '诛仙', en: 'Zhu Xian', author: '萧鼎', authorEn: 'Xiao Ding', genre: '古典仙侠', genreEn: 'Classical Xianxia', statusZh: '已完结', statusEn: 'Completed', descZh: '古典仙侠代表作，围绕正魔冲突、个人选择和情感悲剧展开。', descEn: 'A classic xianxia novel about orthodox-demonic conflict, personal choice, and tragic emotion.', characters: [['张小凡', 'Zhang Xiaofan', '主角，命运在正魔之间摇摆。'], ['陆雪琪', 'Lu Xueqi', '重要角色。'], ['碧瑶', 'Biyao', '重要角色。']] },
   { slug: 'renegade-immortal', zh: '仙逆', en: 'Xian Ni / Reverse Immortal', author: '耳根', authorEn: 'Er Gen', genre: '仙侠', genreEn: 'Xianxia', statusZh: '已完结', statusEn: 'Completed', descZh: '以王林求道、执念和逆天而行为主线的经典仙侠作品。', descEn: 'A major xianxia work following Wang Lin, obsession, Dao-seeking, and defying fate.', characters: [['王林', 'Wang Lin', '主角，求道意志强烈。'], ['李慕婉', 'Li Muwan', '重要角色。'], ['司徒南', 'Situ Nan', '关键引导者。']] },
@@ -457,6 +458,20 @@ function workPage(work, locale) {
   const isEn = locale === 'en'
   const prefix = isEn ? '/en' : ''
   const rows = work.characters.map(([zh, en, note]) => `| ${zh} | ${en} | ${note} |`).join('\n')
+  const rmjiUniverseEn = ['mortal-journey', 'rmji-immortal-world'].includes(work.slug)
+    ? `
+## Universe Index
+
+This site includes an [RMJI Universe](${prefix}/rmji/) topic with 500 bilingual topic entries for techniques, artifacts, elixirs, factions, races, regions, laws, characters, and timeline.
+`
+    : ''
+  const rmjiUniverseZh = ['mortal-journey', 'rmji-immortal-world'].includes(work.slug)
+    ? `
+## 专题索引 · Universe Index
+
+本站已建立[凡人修仙传专场](/rmji/)，按功法神通、法宝灵兽、丹药灵材、宗门势力、种族族群、界域地理、法则大道、人物角色和剧情脉络整理 500 个中英双语专题词条。
+`
+    : ''
   const body = isEn
     ? `# ${work.en} · 《${work.zh}》
 
@@ -487,6 +502,7 @@ ${rows}
 **English:** Use the [Cultivation System overview](${prefix}/cultivation-system/) to compare the realms, sects, resources, and breakthrough logic used by this work.
 
 **中文：** 可结合[修炼体系总览](${prefix}/cultivation-system/)理解作品中的境界、宗门、资源与突破逻辑。
+${rmjiUniverseEn}
 
 ## Official Reading
 
@@ -527,6 +543,7 @@ ${rows}
 **中文：** 可结合[修炼体系总览](/cultivation-system/)理解作品中的境界、宗门、资源与突破逻辑。
 
 **English:** Use the [Cultivation System overview](/cultivation-system/) to compare the realms, sects, resources, and breakthrough logic used by this work.
+${rmjiUniverseZh}
 
 ## 官方阅读 · Official Reading
 

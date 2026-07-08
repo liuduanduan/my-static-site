@@ -26,6 +26,15 @@ A functional tool used to carry spirit beasts and spirit insects.
 
 It provides a basic link among beetles, Weeping Soul Beast, Spirit Beast Mountain, and companion cultivation.
 
+## Curation Notes
+
+- Topic lane: Artifacts & Companions.
+- Reading focus: Read it through origin, refinement, material attribute, growth potential, and Han Li trump-card system.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

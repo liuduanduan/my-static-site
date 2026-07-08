@@ -26,6 +26,15 @@ A denser and larger late-stage Mortal Realm cultivation region.
 
 It carries Han Li transition from Heavenly South into a wider Mortal Realm structure.
 
+## Curation Notes
+
+- Topic lane: Realms & Regions.
+- Reading focus: Read it through resources, dangers, faction gateways, and story turns.
+- Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

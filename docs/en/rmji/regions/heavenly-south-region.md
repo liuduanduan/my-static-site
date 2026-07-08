@@ -26,6 +26,15 @@ An important early cultivation region, carrying the Yue sects and regional culti
 
 Best linked with Yellow Maple Valley, Masking Moon Sect, and the return-to-Heavenly-South thread.
 
+## Curation Notes
+
+- Topic lane: Realms & Regions.
+- Reading focus: Read it through resources, dangers, faction gateways, and story turns.
+- Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

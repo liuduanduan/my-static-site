@@ -26,6 +26,15 @@ A valuable material condensed within demonic beasts, used in alchemy, artifact r
 
 It links demon races, beast hunting, material economy, and high-level pill formulas.
 
+## Curation Notes
+
+- Topic lane: Elixirs & Materials.
+- Reading focus: Read it through the resource chain: herb source, formula value, breakthrough use, trade value, and scarcity.
+- Series placement: This entry spans the Mortal-to-Spirit Realm transition, so it is useful for tracking how early tools grow into higher-realm systems.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

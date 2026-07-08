@@ -26,6 +26,15 @@ The law-level expression of metal, wood, water, fire, and earth attributes.
 
 It links Magnetic Divine Light, Geng Metal, Water Derivation Four Seasons Art, and the Great Five Elements Illusory World Art.
 
+## Curation Notes
+
+- Topic lane: Laws & Dao.
+- Reading focus: Read it through its links to realms, spiritual domains, Dao Ancestors, and high-level sequel combat.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

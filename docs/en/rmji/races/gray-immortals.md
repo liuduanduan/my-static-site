@@ -26,6 +26,15 @@ A Gray Realm people or existence type, presenting an ecology distinct from ortho
 
 It is the core race page for the Gray Realm topic; later passes should add institutions, cultivation modes, and figures.
 
+## Curation Notes
+
+- Topic lane: Races & Peoples.
+- Reading focus: Read it through ecology, hierarchy, resource habits, cross-realm conflict, and relations with human cultivators.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

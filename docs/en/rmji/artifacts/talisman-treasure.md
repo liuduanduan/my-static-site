@@ -26,6 +26,15 @@ A consumable power tool between talisman and treasure, often used by lower-level
 
 It explains why early combat values trump cards, information gaps, and one-time resources.
 
+## Curation Notes
+
+- Topic lane: Artifacts & Companions.
+- Reading focus: Read it through origin, refinement, material attribute, growth potential, and Han Li trump-card system.
+- Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

@@ -69,6 +69,7 @@ body {
 .stat-card,
 .term-meta,
 .realm-step,
+.storyline-row,
 .work-card,
 .category-row,
 .info-card,
@@ -86,6 +87,7 @@ body {
 .dark .stat-card,
 .dark .term-meta,
 .dark .realm-step,
+.dark .storyline-row,
 .dark .work-card,
 .dark .category-row,
 .dark .info-card,
@@ -384,6 +386,70 @@ body {
   margin: 0;
 }
 
+.storyline-list {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0 30px;
+}
+
+.storyline-row {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 16px;
+  padding: 16px;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.18s ease, transform 0.18s ease;
+}
+
+.storyline-row:hover {
+  border-color: var(--vp-c-brand-1);
+  transform: translateY(-2px);
+}
+
+.storyline-order {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  font-weight: 800;
+}
+
+.storyline-body h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+
+.storyline-body p {
+  margin: 10px 0 0;
+  color: var(--vp-c-text-2);
+}
+
+.storyline-facts {
+  display: grid;
+  grid-template-columns: 0.7fr 1.1fr 1.2fr;
+  gap: 10px;
+  margin: 0;
+}
+
+.storyline-facts div {
+  min-width: 0;
+}
+
+.storyline-facts dt {
+  color: var(--vp-c-text-2);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.storyline-facts dd {
+  margin: 2px 0 0;
+  font-weight: 700;
+}
+
 .explorer {
   margin: 24px 0;
 }
@@ -430,5 +496,13 @@ body {
 
   .realm-step {
     grid-template-columns: 40px minmax(0, 1fr);
+  }
+
+  .storyline-row {
+    grid-template-columns: 42px minmax(0, 1fr);
+  }
+
+  .storyline-facts {
+    grid-template-columns: 1fr;
   }
 }

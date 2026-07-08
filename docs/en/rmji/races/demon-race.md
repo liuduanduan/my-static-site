@@ -26,6 +26,15 @@ A major race system composed of demonic beasts, transformed cultivators, and hig
 
 It links demon cores, spirit beasts, true-spirit bloodlines, and human-demon conflict.
 
+## Curation Notes
+
+- Topic lane: Races & Peoples.
+- Reading focus: Read it through ecology, hierarchy, resource habits, cross-realm conflict, and relations with human cultivators.
+- Series placement: This entry spans the Mortal-to-Spirit Realm transition, so it is useful for tracking how early tools grow into higher-realm systems.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

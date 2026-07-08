@@ -26,6 +26,15 @@ A key maritime region of islands, secret realms, and competing high-level factio
 
 It expands the map from continental sects into maritime order, commerce, and alliance warfare.
 
+## Curation Notes
+
+- Topic lane: Realms & Regions.
+- Reading focus: Read it through resources, dangers, faction gateways, and story turns.
+- Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

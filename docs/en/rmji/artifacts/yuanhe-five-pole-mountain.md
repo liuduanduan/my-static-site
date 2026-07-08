@@ -26,6 +26,15 @@ A high-level treasure thread associated with suppression, defense, and heavy art
 
 Later passes can add materials, acquisition path, and concrete battle scenes.
 
+## Curation Notes
+
+- Topic lane: Artifacts & Companions.
+- Reading focus: Read it through origin, refinement, material attribute, growth potential, and Han Li trump-card system.
+- Series placement: This entry belongs mostly to the Spirit Realm transition, where Han Li faces racial politics, higher materials, and broader realm-scale conflict.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

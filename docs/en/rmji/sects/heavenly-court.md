@@ -26,6 +26,15 @@ A core sequel faction representing higher order, rule, and law-based authority.
 
 It should serve as a hub for immortal-world politics and link strongly with Reincarnation Palace and Dao Ancestor systems.
 
+## Curation Notes
+
+- Topic lane: Sects & Factions.
+- Reading focus: Read it through regional order, resource allocation, mission systems, pursuit pressure, or political alliances.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

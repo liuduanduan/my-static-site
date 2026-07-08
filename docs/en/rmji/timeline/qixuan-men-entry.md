@@ -26,6 +26,24 @@ Han Li moves from ordinary village youth into a martial sect, bringing the story
 
 This is the low-start mortal-flow template and should link with Qixuanmen, Everlasting Spring Art, and Doctor Mo threads.
 
+## Curation Notes
+
+- Topic lane: Timeline.
+- Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Protagonist Timeline Profile
+
+| Field | Detail |
+| --- | --- |
+| Han Li age band | about age 10 |
+| Main location | Qixuanmen grounds and medicine-garden thread |
+| Gains or changes | sect identity, medical exposure, and the Everlasting Spring Art thread |
+| Key event | He moves from ordinary disciple into Doctor Mo orbit, and the cultivation threshold begins to appear. |
+| Precision note | Estimated from public timeline references; kept as approximate. |
+
+
 ## Placement
 
 | Field | Detail |

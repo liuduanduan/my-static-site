@@ -26,6 +26,15 @@ An art associated with water, seasonal circulation, and time-change imagery.
 
 It belongs in the sequel law-art library and expands the intersection between five elements and time.
 
+## Curation Notes
+
+- Topic lane: Techniques & Abilities.
+- Reading focus: Read it through cultivation efficiency, combat style, survival value, or law comprehension.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

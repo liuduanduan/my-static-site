@@ -26,6 +26,15 @@ An important heterogeneous realm in the sequel with distinct ecology, peoples, a
 
 This is a user-requested focus page; later passes should expand gray immortals, factions, geography, and law differences.
 
+## Curation Notes
+
+- Topic lane: Realms & Regions.
+- Reading focus: Read it through resources, dangers, faction gateways, and story turns.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

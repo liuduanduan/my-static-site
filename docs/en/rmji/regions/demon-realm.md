@@ -26,6 +26,15 @@ The realm of devil races, devilish Qi, devil crystals, and cross-realm conflict.
 
 It is essential for understanding devil calamities, ancient devils, and devil-art resources.
 
+## Curation Notes
+
+- Topic lane: Realms & Regions.
+- Reading focus: Read it through resources, dangers, faction gateways, and story turns.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

@@ -26,6 +26,24 @@ After entering the sequel, identity, memory, pursuit, and immortal-world order c
 
 It is the first shift from Spirit Realm resource systems into Immortal World law systems.
 
+## Curation Notes
+
+- Topic lane: Timeline.
+- Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Protagonist Timeline Profile
+
+| Field | Detail |
+| --- | --- |
+| Han Li age band | about age 11190-11200 |
+| Main location | lower immortal-world activity zones and the edge of North Cold Immortal Domain |
+| Gains or changes | identity rebuilding, memory threads, and pursuit pressure |
+| Key event | After entering the sequel, Han Li restarts from a low foothold under order, identity, and pursuit pressure. |
+| Precision note | Anchored on age 11190 ascension; around sequel-calendar year 10 he reaches the Immortal Realm. |
+
+
 ## Placement
 
 | Field | Detail |

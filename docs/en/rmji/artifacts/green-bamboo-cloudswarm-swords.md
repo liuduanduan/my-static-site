@@ -26,6 +26,15 @@ Han Li representative set of flying swords, tied to Golden Thunder Bamboo, evil-
 
 This should be the primary weapon page, linking techniques, materials, thunder ability, and formation content.
 
+## Curation Notes
+
+- Topic lane: Artifacts & Companions.
+- Reading focus: Read it through origin, refinement, material attribute, growth potential, and Han Li trump-card system.
+- Series placement: This entry spans the Mortal-to-Spirit Realm transition, so it is useful for tracking how early tools grow into higher-realm systems.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

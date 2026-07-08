@@ -26,6 +26,15 @@ A thunder ability deeply tied to Golden Thunder Bamboo and sword treasures, used
 
 It is one of Han Li most recognizable combat tools and should be cross-linked across treasure, material, and ability pages.
 
+## Curation Notes
+
+- Topic lane: Techniques & Abilities.
+- Reading focus: Read it through cultivation efficiency, combat style, survival value, or law comprehension.
+- Series placement: This entry spans the Mortal-to-Spirit Realm transition, so it is useful for tracking how early tools grow into higher-realm systems.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

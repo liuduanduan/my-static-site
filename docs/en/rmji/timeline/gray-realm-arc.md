@@ -26,6 +26,24 @@ Han Li enters Gray Realm-related narrative and encounters different ecology, peo
 
 This user-requested focus stage should later split Gray Realm geography, factions, and figures.
 
+## Curation Notes
+
+- Topic lane: Timeline.
+- Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Protagonist Timeline Profile
+
+| Field | Detail |
+| --- | --- |
+| Han Li age band | about age 13346-13390 |
+| Main location | Gray Realm cities and wilderness |
+| Gains or changes | Gray Realm materials, alien ecology, and faction intelligence |
+| Key event | Han Li enters the Gray Realm, where environmental rules, peoples, and resources change sharply. |
+| Precision note | Roughly sequel-calendar years 2156-2200. |
+
+
 ## Placement
 
 | Field | Detail |

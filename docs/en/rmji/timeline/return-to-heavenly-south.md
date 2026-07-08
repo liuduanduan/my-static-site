@@ -26,6 +26,24 @@ Han Li returns to a familiar region with greater power, changing both local stru
 
 It shows status reversal after growth while preserving cautious handling of ties and consequences.
 
+## Curation Notes
+
+- Topic lane: Timeline.
+- Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
+- Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Protagonist Timeline Profile
+
+| Field | Detail |
+| --- | --- |
+| Han Li age band | about age 155 |
+| Main location | Heavenly South, old sect ties, and regional battlefields |
+| Gains or changes | higher status and a reshaped relationship with old places |
+| Key event | Han Li returns to familiar regions with reversed status and stronger leverage. |
+| Precision note | Estimated from public timeline references; kept as approximate. |
+
+
 ## Placement
 
 | Field | Detail |

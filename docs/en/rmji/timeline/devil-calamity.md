@@ -26,6 +26,24 @@ A large-scale pressure thread around devil races, the Devil Realm, and cross-rea
 
 It pushes personal Dao-seeking into racial war, realm security, and great-power conflict.
 
+## Curation Notes
+
+- Topic lane: Timeline.
+- Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
+- Series placement: This entry belongs mostly to the Spirit Realm transition, where Han Li faces racial politics, higher materials, and broader realm-scale conflict.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Protagonist Timeline Profile
+
+| Field | Detail |
+| --- | --- |
+| Han Li age band | late Spirit Realm before age 11190 |
+| Main location | battlefields between Spirit and Devil Realm pressure |
+| Gains or changes | racial-war scale experience and cross-realm crisis handling |
+| Key event | The devil calamity pushes personal cultivation into realm security and racial war. |
+| Precision note | Estimated from public timeline references; kept as approximate. |
+
+
 ## Placement
 
 | Field | Detail |

@@ -26,6 +26,15 @@ A major pill type for Foundation Establishment cultivators attempting Core Forma
 
 Together with the Foundation Establishment Pill, it forms the clearest early-middle breakthrough resource ladder.
 
+## Curation Notes
+
+- Topic lane: Elixirs & Materials.
+- Reading focus: Read it through the resource chain: herb source, formula value, breakthrough use, trade value, and scarcity.
+- Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

@@ -26,6 +26,15 @@ A support technique concept around re-cultivation, foundation compression, and i
 
 It reflects the series logic of paying cost and time for higher ceilings rather than rushing breakthroughs.
 
+## Curation Notes
+
+- Topic lane: Techniques & Abilities.
+- Reading focus: Read it through cultivation efficiency, combat style, survival value, or law comprehension.
+- Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

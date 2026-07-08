@@ -26,6 +26,15 @@ A broad sequel expression for many laws, dao paths, and cultivation endpoints.
 
 It is the master index for law entries and can split into time, reincarnation, space, five elements, and more.
 
+## Curation Notes
+
+- Topic lane: Laws & Dao.
+- Reading focus: Read it through its links to realms, spiritual domains, Dao Ancestors, and high-level sequel combat.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

@@ -26,6 +26,15 @@ A wood-phase art framed around life, decline, and cyclical flourishing.
 
 Later expansion can connect it with five-element law, life-oriented law concepts, and immortal-world inheritance.
 
+## Curation Notes
+
+- Topic lane: Techniques & Abilities.
+- Reading focus: Read it through cultivation efficiency, combat style, survival value, or law comprehension.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

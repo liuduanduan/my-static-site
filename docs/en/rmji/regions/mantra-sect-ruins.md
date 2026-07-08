@@ -26,6 +26,15 @@ A ruin location carrying True Word Sect inheritance, time-law clues, and histori
 
 It links arts, sects, and time law, serving as a hub for the sequel archaeological mystery style.
 
+## Curation Notes
+
+- Topic lane: Realms & Regions.
+- Reading focus: Read it through resources, dangers, faction gateways, and story turns.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

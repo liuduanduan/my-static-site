@@ -26,6 +26,15 @@ A branch related to the Flying Spirit Race, linked to true-spirit bloodlines, sp
 
 This seed creates the index; later passes should add figures and events.
 
+## Curation Notes
+
+- Topic lane: Races & Peoples.
+- Reading focus: Read it through ecology, hierarchy, resource habits, cross-realm conflict, and relations with human cultivators.
+- Series placement: This entry belongs mostly to the Spirit Realm transition, where Han Li faces racial politics, higher materials, and broader realm-scale conflict.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

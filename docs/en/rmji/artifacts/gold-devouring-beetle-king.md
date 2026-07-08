@@ -26,6 +26,15 @@ The advanced high-threat form of the gold-devouring beetle line.
 
 Later expansion should add growth conditions, quantity changes, and matchups against high-level enemies.
 
+## Curation Notes
+
+- Topic lane: Artifacts & Companions.
+- Reading focus: Read it through origin, refinement, material attribute, growth potential, and Han Li trump-card system.
+- Series placement: This entry spans the Spirit-to-Immortal Realm transition, where earlier resources and methods are upgraded into immortal-world scale.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

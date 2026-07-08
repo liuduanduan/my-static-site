@@ -26,6 +26,15 @@ An important treasure thread around the Chaotic Star Sea, tied to secret realms,
 
 Best grouped with Chaotic Star Sea, Star Palace, and the Anti-Star Alliance as a regional event chain.
 
+## Curation Notes
+
+- Topic lane: Artifacts & Companions.
+- Reading focus: Read it through origin, refinement, material attribute, growth potential, and Han Li trump-card system.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

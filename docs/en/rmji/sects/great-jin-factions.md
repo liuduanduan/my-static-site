@@ -26,6 +26,15 @@ A larger late Mortal Realm stage of cultivation society and factions.
 
 It carries map expansion after Heavenly South, resource upgrades, and denser high-level cultivator presence.
 
+## Curation Notes
+
+- Topic lane: Sects & Factions.
+- Reading focus: Read it through regional order, resource allocation, mission systems, pursuit pressure, or political alliances.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

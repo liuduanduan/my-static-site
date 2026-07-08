@@ -26,6 +26,15 @@ An important human city and defensive node in the Spirit Realm.
 
 It marks the narrative expansion from personal survival into racial defense and inter-race conflict.
 
+## Curation Notes
+
+- Topic lane: Sects & Factions.
+- Reading focus: Read it through regional order, resource allocation, mission systems, pursuit pressure, or political alliances.
+- Series placement: This entry belongs mostly to the Spirit Realm transition, where Han Li faces racial politics, higher materials, and broader realm-scale conflict.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

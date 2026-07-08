@@ -26,6 +26,15 @@ A hub for materials from the Gray Realm environment, distinct from ordinary immo
 
 Later passes can split actual named materials; this entry first supports Gray Realm geography and resource taxonomy.
 
+## Curation Notes
+
+- Topic lane: Elixirs & Materials.
+- Reading focus: Read it through the resource chain: herb source, formula value, breakthrough use, trade value, and scarcity.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

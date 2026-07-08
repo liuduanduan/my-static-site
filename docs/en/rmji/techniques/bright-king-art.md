@@ -26,6 +26,15 @@ A body-refining and protection-oriented method that highlights physical durabili
 
 It shows that Han Li does not rely only on swords and treasures, but also uses body strength and transformations.
 
+## Curation Notes
+
+- Topic lane: Techniques & Abilities.
+- Reading focus: Read it through cultivation efficiency, combat style, survival value, or law comprehension.
+- Series placement: This entry belongs mostly to the Spirit Realm transition, where Han Li faces racial politics, higher materials, and broader realm-scale conflict.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |
@@ -40,6 +49,7 @@ It shows that Han Li does not rely only on swords and treasures, but also uses b
 ## Related Entries
 
 - [Brahma Saint True Demon Art / 梵圣真魔功](/en/rmji/techniques/fansheng-true-demon-art)
+- [True-Spirit Blood / 真灵之血](/en/rmji/elixirs/true-spirit-blood)
 
 ## Legal Reading
 

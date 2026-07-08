@@ -26,6 +26,15 @@ A law tied to teleportation, secret realms, realm passages, and high-level posit
 
 It helps explain secret realms, ascension, and cross-domain movement under one framework.
 
+## Curation Notes
+
+- Topic lane: Laws & Dao.
+- Reading focus: Read it through its links to realms, spiritual domains, Dao Ancestors, and high-level sequel combat.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

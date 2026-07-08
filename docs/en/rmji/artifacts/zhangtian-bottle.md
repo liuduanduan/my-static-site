@@ -26,6 +26,15 @@ One of Han Li core opportunities, linked to herb cultivation, time-like change, 
 
 It is the key symbol of resource logic, best framed as cautious accumulation rather than a simple cheat.
 
+## Curation Notes
+
+- Topic lane: Artifacts & Companions.
+- Reading focus: Read it through origin, refinement, material attribute, growth potential, and Han Li trump-card system.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

@@ -26,6 +26,15 @@ The law-level expression of sword cultivation at higher stages.
 
 It bridges Azure Essence Sword Art, flying swords, and sword formations into higher immortal-world rules.
 
+## Curation Notes
+
+- Topic lane: Laws & Dao.
+- Reading focus: Read it through its links to realms, spiritual domains, Dao Ancestors, and high-level sequel combat.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

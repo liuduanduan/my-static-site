@@ -65,6 +65,7 @@ const works = [
   { zh: '飘邈之旅', en: 'Stellar Travel', slug: 'piao-miao-journey' },
   { zh: '佛本是道', en: 'Buddha Is The Way', slug: 'buddha-is-the-tao' },
   { zh: '凡人修仙传', en: "A Record of a Mortal's Journey to Immortality", slug: 'mortal-journey' },
+  { zh: '凡人修仙之仙界篇', en: 'RMJI: Immortal World Arc', slug: 'rmji-immortal-world' },
   { zh: '修真门派掌门路', en: 'The Path of a Sect Leader', slug: 'sect-leader' },
   { zh: '诛仙', en: 'Zhu Xian', slug: 'zhu-xian' },
   { zh: '仙逆', en: 'Xian Ni / Reverse Immortal', slug: 'renegade-immortal' },
@@ -93,10 +94,14 @@ const rmjiSections = [
   { zh: '种族族群', en: 'Races & Peoples', slug: 'races/' },
   { zh: '界域地理', en: 'Realms & Regions', slug: 'regions/' },
   { zh: '法则大道', en: 'Laws & Dao', slug: 'laws/' },
+  { zh: '人物角色', en: 'Characters', slug: 'characters/' },
   { zh: '剧情脉络', en: 'Timeline', slug: 'timeline/' }
 ]
 
 const rmjiFeatured = [
+  { zh: '韩立', en: 'Han Li', slug: 'characters/han-li' },
+  { zh: '南宫婉', en: 'Nangong Wan', slug: 'characters/nangong-wan' },
+  { zh: '墨大夫', en: 'Doctor Mo', slug: 'characters/doctor-mo' },
   { zh: '掌天瓶 / 小绿瓶', en: 'Heavenly Bottle / Green Bottle', slug: 'artifacts/zhangtian-bottle' },
   { zh: '青元剑诀', en: 'Azure Essence Sword Art', slug: 'techniques/qingyuan-sword-art' },
   { zh: '青竹蜂云剑', en: 'Bamboo Cloudswarm Swords', slug: 'artifacts/green-bamboo-cloudswarm-swords' },
@@ -146,7 +151,7 @@ function zhSidebar() {
       { text: '经典作品', items: [{ text: '总览', link: '/classic-works/' }, ...zhWorks] }
     ],
     '/rmji/': [
-      { text: '凡人修仙传专题', items: zhRmjiSections },
+      { text: '凡人修仙传专场', items: zhRmjiSections },
       { text: '推荐先看', collapsed: true, items: zhRmjiFeatured }
     ],
     '/culture/': [
@@ -158,7 +163,7 @@ function zhSidebar() {
         { text: '术语词典', link: '/glossary/' },
         { text: '分类体系', link: '/categories/' },
         { text: '修炼体系', link: '/cultivation-system/' },
-        { text: '凡人专题', link: '/rmji/' }
+        { text: '凡人专场', link: '/rmji/' }
       ] },
       { text: '核心术语', collapsed: true, items: zhGlossary.slice(0, 10) },
       { text: '站点', items: [
@@ -240,7 +245,7 @@ export default defineConfig({
       { text: '术语词典', link: '/glossary/' },
       { text: '修炼体系', link: '/cultivation-system/' },
       { text: '经典作品', link: '/classic-works/' },
-      { text: '凡人专题', link: '/rmji/' },
+      { text: '凡人专场', link: '/rmji/' },
       { text: '文化背景', link: '/culture/' },
       { text: '关于', link: '/about' },
       { text: '贡献', link: '/contribute' },

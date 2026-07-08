@@ -26,6 +26,15 @@ The main higher world of the sequel, centered on immortal realms, laws, and grea
 
 It is the main map for sequel sects, Heavenly Court, Reincarnation Palace, Gray Realm, and law entries.
 
+## Curation Notes
+
+- Topic lane: Realms & Regions.
+- Reading focus: Read it through resources, dangers, faction gateways, and story turns.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

@@ -26,6 +26,15 @@ Han Li race and one of the main viewpoints across the mortal, spirit, and immort
 
 The human-race page links sect institutions, Heavenly Abyss City defense, and post-ascension identity changes.
 
+## Curation Notes
+
+- Topic lane: Races & Peoples.
+- Reading focus: Read it through ecology, hierarchy, resource habits, cross-realm conflict, and relations with human cultivators.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

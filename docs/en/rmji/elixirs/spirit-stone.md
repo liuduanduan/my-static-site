@@ -26,6 +26,15 @@ The most basic currency, energy source, and trade resource in the cultivation wo
 
 It should be linked to auctions, formations, cultivation, sect supply, markets, and all economy pages.
 
+## Curation Notes
+
+- Topic lane: Elixirs & Materials.
+- Reading focus: Read it through the resource chain: herb source, formula value, breakthrough use, trade value, and scarcity.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

@@ -26,6 +26,15 @@ The core race tied to the Devil Realm, devilish Qi, devil arts, and cross-realm 
 
 It should cross-link with ancient devils, the Brahma Saint True Demon Art, devil crystals, and devil calamity arcs.
 
+## Curation Notes
+
+- Topic lane: Races & Peoples.
+- Reading focus: Read it through ecology, hierarchy, resource habits, cross-realm conflict, and relations with human cultivators.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

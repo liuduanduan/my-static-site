@@ -44,7 +44,7 @@ description_zh: "资质平庸的少年韩立，凭借谨慎、毅力和机缘在
 
 ## Universe Index
 
-This site now includes an [RMJI Universe](/en/rmji/) topic with the first 109 bilingual seed entries for techniques, artifacts, elixirs, factions, races, regions, laws, and timeline.
+This site now includes an [RMJI Universe](/en/rmji/) topic with 500 bilingual topic entries for techniques, artifacts, elixirs, factions, races, regions, laws, characters, and timeline.
 
 ## Official Reading
 

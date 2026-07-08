@@ -26,6 +26,15 @@ A key early sequel region carrying Han Li post-entry sect, palace, and pursuit t
 
 Best grouped with Candle Dragon Dao, North Cold Immortal Palace, and Black Wind Sea.
 
+## Curation Notes
+
+- Topic lane: Realms & Regions.
+- Reading focus: Read it through resources, dangers, faction gateways, and story turns.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

@@ -26,6 +26,15 @@ A topic entry summarizing differences between Gray Realm environment and ordinar
 
 It supports the Gray Realm map, gray immortal race, and gray materials pages.
 
+## Curation Notes
+
+- Topic lane: Laws & Dao.
+- Reading focus: Read it through its links to realms, spiritual domains, Dao Ancestors, and high-level sequel combat.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

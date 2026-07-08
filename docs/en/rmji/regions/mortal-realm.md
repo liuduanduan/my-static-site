@@ -26,6 +26,15 @@ The main stage of the original novel, spanning villages, martial sects, cultivat
 
 This is the base map for low-level resources, sect ecology, and mortal-flow growth.
 
+## Curation Notes
+
+- Topic lane: Realms & Regions.
+- Reading focus: Read it through resources, dangers, faction gateways, and story turns.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

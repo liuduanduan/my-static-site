@@ -26,6 +26,15 @@ A high-level art combining body refinement, demonic imagery, and powerful combat
 
 It links devil-race imagery, ancient devils, true-spirit bloodlines, and Han Li multi-path growth.
 
+## Curation Notes
+
+- Topic lane: Techniques & Abilities.
+- Reading focus: Read it through cultivation efficiency, combat style, survival value, or law comprehension.
+- Series placement: This entry spans the Spirit-to-Immortal Realm transition, where earlier resources and methods are upgraded into immortal-world scale.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

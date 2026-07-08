@@ -26,6 +26,24 @@ An important stage where Han Li settles into immortal-world organization ecology
 
 Best linked with Candle Dragon Dao, North Cold domain, True/Golden Immortal levels, and early immortal missions.
 
+## Curation Notes
+
+- Topic lane: Timeline.
+- Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Protagonist Timeline Profile
+
+| Field | Detail |
+| --- | --- |
+| Han Li age band | about age 11210-11850 |
+| Main location | Candle Dragon Dao and North Cold Immortal Domain |
+| Gains or changes | sect foothold, immortal-world missions, and law-art clues |
+| Key event | Han Li enters immortal-world organizational life as study, missions, and larger conflict interlace. |
+| Precision note | Roughly sequel-calendar years 20-660. |
+
+
 ## Placement
 
 | Field | Detail |

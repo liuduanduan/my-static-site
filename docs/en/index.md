@@ -46,7 +46,8 @@ features:
     <a href="/en/glossary/heavenly-tribulation">#Tribulation 天劫</a>
     <a href="/en/glossary/ascension">#Ascension 飞升</a>
     <a href="/en/classic-works/mortal-journey">#Mortal Journey</a>
-    <a href="/en/rmji/">#RMJI Universe 凡人专题</a>
+    <a href="/en/rmji/">#RMJI Universe 凡人专场</a>
+    <a href="/en/rmji/characters/han-li">#Han Li 韩立</a>
   </div>
 </section>
 
@@ -64,7 +65,7 @@ features:
   <a class="category-row" href="/en/categories/realms-and-regions"><span class="icon">🌍</span><h3>Realms & Regions</h3><p>修仙地域</p><strong>5+ terms</strong></a>
   <a class="category-row" href="/en/categories/cultivation-roles"><span class="icon">👤</span><h3>Cultivation Roles</h3><p>修仙职业</p><strong>6+ terms</strong></a>
   <a class="category-row" href="/en/categories/core-terms"><span class="icon">📖</span><h3>Core Terms</h3><p>核心术语</p><strong>20+ terms</strong></a>
-  <a class="category-row" href="/en/rmji/"><span class="icon">凡</span><h3>RMJI Universe</h3><p>凡人修仙传专题</p><strong>109 entries</strong></a>
+  <a class="category-row" href="/en/rmji/"><span class="icon">凡</span><h3>RMJI Universe</h3><p>凡人修仙传专场</p><strong>500 entries</strong></a>
   <a class="category-row" href="/en/glossary/"><span class="icon">🔍</span><h3>All Terms</h3><p>全部词条</p><strong>Enter →</strong></a>
 </div>
 
@@ -74,7 +75,7 @@ features:
   <div class="stat-card"><strong>350+</strong><span>planned entries</span></div>
   <div class="stat-card"><strong>11</strong><span>content categories</span></div>
   <div class="stat-card"><strong>50+</strong><span>planned classic works</span></div>
-  <div class="stat-card"><strong>109</strong><span>RMJI seed entries</span></div>
+  <div class="stat-card"><strong>500</strong><span>RMJI topic entries</span></div>
 </div>
 
 ## Latest Updates
@@ -85,6 +86,7 @@ features:
   <a class="entry-card" href="/en/classic-works/zhu-xian"><h3>Zhu Xian 诛仙</h3><p class="muted">Classic Work · Updated today</p><p>Classical xianxia, orthodox-demonic conflict, and tragic emotion.</p></a>
   <a class="entry-card" href="/en/culture/cantong-qi-and-alchemy"><h3>The Cantong Qi and Alchemy</h3><p class="muted">Culture · Updated today</p><p>How alchemical language enters cultivation fiction.</p></a>
   <a class="entry-card" href="/en/rmji/artifacts/zhangtian-bottle"><h3>Heavenly Bottle / Green Bottle</h3><p class="muted">RMJI Universe · Updated today</p><p>One of Han Li core opportunities, linked to herbs, time-like change, and long-term accumulation.</p></a>
+  <a class="entry-card" href="/en/rmji/characters/han-li"><h3>Han Li 韩立</h3><p class="muted">Character · Updated today</p><p>The protagonist of RMJI and the Immortal World Arc, known for caution and hidden trump cards.</p></a>
   <a class="entry-card" href="/en/glossary/spirit-stone"><h3>Spirit Stone 灵石</h3><p class="muted">Natural Treasure · Updated today</p><p>A currency and spiritual energy source in cultivation worlds.</p></a>
   <a class="entry-card" href="/en/cultivation-system/golden-immortal"><h3>Golden Immortal 金仙境</h3><p class="muted">Realm · Updated today</p><p>A higher immortal stage of stable power and law comprehension.</p></a>
   <a class="entry-card" href="/en/classic-works/mortal-journey"><h3>A Record of a Mortal's Journey to Immortality</h3><p class="muted">Classic Work · Updated today</p><p>A foundational mortal-flow novel with a rigorous system.</p></a>

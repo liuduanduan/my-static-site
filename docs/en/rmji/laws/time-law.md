@@ -26,6 +26,15 @@ One of the sequel core law threads, tied to the Mantra Wheel Scripture, time-pat
 
 It should be the first law page for the sequel, linked to the green bottle, True Word Sect, and Spirit Refining Art.
 
+## Curation Notes
+
+- Topic lane: Laws & Dao.
+- Reading focus: Read it through its links to realms, spiritual domains, Dao Ancestors, and high-level sequel combat.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

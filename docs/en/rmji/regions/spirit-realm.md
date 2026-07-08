@@ -26,6 +26,15 @@ A higher world after ascension, featuring many races, upgraded resources, and bo
 
 It shifts RMJI from Mortal Realm survival into multi-race, cross-region, higher-power systems.
 
+## Curation Notes
+
+- Topic lane: Realms & Regions.
+- Reading focus: Read it through resources, dangers, faction gateways, and story turns.
+- Series placement: This entry is a cross-series concept and should be read across both the original novel and the sequel.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

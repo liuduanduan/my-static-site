@@ -6,6 +6,7 @@ import GlossaryExplorer from './components/GlossaryExplorer.vue'
 import WorksExplorer from './components/WorksExplorer.vue'
 import RandomEntry from './components/RandomEntry.vue'
 import ReadingProgress from './components/ReadingProgress.vue'
+import RmjiRealmMaps from './components/RmjiRealmMaps.vue'
 
 const theme: Theme = {
   extends: DefaultTheme,
@@ -18,6 +19,7 @@ const theme: Theme = {
     app.component('GlossaryExplorer', GlossaryExplorer)
     app.component('WorksExplorer', WorksExplorer)
     app.component('RandomEntry', RandomEntry)
+    app.component('RmjiRealmMaps', RmjiRealmMaps)
   }
 }
 

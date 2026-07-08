@@ -26,6 +26,15 @@ Han Li iconic spirit insect swarm, known for devouring ability, group pressure, 
 
 It turns spirit companions into a long-term cultivation resource rather than a one-off pet concept.
 
+## Curation Notes
+
+- Topic lane: Artifacts & Companions.
+- Reading focus: Read it through origin, refinement, material attribute, growth potential, and Han Li trump-card system.
+- Series placement: This entry spans the Mortal-to-Spirit Realm transition, so it is useful for tracking how early tools grow into higher-realm systems.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

@@ -26,6 +26,15 @@ Mythic high-level beings whose bloodlines influence body refinement, lineage, an
 
 It is the key hub for transformations, bloodline power, and high-level demon-race pressure.
 
+## Curation Notes
+
+- Topic lane: Races & Peoples.
+- Reading focus: Read it through ecology, hierarchy, resource habits, cross-realm conflict, and relations with human cultivators.
+- Series placement: This entry spans the Spirit-to-Immortal Realm transition, where earlier resources and methods are upgraded into immortal-world scale.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

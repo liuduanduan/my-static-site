@@ -26,6 +26,15 @@ An early foundational method tied to Han Li entering cultivation, emphasizing sl
 
 It anchors the underdog opening and connects naturally with Qixuanmen, Doctor Mo, and the green bottle thread.
 
+## Curation Notes
+
+- Topic lane: Techniques & Abilities.
+- Reading focus: Read it through cultivation efficiency, combat style, survival value, or law comprehension.
+- Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+
+
 ## Placement
 
 | Field | Detail |

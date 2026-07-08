@@ -26,6 +26,24 @@ Han Li formally enters sect cultivation society, facing disciple status, mission
 
 It serves as the story entry for early sect systems and Foundation Establishment Pill economics.
 
+## Curation Notes
+
+- Topic lane: Timeline.
+- Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
+- Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Protagonist Timeline Profile
+
+| Field | Detail |
+| --- | --- |
+| Han Li age band | about age 18-26 |
+| Main location | Yellow Maple Valley, cave dwelling, and markets |
+| Gains or changes | sect missions, alchemy resources, and the green-bottle resource loop |
+| Key event | Scattered opportunities become institutional cultivation, and resource competition becomes daily life. |
+| Precision note | Estimated from public timeline references; kept as approximate. |
+
+
 ## Placement
 
 | Field | Detail |

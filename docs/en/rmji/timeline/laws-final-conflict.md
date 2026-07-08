@@ -26,6 +26,24 @@ The late sequel conflict around laws, Dao Ancestors, Heavenly Court, Reincarnati
 
 This batch keeps a spoiler-light overview; later passes can split by figures and law paths.
 
+## Curation Notes
+
+- Topic lane: Timeline.
+- Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
+- Series placement: This entry mainly supports the Immortal World Arc, where resource cultivation expands into laws, immortal factions, and Dao-level pressure.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Protagonist Timeline Profile
+
+| Field | Detail |
+| --- | --- |
+| Han Li age band | after about age 16190 |
+| Main location | high-level immortal battlefields and Heavenly Court/Reincarnation spaces |
+| Gains or changes | understanding of Dao conflict and endgame identity choices |
+| Key event | Laws, Dao Ancestors, Heavenly Court, and Reincarnation enter the endgame. |
+| Precision note | Estimated after sequel-calendar year 5000. |
+
+
 ## Placement
 
 | Field | Detail |

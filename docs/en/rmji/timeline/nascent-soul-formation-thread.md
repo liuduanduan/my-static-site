@@ -1,0 +1,72 @@
+---
+title: "Nascent Soul Formation Thread"
+zh_name: "结婴大关"
+en_name: "Nascent Soul Formation Thread"
+pinyin: "Jieying Daguan"
+category: "Timeline"
+arc: "Mortal Realm middle-late arc"
+check_status: "high"
+description: "A stage entry for Han Li reaching Nascent Soul, resource preparation, and identity shift."
+---
+
+# Nascent Soul Formation Thread / 结婴大关
+
+<div class="term-meta">
+  <div><strong>Chinese</strong><span>结婴大关</span></div>
+  <div><strong>English</strong><span>Nascent Soul Formation Thread</span></div>
+  <div><strong>Pinyin</strong><span>Jieying Daguan</span></div>
+  <div><strong>Topic</strong><span>Timeline</span></div>
+</div>
+
+## Summary
+
+A stage entry for Han Li reaching Nascent Soul, resource preparation, and identity shift.
+
+## Role in RMJI
+
+It is the crucial threshold from middle to high level in the Mortal Realm.
+
+## Curation Notes
+
+- Topic lane: Timeline.
+- Reading focus: Read the stage by how it changes Han Li resources, identity, map, and conflict structure.
+- Series placement: This entry belongs mostly to the Mortal Realm portion, where scarcity, sect systems, secret realms, and cautious accumulation define the story.
+- Spoiler level: encyclopedia summary only; no chapter text is reproduced.
+
+## Protagonist Timeline Profile
+
+| Field | Detail |
+| --- | --- |
+| Han Li age band | about age 217 |
+| Main location | Heavenly South and secluded cultivation sites |
+| Gains or changes | Nascent Soul status, breakthrough experience, and entry into high-level circles |
+| Key event | Through pills, mental risk, and preparation, Han Li crosses a key threshold. |
+| Precision note | Estimated from public timeline references; kept as approximate. |
+
+
+## Placement
+
+| Field | Detail |
+| --- | --- |
+| Chinese name | 结婴大关 |
+| English name | Nascent Soul Formation Thread |
+| Pinyin | Jieying Daguan |
+| Topic | [Timeline](/en/rmji/timeline/) |
+| Main arc | Mortal Realm middle-late arc |
+| Check status | high |
+
+## Related Entries
+
+- [Bottleneck Breakthrough / 瓶颈突破](/en/rmji/techniques/bottleneck-breakthrough)
+- [Nascent-Soul Formation Pill / 化婴丹](/en/rmji/elixirs/infant-formation-pill)
+
+## Legal Reading
+
+- [Qidian: A Record of a Mortal's Journey to Immortality](https://www.qidian.com/book/107580/)
+- [Qidian: A Record of a Mortal's Journey to Immortality - Immortal World Arc](https://www.qidian.com/book/1010734492/)
+- [WeRead: Immortal World Arc](https://weread.qq.com/web/bookDetail/4fe324e0811e754c1g014ab9)
+- [Wuxiaworld English reading page](https://www.wuxiaworld.com/novel/rmji)
+
+## Content Policy
+
+This page is an original reference summary for terminology, worldbuilding, and reading context. It does not copy novel chapters.

@@ -16,7 +16,7 @@ hero:
       text: 修炼体系
       link: /cultivation-system/
     - theme: alt
-      text: 凡人专题
+      text: 凡人专场
       link: /rmji/
 features:
   - icon: 🧘
@@ -46,7 +46,8 @@ features:
     <a href="/glossary/heavenly-tribulation">#天劫 Tribulation</a>
     <a href="/glossary/ascension">#飞升 Ascension</a>
     <a href="/classic-works/mortal-journey">#凡人修仙传</a>
-    <a href="/rmji/">#凡人专题 RMJI</a>
+    <a href="/rmji/">#凡人专场 RMJI</a>
+    <a href="/rmji/characters/han-li">#韩立</a>
   </div>
 </section>
 
@@ -64,7 +65,7 @@ features:
   <a class="category-row" href="/categories/realms-and-regions"><span class="icon">🌍</span><h3>修仙地域</h3><p>Realms & Regions</p><strong>5+ 词条</strong></a>
   <a class="category-row" href="/categories/cultivation-roles"><span class="icon">👤</span><h3>修仙职业</h3><p>Cultivation Roles</p><strong>6+ 词条</strong></a>
   <a class="category-row" href="/categories/core-terms"><span class="icon">📖</span><h3>核心术语</h3><p>Core Terms</p><strong>20+ 词条</strong></a>
-  <a class="category-row" href="/rmji/"><span class="icon">凡</span><h3>凡人修仙传专题</h3><p>RMJI Universe</p><strong>109 词条</strong></a>
+  <a class="category-row" href="/rmji/"><span class="icon">凡</span><h3>凡人修仙传专场</h3><p>RMJI Universe</p><strong>500 词条</strong></a>
   <a class="category-row" href="/glossary/"><span class="icon">🔍</span><h3>全部词条</h3><p>All Terms</p><strong>进入 →</strong></a>
 </div>
 
@@ -74,7 +75,7 @@ features:
   <div class="stat-card"><strong>350+</strong><span>规划词条</span></div>
   <div class="stat-card"><strong>11</strong><span>内容分类</span></div>
   <div class="stat-card"><strong>50+</strong><span>规划经典作品</span></div>
-  <div class="stat-card"><strong>109</strong><span>凡人专题种子词条</span></div>
+  <div class="stat-card"><strong>500</strong><span>凡人专场专题词条</span></div>
 </div>
 
 ## 最新更新
@@ -84,7 +85,8 @@ features:
   <a class="entry-card" href="/cultivation-system/dao-ancestor"><h3>道祖境 Dao Ancestor</h3><p class="muted">修炼境界 · 今日更新</p><p>十四级体系中的最高境界。</p></a>
   <a class="entry-card" href="/classic-works/zhu-xian"><h3>诛仙 Zhu Xian</h3><p class="muted">经典作品 · 今日更新</p><p>古典仙侠、正魔冲突与情感悲剧。</p></a>
   <a class="entry-card" href="/culture/cantong-qi-and-alchemy"><h3>《周易参同契》与炼丹术</h3><p class="muted">文化背景 · 今日更新</p><p>丹道语言与修仙叙事的关系。</p></a>
-  <a class="entry-card" href="/rmji/artifacts/zhangtian-bottle"><h3>掌天瓶 / 小绿瓶</h3><p class="muted">凡人专题 · 今日更新</p><p>韩立最核心的机缘物之一，连接灵药培育、时间变化和长期积累。</p></a>
+  <a class="entry-card" href="/rmji/artifacts/zhangtian-bottle"><h3>掌天瓶 / 小绿瓶</h3><p class="muted">凡人专场 · 今日更新</p><p>韩立最核心的机缘物之一，连接灵药培育、时间变化和长期积累。</p></a>
+  <a class="entry-card" href="/rmji/characters/han-li"><h3>韩立 Han Li</h3><p class="muted">人物角色 · 今日更新</p><p>《凡人修仙传》和仙界篇的主角，以谨慎、耐心和底牌管理著称。</p></a>
   <a class="entry-card" href="/glossary/spirit-stone"><h3>灵石 Spirit Stone</h3><p class="muted">天材地宝 · 今日更新</p><p>修仙界的通用货币和能量来源。</p></a>
   <a class="entry-card" href="/cultivation-system/golden-immortal"><h3>金仙境 Golden Immortal</h3><p class="muted">修炼境界 · 今日更新</p><p>仙界高阶境界，金仙不朽。</p></a>
   <a class="entry-card" href="/classic-works/mortal-journey"><h3>凡人修仙传</h3><p class="muted">经典作品 · 今日更新</p><p>凡人流开山之作，体系严谨。</p></a>
