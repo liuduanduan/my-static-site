@@ -8,134 +8,159 @@ const isEn = computed(() => route.path.startsWith('/en/'))
 const copy = computed(() => {
   if (isEn.value) {
     return {
-      kicker: 'RMJI Mortal Realm highlight',
-      title: 'Han Li Forms His Nascent Soul',
-      subtitle: 'A visual reading scene for the Heavenly South seclusion arc: core shattered, soul born, storm and inner demon crossing at the same threshold.',
+      kicker: 'RMJI Immortal World finale',
+      title: 'Han Li Ascends to Dao Ancestor',
+      subtitle: 'An original finale scene: the time river breaks open, reincarnation turns back, Heavenly Court order collapses, and three thousand Daos converge around the green bottle light.',
       facts: [
-        ['Stage', 'Middle-late Mortal Realm'],
-        ['Age estimate', 'about 217'],
-        ['Thread', 'Core to Nascent Soul']
+        ['Stage', 'Immortal World finale'],
+        ['Age estimate', 'after about 12,500'],
+        ['Thread', 'Time, reincarnation, bottle karma']
       ],
       links: [
-        ['Breakthrough thread', '/en/rmji/timeline/nascent-soul-breakthrough-thread'],
-        ['Nascent Soul stage', '/en/rmji/laws/nascent-soul-stage'],
-        ['Han Li', '/en/rmji/characters/han-li']
+        ['Dao Ancestor endgame', '/en/rmji/timeline/dao-ancestor-endgame-thread'],
+        ['Dao Ancestor status', '/en/rmji/laws/dao-ancestor-position'],
+        ['Time law', '/en/rmji/laws/time-law']
       ]
     }
   }
 
   return {
-    kicker: '凡人修仙传 · 人界高光',
-    title: '韩立结婴天象',
-    subtitle: '天南闭关段的原创视觉场景：金丹碎，元婴成，雷光、心魔与灵气漩涡一同压到门槛上。',
+    kicker: '凡人修仙传仙界篇 · 终局高光',
+    title: '韩立突破道祖',
+    subtitle: '仙界终局原创视觉：时间长河崩开，轮回门倒转，天庭秩序碎裂，三千大道在掌天瓶青光里收束成一线。',
     facts: [
-      ['阶段', '人界中后期'],
-      ['年龄估算', '约217岁'],
-      ['线索', '金丹化婴']
+      ['阶段', '仙界篇终局'],
+      ['年龄估算', '约12500岁以后'],
+      ['线索', '时间 · 轮回 · 掌天瓶']
     ],
     links: [
-      ['结婴突破线', '/rmji/timeline/nascent-soul-breakthrough-thread'],
-      ['元婴期', '/rmji/laws/nascent-soul-stage'],
-      ['韩立词条', '/rmji/characters/han-li']
+      ['道祖终局线', '/rmji/timeline/dao-ancestor-endgame-thread'],
+      ['道祖位格', '/rmji/laws/dao-ancestor-position'],
+      ['时间法则', '/rmji/laws/time-law']
     ]
   }
 })
 
-const runes = [
-  { glyph: '雷', angle: 0, delay: -0.3 },
-  { glyph: '木', angle: 30, delay: -1.2 },
-  { glyph: '水', angle: 60, delay: -2.5 },
-  { glyph: '火', angle: 90, delay: -0.8 },
-  { glyph: '土', angle: 120, delay: -1.7 },
-  { glyph: '金', angle: 150, delay: -2.9 },
-  { glyph: '坎', angle: 180, delay: -0.4 },
-  { glyph: '离', angle: 210, delay: -1.5 },
-  { glyph: '震', angle: 240, delay: -2.2 },
-  { glyph: '巽', angle: 270, delay: -0.9 },
-  { glyph: '艮', angle: 300, delay: -1.9 },
-  { glyph: '兑', angle: 330, delay: -2.7 }
+const daoRunes = [
+  { glyph: '时', angle: 0, radius: 184, delay: -0.2 },
+  { glyph: '轮', angle: 24, radius: 154, delay: -1.1 },
+  { glyph: '法', angle: 48, radius: 206, delay: -2.1 },
+  { glyph: '道', angle: 72, radius: 170, delay: -0.7 },
+  { glyph: '瓶', angle: 96, radius: 216, delay: -1.8 },
+  { glyph: '空', angle: 120, radius: 158, delay: -2.8 },
+  { glyph: '因', angle: 144, radius: 204, delay: -0.4 },
+  { glyph: '果', angle: 168, radius: 174, delay: -1.4 },
+  { glyph: '天', angle: 192, radius: 214, delay: -2.4 },
+  { glyph: '庭', angle: 216, radius: 160, delay: -0.9 },
+  { glyph: '真', angle: 240, radius: 200, delay: -1.9 },
+  { glyph: '言', angle: 264, radius: 172, delay: -2.9 },
+  { glyph: '灰', angle: 288, radius: 210, delay: -0.6 },
+  { glyph: '界', angle: 312, radius: 156, delay: -1.6 },
+  { glyph: '仙', angle: 336, radius: 198, delay: -2.6 }
 ]
 </script>
 
 <template>
-  <section class="nascent-scene" aria-labelledby="nascent-scene-title">
-    <div class="nascent-scene__stage">
-      <div class="nascent-scene__copy">
-        <p class="nascent-scene__kicker">{{ copy.kicker }}</p>
-        <h2 id="nascent-scene-title">{{ copy.title }}</h2>
+  <section class="dao-scene" aria-labelledby="dao-scene-title">
+    <div class="dao-scene__stage">
+      <div class="dao-scene__copy">
+        <p class="dao-scene__kicker">{{ copy.kicker }}</p>
+        <h2 id="dao-scene-title">{{ copy.title }}</h2>
         <p>{{ copy.subtitle }}</p>
 
-        <div class="nascent-scene__actions" aria-label="RMJI quick links">
+        <div class="dao-scene__actions" aria-label="RMJI finale links">
           <a v-for="link in copy.links" :key="link[1]" :href="link[1]">{{ link[0] }}</a>
         </div>
       </div>
 
-      <div class="nascent-visual" aria-hidden="true">
-        <div class="nascent-visual__rain"></div>
-        <div class="nascent-visual__runes">
+      <div class="dao-visual" aria-hidden="true">
+        <div class="dao-visual__rift"></div>
+        <div class="dao-visual__skyfall"></div>
+        <div class="dao-visual__runes">
           <span
-            v-for="rune in runes"
+            v-for="rune in daoRunes"
             :key="rune.glyph"
-            :style="`transform: rotate(${rune.angle}deg) translateY(-142px) rotate(-${rune.angle}deg); animation-delay: ${rune.delay}s;`"
+            :style="`transform: rotate(${rune.angle}deg) translateY(-${rune.radius}px) rotate(-${rune.angle}deg); animation-delay: ${rune.delay}s;`"
           >
             {{ rune.glyph }}
           </span>
         </div>
 
-        <svg class="nascent-visual__svg" viewBox="0 0 640 420" focusable="false">
+        <svg class="dao-visual__svg" viewBox="0 0 760 520" focusable="false">
           <defs>
-            <filter id="nascent-glow" x="-60%" y="-60%" width="220%" height="220%">
-              <feGaussianBlur stdDeviation="7" result="blur" />
+            <filter id="dao-glow" x="-70%" y="-70%" width="240%" height="240%">
+              <feGaussianBlur stdDeviation="9" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
-            <linearGradient id="nascent-stream" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#8ef7df" />
-              <stop offset="45%" stop-color="#f2c75a" />
-              <stop offset="100%" stop-color="#d66b70" />
+            <linearGradient id="dao-stream" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#7ff9df" />
+              <stop offset="38%" stop-color="#f5d06d" />
+              <stop offset="68%" stop-color="#b277ff" />
+              <stop offset="100%" stop-color="#ff6d87" />
+            </linearGradient>
+            <linearGradient id="bottle-light" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f6ffe8" />
+              <stop offset="48%" stop-color="#7ff9df" />
+              <stop offset="100%" stop-color="#34b47f" />
             </linearGradient>
           </defs>
 
-          <path class="cloud-line cloud-line-a" d="M35 288 C126 236 187 326 271 271 C347 221 413 263 471 226 C536 184 584 222 620 188" />
-          <path class="cloud-line cloud-line-b" d="M24 335 C111 299 186 359 282 314 C363 276 446 330 529 282 C571 258 601 260 626 246" />
-
-          <g class="formation-rings">
-            <ellipse class="formation-ring ring-a" cx="338" cy="214" rx="176" ry="54" />
-            <ellipse class="formation-ring ring-b" cx="338" cy="214" rx="128" ry="104" />
-            <ellipse class="formation-ring ring-c" cx="338" cy="214" rx="218" ry="86" />
+          <g class="dao-back-rings">
+            <circle class="dao-ring dao-ring-a" cx="396" cy="260" r="218" />
+            <circle class="dao-ring dao-ring-b" cx="396" cy="260" r="168" />
+            <circle class="dao-ring dao-ring-c" cx="396" cy="260" r="112" />
+            <ellipse class="dao-ring dao-ring-d" cx="396" cy="260" rx="292" ry="82" />
+            <ellipse class="dao-ring dao-ring-e" cx="396" cy="260" rx="248" ry="154" />
           </g>
 
-          <path class="spirit-stream stream-a" d="M54 250 C162 151 263 182 327 214 C409 255 492 230 598 128" />
-          <path class="spirit-stream stream-b" d="M85 132 C166 206 239 210 316 190 C415 164 509 196 588 305" />
-          <path class="spirit-stream stream-c" d="M120 355 C205 278 276 262 344 300 C429 348 506 326 584 251" />
-
-          <g class="seal-lines">
-            <path d="M338 62 L384 180 L512 192 L410 262 L438 382 L338 314 L238 382 L266 262 L164 192 L292 180 Z" />
-            <path d="M222 104 L454 324" />
-            <path d="M456 104 L220 324" />
+          <g class="heaven-splinters">
+            <path d="M94 64 L184 116 L151 145 L62 91 Z" />
+            <path d="M592 62 L687 104 L639 144 L553 101 Z" />
+            <path d="M611 403 L716 381 L696 450 L593 469 Z" />
+            <path d="M68 371 L169 407 L123 465 L37 421 Z" />
+            <path d="M345 26 L408 72 L360 103 L308 55 Z" />
           </g>
 
-          <g class="lightning">
-            <path class="bolt bolt-a" d="M475 25 L430 104 L466 104 L402 214" />
-            <path class="bolt bolt-b" d="M154 54 L199 139 L166 139 L232 248" />
-            <path class="bolt bolt-c" d="M553 154 L513 210 L543 214 L486 302" />
+          <path class="time-river river-a" d="M16 295 C128 130 256 164 374 246 C508 339 606 290 742 96" />
+          <path class="time-river river-b" d="M34 126 C152 245 282 226 388 172 C504 111 608 167 728 330" />
+          <path class="time-river river-c" d="M22 438 C158 312 262 335 370 384 C494 441 618 390 738 244" />
+          <path class="time-river river-d" d="M93 31 C156 163 261 215 394 207 C539 198 623 255 694 486" />
+
+          <g class="dao-gate">
+            <path class="gate-outer" d="M396 56 C286 74 229 155 230 257 C231 367 303 445 396 468 C489 445 561 367 562 257 C563 155 506 74 396 56 Z" />
+            <path class="gate-inner" d="M396 110 C318 124 277 183 278 260 C279 341 329 400 396 421 C463 400 513 341 514 260 C515 183 474 124 396 110 Z" />
           </g>
 
-          <g class="soul-figure" filter="url(#nascent-glow)">
-            <circle class="soul-halo" cx="338" cy="214" r="72" />
-            <path class="soul-body" d="M338 167 C297 170 276 203 289 241 C299 272 324 286 338 314 C352 286 377 272 387 241 C400 203 379 170 338 167 Z" />
-            <circle class="soul-head" cx="338" cy="146" r="27" />
-            <path class="soul-breath" d="M306 229 C327 244 351 244 373 229" />
+          <g class="dao-figure" filter="url(#dao-glow)">
+            <path class="dao-body" d="M396 143 C338 174 316 247 344 306 C359 338 382 357 396 394 C410 357 433 338 448 306 C476 247 454 174 396 143 Z" />
+            <circle class="dao-head" cx="396" cy="119" r="28" />
+            <path class="bottle-sigil" d="M386 195 C386 178 406 178 406 195 L406 260 C406 291 386 291 386 260 Z" />
+            <path class="bottle-neck" d="M381 181 C389 171 403 171 411 181" />
+          </g>
+
+          <g class="law-cracks">
+            <path d="M397 7 L393 96 L407 184 L394 260 L409 350 L397 512" />
+            <path d="M17 259 L162 252 L283 265 L396 260 L508 248 L743 261" />
+            <path d="M141 77 L252 173 L351 236 L396 260 L489 322 L642 450" />
+            <path d="M648 82 L535 172 L449 232 L396 260 L308 329 L133 448" />
+          </g>
+
+          <g class="dao-bolts">
+            <path class="bolt-a" d="M552 12 L506 100 L546 100 L476 232" />
+            <path class="bolt-b" d="M162 20 L218 127 L177 127 L257 263" />
+            <path class="bolt-c" d="M687 171 L626 251 L666 258 L574 395" />
+            <path class="bolt-d" d="M71 184 L141 247 L103 261 L194 366" />
           </g>
         </svg>
 
-        <div class="nascent-core"></div>
-        <span v-for="spark in 22" :key="spark" class="nascent-spark"></span>
+        <div class="dao-core"></div>
+        <span v-for="beam in 30" :key="beam" class="dao-beam"></span>
       </div>
 
-      <dl class="nascent-scene__facts">
+      <dl class="dao-scene__facts">
         <div v-for="fact in copy.facts" :key="fact[0]">
           <dt>{{ fact[0] }}</dt>
           <dd>{{ fact[1] }}</dd>
@@ -146,518 +171,595 @@ const runes = [
 </template>
 
 <style scoped>
-.nascent-scene {
+.dao-scene {
   position: relative;
   overflow: hidden;
   margin: -18px 0 34px;
-  border-block: 1px solid rgba(242, 199, 90, 0.2);
+  border-block: 1px solid rgba(245, 208, 109, 0.24);
   background:
-    linear-gradient(115deg, #071611 0%, #102439 48%, #241320 100%),
-    #071611;
-  color: #f7efe0;
+    radial-gradient(ellipse at 74% 50%, rgba(52, 180, 127, 0.22), transparent 32%),
+    radial-gradient(ellipse at 50% 50%, rgba(178, 119, 255, 0.2), transparent 36%),
+    linear-gradient(115deg, #030806 0%, #071523 43%, #17091d 100%);
+  color: #fff8e7;
 }
 
-.nascent-scene::before {
+.dao-scene::before {
   position: absolute;
   inset: 0;
   background:
-    repeating-linear-gradient(90deg, rgba(142, 247, 223, 0.05) 0, rgba(142, 247, 223, 0.05) 1px, transparent 1px, transparent 42px),
-    repeating-linear-gradient(0deg, rgba(242, 199, 90, 0.035) 0, rgba(242, 199, 90, 0.035) 1px, transparent 1px, transparent 34px);
+    repeating-linear-gradient(90deg, rgba(127, 249, 223, 0.06) 0, rgba(127, 249, 223, 0.06) 1px, transparent 1px, transparent 38px),
+    repeating-linear-gradient(0deg, rgba(245, 208, 109, 0.04) 0, rgba(245, 208, 109, 0.04) 1px, transparent 1px, transparent 32px);
   content: "";
-  opacity: 0.75;
+  opacity: 0.82;
   pointer-events: none;
 }
 
-.nascent-scene__stage {
+.dao-scene::after {
+  position: absolute;
+  inset: -20% -10%;
+  background:
+    conic-gradient(from 20deg at 72% 50%, transparent 0 14%, rgba(127, 249, 223, 0.2) 15% 17%, transparent 18% 44%, rgba(245, 208, 109, 0.18) 45% 47%, transparent 48% 100%);
+  content: "";
+  opacity: 0.48;
+  transform-origin: 72% 50%;
+  animation: daoAperture 18s linear infinite;
+  pointer-events: none;
+}
+
+.dao-scene__stage {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(260px, 0.68fr) minmax(460px, 1fr);
+  grid-template-columns: minmax(285px, 0.58fr) minmax(560px, 1.08fr);
   grid-template-areas:
     "copy visual"
     "facts visual";
-  gap: 18px 34px;
+  gap: 20px 42px;
   align-items: center;
-  max-width: 1152px;
-  min-height: 430px;
+  max-width: 1220px;
+  min-height: 520px;
   margin: 0 auto;
-  padding: 34px 24px;
+  padding: 42px 24px;
 }
 
-.nascent-scene__copy {
+.dao-scene__copy {
   grid-area: copy;
-  max-width: 500px;
+  max-width: 520px;
 }
 
-.nascent-scene__kicker {
+.dao-scene__kicker {
   margin: 0 0 10px;
-  color: #8ef7df;
+  color: #7ff9df;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
-.nascent-scene h2 {
+.dao-scene h2 {
   margin: 0;
-  color: #fff7df;
-  font-size: 42px;
-  line-height: 1.12;
+  color: #fff8e7;
+  font-size: 48px;
+  line-height: 1.08;
   letter-spacing: 0;
+  text-shadow: 0 0 24px rgba(245, 208, 109, 0.24);
 }
 
-.nascent-scene__copy p:not(.nascent-scene__kicker) {
-  max-width: 460px;
-  margin: 16px 0 0;
-  color: rgba(247, 239, 224, 0.8);
+.dao-scene__copy p:not(.dao-scene__kicker) {
+  max-width: 500px;
+  margin: 17px 0 0;
+  color: rgba(255, 248, 231, 0.82);
   font-size: 16px;
-  line-height: 1.75;
+  line-height: 1.78;
 }
 
-.nascent-scene__actions {
+.dao-scene__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 22px;
+  margin-top: 24px;
 }
 
-.nascent-scene__actions a {
+.dao-scene__actions a {
   display: inline-flex;
   align-items: center;
-  min-height: 38px;
-  border: 1px solid rgba(142, 247, 223, 0.38);
+  min-height: 40px;
+  border: 1px solid rgba(127, 249, 223, 0.42);
   border-radius: 8px;
-  background: rgba(5, 14, 13, 0.45);
-  color: #f7efe0;
-  padding: 0 13px;
+  background: rgba(3, 8, 6, 0.58);
+  color: #fff8e7;
+  padding: 0 14px;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 900;
   text-decoration: none;
   transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
 }
 
-.nascent-scene__actions a:hover {
-  border-color: #f2c75a;
-  background: rgba(242, 199, 90, 0.16);
+.dao-scene__actions a:hover {
+  border-color: #f5d06d;
+  background: rgba(245, 208, 109, 0.16);
   transform: translateY(-1px);
 }
 
-.nascent-scene__facts {
+.dao-scene__facts {
   grid-area: facts;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  max-width: 520px;
-  margin: 2px 0 0;
+  gap: 12px;
+  max-width: 560px;
+  margin: 4px 0 0;
 }
 
-.nascent-scene__facts div {
+.dao-scene__facts div {
   min-width: 0;
-  border-top: 1px solid rgba(242, 199, 90, 0.3);
-  padding-top: 10px;
+  border-top: 1px solid rgba(245, 208, 109, 0.32);
+  padding-top: 11px;
 }
 
-.nascent-scene__facts dt {
-  color: rgba(247, 239, 224, 0.62);
+.dao-scene__facts dt {
+  color: rgba(255, 248, 231, 0.62);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
-.nascent-scene__facts dd {
+.dao-scene__facts dd {
   margin: 3px 0 0;
-  color: #fff7df;
+  color: #fff8e7;
   font-size: 15px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
-.nascent-visual {
+.dao-visual {
   position: relative;
   grid-area: visual;
-  min-height: 368px;
+  min-height: 452px;
   overflow: hidden;
 }
 
-.nascent-visual__rain {
-  position: absolute;
-  inset: 6% 3%;
-  background-image:
-    linear-gradient(112deg, transparent 0 42%, rgba(142, 247, 223, 0.45) 44%, transparent 47%),
-    linear-gradient(112deg, transparent 0 52%, rgba(214, 107, 112, 0.34) 54%, transparent 57%);
-  background-size: 112px 180px, 170px 210px;
-  opacity: 0.35;
-  animation: nascentRain 7s linear infinite;
-}
-
-.nascent-visual__svg {
+.dao-visual__rift {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  background:
+    linear-gradient(104deg, transparent 0 44%, rgba(255, 248, 231, 0.14) 45%, rgba(127, 249, 223, 0.28) 46%, transparent 49%),
+    linear-gradient(70deg, transparent 0 52%, rgba(255, 109, 135, 0.18) 53%, transparent 57%);
+  filter: blur(0.2px);
+  opacity: 0.8;
+  animation: daoRift 5.4s ease-in-out infinite;
+}
+
+.dao-visual__skyfall {
+  position: absolute;
+  inset: 2% 0;
+  background-image:
+    linear-gradient(112deg, transparent 0 43%, rgba(127, 249, 223, 0.5) 45%, transparent 48%),
+    linear-gradient(112deg, transparent 0 55%, rgba(245, 208, 109, 0.46) 56%, transparent 59%),
+    linear-gradient(112deg, transparent 0 49%, rgba(178, 119, 255, 0.38) 50%, transparent 53%);
+  background-size: 96px 186px, 151px 226px, 210px 270px;
+  opacity: 0.5;
+  animation: daoSkyfall 6.4s linear infinite;
+}
+
+.dao-visual__svg {
+  position: absolute;
+  inset: -2% -4% 0 -2%;
+  width: 108%;
+  height: 108%;
   overflow: visible;
 }
 
-.cloud-line {
+.dao-back-rings {
+  transform-origin: 396px 260px;
+  animation: daoTurn 30s linear infinite;
+}
+
+.dao-ring {
   fill: none;
-  stroke: rgba(247, 239, 224, 0.23);
   stroke-linecap: round;
+  transform-origin: 396px 260px;
+}
+
+.dao-ring-a {
+  stroke: rgba(127, 249, 223, 0.64);
   stroke-width: 2;
+  stroke-dasharray: 10 18;
+  animation: daoDash 8s linear infinite;
 }
 
-.cloud-line-a {
-  animation: nascentDrift 10s ease-in-out infinite;
-}
-
-.cloud-line-b {
-  animation: nascentDrift 13s ease-in-out infinite reverse;
-}
-
-.formation-rings {
-  transform-origin: 338px 214px;
-  animation: nascentTurn 24s linear infinite;
-}
-
-.formation-ring {
-  fill: none;
-  stroke-linecap: round;
+.dao-ring-b {
+  stroke: rgba(245, 208, 109, 0.8);
   stroke-width: 3;
-  transform-origin: 338px 214px;
+  stroke-dasharray: 34 18;
+  animation: daoDash 6.5s linear infinite reverse;
 }
 
-.ring-a {
-  stroke: rgba(142, 247, 223, 0.74);
-  stroke-dasharray: 36 18;
-  animation: nascentDash 5.5s linear infinite;
+.dao-ring-c {
+  stroke: rgba(255, 109, 135, 0.64);
+  stroke-width: 3;
+  stroke-dasharray: 7 12;
+  animation: daoDash 5s linear infinite;
 }
 
-.ring-b {
-  stroke: rgba(242, 199, 90, 0.78);
-  stroke-dasharray: 16 12;
-  transform: rotate(62deg);
-  animation: nascentDash 7s linear infinite reverse;
-}
-
-.ring-c {
-  stroke: rgba(214, 107, 112, 0.55);
-  stroke-dasharray: 6 14;
-  transform: rotate(-18deg);
-  animation: nascentDash 9s linear infinite;
-}
-
-.spirit-stream {
-  fill: none;
-  stroke: url("#nascent-stream");
-  stroke-linecap: round;
+.dao-ring-d {
+  stroke: rgba(127, 249, 223, 0.74);
   stroke-width: 4;
-  stroke-dasharray: 78 28;
-  filter: drop-shadow(0 0 8px rgba(142, 247, 223, 0.42));
-  opacity: 0.82;
-  animation: nascentFlow 4.6s linear infinite;
+  stroke-dasharray: 56 20;
+  transform: rotate(-10deg);
+  animation: daoDash 4.8s linear infinite;
 }
 
-.stream-b {
-  animation-duration: 5.4s;
+.dao-ring-e {
+  stroke: rgba(178, 119, 255, 0.65);
+  stroke-width: 3;
+  stroke-dasharray: 22 18;
+  transform: rotate(58deg);
+  animation: daoDash 7.8s linear infinite reverse;
+}
+
+.heaven-splinters path {
+  fill: rgba(255, 248, 231, 0.08);
+  stroke: rgba(245, 208, 109, 0.28);
+  stroke-width: 2;
+  animation: daoSplinter 4.8s ease-in-out infinite;
+}
+
+.heaven-splinters path:nth-child(2n) {
+  animation-delay: -1.8s;
+}
+
+.time-river {
+  fill: none;
+  stroke: url("#dao-stream");
+  stroke-linecap: round;
+  stroke-width: 5;
+  stroke-dasharray: 84 28;
+  filter: drop-shadow(0 0 10px rgba(127, 249, 223, 0.48));
+  opacity: 0.86;
+  animation: daoFlow 4.2s linear infinite;
+}
+
+.river-b {
+  animation-duration: 5.3s;
   animation-direction: reverse;
 }
 
-.stream-c {
-  animation-duration: 6.4s;
+.river-c {
+  animation-duration: 6.2s;
   opacity: 0.62;
 }
 
-.seal-lines path {
-  fill: none;
-  stroke: rgba(247, 239, 224, 0.18);
-  stroke-width: 2;
-  stroke-dasharray: 12 10;
-  animation: nascentSeal 9s linear infinite;
+.river-d {
+  animation-duration: 7s;
+  opacity: 0.5;
 }
 
-.lightning path {
+.dao-gate path {
+  fill: rgba(5, 22, 20, 0.22);
+  stroke: rgba(245, 208, 109, 0.5);
+  stroke-width: 3;
+  stroke-dasharray: 18 16;
+  animation: daoGate 8s linear infinite;
+}
+
+.gate-inner {
+  stroke: rgba(127, 249, 223, 0.62);
+  stroke-width: 2;
+  animation-direction: reverse;
+}
+
+.dao-body {
+  fill: url("#bottle-light");
+  stroke: rgba(255, 248, 231, 0.8);
+  stroke-width: 2;
+  animation: daoAscend 4s ease-in-out infinite;
+}
+
+.dao-head {
+  fill: rgba(255, 248, 231, 0.94);
+  stroke: rgba(245, 208, 109, 0.86);
+  stroke-width: 2;
+  animation: daoAscend 4s ease-in-out infinite;
+}
+
+.bottle-sigil,
+.bottle-neck {
   fill: none;
-  stroke: #f4efb7;
+  stroke: rgba(3, 30, 24, 0.86);
+  stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 4;
+  stroke-width: 6;
+}
+
+.law-cracks path {
+  fill: none;
+  stroke: rgba(255, 248, 231, 0.2);
+  stroke-width: 2;
+  stroke-dasharray: 14 12;
+  animation: daoCrack 4.6s linear infinite;
+}
+
+.dao-bolts path {
+  fill: none;
+  stroke: #fff6b8;
+  stroke-linejoin: round;
+  stroke-width: 5;
   opacity: 0;
-  filter: drop-shadow(0 0 8px rgba(244, 239, 183, 0.75));
-  animation: nascentFlash 4.8s steps(1, end) infinite;
+  filter: drop-shadow(0 0 12px rgba(255, 246, 184, 0.88));
+  animation: daoFlash 3.9s steps(1, end) infinite;
 }
 
 .bolt-b {
-  animation-delay: 1.4s;
+  animation-delay: 0.9s;
 }
 
 .bolt-c {
-  animation-delay: 2.7s;
+  animation-delay: 1.8s;
 }
 
-.soul-halo {
-  fill: rgba(142, 247, 223, 0.1);
-  stroke: rgba(242, 199, 90, 0.66);
-  stroke-width: 2;
-  animation: nascentPulse 3s ease-in-out infinite;
+.bolt-d {
+  animation-delay: 2.8s;
 }
 
-.soul-body {
-  fill: rgba(247, 239, 224, 0.88);
-  stroke: rgba(142, 247, 223, 0.78);
-  stroke-width: 2;
-  animation: nascentFloat 4s ease-in-out infinite;
-}
-
-.soul-head {
-  fill: rgba(247, 239, 224, 0.95);
-  stroke: rgba(242, 199, 90, 0.78);
-  stroke-width: 2;
-  animation: nascentFloat 4s ease-in-out infinite;
-}
-
-.soul-breath {
-  fill: none;
-  stroke: rgba(16, 36, 57, 0.76);
-  stroke-linecap: round;
-  stroke-width: 4;
-}
-
-.nascent-core {
+.dao-core {
   position: absolute;
-  left: calc(52.8% - 76px);
-  top: calc(51% - 76px);
-  width: 152px;
-  height: 152px;
+  left: calc(52% - 126px);
+  top: calc(50% - 126px);
+  width: 252px;
+  height: 252px;
   border-radius: 50%;
   background:
-    radial-gradient(circle, rgba(255, 255, 235, 0.9) 0 8%, rgba(242, 199, 90, 0.34) 16%, rgba(142, 247, 223, 0.14) 35%, transparent 66%);
+    radial-gradient(circle, rgba(255, 255, 235, 0.95) 0 7%, rgba(127, 249, 223, 0.34) 17%, rgba(245, 208, 109, 0.22) 33%, rgba(178, 119, 255, 0.14) 48%, transparent 70%);
   mix-blend-mode: screen;
   pointer-events: none;
-  animation: nascentCore 2.8s ease-in-out infinite;
+  animation: daoCore 2.6s ease-in-out infinite;
 }
 
-.nascent-visual__runes {
+.dao-visual__runes {
   position: absolute;
-  left: 52.8%;
-  top: 51%;
+  left: 52%;
+  top: 50%;
   z-index: 2;
   width: 0;
   height: 0;
-  animation: nascentTurn 30s linear infinite reverse;
+  animation: daoTurn 34s linear infinite reverse;
 }
 
-.nascent-visual__runes span {
+.dao-visual__runes span {
   position: absolute;
-  left: -12px;
-  top: -12px;
+  left: -13px;
+  top: -13px;
   display: grid;
   place-items: center;
-  width: 24px;
-  height: 24px;
-  color: rgba(255, 247, 223, 0.82);
-  font-size: 14px;
-  font-weight: 800;
-  text-shadow: 0 0 8px rgba(242, 199, 90, 0.7);
-  animation: nascentRune 3s ease-in-out infinite;
+  width: 26px;
+  height: 26px;
+  color: rgba(255, 248, 231, 0.88);
+  font-size: 15px;
+  font-weight: 900;
+  text-shadow: 0 0 10px rgba(127, 249, 223, 0.85);
+  animation: daoRune 2.8s ease-in-out infinite;
 }
 
-.nascent-spark {
+.dao-beam {
   position: absolute;
-  left: 52.8%;
-  top: 51%;
-  width: 4px;
-  height: 28px;
+  left: 52%;
+  top: 50%;
+  width: 5px;
+  height: 74px;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(142, 247, 223, 0), rgba(142, 247, 223, 0.95), rgba(242, 199, 90, 0));
+  background: linear-gradient(180deg, transparent, rgba(127, 249, 223, 0.92), rgba(245, 208, 109, 0.72), transparent);
   opacity: 0;
-  transform-origin: center 142px;
-  animation: nascentSpark 3.8s ease-out infinite;
+  transform-origin: center 216px;
+  animation: daoBeam 3.2s ease-out infinite;
 }
 
-.nascent-spark:nth-of-type(1) { transform: rotate(9deg) translateY(-132px); animation-delay: -0.1s; }
-.nascent-spark:nth-of-type(2) { transform: rotate(24deg) translateY(-118px); animation-delay: -1.2s; }
-.nascent-spark:nth-of-type(3) { transform: rotate(43deg) translateY(-148px); animation-delay: -2.2s; }
-.nascent-spark:nth-of-type(4) { transform: rotate(71deg) translateY(-128px); animation-delay: -0.8s; }
-.nascent-spark:nth-of-type(5) { transform: rotate(96deg) translateY(-152px); animation-delay: -1.8s; }
-.nascent-spark:nth-of-type(6) { transform: rotate(118deg) translateY(-124px); animation-delay: -2.9s; }
-.nascent-spark:nth-of-type(7) { transform: rotate(139deg) translateY(-145px); animation-delay: -0.5s; }
-.nascent-spark:nth-of-type(8) { transform: rotate(156deg) translateY(-116px); animation-delay: -1.5s; }
-.nascent-spark:nth-of-type(9) { transform: rotate(182deg) translateY(-154px); animation-delay: -2.6s; }
-.nascent-spark:nth-of-type(10) { transform: rotate(204deg) translateY(-126px); animation-delay: -0.3s; }
-.nascent-spark:nth-of-type(11) { transform: rotate(229deg) translateY(-144px); animation-delay: -1.1s; }
-.nascent-spark:nth-of-type(12) { transform: rotate(247deg) translateY(-120px); animation-delay: -2.1s; }
-.nascent-spark:nth-of-type(13) { transform: rotate(269deg) translateY(-150px); animation-delay: -0.7s; }
-.nascent-spark:nth-of-type(14) { transform: rotate(288deg) translateY(-122px); animation-delay: -1.7s; }
-.nascent-spark:nth-of-type(15) { transform: rotate(311deg) translateY(-138px); animation-delay: -2.7s; }
-.nascent-spark:nth-of-type(16) { transform: rotate(333deg) translateY(-130px); animation-delay: -0.9s; }
-.nascent-spark:nth-of-type(17) { transform: rotate(351deg) translateY(-146px); animation-delay: -1.9s; }
-.nascent-spark:nth-of-type(18) { transform: rotate(38deg) translateY(-104px); animation-delay: -2.4s; }
-.nascent-spark:nth-of-type(19) { transform: rotate(128deg) translateY(-110px); animation-delay: -0.4s; }
-.nascent-spark:nth-of-type(20) { transform: rotate(218deg) translateY(-106px); animation-delay: -1.4s; }
-.nascent-spark:nth-of-type(21) { transform: rotate(302deg) translateY(-112px); animation-delay: -2.4s; }
-.nascent-spark:nth-of-type(22) { transform: rotate(342deg) translateY(-100px); animation-delay: -3.1s; }
+.dao-beam:nth-of-type(1) { transform: rotate(0deg) translateY(-196px); animation-delay: -0.1s; }
+.dao-beam:nth-of-type(2) { transform: rotate(12deg) translateY(-216px); animation-delay: -1.1s; }
+.dao-beam:nth-of-type(3) { transform: rotate(24deg) translateY(-184px); animation-delay: -2.1s; }
+.dao-beam:nth-of-type(4) { transform: rotate(36deg) translateY(-226px); animation-delay: -0.6s; }
+.dao-beam:nth-of-type(5) { transform: rotate(48deg) translateY(-194px); animation-delay: -1.6s; }
+.dao-beam:nth-of-type(6) { transform: rotate(60deg) translateY(-232px); animation-delay: -2.6s; }
+.dao-beam:nth-of-type(7) { transform: rotate(72deg) translateY(-202px); animation-delay: -0.3s; }
+.dao-beam:nth-of-type(8) { transform: rotate(84deg) translateY(-220px); animation-delay: -1.3s; }
+.dao-beam:nth-of-type(9) { transform: rotate(96deg) translateY(-190px); animation-delay: -2.3s; }
+.dao-beam:nth-of-type(10) { transform: rotate(108deg) translateY(-230px); animation-delay: -0.9s; }
+.dao-beam:nth-of-type(11) { transform: rotate(120deg) translateY(-198px); animation-delay: -1.9s; }
+.dao-beam:nth-of-type(12) { transform: rotate(132deg) translateY(-218px); animation-delay: -2.9s; }
+.dao-beam:nth-of-type(13) { transform: rotate(144deg) translateY(-188px); animation-delay: -0.5s; }
+.dao-beam:nth-of-type(14) { transform: rotate(156deg) translateY(-226px); animation-delay: -1.5s; }
+.dao-beam:nth-of-type(15) { transform: rotate(168deg) translateY(-204px); animation-delay: -2.5s; }
+.dao-beam:nth-of-type(16) { transform: rotate(180deg) translateY(-236px); animation-delay: -0.8s; }
+.dao-beam:nth-of-type(17) { transform: rotate(192deg) translateY(-196px); animation-delay: -1.8s; }
+.dao-beam:nth-of-type(18) { transform: rotate(204deg) translateY(-222px); animation-delay: -2.8s; }
+.dao-beam:nth-of-type(19) { transform: rotate(216deg) translateY(-184px); animation-delay: -0.2s; }
+.dao-beam:nth-of-type(20) { transform: rotate(228deg) translateY(-230px); animation-delay: -1.2s; }
+.dao-beam:nth-of-type(21) { transform: rotate(240deg) translateY(-200px); animation-delay: -2.2s; }
+.dao-beam:nth-of-type(22) { transform: rotate(252deg) translateY(-218px); animation-delay: -0.7s; }
+.dao-beam:nth-of-type(23) { transform: rotate(264deg) translateY(-192px); animation-delay: -1.7s; }
+.dao-beam:nth-of-type(24) { transform: rotate(276deg) translateY(-234px); animation-delay: -2.7s; }
+.dao-beam:nth-of-type(25) { transform: rotate(288deg) translateY(-202px); animation-delay: -0.4s; }
+.dao-beam:nth-of-type(26) { transform: rotate(300deg) translateY(-226px); animation-delay: -1.4s; }
+.dao-beam:nth-of-type(27) { transform: rotate(312deg) translateY(-188px); animation-delay: -2.4s; }
+.dao-beam:nth-of-type(28) { transform: rotate(324deg) translateY(-216px); animation-delay: -0.9s; }
+.dao-beam:nth-of-type(29) { transform: rotate(336deg) translateY(-198px); animation-delay: -1.9s; }
+.dao-beam:nth-of-type(30) { transform: rotate(348deg) translateY(-238px); animation-delay: -2.9s; }
 
-@keyframes nascentTurn {
+@keyframes daoAperture {
   to {
     transform: rotate(360deg);
   }
 }
 
-@keyframes nascentDash {
+@keyframes daoTurn {
   to {
-    stroke-dashoffset: -180;
+    transform: rotate(360deg);
   }
 }
 
-@keyframes nascentFlow {
+@keyframes daoDash {
   to {
-    stroke-dashoffset: -212;
+    stroke-dashoffset: -220;
   }
 }
 
-@keyframes nascentSeal {
+@keyframes daoFlow {
+  to {
+    stroke-dashoffset: -224;
+  }
+}
+
+@keyframes daoGate {
   50% {
-    stroke: rgba(242, 199, 90, 0.3);
+    stroke: rgba(127, 249, 223, 0.78);
   }
   to {
-    stroke-dashoffset: -132;
+    stroke-dashoffset: -190;
   }
 }
 
-@keyframes nascentFlash {
-  0%, 78%, 100% {
+@keyframes daoCrack {
+  50% {
+    stroke: rgba(255, 248, 231, 0.42);
+  }
+  to {
+    stroke-dashoffset: -136;
+  }
+}
+
+@keyframes daoFlash {
+  0%, 68%, 100% {
     opacity: 0;
   }
-  79%, 82% {
-    opacity: 0.95;
+  69%, 74% {
+    opacity: 0.96;
   }
-  83% {
+  75% {
     opacity: 0.18;
   }
 }
 
-@keyframes nascentPulse {
+@keyframes daoCore {
   50% {
-    r: 84;
-    stroke: rgba(142, 247, 223, 0.88);
+    opacity: 0.72;
+    transform: scale(1.18);
   }
 }
 
-@keyframes nascentFloat {
+@keyframes daoAscend {
   50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes daoRift {
+  50% {
+    opacity: 1;
+    transform: skewX(-4deg) scale(1.04);
+  }
+}
+
+@keyframes daoSkyfall {
+  to {
+    background-position: 96px 186px, 151px 226px, 210px 270px;
+  }
+}
+
+@keyframes daoSplinter {
+  50% {
+    opacity: 0.72;
     transform: translateY(-8px);
   }
 }
 
-@keyframes nascentCore {
+@keyframes daoRune {
   50% {
-    transform: scale(1.16);
-    opacity: 0.68;
+    color: #7ff9df;
+    transform: translateY(-5px) scale(1.12);
   }
 }
 
-@keyframes nascentRain {
-  to {
-    background-position: 112px 180px, 170px 210px;
-  }
-}
-
-@keyframes nascentDrift {
-  50% {
-    transform: translateX(-18px);
-    opacity: 0.62;
-  }
-}
-
-@keyframes nascentRune {
-  50% {
-    color: #8ef7df;
-    transform: translateY(-4px);
-  }
-}
-
-@keyframes nascentSpark {
+@keyframes daoBeam {
   0% {
     opacity: 0;
   }
-  20% {
-    opacity: 0.9;
+  18% {
+    opacity: 0.95;
   }
   100% {
     opacity: 0;
   }
 }
 
-@media (max-width: 960px) {
-  .nascent-scene__stage {
+@media (max-width: 1020px) {
+  .dao-scene__stage {
     grid-template-columns: 1fr;
     grid-template-areas:
       "copy"
       "visual"
       "facts";
     min-height: 0;
-    padding: 30px 24px 28px;
+    padding: 34px 24px 30px;
   }
 
-  .nascent-scene__copy {
-    max-width: 720px;
+  .dao-scene__copy,
+  .dao-scene__copy p:not(.dao-scene__kicker) {
+    max-width: 760px;
   }
 
-  .nascent-scene__copy p:not(.nascent-scene__kicker) {
-    max-width: 680px;
-  }
-
-  .nascent-visual {
-    min-height: 310px;
+  .dao-visual {
+    min-height: 390px;
   }
 }
 
 @media (max-width: 640px) {
-  .nascent-scene {
+  .dao-scene {
     margin-top: -8px;
   }
 
-  .nascent-scene__stage {
-    padding: 26px 18px;
+  .dao-scene__stage {
+    padding: 28px 18px;
   }
 
-  .nascent-scene h2 {
-    font-size: 30px;
-    line-height: 1.18;
+  .dao-scene h2 {
+    font-size: 32px;
+    line-height: 1.16;
   }
 
-  .nascent-scene__copy p:not(.nascent-scene__kicker) {
+  .dao-scene__copy p:not(.dao-scene__kicker) {
     font-size: 15px;
     line-height: 1.65;
   }
 
-  .nascent-scene__actions a {
-    flex: 1 1 auto;
+  .dao-scene__actions a {
+    flex: 1 1 100%;
     justify-content: center;
+    width: 100%;
   }
 
-  .nascent-scene__facts {
+  .dao-scene__facts {
     grid-template-columns: 1fr;
   }
 
-  .nascent-visual {
-    min-height: 270px;
+  .dao-visual {
+    min-height: 300px;
   }
 
-  .nascent-visual__runes,
-  .nascent-spark {
-    transform: scale(0.86);
+  .dao-visual__runes,
+  .dao-beam {
+    transform: scale(0.82);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nascent-scene *,
-  .nascent-scene *::before,
-  .nascent-scene *::after {
+  .dao-scene *,
+  .dao-scene *::before,
+  .dao-scene *::after {
     animation: none !important;
     transition: none !important;
   }
 
-  .lightning path {
+  .dao-bolts path {
     opacity: 0.25;
   }
 
-  .nascent-spark {
-    opacity: 0.35;
+  .dao-beam {
+    opacity: 0.32;
   }
 }
 </style>
