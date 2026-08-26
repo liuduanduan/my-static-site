@@ -289,6 +289,18 @@ describe('ai tool directory filtering and discovery', () => {
     expect(filterTools({ query: 'notion' })[0].slug).toBe('notion')
   })
 
+  it('ranks all name-tier matches ahead of lower-tier matches', () => {
+    const results = filterTools({ query: 'AI' })
+    const nameTierCount = results.filter((tool) => tool.name.toLowerCase().includes('ai')).length
+    const firstLowerTierIndex = results.findIndex(
+      (tool) => !tool.name.toLowerCase().includes('ai')
+    )
+
+    expect(nameTierCount).toBeGreaterThan(0)
+    expect(firstLowerTierIndex).toBe(nameTierCount)
+    expect(firstLowerTierIndex).toBeLessThan(results.length)
+  })
+
   it.each([
     ['会议纪要', 'otter'],
     ['去背景', 'remove-bg'],
@@ -374,6 +386,17 @@ describe('ai tool directory filtering and discovery', () => {
     expect(getDiscoveryTools('featured', Number.NaN).map((tool) => tool.slug)).toEqual(expected)
     expect(getDiscoveryTools('featured', 0).map((tool) => tool.slug)).toEqual(expected)
     expect(getDiscoveryTools('featured', 1.5).map((tool) => tool.slug)).toEqual(expected)
+  })
+
+  it('preserves legacy featured-wrapper limit semantics', () => {
+    const featured = ['chatgpt', 'claude', 'midjourney', 'runway', 'cursor', 'perplexity']
+
+    expect(getFeaturedTools().map((tool) => tool.slug)).toEqual(featured)
+    expect(getFeaturedTools(2).map((tool) => tool.slug)).toEqual(featured.slice(0, 2))
+    expect(getFeaturedTools(0)).toEqual([])
+    expect(getFeaturedTools(-1)).toEqual([])
+    expect(getFeaturedTools(1.5)).toEqual([])
+    expect(getFeaturedTools(Number.POSITIVE_INFINITY)).toEqual([])
   })
 
   it('paginates the default catalog in non-overlapping 12-tool increments', () => {

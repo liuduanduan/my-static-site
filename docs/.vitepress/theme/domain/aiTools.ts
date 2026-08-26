@@ -272,9 +272,9 @@ function freezeToolCollection(collection: AiTool[]): readonly ReadonlyAiTool[] {
 }
 
 const tools = freezeToolCollection(validateToolCollection(rawTools))
-const taskAliases: Readonly<Partial<Record<AiTool['slug'], readonly string[]>>> = {
-  'remove-bg': ['去背景'],
-  'semantic-scholar': ['论文检索']
+const querySynonyms: Readonly<Partial<Record<string, readonly string[]>>> = {
+  去背景: ['背景移除'],
+  论文检索: ['文献检索']
 }
 
 function normalize(value: string): string {
@@ -296,11 +296,14 @@ function compareDefaultOrder(left: ReadonlyAiTool, right: ReadonlyAiTool): numbe
   return left.name.localeCompare(right.name, 'zh-CN')
 }
 
-function getQueryScore(tool: ReadonlyAiTool, normalizedQuery: string): number {
-  if (normalize(tool.name).includes(normalizedQuery)) return 300
+function getQueryScore(tool: ReadonlyAiTool, normalizedQueries: readonly string[]): number {
+  const matchesQuery = (field: string): boolean =>
+    normalizedQueries.some((query) => normalize(field).includes(query))
 
-  const metadataFields = [...tool.tags, ...tool.searchTerms, ...(taskAliases[tool.slug] ?? [])]
-  if (metadataFields.some((field) => normalize(field).includes(normalizedQuery))) return 200
+  if (matchesQuery(tool.name)) return 300
+
+  const metadataFields = [...tool.tags, ...tool.searchTerms]
+  if (metadataFields.some(matchesQuery)) return 200
 
   const detailFields = [
     tool.tagline,
@@ -308,7 +311,7 @@ function getQueryScore(tool: ReadonlyAiTool, normalizedQuery: string): number {
     ...tool.bestFor,
     ...tool.features
   ]
-  if (detailFields.some((field) => normalize(field).includes(normalizedQuery))) return 100
+  if (detailFields.some(matchesQuery)) return 100
 
   return 0
 }
@@ -352,12 +355,16 @@ export function filterTools(filters: ToolFilters = {}): ReadonlyAiTool[] {
     chineseSupport = 'all'
   } = filters
   const normalizedQuery = normalize(query)
+  const normalizedQueries = [
+    normalizedQuery,
+    ...(querySynonyms[normalizedQuery] ?? []).map(normalize)
+  ]
 
   return tools
     .filter((tool) => category === 'all' || tool.category === category)
     .filter((tool) => pricingMode === 'all' || tool.pricingMode === pricingMode)
     .filter((tool) => chineseSupport === 'all' || tool.chineseSupport === chineseSupport)
-    .map((tool) => ({ tool, score: normalizedQuery ? getQueryScore(tool, normalizedQuery) : 0 }))
+    .map((tool) => ({ tool, score: normalizedQuery ? getQueryScore(tool, normalizedQueries) : 0 }))
     .filter(({ score }) => !normalizedQuery || score > 0)
     .sort((left, right) => right.score - left.score || compareDefaultOrder(left.tool, right.tool))
     .map(({ tool }) => tool)
@@ -403,5 +410,6 @@ export function paginateTools(
 }
 
 export function getFeaturedTools(limit = 6): ReadonlyAiTool[] {
+  if (!Number.isFinite(limit) || !Number.isInteger(limit) || limit <= 0) return []
   return getDiscoveryTools('featured', limit)
 }
