@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import {
+  PAGE_SIZE,
+  filterTools,
   getAllTools,
   getCategories,
-  getCategoryLabel,
-  getFeaturedTools,
-  searchTools,
+  getDiscoveryTools,
+  paginateTools,
   type CategoryFilter,
+  type ChineseSupportFilter,
+  type DiscoveryKind,
+  type PricingFilter,
   type ToolCategory
 } from '../domain/aiTools'
 import {
@@ -14,48 +18,64 @@ import {
   formatPlatformEyebrow,
   platformHero
 } from '../domain/directoryPresentation'
+import DirectoryFilters from './DirectoryFilters.vue'
 import ToolCard from './ToolCard.vue'
 
 const query = ref('')
-const activeCategory = ref<CategoryFilter>('all')
-const showAll = ref(false)
+const category = ref<CategoryFilter>('all')
+const pricingMode = ref<PricingFilter>('all')
+const chineseSupport = ref<ChineseSupportFilter>('all')
+const activeDiscovery = ref<DiscoveryKind>('featured')
+const visibleCount = ref(PAGE_SIZE)
+
 const categories = getCategories()
-const heroEyebrow = formatPlatformEyebrow(getAllTools().length, categories.length)
+const toolCount = getAllTools().length
+const heroEyebrow = formatPlatformEyebrow(toolCount, categories.length)
+const discoveryOptions: readonly { value: DiscoveryKind; label: string }[] = [
+  { value: 'featured', label: '编辑精选' },
+  { value: 'latest', label: '最近收录' },
+  { value: 'free', label: '免费可用' }
+]
 
-const filteredTools = computed(() => searchTools(query.value, activeCategory.value))
-const isFiltered = computed(() => Boolean(query.value.trim()) || activeCategory.value !== 'all')
-const isBrowsingAll = computed(() => showAll.value && !query.value.trim() && activeCategory.value === 'all')
-const isInitialView = computed(() => !isFiltered.value && !isBrowsingAll.value)
-const displayedTools = computed(() =>
-  isFiltered.value || isBrowsingAll.value ? filteredTools.value : getFeaturedTools(6)
+const filteredTools = computed(() =>
+  filterTools({
+    query: query.value,
+    category: category.value,
+    pricingMode: pricingMode.value,
+    chineseSupport: chineseSupport.value
+  })
 )
-const sectionKicker = computed(() => {
-  if (query.value.trim()) return 'SEARCH RESULTS'
-  if (isInitialView.value) return 'FEATURED TOOLS'
-  return 'BROWSE DIRECTORY'
-})
-const sectionTitle = computed(() => {
-  if (query.value.trim()) return '为你找到这些工具'
-  if (isBrowsingAll.value) return '探索全部 AI 工具'
-  if (activeCategory.value !== 'all') return `${getCategoryLabel(activeCategory.value)}工具`
-  return '本周精选工具'
+const displayedTools = computed(() => paginateTools(filteredTools.value, visibleCount.value))
+const discoveryTools = computed(() => getDiscoveryTools(activeDiscovery.value))
+const hasMore = computed(() => displayedTools.value.length < filteredTools.value.length)
+
+watch([query, category, pricingMode, chineseSupport], () => {
+  visibleCount.value = PAGE_SIZE
 })
 
-function chooseCategory(category: CategoryFilter) {
-  activeCategory.value = category
-  showAll.value = category === 'all'
+function clearQuery() {
+  query.value = ''
+}
+
+function resetFilters() {
+  query.value = ''
+  category.value = 'all'
+  pricingMode.value = 'all'
+  chineseSupport.value = 'all'
+}
+
+function chooseCategory(selectedCategory: CategoryFilter) {
+  category.value = selectedCategory
+  document.getElementById('tool-directory')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 function browseAll() {
-  query.value = ''
-  activeCategory.value = 'all'
-  showAll.value = true
+  resetFilters()
+  document.getElementById('tool-directory')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
-function clearSearch() {
-  query.value = ''
-  activeCategory.value = 'all'
-  showAll.value = false
+function loadMore() {
+  visibleCount.value += PAGE_SIZE
 }
 </script>
 
@@ -89,7 +109,7 @@ function clearSearch() {
         <div class="hero-trust" aria-label="目录特点">
           <span>✓ 人工精选</span>
           <span>✓ 中文说明</span>
-          <span>✓ 直达官网</span>
+          <span>✓ 持续维护</span>
         </div>
 
         <div class="directory-search-card">
@@ -101,14 +121,14 @@ function clearSearch() {
             type="search"
             autocomplete="off"
             placeholder="搜索工具或你想完成的事情，例如：做 PPT、写代码、生成视频"
-            @keyup.esc="clearSearch"
+            @keyup.esc="clearQuery"
           />
           <button
             v-if="query"
             class="search-clear"
             type="button"
             aria-label="清除搜索"
-            @click="clearSearch"
+            @click="clearQuery"
           >
             清除
           </button>
@@ -126,56 +146,91 @@ function clearSearch() {
             <p>从真实使用场景出发，快速缩小选择范围。</p>
           </div>
           <button class="section-link" type="button" @click="browseAll">
-            查看全部 24 个工具 <span aria-hidden="true">→</span>
+            查看全部 {{ toolCount }} 款工具 <span aria-hidden="true">→</span>
           </button>
         </header>
 
         <div class="category-grid" role="group" aria-label="工具分类">
           <button
-            v-for="category in categories"
-            :key="category.value"
+            v-for="categoryOption in categories"
+            :key="categoryOption.value"
             class="category-card"
-            :class="{ active: activeCategory === category.value }"
+            :class="{ active: category === categoryOption.value }"
             :style="{
-              '--category-accent': categoryVisuals[category.value].accent,
-              '--category-soft': categoryVisuals[category.value].soft
+              '--category-accent': categoryVisuals[categoryOption.value].accent,
+              '--category-soft': categoryVisuals[categoryOption.value].soft
             }"
             type="button"
-            :aria-pressed="activeCategory === category.value"
-            @click="chooseCategory(category.value as ToolCategory)"
+            :aria-pressed="category === categoryOption.value"
+            @click="chooseCategory(categoryOption.value as ToolCategory)"
           >
             <span class="category-icon" aria-hidden="true">
-              {{ categoryVisuals[category.value].icon }}
+              {{ categoryVisuals[categoryOption.value].icon }}
             </span>
             <span class="category-copy">
-              <strong>{{ category.label }}</strong>
-              <small>{{ categoryVisuals[category.value].summary }}</small>
+              <strong>{{ categoryOption.label }}</strong>
+              <small>{{ categoryVisuals[categoryOption.value].summary }}</small>
             </span>
-            <span class="category-count">{{ category.count }}</span>
+            <span class="category-count">{{ categoryOption.count }}</span>
           </button>
+        </div>
+      </section>
+
+      <section class="discovery-section" aria-labelledby="discovery-title">
+        <header class="platform-section-heading">
+          <div>
+            <p class="platform-kicker">DISCOVER</p>
+            <h2 id="discovery-title">发现值得尝试的 AI 工具</h2>
+            <p>从编辑精选、最近收录和免费可用三个角度开始探索。</p>
+          </div>
+        </header>
+
+        <div class="discovery-tabs" role="group" aria-label="发现方式">
+          <button
+            v-for="option in discoveryOptions"
+            :key="option.value"
+            class="discovery-tab"
+            :class="{ active: activeDiscovery === option.value }"
+            type="button"
+            :aria-pressed="activeDiscovery === option.value"
+            @click="activeDiscovery = option.value"
+          >
+            {{ option.label }}
+          </button>
+        </div>
+
+        <p v-if="activeDiscovery === 'free'" class="discovery-disclaimer">
+          免费版或免费额度以官网为准
+        </p>
+
+        <div class="tool-grid discovery-grid">
+          <ToolCard v-for="tool in discoveryTools" :key="tool.slug" :tool="tool" />
         </div>
       </section>
 
       <section id="tool-directory" class="tool-section" aria-labelledby="tool-list-title">
         <header class="platform-section-heading tool-section-heading">
           <div>
-            <p class="platform-kicker">{{ sectionKicker }}</p>
-            <h2 id="tool-list-title">{{ sectionTitle }}</h2>
-            <p>
-              {{ isInitialView
-                ? '从每个热门场景中选出一个值得先试的工具。'
-                : `当前共有 ${displayedTools.length} 个匹配结果。` }}
-            </p>
-          </div>
-          <div class="tool-heading-actions">
-            <button v-if="!isInitialView" class="section-link" type="button" @click="clearSearch">
-              重置筛选
-            </button>
-            <button v-else class="section-link" type="button" @click="browseAll">
-              浏览全部 <span aria-hidden="true">→</span>
-            </button>
+            <p class="platform-kicker">COMPLETE DIRECTORY</p>
+            <h2 id="tool-list-title">完整工具目录</h2>
+            <p>使用搜索和筛选条件，找到适合当前任务的工具。</p>
           </div>
         </header>
+
+        <DirectoryFilters
+          :categories="categories"
+          :category="category"
+          @update:category="category = $event"
+          :pricing-mode="pricingMode"
+          @update:pricing-mode="pricingMode = $event"
+          :chinese-support="chineseSupport"
+          @update:chinese-support="chineseSupport = $event"
+          @reset="resetFilters"
+        />
+
+        <p class="directory-result-count" aria-live="polite">
+          {{ `共找到 ${filteredTools.length} 款工具` }}
+        </p>
 
         <div v-if="displayedTools.length" class="tool-grid">
           <ToolCard v-for="tool in displayedTools" :key="tool.slug" :tool="tool" />
@@ -184,16 +239,20 @@ function clearSearch() {
         <div v-else class="tool-empty" role="status">
           <span class="empty-icon" aria-hidden="true">⌕</span>
           <p class="platform-kicker">NO MATCHES</p>
-          <h3>暂时没找到相关工具</h3>
-          <p>换个更简单的关键词，或者先看看全部精选工具。</p>
-          <button class="empty-reset" type="button" @click="clearSearch">查看精选工具</button>
+          <h3>没有符合当前条件的工具</h3>
+          <p>试试更换关键词，或清除当前筛选条件。</p>
+          <button class="empty-reset" type="button" @click="resetFilters">清除全部条件</button>
+        </div>
+
+        <div v-if="hasMore" class="directory-load-more">
+          <button class="section-link" type="button" @click="loadMore">加载更多</button>
         </div>
       </section>
 
-      <section class="directory-note" aria-label="目录说明">
+      <section class="directory-note" aria-labelledby="directory-note-title">
         <div class="note-icon" aria-hidden="true">✓</div>
         <div>
-          <strong>我们先替你筛一遍</strong>
+          <strong id="directory-note-title">我们先替你筛一遍</strong>
           <p>工具信息由人工整理，价格、功能和授权可能变化，使用前请以工具官网为准。</p>
         </div>
         <a href="/about">了解收录标准 <span aria-hidden="true">→</span></a>

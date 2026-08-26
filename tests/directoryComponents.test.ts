@@ -56,7 +56,7 @@ function compileSfc(filename: string, source: string): string[] {
 }
 
 describe('directory component compilation', () => {
-  it.each(['DirectoryFilters.vue', 'ToolCard.vue'])('compiles %s directly', (name) => {
+  it.each(['AiDirectory.vue', 'DirectoryFilters.vue', 'ToolCard.vue'])('compiles %s directly', (name) => {
     expect(compileSfc(name, componentSource(name))).toEqual([])
   })
 
@@ -213,9 +213,95 @@ describe('AiDirectory extraction contract', () => {
     const source = componentSource('AiDirectory.vue')
 
     expect(source).toContain("import ToolCard from './ToolCard.vue'")
-    expect(source).toContain('const heroEyebrow = formatPlatformEyebrow(getAllTools().length, categories.length)')
+    expect(source).toContain('const toolCount = getAllTools().length')
+    expect(source).toContain('const heroEyebrow = formatPlatformEyebrow(toolCount, categories.length)')
     expect(source).toContain('<ToolCard v-for="tool in displayedTools" :key="tool.slug" :tool="tool" />')
     expect(source).not.toContain('<article v-for="tool in displayedTools"')
     expect(source).not.toContain('platformHero.eyebrow')
+  })
+
+  it('owns the complete controlled filter and pagination state', () => {
+    const source = componentSource('AiDirectory.vue')
+
+    expect(source).toContain("import DirectoryFilters from './DirectoryFilters.vue'")
+    expect(source).toContain("const query = ref('')")
+    expect(source).toContain("const category = ref<CategoryFilter>('all')")
+    expect(source).toContain("const pricingMode = ref<PricingFilter>('all')")
+    expect(source).toContain("const chineseSupport = ref<ChineseSupportFilter>('all')")
+    expect(source).toContain("const activeDiscovery = ref<DiscoveryKind>('featured')")
+    expect(source).toContain('const visibleCount = ref(PAGE_SIZE)')
+    expect(source).toMatch(
+      /filterTools\(\{\s*query:\s*query\.value,\s*category:\s*category\.value,\s*pricingMode:\s*pricingMode\.value,\s*chineseSupport:\s*chineseSupport\.value\s*\}\)/
+    )
+    expect(source).toContain('paginateTools(filteredTools.value, visibleCount.value)')
+    expect(source).toContain('getDiscoveryTools(activeDiscovery.value)')
+    expect(source).toContain('displayedTools.value.length < filteredTools.value.length')
+    expect(source).toMatch(
+      /watch\(\s*\[query, category, pricingMode, chineseSupport\],\s*\(\) => \{\s*visibleCount\.value = PAGE_SIZE\s*\}\s*\)/
+    )
+    expect(source).toMatch(/function loadMore\(\) \{\s*visibleCount\.value \+= PAGE_SIZE\s*\}/)
+  })
+
+  it('clears all filters explicitly while Escape clears only the query', () => {
+    const source = componentSource('AiDirectory.vue')
+    const resetBlock = source.match(/function resetFilters\(\) \{([\s\S]*?)\n\}/)?.[1] ?? ''
+    const clearQueryBlock = source.match(/function clearQuery\(\) \{([\s\S]*?)\n\}/)?.[1] ?? ''
+
+    expect(resetBlock).toContain("query.value = ''")
+    expect(resetBlock).toContain("category.value = 'all'")
+    expect(resetBlock).toContain("pricingMode.value = 'all'")
+    expect(resetBlock).toContain("chineseSupport.value = 'all'")
+    expect(clearQueryBlock.trim()).toBe("query.value = ''")
+    expect(source).toContain('@keyup.esc="clearQuery"')
+    expect(source).toContain('@click="clearQuery"')
+    expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams|history\.|account/i)
+  })
+
+  it('uses live totals and scrolls category and browse-all choices to the directory', () => {
+    const source = componentSource('AiDirectory.vue')
+
+    expect(source).toContain('const toolCount = getAllTools().length')
+    expect(source).toContain('formatPlatformEyebrow(toolCount, categories.length)')
+    expect(source).toContain('{{ toolCount }}')
+    expect(source).not.toMatch(/\b24\b|\b6\b/)
+    expect(source).toContain('category.value = selectedCategory')
+    expect(occurrences(source, "document.getElementById('tool-directory')?.scrollIntoView({ behavior: 'smooth', block: 'start' })")).toBe(2)
+    expect(source).toContain('@click="chooseCategory(categoryOption.value as ToolCategory)"')
+    expect(source).toContain('@click="browseAll"')
+  })
+
+  it('renders the three discovery choices and six shared tool cards', () => {
+    const source = componentSource('AiDirectory.vue')
+
+    expect(source).toContain("{ value: 'featured', label: '编辑精选' }")
+    expect(source).toContain("{ value: 'latest', label: '最近收录' }")
+    expect(source).toContain("{ value: 'free', label: '免费可用' }")
+    expect(source).toContain(':aria-pressed="activeDiscovery === option.value"')
+    expect(source).toContain("activeDiscovery = option.value")
+    expect(source).toContain('免费版或免费额度以官网为准')
+    expect(source).toContain('<ToolCard v-for="tool in discoveryTools" :key="tool.slug" :tool="tool" />')
+    expect(source).toContain('<ToolCard v-for="tool in displayedTools" :key="tool.slug" :tool="tool" />')
+    expect(occurrences(source, '<ToolCard v-for=')).toBe(2)
+    expect(source).not.toMatch(/热门榜单|votes|stars|traffic/i)
+  })
+
+  it('always exposes complete filters, result count, pagination, and empty reset', () => {
+    const source = componentSource('AiDirectory.vue')
+
+    expect(source).toContain('<DirectoryFilters')
+    expect(source).toContain(':categories="categories"')
+    expect(source).toContain(':category="category"')
+    expect(source).toContain('@update:category="category = $event"')
+    expect(source).toContain(':pricing-mode="pricingMode"')
+    expect(source).toContain('@update:pricing-mode="pricingMode = $event"')
+    expect(source).toContain(':chinese-support="chineseSupport"')
+    expect(source).toContain('@update:chinese-support="chineseSupport = $event"')
+    expect(source).toContain('@reset="resetFilters"')
+    expect(source).toContain('`共找到 ${filteredTools.length} 款工具`')
+    expect(source).toContain('v-if="hasMore"')
+    expect(source).toContain('@click="loadMore"')
+    expect(source).toContain('没有符合当前条件的工具')
+    expect(source).toContain('<button class="empty-reset" type="button" @click="resetFilters">清除全部条件</button>')
+    expect(source).not.toMatch(/showAll|isInitialView|featured-only/)
   })
 })
