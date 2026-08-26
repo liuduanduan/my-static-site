@@ -1,6 +1,6 @@
 ---
 title: "Pika - AI 工具介绍"
-description: "把图片和文字变成轻量短视频，适合做社交内容、视觉玩具和创意动效。"
+description: "Pika用于生成、编辑或本地化视频内容，适合短片、产品演示和数字人口播制作。"
 pageClass: ai-detail-page
 ---
 

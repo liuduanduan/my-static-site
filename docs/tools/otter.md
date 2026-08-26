@@ -1,6 +1,6 @@
 ---
 title: "Otter.ai - AI 工具介绍"
-description: "适合在线会议、访谈和课程记录，把语音实时转写成可搜索的文字并提取重点。"
+description: "Otter.ai面向文档、演示、会议或语言优化工作，帮助用户更快整理信息并产出可编辑内容。"
 pageClass: ai-detail-page
 ---
 

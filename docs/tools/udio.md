@@ -1,6 +1,6 @@
 ---
 title: "Udio - AI 工具介绍"
-description: "适合用文字描述探索歌曲结构、风格和人声表现，再通过续写和变体逐步打磨作品。"
+description: "Udio用于语音、音乐或录音内容的生成与处理，适合配音、播客和创意音频制作。"
 pageClass: ai-detail-page
 ---
 

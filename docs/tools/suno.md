@@ -1,6 +1,6 @@
 ---
 title: "Suno - AI 工具介绍"
-description: "适合快速探索旋律、编曲和歌曲氛围，用于灵感草稿、短视频配乐或个人娱乐创作。"
+description: "Suno用于语音、音乐或录音内容的生成与处理，适合配音、播客和创意音频制作。"
 pageClass: ai-detail-page
 ---
 

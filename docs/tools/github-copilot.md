@@ -1,6 +1,6 @@
 ---
 title: "GitHub Copilot - AI 工具介绍"
-description: "适合在 GitHub、VS Code 和常见 IDE 中补全代码、解释项目和协助处理开发任务。"
+description: "GitHub Copilot用于代码生成、理解、调试或应用搭建，适合在真实开发流程中辅助完成工程任务。"
 pageClass: ai-detail-page
 ---
 
