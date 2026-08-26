@@ -3,10 +3,11 @@ import {
   lstatSync,
   mkdirSync,
   readFileSync,
+  realpathSync,
   rmSync,
   writeFileSync
 } from 'node:fs'
-import { dirname, join, resolve, sep } from 'node:path'
+import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const scriptPath = fileURLToPath(import.meta.url)
@@ -80,6 +81,103 @@ export function isWithin(path, parent) {
   const resolvedPath = resolve(path)
   const resolvedParent = resolve(parent)
   return resolvedPath === resolvedParent || resolvedPath.startsWith(`${resolvedParent}${sep}`)
+}
+
+function normalizePathForComparison(path) {
+  const normalized = resolve(path)
+  return process.platform === 'win32' ? normalized.toLowerCase() : normalized
+}
+
+function pathsEqual(left, right) {
+  return normalizePathForComparison(left) === normalizePathForComparison(right)
+}
+
+function isPhysicallyWithin(path, parent) {
+  const relativePath = relative(parent, path)
+  return (
+    relativePath === '' ||
+    (relativePath !== '..' &&
+      !relativePath.startsWith(`..${sep}`) &&
+      !isAbsolute(relativePath))
+  )
+}
+
+function unsafePhysicalPath(path, reason) {
+  throw new Error(`Unsafe generated physical path ${path}: ${reason}`)
+}
+
+function lstatIfPresent(path) {
+  try {
+    return lstatSync(path)
+  } catch (error) {
+    if (error && typeof error === 'object' && error.code === 'ENOENT') return undefined
+    throw error
+  }
+}
+
+export function assertSafePhysicalPath(path, allowedRoot, projectRoot) {
+  const resolvedPath = resolve(path)
+  const resolvedAllowedRoot = resolve(allowedRoot)
+  const resolvedProjectRoot = resolve(projectRoot)
+
+  if (!isWithin(resolvedPath, resolvedAllowedRoot)) {
+    unsafePhysicalPath(resolvedPath, `outside allowed root ${resolvedAllowedRoot}`)
+  }
+  if (!isWithin(resolvedAllowedRoot, resolvedProjectRoot)) {
+    unsafePhysicalPath(resolvedAllowedRoot, `outside project root ${resolvedProjectRoot}`)
+  }
+  if (!existsSync(resolvedProjectRoot)) {
+    unsafePhysicalPath(resolvedProjectRoot, 'project root does not exist')
+  }
+
+  const projectRootStats = lstatSync(resolvedProjectRoot)
+  if (projectRootStats.isSymbolicLink()) {
+    unsafePhysicalPath(resolvedProjectRoot, 'project root is a symbolic link or junction')
+  }
+  if (!projectRootStats.isDirectory()) {
+    unsafePhysicalPath(resolvedProjectRoot, 'project root is not a directory')
+  }
+
+  const canonicalProjectRoot = realpathSync.native(resolvedProjectRoot)
+  const relativeTarget = relative(resolvedProjectRoot, resolvedPath)
+  const segments = relativeTarget === '' ? [] : relativeTarget.split(sep)
+  let current = resolvedProjectRoot
+  let canonicalAllowedRoot = pathsEqual(current, resolvedAllowedRoot)
+    ? canonicalProjectRoot
+    : undefined
+
+  for (const [index, segment] of segments.entries()) {
+    current = join(current, segment)
+    const stats = lstatIfPresent(current)
+    if (!stats) break
+
+    if (stats.isSymbolicLink()) {
+      unsafePhysicalPath(current, 'component is a symbolic link or junction')
+    }
+    if (index < segments.length - 1 && !stats.isDirectory()) {
+      unsafePhysicalPath(current, 'ancestor component is not a directory')
+    }
+
+    const canonicalCurrent = realpathSync.native(current)
+    const expectedCanonical = resolve(
+      canonicalProjectRoot,
+      relative(resolvedProjectRoot, current)
+    )
+    if (!pathsEqual(canonicalCurrent, expectedCanonical)) {
+      unsafePhysicalPath(current, `real path resolves to ${canonicalCurrent}`)
+    }
+
+    if (pathsEqual(current, resolvedAllowedRoot)) {
+      canonicalAllowedRoot = canonicalCurrent
+    }
+    if (
+      canonicalAllowedRoot &&
+      isWithin(current, resolvedAllowedRoot) &&
+      !isPhysicallyWithin(canonicalCurrent, canonicalAllowedRoot)
+    ) {
+      unsafePhysicalPath(current, `real path leaves allowed root ${canonicalAllowedRoot}`)
+    }
+  }
 }
 
 export function validateTools(items) {
@@ -178,21 +276,16 @@ export function validateTools(items) {
   return items
 }
 
-function escapeFrontmatter(value) {
-  return String(value).replaceAll('"', '\\"')
+function frontmatterScalar(value) {
+  return JSON.stringify(String(value))
 }
 
 function ensureDirectory(path) {
   mkdirSync(path, { recursive: true })
 }
 
-function writePage(path, content) {
-  ensureDirectory(dirname(path))
-  writeFileSync(path, content, 'utf8')
-}
-
 function detailPage(tool) {
-  return `---\ntitle: "${escapeFrontmatter(tool.name)} - AI 工具介绍"\ndescription: "${escapeFrontmatter(tool.description)}"\npageClass: ai-detail-page\n---\n\n<ToolDetail slug="${tool.slug}" />\n`
+  return `---\ntitle: ${frontmatterScalar(`${tool.name} - AI 工具介绍`)}\ndescription: ${frontmatterScalar(tool.description)}\npageClass: ai-detail-page\n---\n\n<ToolDetail slug="${tool.slug}" />\n`
 }
 
 function categoryPage(category, items) {
@@ -201,7 +294,7 @@ function categoryPage(category, items) {
     .map((tool) => `- [${tool.name}](/tools/${tool.slug})：${tool.tagline}`)
     .join('\n')
 
-  return `---\ntitle: "${label} AI 工具"\ndescription: "寻器整理的${label} AI 工具，按真实使用场景选择合适产品。"\npageClass: ai-category-page\n---\n\n# ${label} AI 工具\n\n这一页收录适合${label}场景的 AI 工具。先看一句话结论，再进入详情页了解能力、价格和替代选项。\n\n## 工具列表\n\n${links}\n\n<p class="generated-page-note"><a href="/">← 返回全部工具</a></p>\n`
+  return `---\ntitle: ${frontmatterScalar(`${label} AI 工具`)}\ndescription: ${frontmatterScalar(`寻器整理的${label} AI 工具，按真实使用场景选择合适产品。`)}\npageClass: ai-category-page\n---\n\n# ${label} AI 工具\n\n这一页收录适合${label}场景的 AI 工具。先看一句话结论，再进入详情页了解能力、价格和替代选项。\n\n## 工具列表\n\n${links}\n\n<p class="generated-page-note"><a href="/">← 返回全部工具</a></p>\n`
 }
 
 function readPreviousManifest(manifestPath) {
@@ -214,74 +307,164 @@ function readPreviousManifest(manifestPath) {
   return previous
 }
 
-function removePreviouslyGeneratedFiles(previous, projectRoot, toolsDir, categoriesDir) {
-  for (const relativePath of previous) {
+function getCleanupTargets(previous, projectRoot, toolsDir, categoriesDir) {
+  return previous.flatMap((relativePath) => {
     const absolutePath = resolve(projectRoot, relativePath)
-    const allowed = isWithin(absolutePath, toolsDir) || isWithin(absolutePath, categoriesDir)
+    if (isWithin(absolutePath, toolsDir) && !pathsEqual(absolutePath, toolsDir)) {
+      return [{ absolutePath, allowedRoot: toolsDir }]
+    }
+    if (isWithin(absolutePath, categoriesDir) && !pathsEqual(absolutePath, categoriesDir)) {
+      return [{ absolutePath, allowedRoot: categoriesDir }]
+    }
+    return []
+  })
+}
 
-    if (
-      allowed &&
-      absolutePath !== resolve(toolsDir) &&
-      absolutePath !== resolve(categoriesDir) &&
-      existsSync(absolutePath) &&
-      lstatSync(absolutePath).isFile()
-    ) {
+function preflightGenerationPaths({
+  projectRoot,
+  toolsDir,
+  categoriesDir,
+  manifestPath,
+  cleanupTargets,
+  pageWrites
+}) {
+  assertSafePhysicalPath(toolsDir, toolsDir, projectRoot)
+  assertSafePhysicalPath(categoriesDir, categoriesDir, projectRoot)
+
+  cleanupTargets.forEach(({ absolutePath, allowedRoot }) => {
+    assertSafePhysicalPath(absolutePath, allowedRoot, projectRoot)
+  })
+  pageWrites.forEach(({ absolutePath, allowedRoot }) => {
+    assertSafePhysicalPath(absolutePath, allowedRoot, projectRoot)
+  })
+  assertSafePhysicalPath(manifestPath, dirname(manifestPath), projectRoot)
+}
+
+function removePreviouslyGeneratedFiles(cleanupTargets, projectRoot) {
+  for (const { absolutePath, allowedRoot } of cleanupTargets) {
+    assertSafePhysicalPath(absolutePath, allowedRoot, projectRoot)
+    if (lstatIfPresent(absolutePath)?.isFile()) {
       rmSync(absolutePath, { force: true })
     }
   }
 }
 
-export function generatePages(projectRoot = root) {
-  const dataPath = join(projectRoot, 'docs', '.vitepress', 'theme', 'domain', 'ai-tools.json')
+function ensureSafeDirectory(path, allowedRoot, projectRoot) {
+  assertSafePhysicalPath(path, allowedRoot, projectRoot)
+  ensureDirectory(path)
+  assertSafePhysicalPath(path, allowedRoot, projectRoot)
+}
+
+function writeSafePage({ absolutePath, allowedRoot, content }, projectRoot) {
+  assertSafePhysicalPath(absolutePath, allowedRoot, projectRoot)
+  ensureSafeDirectory(dirname(absolutePath), allowedRoot, projectRoot)
+  assertSafePhysicalPath(absolutePath, allowedRoot, projectRoot)
+  writeFileSync(absolutePath, content, 'utf8')
+}
+
+export function generateAiPages(options = {}) {
+  if (!isRecord(options)) {
+    throw new Error('Invalid AI page generator options: expected an object')
+  }
+  if (options.root !== undefined && (typeof options.root !== 'string' || !options.root.trim())) {
+    throw new Error('Invalid AI page generator options: root must be a non-empty string')
+  }
+  if (
+    options.dataPath !== undefined &&
+    (typeof options.dataPath !== 'string' || !options.dataPath.trim())
+  ) {
+    throw new Error('Invalid AI page generator options: dataPath must be a non-empty string')
+  }
+
+  const projectRoot = resolve(options.root ?? root)
+  const dataPath = resolve(
+    options.dataPath ??
+      join(projectRoot, 'docs', '.vitepress', 'theme', 'domain', 'ai-tools.json')
+  )
   const toolsDir = join(projectRoot, 'docs', 'tools')
   const categoriesDir = join(projectRoot, 'docs', 'ai-categories')
   const manifestPath = join(projectRoot, 'docs', '.vitepress', 'ai-pages-manifest.json')
+  const logger = options.logger ?? console.log
+  if (typeof logger !== 'function') {
+    throw new Error('Invalid AI page generator options: logger must be a function')
+  }
+
   const tools = JSON.parse(readFileSync(dataPath, 'utf8'))
 
   validateTools(tools)
 
   const previous = readPreviousManifest(manifestPath)
-  removePreviouslyGeneratedFiles(previous, projectRoot, toolsDir, categoriesDir)
-  ensureDirectory(toolsDir)
-  ensureDirectory(categoriesDir)
-
   const generated = []
+  const pageWrites = []
+
   for (const tool of tools) {
     const relativePath = `docs/tools/${tool.slug}.md`
-    writePage(resolve(projectRoot, relativePath), detailPage(tool))
+    pageWrites.push({
+      absolutePath: resolve(projectRoot, relativePath),
+      allowedRoot: toolsDir,
+      content: detailPage(tool)
+    })
     generated.push(relativePath)
   }
 
   for (const category of requiredCategories) {
     const items = tools.filter((tool) => tool.category === category)
     const relativePath = `docs/ai-categories/${category}.md`
-    writePage(resolve(projectRoot, relativePath), categoryPage(category, items))
+    pageWrites.push({
+      absolutePath: resolve(projectRoot, relativePath),
+      allowedRoot: categoriesDir,
+      content: categoryPage(category, items)
+    })
     generated.push(relativePath)
   }
 
   const toolLinks = tools
     .map((tool) => `- [${tool.name}](/tools/${tool.slug})：${tool.tagline}`)
     .join('\n')
-  writePage(
-    join(toolsDir, 'index.md'),
-    `---\ntitle: AI 工具目录\ndescription: 寻器收录的 AI 工具列表。\npageClass: ai-index-page\n---\n\n# AI 工具目录\n\n${toolLinks}\n\n<p class="generated-page-note"><a href="/">← 返回首页搜索</a></p>\n`
-  )
+  pageWrites.push({
+    absolutePath: join(toolsDir, 'index.md'),
+    allowedRoot: toolsDir,
+    content: `---\ntitle: AI 工具目录\ndescription: 寻器收录的 AI 工具列表。\npageClass: ai-index-page\n---\n\n# AI 工具目录\n\n${toolLinks}\n\n<p class="generated-page-note"><a href="/">← 返回首页搜索</a></p>\n`
+  })
   generated.push('docs/tools/index.md')
 
   const categoryLinks = requiredCategories
     .map((category) => `- [${categoryLabels[category]}](/ai-categories/${category})`)
     .join('\n')
-  writePage(
-    join(categoriesDir, 'index.md'),
-    `---\ntitle: 按场景浏览 AI 工具\ndescription: 按对话、写作、图像、视频、编程、音频、研究、营销和自动化九类场景浏览 AI 工具。\npageClass: ai-index-page\n---\n\n# 按场景浏览\n\n${categoryLinks}\n\n<p class="generated-page-note"><a href="/">← 返回首页搜索</a></p>\n`
-  )
+  pageWrites.push({
+    absolutePath: join(categoriesDir, 'index.md'),
+    allowedRoot: categoriesDir,
+    content: `---\ntitle: 按场景浏览 AI 工具\ndescription: 按对话、写作、图像、视频、编程、音频、研究、营销和自动化九类场景浏览 AI 工具。\npageClass: ai-index-page\n---\n\n# 按场景浏览\n\n${categoryLinks}\n\n<p class="generated-page-note"><a href="/">← 返回首页搜索</a></p>\n`
+  })
   generated.push('docs/ai-categories/index.md')
 
-  writeFileSync(manifestPath, `${JSON.stringify(generated, null, 2)}\n`, 'utf8')
-  console.log(`Generated ${tools.length} tool pages and ${requiredCategories.length} category pages.`)
+  const cleanupTargets = getCleanupTargets(previous, projectRoot, toolsDir, categoriesDir)
+  preflightGenerationPaths({
+    projectRoot,
+    toolsDir,
+    categoriesDir,
+    manifestPath,
+    cleanupTargets,
+    pageWrites
+  })
+
+  removePreviouslyGeneratedFiles(cleanupTargets, projectRoot)
+  ensureSafeDirectory(toolsDir, toolsDir, projectRoot)
+  ensureSafeDirectory(categoriesDir, categoriesDir, projectRoot)
+  pageWrites.forEach((pageWrite) => writeSafePage(pageWrite, projectRoot))
+  writeSafePage(
+    {
+      absolutePath: manifestPath,
+      allowedRoot: dirname(manifestPath),
+      content: `${JSON.stringify(generated, null, 2)}\n`
+    },
+    projectRoot
+  )
+
+  logger(`Generated ${tools.length} tool pages and ${requiredCategories.length} category pages.`)
   return generated
 }
 
-if (process.argv[1] && resolve(process.argv[1]) === scriptPath) {
-  generatePages()
+if (process.argv[1] && pathsEqual(resolve(process.argv[1]), resolve(scriptPath))) {
+  generateAiPages()
 }
