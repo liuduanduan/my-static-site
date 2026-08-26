@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import {
+  accessModeLabels,
+  chineseSupportLabels,
   getCategoryLabel,
-  getToolBySlug
+  getToolBySlug,
+  pricingModeLabels
 } from '../domain/aiTools'
 import { getToolVisual } from '../domain/directoryPresentation'
 
@@ -62,11 +65,30 @@ function formatDate(value: string): string {
           >
             访问官方网站 <span aria-hidden="true">↗</span>
           </a>
-          <span class="detail-updated">更新于 {{ formatDate(tool.updatedAt) }}</span>
+          <span class="detail-updated">最后核验 {{ formatDate(tool.updatedAt) }}</span>
         </div>
       </header>
 
       <div class="tool-detail-body">
+        <section class="tool-facts" aria-label="工具基本信息">
+          <div>
+            <span>价格模式</span>
+            <strong>{{ pricingModeLabels[tool.pricingMode] }}</strong>
+          </div>
+          <div>
+            <span>中文支持</span>
+            <strong>{{ chineseSupportLabels[tool.chineseSupport] }}</strong>
+          </div>
+          <div>
+            <span>使用平台</span>
+            <strong>{{ tool.accessModes.map((mode) => accessModeLabels[mode]).join('、') }}</strong>
+          </div>
+          <div>
+            <span>是否注册</span>
+            <strong>{{ tool.requiresAccount ? '需要注册' : '无需注册' }}</strong>
+          </div>
+        </section>
+
         <section class="detail-section">
           <p class="detail-label">适合谁</p>
           <ul class="detail-list detail-list--plain">

@@ -63,7 +63,7 @@ function compileSfc(filename: string, source: string): string[] {
 }
 
 describe('directory component compilation', () => {
-  it.each(['AiDirectory.vue', 'DirectoryFilters.vue', 'ToolCard.vue'])('compiles %s directly', (name) => {
+  it.each(['AiDirectory.vue', 'DirectoryFilters.vue', 'ToolCard.vue', 'ToolDetail.vue'])('compiles %s directly', (name) => {
     expect(compileSfc(name, componentSource(name))).toEqual([])
   })
 
@@ -212,6 +212,47 @@ describe('ToolCard source contract', () => {
     expect(source).toContain(':href="`/tools/${tool.slug}`"')
     expect(source).not.toContain('tool.url')
     expect(source).not.toContain('target="_blank"')
+  })
+})
+
+describe('ToolDetail source contract', () => {
+  it('renders four labelled facts from the canonical tool fields', () => {
+    const source = componentSource('ToolDetail.vue')
+    const facts = source.match(
+      /<div class="tool-detail-body">\s*<section class="tool-facts" aria-label="工具基本信息">([\s\S]*?)<\/section>/
+    )?.[1] ?? ''
+
+    expect(facts).not.toBe('')
+    expect(occurrences(facts, '<div>')).toBe(4)
+    expect(facts).toContain('<span>价格模式</span>')
+    expect(facts).toContain('<strong>{{ pricingModeLabels[tool.pricingMode] }}</strong>')
+    expect(facts).toContain('<span>中文支持</span>')
+    expect(facts).toContain('<strong>{{ chineseSupportLabels[tool.chineseSupport] }}</strong>')
+    expect(facts).toContain('<span>使用平台</span>')
+    expect(facts).toContain("<strong>{{ tool.accessModes.map((mode) => accessModeLabels[mode]).join('、') }}</strong>")
+    expect(facts).toContain('<span>是否注册</span>')
+    expect(facts).toContain("<strong>{{ tool.requiresAccount ? '需要注册' : '无需注册' }}</strong>")
+  })
+
+  it('labels updatedAt as a last verification and keeps the official link safe and dormant', () => {
+    const source = componentSource('ToolDetail.vue')
+
+    expect(source).toContain('<span class="detail-updated">最后核验 {{ formatDate(tool.updatedAt) }}</span>')
+    expect(source).not.toContain('更新于')
+    expect(source).not.toContain('发布于')
+    expect(source).toMatch(
+      /<a\s+class="official-link"\s+:href="tool\.url"\s+target="_blank"\s+rel="noreferrer noopener"\s+data-affiliate-slot="tool-directory"/
+    )
+    expect(source).not.toMatch(/推广|赞助|返佣|affiliate link/i)
+  })
+
+  it('does not add a second main landmark and retains alternatives and the friendly empty state', () => {
+    const source = componentSource('ToolDetail.vue')
+
+    expect(source).not.toMatch(/<main\b/i)
+    expect(source).toContain('v-if="alternatives.length"')
+    expect(source).toContain('这个工具暂时不在目录里')
+    expect(source).toContain('返回首页看看其他精选工具。')
   })
 })
 
