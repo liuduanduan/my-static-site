@@ -9,6 +9,7 @@
     "content:ai": "node scripts/generate-ai-pages.mjs",
     "docs:dev": "vitepress dev docs --host 127.0.0.1",
     "docs:build": "npm run content:ai && vitepress build docs",
+    "verify:build": "npm run docs:build && node scripts/verify-ai-build.mjs",
     "docs:preview": "vitepress preview docs --host 127.0.0.1",
     "test": "vitest run",
     "test:watch": "vitest"
