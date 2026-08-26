@@ -2,361 +2,3149 @@
   {
     "slug": "chatgpt",
     "name": "ChatGPT",
-    "category": "writing",
-    "tagline": "从想法到成稿的通用 AI 助手",
-    "description": "适合把零散想法整理成文字、方案和可执行步骤，也能通过对话帮助你快速理解复杂问题。",
-    "bestFor": ["写邮件、文案和报告", "整理资料与头脑风暴", "把模糊需求拆成行动计划"],
-    "features": ["多轮对话与文件分析", "文本、图片和数据处理", "自定义助手与工作流"],
-    "pricing": "提供免费版；高级模型和额度以官网为准",
-    "pros": ["上手成本低，适用范围广", "中文理解和表达较自然"],
-    "cons": ["复杂事实仍需人工核验", "高级能力需要订阅"],
+    "category": "chat",
+    "tagline": "覆盖写作、分析和多模态任务的通用 AI 助手",
+    "description": "ChatGPT用于连续对话、知识问答、内容理解和多步骤任务协作，适合先验证结果再用于正式工作。",
+    "bestFor": [
+      "日常问答与头脑风暴",
+      "资料整理与内容理解",
+      "多轮任务协作"
+    ],
+    "features": [
+      "多轮自然语言对话",
+      "文本与文件理解",
+      "跨场景任务辅助"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "desktop",
+      "mobile",
+      "api"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "通用助手",
+      "多模态",
+      "对话"
+    ],
+    "searchTerms": [
+      "AI 对话",
+      "文档分析",
+      "日常问答"
+    ],
+    "pros": [
+      "使用场景广，上手直接",
+      "适合快速形成初稿和思路"
+    ],
+    "cons": [
+      "事实与引用仍需人工核验",
+      "可用能力会随地区和套餐变化"
+    ],
     "url": "https://chatgpt.com/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["claude", "deepseek"]
+    "alternatives": [
+      "claude",
+      "deepseek"
+    ],
+    "featuredOrder": 1
   },
   {
     "slug": "claude",
     "name": "Claude",
-    "category": "writing",
-    "tagline": "擅长长文、分析与细腻表达的 AI",
-    "description": "适合阅读长文档、梳理复杂信息和打磨语气，尤其适合需要上下文连续性的写作工作。",
-    "bestFor": ["长文档总结与分析", "品牌语气和内容润色", "研究资料的结构化整理"],
-    "features": ["长上下文对话", "文件与代码分析", "Artifacts 交互式产出"],
-    "pricing": "提供免费版；高级额度以官网为准",
-    "pros": ["长文本处理稳定", "表达克制，适合深度写作"],
-    "cons": ["部分地区访问受限", "中文生态和插件较少"],
+    "category": "chat",
+    "tagline": "擅长长文理解、分析与细腻表达的 AI 助手",
+    "description": "Claude用于连续对话、知识问答、内容理解和多步骤任务协作，适合先验证结果再用于正式工作。",
+    "bestFor": [
+      "日常问答与头脑风暴",
+      "资料整理与内容理解",
+      "多轮任务协作"
+    ],
+    "features": [
+      "多轮自然语言对话",
+      "文本与文件理解",
+      "跨场景任务辅助"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "desktop",
+      "mobile",
+      "api"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "长文本",
+      "分析",
+      "对话"
+    ],
+    "searchTerms": [
+      "长文总结",
+      "文档分析",
+      "内容写作"
+    ],
+    "pros": [
+      "使用场景广，上手直接",
+      "适合快速形成初稿和思路"
+    ],
+    "cons": [
+      "事实与引用仍需人工核验",
+      "可用能力会随地区和套餐变化"
+    ],
     "url": "https://claude.ai/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["chatgpt", "kimi"]
+    "alternatives": [
+      "deepseek",
+      "kimi"
+    ],
+    "featuredOrder": 2
   },
   {
     "slug": "deepseek",
     "name": "DeepSeek",
-    "category": "writing",
-    "tagline": "适合中文问答和技术推理的高性价比模型",
-    "description": "面向中文用户的通用模型，适合日常问答、资料整理、数学推理和代码辅助。",
-    "bestFor": ["中文内容生成", "数学与逻辑问题", "低成本 API 原型"],
-    "features": ["深度思考模式", "网页端与 API", "中文场景响应快速"],
-    "pricing": "网页端提供免费额度；API 价格以官网为准",
-    "pros": ["中文体验好，使用门槛低", "适合快速验证想法"],
-    "cons": ["高峰期可能需要排队", "输出仍需核验来源"],
+    "category": "chat",
+    "tagline": "面向中文问答、推理与代码任务的通用模型",
+    "description": "DeepSeek用于连续对话、知识问答、内容理解和多步骤任务协作，适合先验证结果再用于正式工作。",
+    "bestFor": [
+      "日常问答与头脑风暴",
+      "资料整理与内容理解",
+      "多轮任务协作"
+    ],
+    "features": [
+      "多轮自然语言对话",
+      "文本与文件理解",
+      "跨场景任务辅助"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "native",
+    "accessModes": [
+      "web",
+      "mobile",
+      "api"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "中文",
+      "推理",
+      "代码"
+    ],
+    "searchTerms": [
+      "中文问答",
+      "深度思考",
+      "代码助手"
+    ],
+    "pros": [
+      "使用场景广，上手直接",
+      "适合快速形成初稿和思路"
+    ],
+    "cons": [
+      "事实与引用仍需人工核验",
+      "可用能力会随地区和套餐变化"
+    ],
     "url": "https://www.deepseek.com/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["chatgpt", "kimi"]
+    "alternatives": [
+      "kimi",
+      "gemini"
+    ]
   },
   {
     "slug": "kimi",
     "name": "Kimi",
-    "category": "writing",
-    "tagline": "面向中文资料阅读和研究的 AI 助手",
-    "description": "适合把网页、文件和长篇资料快速整理成摘要、表格或行动清单，中文使用体验轻量直接。",
-    "bestFor": ["长文和网页阅读", "会议资料整理", "中文研究与信息提炼"],
-    "features": ["文件与网页解析", "深度研究工作流", "表格和文档输出"],
-    "pricing": "提供免费使用额度；具体政策以官网为准",
-    "pros": ["中文长文处理顺手", "适合移动端快速阅读"],
-    "cons": ["复杂创作的风格控制有限", "部分高级功能有额度限制"],
+    "category": "chat",
+    "tagline": "面向中文长文阅读和研究整理的 AI 助手",
+    "description": "Kimi用于连续对话、知识问答、内容理解和多步骤任务协作，适合先验证结果再用于正式工作。",
+    "bestFor": [
+      "日常问答与头脑风暴",
+      "资料整理与内容理解",
+      "多轮任务协作"
+    ],
+    "features": [
+      "多轮自然语言对话",
+      "文本与文件理解",
+      "跨场景任务辅助"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "native",
+    "accessModes": [
+      "web",
+      "desktop",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "中文",
+      "长文本",
+      "研究"
+    ],
+    "searchTerms": [
+      "中文研究",
+      "长文阅读",
+      "资料总结"
+    ],
+    "pros": [
+      "使用场景广，上手直接",
+      "适合快速形成初稿和思路"
+    ],
+    "cons": [
+      "事实与引用仍需人工核验",
+      "可用能力会随地区和套餐变化"
+    ],
     "url": "https://kimi.moonshot.cn/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["deepseek", "chatgpt"]
+    "alternatives": [
+      "gemini",
+      "microsoft-copilot"
+    ]
+  },
+  {
+    "slug": "gemini",
+    "name": "Gemini",
+    "category": "chat",
+    "tagline": "连接 Google 生态的多模态 AI 助手",
+    "description": "Gemini用于连续对话、知识问答、内容理解和多步骤任务协作，适合先验证结果再用于正式工作。",
+    "bestFor": [
+      "日常问答与头脑风暴",
+      "资料整理与内容理解",
+      "多轮任务协作"
+    ],
+    "features": [
+      "多轮自然语言对话",
+      "文本与文件理解",
+      "跨场景任务辅助"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "多模态",
+      "Google",
+      "对话"
+    ],
+    "searchTerms": [
+      "谷歌 AI",
+      "图片理解",
+      "在线问答"
+    ],
+    "pros": [
+      "使用场景广，上手直接",
+      "适合快速形成初稿和思路"
+    ],
+    "cons": [
+      "事实与引用仍需人工核验",
+      "可用能力会随地区和套餐变化"
+    ],
+    "url": "https://gemini.google.com/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "microsoft-copilot",
+      "doubao"
+    ]
+  },
+  {
+    "slug": "microsoft-copilot",
+    "name": "Microsoft Copilot",
+    "category": "chat",
+    "tagline": "融合网页信息与微软服务的日常 AI 助手",
+    "description": "Microsoft Copilot用于连续对话、知识问答、内容理解和多步骤任务协作，适合先验证结果再用于正式工作。",
+    "bestFor": [
+      "日常问答与头脑风暴",
+      "资料整理与内容理解",
+      "多轮任务协作"
+    ],
+    "features": [
+      "多轮自然语言对话",
+      "文本与文件理解",
+      "跨场景任务辅助"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "desktop",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "微软",
+      "搜索",
+      "对话"
+    ],
+    "searchTerms": [
+      "微软助手",
+      "网页问答",
+      "办公问答"
+    ],
+    "pros": [
+      "使用场景广，上手直接",
+      "适合快速形成初稿和思路"
+    ],
+    "cons": [
+      "事实与引用仍需人工核验",
+      "可用能力会随地区和套餐变化"
+    ],
+    "url": "https://copilot.microsoft.com/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "doubao",
+      "chatgpt"
+    ]
+  },
+  {
+    "slug": "doubao",
+    "name": "豆包",
+    "category": "chat",
+    "tagline": "适合中文对话、创作与学习场景的 AI 助手",
+    "description": "豆包用于连续对话、知识问答、内容理解和多步骤任务协作，适合先验证结果再用于正式工作。",
+    "bestFor": [
+      "日常问答与头脑风暴",
+      "资料整理与内容理解",
+      "多轮任务协作"
+    ],
+    "features": [
+      "多轮自然语言对话",
+      "文本与文件理解",
+      "跨场景任务辅助"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "native",
+    "accessModes": [
+      "web",
+      "desktop",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "中文",
+      "学习",
+      "多模态"
+    ],
+    "searchTerms": [
+      "豆包 AI",
+      "中文对话",
+      "学习助手"
+    ],
+    "pros": [
+      "使用场景广，上手直接",
+      "适合快速形成初稿和思路"
+    ],
+    "cons": [
+      "事实与引用仍需人工核验",
+      "可用能力会随地区和套餐变化"
+    ],
+    "url": "https://www.doubao.com/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "chatgpt",
+      "claude"
+    ]
+  },
+  {
+    "slug": "notion",
+    "name": "Notion",
+    "category": "writing",
+    "tagline": "把文档、知识库与 AI 办公放在一个工作空间",
+    "description": "Notion面向文档、演示、会议或语言优化工作，帮助用户更快整理信息并产出可编辑内容。",
+    "bestFor": [
+      "文档与内容起草",
+      "办公资料整理",
+      "团队沟通与交付"
+    ],
+    "features": [
+      "AI 内容生成",
+      "文本改写与总结",
+      "在线编辑与分享"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "desktop",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "文档",
+      "知识库",
+      "协作"
+    ],
+    "searchTerms": [
+      "知识管理",
+      "AI 笔记",
+      "团队文档"
+    ],
+    "pros": [
+      "能缩短常见办公任务耗时",
+      "输出可继续人工编辑"
+    ],
+    "cons": [
+      "专业内容仍需复核",
+      "高级功能通常受套餐限制"
+    ],
+    "url": "https://www.notion.so/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "gamma",
+      "napkin"
+    ]
+  },
+  {
+    "slug": "gamma",
+    "name": "Gamma",
+    "category": "writing",
+    "tagline": "从提纲快速生成演示文稿、文档和网页",
+    "description": "Gamma面向文档、演示、会议或语言优化工作，帮助用户更快整理信息并产出可编辑内容。",
+    "bestFor": [
+      "文档与内容起草",
+      "办公资料整理",
+      "团队沟通与交付"
+    ],
+    "features": [
+      "AI 内容生成",
+      "文本改写与总结",
+      "在线编辑与分享"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "演示",
+      "文档",
+      "网页"
+    ],
+    "searchTerms": [
+      "AI PPT",
+      "演示文稿",
+      "提纲排版"
+    ],
+    "pros": [
+      "能缩短常见办公任务耗时",
+      "输出可继续人工编辑"
+    ],
+    "cons": [
+      "专业内容仍需复核",
+      "高级功能通常受套餐限制"
+    ],
+    "url": "https://gamma.app/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "napkin",
+      "otter"
+    ]
+  },
+  {
+    "slug": "napkin",
+    "name": "Napkin AI",
+    "category": "writing",
+    "tagline": "把文字观点快速转成清晰的视觉图示",
+    "description": "Napkin AI面向文档、演示、会议或语言优化工作，帮助用户更快整理信息并产出可编辑内容。",
+    "bestFor": [
+      "文档与内容起草",
+      "办公资料整理",
+      "团队沟通与交付"
+    ],
+    "features": [
+      "AI 内容生成",
+      "文本改写与总结",
+      "在线编辑与分享"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "图示",
+      "文档",
+      "可视化"
+    ],
+    "searchTerms": [
+      "文字转图",
+      "流程图",
+      "文章配图"
+    ],
+    "pros": [
+      "能缩短常见办公任务耗时",
+      "输出可继续人工编辑"
+    ],
+    "cons": [
+      "专业内容仍需复核",
+      "高级功能通常受套餐限制"
+    ],
+    "url": "https://www.napkin.ai/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "otter",
+      "grammarly"
+    ]
+  },
+  {
+    "slug": "otter",
+    "name": "Otter.ai",
+    "category": "writing",
+    "tagline": "自动转写会议并整理摘要与行动项",
+    "description": "Otter.ai面向文档、演示、会议或语言优化工作，帮助用户更快整理信息并产出可编辑内容。",
+    "bestFor": [
+      "文档与内容起草",
+      "办公资料整理",
+      "团队沟通与交付"
+    ],
+    "features": [
+      "AI 内容生成",
+      "文本改写与总结",
+      "在线编辑与分享"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "none",
+    "accessModes": [
+      "web",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "会议",
+      "转写",
+      "摘要"
+    ],
+    "searchTerms": [
+      "会议纪要",
+      "语音转文字",
+      "访谈记录"
+    ],
+    "pros": [
+      "能缩短常见办公任务耗时",
+      "输出可继续人工编辑"
+    ],
+    "cons": [
+      "专业内容仍需复核",
+      "高级功能通常受套餐限制"
+    ],
+    "url": "https://otter.ai/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "grammarly",
+      "quillbot"
+    ]
+  },
+  {
+    "slug": "grammarly",
+    "name": "Grammarly",
+    "category": "writing",
+    "tagline": "面向英文写作校对、改写与语气优化的助手",
+    "description": "Grammarly面向文档、演示、会议或语言优化工作，帮助用户更快整理信息并产出可编辑内容。",
+    "bestFor": [
+      "文档与内容起草",
+      "办公资料整理",
+      "团队沟通与交付"
+    ],
+    "features": [
+      "AI 内容生成",
+      "文本改写与总结",
+      "在线编辑与分享"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "none",
+    "accessModes": [
+      "web",
+      "desktop",
+      "mobile",
+      "extension"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "英文写作",
+      "校对",
+      "改写"
+    ],
+    "searchTerms": [
+      "英文润色",
+      "语法检查",
+      "邮件改写"
+    ],
+    "pros": [
+      "能缩短常见办公任务耗时",
+      "输出可继续人工编辑"
+    ],
+    "cons": [
+      "专业内容仍需复核",
+      "高级功能通常受套餐限制"
+    ],
+    "url": "https://www.grammarly.com/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "quillbot",
+      "wps-ai"
+    ]
+  },
+  {
+    "slug": "quillbot",
+    "name": "QuillBot",
+    "category": "writing",
+    "tagline": "提供改写、摘要和引用辅助的在线写作工具",
+    "description": "QuillBot面向文档、演示、会议或语言优化工作，帮助用户更快整理信息并产出可编辑内容。",
+    "bestFor": [
+      "文档与内容起草",
+      "办公资料整理",
+      "团队沟通与交付"
+    ],
+    "features": [
+      "AI 内容生成",
+      "文本改写与总结",
+      "在线编辑与分享"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "desktop",
+      "extension"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "改写",
+      "摘要",
+      "引用"
+    ],
+    "searchTerms": [
+      "文章改写",
+      "英文摘要",
+      "论文工具"
+    ],
+    "pros": [
+      "能缩短常见办公任务耗时",
+      "输出可继续人工编辑"
+    ],
+    "cons": [
+      "专业内容仍需复核",
+      "高级功能通常受套餐限制"
+    ],
+    "url": "https://quillbot.com/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "wps-ai",
+      "notion"
+    ]
+  },
+  {
+    "slug": "wps-ai",
+    "name": "WPS AI",
+    "category": "writing",
+    "tagline": "融入 WPS 文档、表格与演示的中文办公助手",
+    "description": "WPS AI面向文档、演示、会议或语言优化工作，帮助用户更快整理信息并产出可编辑内容。",
+    "bestFor": [
+      "文档与内容起草",
+      "办公资料整理",
+      "团队沟通与交付"
+    ],
+    "features": [
+      "AI 内容生成",
+      "文本改写与总结",
+      "在线编辑与分享"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "native",
+    "accessModes": [
+      "web",
+      "desktop",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "中文办公",
+      "文档",
+      "表格"
+    ],
+    "searchTerms": [
+      "WPS 智能办公",
+      "文档总结",
+      "AI PPT"
+    ],
+    "pros": [
+      "能缩短常见办公任务耗时",
+      "输出可继续人工编辑"
+    ],
+    "cons": [
+      "专业内容仍需复核",
+      "高级功能通常受套餐限制"
+    ],
+    "url": "https://ai.wps.cn/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "notion",
+      "gamma"
+    ]
   },
   {
     "slug": "midjourney",
     "name": "Midjourney",
     "category": "image",
-    "tagline": "高完成度的概念图与视觉探索工具",
-    "description": "适合从一句描述快速探索风格、构图和视觉方向，常用于品牌概念、插画和创意提案。",
-    "bestFor": ["概念设计与灵感探索", "插画和海报草图", "品牌视觉方向提案"],
-    "features": ["文本生成图像", "风格与构图控制", "图像变体和编辑"],
-    "pricing": "订阅制服务；价格以官网为准",
-    "pros": ["画面完成度和风格表现强", "适合快速产出多个方向"],
-    "cons": ["精确排版和文字控制有限", "商用规则需仔细阅读"],
+    "tagline": "面向高完成度概念图和风格探索的图像生成工具",
+    "description": "Midjourney用于生成、编辑或排版视觉内容，适合概念探索、营销素材和日常设计任务。",
+    "bestFor": [
+      "视觉概念探索",
+      "营销与社媒配图",
+      "图片编辑与设计"
+    ],
+    "features": [
+      "AI 图像生成或编辑",
+      "风格与构图控制",
+      "素材导出与复用"
+    ],
+    "pricing": "主要提供付费方案；具体价格与套餐以官网为准",
+    "pricingMode": "paid",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "文生图",
+      "概念设计",
+      "插画"
+    ],
+    "searchTerms": [
+      "AI 绘画",
+      "概念图",
+      "风格参考"
+    ],
+    "pros": [
+      "能快速比较多个视觉方向",
+      "降低常见设计任务门槛"
+    ],
+    "cons": [
+      "精细排版仍需人工调整",
+      "商用前需核对授权条款"
+    ],
     "url": "https://www.midjourney.com/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["leonardo-ai", "firefly"]
+    "alternatives": [
+      "canva",
+      "firefly"
+    ],
+    "featuredOrder": 3
   },
   {
     "slug": "canva",
     "name": "Canva",
     "category": "image",
-    "tagline": "普通人也能快速做出像样设计的工作台",
-    "description": "把模板、素材和 AI 生成功能放在一个编辑器里，适合社交媒体、演示文稿和营销物料。",
-    "bestFor": ["社交媒体配图", "海报、简历和演示文稿", "团队协作与品牌模板"],
-    "features": ["海量可编辑模板", "AI 文案和图像工具", "在线协作与品牌套件"],
-    "pricing": "提供免费版；专业素材和功能以官网为准",
-    "pros": ["模板丰富，学习成本低", "适合快速交付日常设计"],
-    "cons": ["深度定制不如专业软件", "热门素材可能同质化"],
+    "tagline": "整合模板、素材和 AI 功能的在线设计平台",
+    "description": "Canva用于生成、编辑或排版视觉内容，适合概念探索、营销素材和日常设计任务。",
+    "bestFor": [
+      "视觉概念探索",
+      "营销与社媒配图",
+      "图片编辑与设计"
+    ],
+    "features": [
+      "AI 图像生成或编辑",
+      "风格与构图控制",
+      "素材导出与复用"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "native",
+    "accessModes": [
+      "web",
+      "desktop",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "模板设计",
+      "社媒",
+      "演示"
+    ],
+    "searchTerms": [
+      "在线设计",
+      "海报制作",
+      "社媒配图"
+    ],
+    "pros": [
+      "能快速比较多个视觉方向",
+      "降低常见设计任务门槛"
+    ],
+    "cons": [
+      "精细排版仍需人工调整",
+      "商用前需核对授权条款"
+    ],
     "url": "https://www.canva.com/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["firefly", "leonardo-ai"]
+    "alternatives": [
+      "firefly",
+      "leonardo-ai"
+    ]
   },
   {
     "slug": "firefly",
     "name": "Adobe Firefly",
     "category": "image",
-    "tagline": "融入 Adobe 工作流的生成式设计工具",
-    "description": "适合已经使用 Photoshop 或 Illustrator 的设计者，用自然语言补图、换背景和探索视觉方案。",
-    "bestFor": ["商业设计辅助", "图片扩展和局部修改", "Adobe 用户的生成式工作流"],
-    "features": ["文生图与结构参考", "生成填充和扩图", "与 Creative Cloud 联动"],
-    "pricing": "提供有限免费额度；订阅和点数以官网为准",
-    "pros": ["适合接入成熟设计流程", "商用与版权说明相对清晰"],
-    "cons": ["高级额度消耗较快", "创意风格不如专用模型突出"],
+    "tagline": "融入 Adobe 工作流的生成式图像工具",
+    "description": "Adobe Firefly用于生成、编辑或排版视觉内容，适合概念探索、营销素材和日常设计任务。",
+    "bestFor": [
+      "视觉概念探索",
+      "营销与社媒配图",
+      "图片编辑与设计"
+    ],
+    "features": [
+      "AI 图像生成或编辑",
+      "风格与构图控制",
+      "素材导出与复用"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "Adobe",
+      "生成填充",
+      "文生图"
+    ],
+    "searchTerms": [
+      "AI 修图",
+      "生成填充",
+      "商业设计"
+    ],
+    "pros": [
+      "能快速比较多个视觉方向",
+      "降低常见设计任务门槛"
+    ],
+    "cons": [
+      "精细排版仍需人工调整",
+      "商用前需核对授权条款"
+    ],
     "url": "https://firefly.adobe.com/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["midjourney", "canva"]
+    "alternatives": [
+      "leonardo-ai",
+      "ideogram"
+    ]
   },
   {
     "slug": "leonardo-ai",
     "name": "Leonardo AI",
     "category": "image",
     "tagline": "适合游戏、美术和产品概念的图像工作室",
-    "description": "提供模型、风格和画布编辑能力，适合需要持续探索角色、场景和产品视觉的创作者。",
-    "bestFor": ["游戏角色与场景", "产品概念图", "可控的风格探索"],
-    "features": ["多模型生成", "画布编辑与局部重绘", "风格和参考图控制"],
-    "pricing": "提供免费点数；高级额度以官网为准",
-    "pros": ["创作控制维度丰富", "适合连续产出视觉资产"],
-    "cons": ["初次使用需要熟悉参数", "点数消耗规则较复杂"],
+    "description": "Leonardo AI用于生成、编辑或排版视觉内容，适合概念探索、营销素材和日常设计任务。",
+    "bestFor": [
+      "视觉概念探索",
+      "营销与社媒配图",
+      "图片编辑与设计"
+    ],
+    "features": [
+      "AI 图像生成或编辑",
+      "风格与构图控制",
+      "素材导出与复用"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "游戏美术",
+      "概念图",
+      "画布"
+    ],
+    "searchTerms": [
+      "角色设计",
+      "产品概念图",
+      "图片生成"
+    ],
+    "pros": [
+      "能快速比较多个视觉方向",
+      "降低常见设计任务门槛"
+    ],
+    "cons": [
+      "精细排版仍需人工调整",
+      "商用前需核对授权条款"
+    ],
     "url": "https://leonardo.ai/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["midjourney", "firefly"]
+    "alternatives": [
+      "ideogram",
+      "stable-diffusion"
+    ]
+  },
+  {
+    "slug": "ideogram",
+    "name": "Ideogram",
+    "category": "image",
+    "tagline": "擅长海报文字与视觉构图的图像生成工具",
+    "description": "Ideogram用于生成、编辑或排版视觉内容，适合概念探索、营销素材和日常设计任务。",
+    "bestFor": [
+      "视觉概念探索",
+      "营销与社媒配图",
+      "图片编辑与设计"
+    ],
+    "features": [
+      "AI 图像生成或编辑",
+      "风格与构图控制",
+      "素材导出与复用"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "海报",
+      "文字生成",
+      "设计"
+    ],
+    "searchTerms": [
+      "带字图片",
+      "海报设计",
+      "标志灵感"
+    ],
+    "pros": [
+      "能快速比较多个视觉方向",
+      "降低常见设计任务门槛"
+    ],
+    "cons": [
+      "精细排版仍需人工调整",
+      "商用前需核对授权条款"
+    ],
+    "url": "https://ideogram.ai/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "stable-diffusion",
+      "remove-bg"
+    ]
+  },
+  {
+    "slug": "stable-diffusion",
+    "name": "Stable Diffusion",
+    "category": "image",
+    "tagline": "提供开放图像模型与可定制生成工作流",
+    "description": "Stable Diffusion用于生成、编辑或排版视觉内容，适合概念探索、营销素材和日常设计任务。",
+    "bestFor": [
+      "视觉概念探索",
+      "营销与社媒配图",
+      "图片编辑与设计"
+    ],
+    "features": [
+      "AI 图像生成或编辑",
+      "风格与构图控制",
+      "素材导出与复用"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "api"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "开放模型",
+      "文生图",
+      "定制"
+    ],
+    "searchTerms": [
+      "本地 AI 绘画",
+      "图像模型",
+      "可控生成"
+    ],
+    "pros": [
+      "能快速比较多个视觉方向",
+      "降低常见设计任务门槛"
+    ],
+    "cons": [
+      "精细排版仍需人工调整",
+      "商用前需核对授权条款"
+    ],
+    "url": "https://stability.ai/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "remove-bg",
+      "midjourney"
+    ]
+  },
+  {
+    "slug": "remove-bg",
+    "name": "remove.bg",
+    "category": "image",
+    "tagline": "一键自动移除图片背景的实用工具",
+    "description": "remove.bg用于生成、编辑或排版视觉内容，适合概念探索、营销素材和日常设计任务。",
+    "bestFor": [
+      "视觉概念探索",
+      "营销与社媒配图",
+      "图片编辑与设计"
+    ],
+    "features": [
+      "AI 图像生成或编辑",
+      "风格与构图控制",
+      "素材导出与复用"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "native",
+    "accessModes": [
+      "web",
+      "desktop",
+      "api"
+    ],
+    "requiresAccount": false,
+    "tags": [
+      "抠图",
+      "背景移除",
+      "图片编辑"
+    ],
+    "searchTerms": [
+      "自动抠图",
+      "透明背景",
+      "证件照处理"
+    ],
+    "pros": [
+      "能快速比较多个视觉方向",
+      "降低常见设计任务门槛"
+    ],
+    "cons": [
+      "精细排版仍需人工调整",
+      "商用前需核对授权条款"
+    ],
+    "url": "https://www.remove.bg/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "midjourney",
+      "canva"
+    ]
   },
   {
     "slug": "runway",
     "name": "Runway",
     "category": "video",
-    "tagline": "面向创作者的生成式视频工作台",
-    "description": "适合把文字、图片和已有素材变成短视频镜头，用于广告概念、分镜和社交内容制作。",
-    "bestFor": ["视频概念验证", "广告和社交短片", "图片转动态镜头"],
-    "features": ["文生视频与图生视频", "视频擦除和背景处理", "时间线编辑"],
-    "pricing": "提供有限免费额度；订阅价格以官网为准",
-    "pros": ["生成与编辑工具集中", "适合快速做视觉样片"],
-    "cons": ["高分辨率生成消耗额度", "长视频叙事仍需人工剪辑"],
+    "tagline": "面向创作者的生成式视频制作工作台",
+    "description": "Runway用于生成、编辑或本地化视频内容，适合短片、产品演示和数字人口播制作。",
+    "bestFor": [
+      "短视频与广告素材",
+      "产品演示与分镜",
+      "视频本地化制作"
+    ],
+    "features": [
+      "AI 视频生成或编辑",
+      "画面与镜头控制",
+      "字幕或配音工作流"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "视频生成",
+      "特效",
+      "编辑"
+    ],
+    "searchTerms": [
+      "文生视频",
+      "图生视频",
+      "视频特效"
+    ],
+    "pros": [
+      "能快速验证视频创意",
+      "减少部分拍摄与后期步骤"
+    ],
+    "cons": [
+      "长片一致性仍需人工处理",
+      "高清输出通常消耗更多额度"
+    ],
     "url": "https://runwayml.com/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["pika", "kling"]
+    "alternatives": [
+      "capcut",
+      "kling"
+    ],
+    "featuredOrder": 4
   },
   {
     "slug": "capcut",
     "name": "CapCut",
     "category": "video",
-    "tagline": "短视频剪辑、字幕和模板的一站式工具",
-    "description": "适合个人创作者和小团队快速完成短视频剪辑、字幕、配乐和平台适配。",
-    "bestFor": ["短视频快速剪辑", "自动字幕与翻译", "社交平台内容批量制作"],
-    "features": ["模板与素材库", "自动字幕和智能剪辑", "桌面端与移动端同步"],
-    "pricing": "基础能力免费；部分素材和功能以官网为准",
-    "pros": ["上手快，模板和素材丰富", "适合移动端生产内容"],
-    "cons": ["复杂项目管理能力有限", "模板风格容易趋同"],
+    "tagline": "整合剪辑、字幕和 AI 模板的短视频工具",
+    "description": "CapCut用于生成、编辑或本地化视频内容，适合短片、产品演示和数字人口播制作。",
+    "bestFor": [
+      "短视频与广告素材",
+      "产品演示与分镜",
+      "视频本地化制作"
+    ],
+    "features": [
+      "AI 视频生成或编辑",
+      "画面与镜头控制",
+      "字幕或配音工作流"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "native",
+    "accessModes": [
+      "web",
+      "desktop",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "剪辑",
+      "字幕",
+      "模板"
+    ],
+    "searchTerms": [
+      "短视频剪辑",
+      "自动字幕",
+      "视频模板"
+    ],
+    "pros": [
+      "能快速验证视频创意",
+      "减少部分拍摄与后期步骤"
+    ],
+    "cons": [
+      "长片一致性仍需人工处理",
+      "高清输出通常消耗更多额度"
+    ],
     "url": "https://www.capcut.com/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["runway", "pika"]
+    "alternatives": [
+      "kling",
+      "pika"
+    ]
   },
   {
     "slug": "kling",
     "name": "可灵 Kling",
     "category": "video",
-    "tagline": "适合中文创作者的高质量 AI 视频生成",
-    "description": "支持从文字或图片生成短视频，适合做产品展示、镜头预演和创意内容测试。",
-    "bestFor": ["中文提示词创作", "产品和广告镜头", "图片转视频实验"],
-    "features": ["文生视频与图生视频", "镜头运动和时长控制", "中文创作界面"],
-    "pricing": "提供免费点数；高级模型和额度以官网为准",
-    "pros": ["中文上手自然", "人物和镜头表现持续提升"],
-    "cons": ["生成速度受高峰影响", "复杂连续剧情需要多次尝试"],
+    "tagline": "适合中文创作者的 AI 视频生成平台",
+    "description": "可灵 Kling用于生成、编辑或本地化视频内容，适合短片、产品演示和数字人口播制作。",
+    "bestFor": [
+      "短视频与广告素材",
+      "产品演示与分镜",
+      "视频本地化制作"
+    ],
+    "features": [
+      "AI 视频生成或编辑",
+      "画面与镜头控制",
+      "字幕或配音工作流"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "native",
+    "accessModes": [
+      "web",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "中文",
+      "视频生成",
+      "镜头"
+    ],
+    "searchTerms": [
+      "可灵视频",
+      "图生视频",
+      "中文视频生成"
+    ],
+    "pros": [
+      "能快速验证视频创意",
+      "减少部分拍摄与后期步骤"
+    ],
+    "cons": [
+      "长片一致性仍需人工处理",
+      "高清输出通常消耗更多额度"
+    ],
     "url": "https://klingai.com/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["runway", "pika"]
+    "alternatives": [
+      "pika",
+      "heygen"
+    ]
   },
   {
     "slug": "pika",
     "name": "Pika",
     "category": "video",
-    "tagline": "适合社交创意和快速动效的 AI 视频工具",
-    "description": "把图片和文字变成轻量短视频，适合做社交内容、视觉玩具和创意动效。",
-    "bestFor": ["社交平台短片", "图片动效和特效", "快速验证创意"],
-    "features": ["文本与图片生成视频", "特效和画面变换", "短视频快速分享"],
-    "pricing": "提供免费额度；订阅价格以官网为准",
-    "pros": ["操作简单，创意反馈快", "适合轻量内容制作"],
-    "cons": ["镜头控制相对有限", "不适合长篇项目"],
+    "tagline": "适合社媒创意和快速动效制作的 AI 视频工具",
+    "description": "Pika用于生成、编辑或本地化视频内容，适合短片、产品演示和数字人口播制作。",
+    "bestFor": [
+      "短视频与广告素材",
+      "产品演示与分镜",
+      "视频本地化制作"
+    ],
+    "features": [
+      "AI 视频生成或编辑",
+      "画面与镜头控制",
+      "字幕或配音工作流"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "短视频",
+      "动效",
+      "特效"
+    ],
+    "searchTerms": [
+      "图片动起来",
+      "创意短片",
+      "视频特效"
+    ],
+    "pros": [
+      "能快速验证视频创意",
+      "减少部分拍摄与后期步骤"
+    ],
+    "cons": [
+      "长片一致性仍需人工处理",
+      "高清输出通常消耗更多额度"
+    ],
     "url": "https://pika.art/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["kling", "runway"]
+    "alternatives": [
+      "heygen",
+      "synthesia"
+    ]
+  },
+  {
+    "slug": "heygen",
+    "name": "HeyGen",
+    "category": "video",
+    "tagline": "用数字人、配音和翻译制作口播视频",
+    "description": "HeyGen用于生成、编辑或本地化视频内容，适合短片、产品演示和数字人口播制作。",
+    "bestFor": [
+      "短视频与广告素材",
+      "产品演示与分镜",
+      "视频本地化制作"
+    ],
+    "features": [
+      "AI 视频生成或编辑",
+      "画面与镜头控制",
+      "字幕或配音工作流"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "api"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "数字人",
+      "翻译",
+      "口播"
+    ],
+    "searchTerms": [
+      "AI 数字人",
+      "视频翻译",
+      "虚拟主播"
+    ],
+    "pros": [
+      "能快速验证视频创意",
+      "减少部分拍摄与后期步骤"
+    ],
+    "cons": [
+      "长片一致性仍需人工处理",
+      "高清输出通常消耗更多额度"
+    ],
+    "url": "https://www.heygen.com/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "synthesia",
+      "luma-dream-machine"
+    ]
+  },
+  {
+    "slug": "synthesia",
+    "name": "Synthesia",
+    "category": "video",
+    "tagline": "面向培训与企业沟通的数字人视频平台",
+    "description": "Synthesia用于生成、编辑或本地化视频内容，适合短片、产品演示和数字人口播制作。",
+    "bestFor": [
+      "短视频与广告素材",
+      "产品演示与分镜",
+      "视频本地化制作"
+    ],
+    "features": [
+      "AI 视频生成或编辑",
+      "画面与镜头控制",
+      "字幕或配音工作流"
+    ],
+    "pricing": "主要提供付费方案；具体价格与套餐以官网为准",
+    "pricingMode": "paid",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "api"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "数字人",
+      "培训",
+      "企业视频"
+    ],
+    "searchTerms": [
+      "培训视频",
+      "数字人口播",
+      "企业内训"
+    ],
+    "pros": [
+      "能快速验证视频创意",
+      "减少部分拍摄与后期步骤"
+    ],
+    "cons": [
+      "长片一致性仍需人工处理",
+      "高清输出通常消耗更多额度"
+    ],
+    "url": "https://www.synthesia.io/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "luma-dream-machine",
+      "runway"
+    ]
+  },
+  {
+    "slug": "luma-dream-machine",
+    "name": "Luma Dream Machine",
+    "category": "video",
+    "tagline": "从文字或图片生成电影感短视频镜头",
+    "description": "Luma Dream Machine用于生成、编辑或本地化视频内容，适合短片、产品演示和数字人口播制作。",
+    "bestFor": [
+      "短视频与广告素材",
+      "产品演示与分镜",
+      "视频本地化制作"
+    ],
+    "features": [
+      "AI 视频生成或编辑",
+      "画面与镜头控制",
+      "字幕或配音工作流"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "视频生成",
+      "电影感",
+      "镜头"
+    ],
+    "searchTerms": [
+      "梦境机器",
+      "电影镜头",
+      "图片转视频"
+    ],
+    "pros": [
+      "能快速验证视频创意",
+      "减少部分拍摄与后期步骤"
+    ],
+    "cons": [
+      "长片一致性仍需人工处理",
+      "高清输出通常消耗更多额度"
+    ],
+    "url": "https://lumalabs.ai/dream-machine",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "runway",
+      "capcut"
+    ]
   },
   {
     "slug": "cursor",
     "name": "Cursor",
     "category": "coding",
-    "tagline": "把 AI 深度放进代码编辑器",
-    "description": "适合在真实代码库里进行自然语言修改、重构、解释和调试，让 AI 成为持续工作的编程伙伴。",
-    "bestFor": ["快速搭建功能", "理解和重构旧代码", "跨文件修改与调试"],
-    "features": ["代码库上下文", "自然语言编辑", "Agent 任务执行"],
-    "pricing": "提供试用额度；订阅价格以官网为准",
-    "pros": ["和现有开发流程结合紧密", "跨文件理解能力强"],
-    "cons": ["需要良好代码习惯来审查改动", "大型项目额度消耗较快"],
+    "tagline": "把 AI 深度融入代码库上下文的编辑器",
+    "description": "Cursor用于代码生成、理解、调试或应用搭建，适合在真实开发流程中辅助完成工程任务。",
+    "bestFor": [
+      "代码编写与重构",
+      "应用原型搭建",
+      "调试与项目理解"
+    ],
+    "features": [
+      "自然语言生成代码",
+      "项目上下文理解",
+      "预览或开发工具集成"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "desktop"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "编辑器",
+      "代码库",
+      "Agent"
+    ],
+    "searchTerms": [
+      "AI 编程",
+      "代码重构",
+      "项目调试"
+    ],
+    "pros": [
+      "能加快原型和重复编码任务",
+      "便于从需求快速得到可运行结果"
+    ],
+    "cons": [
+      "生成代码必须审查和测试",
+      "复杂工程仍需开发经验"
+    ],
     "url": "https://www.cursor.com/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["github-copilot", "v0"]
+    "alternatives": [
+      "github-copilot",
+      "v0"
+    ],
+    "featuredOrder": 5
   },
   {
     "slug": "github-copilot",
     "name": "GitHub Copilot",
     "category": "coding",
-    "tagline": "成熟团队常用的 AI 编程助手",
-    "description": "适合在 GitHub、VS Code 和常见 IDE 中补全代码、解释项目和协助处理开发任务。",
-    "bestFor": ["代码补全和单元测试", "IDE 内即时问答", "团队开发工作流"],
-    "features": ["代码补全", "Copilot Chat", "Pull Request 辅助"],
-    "pricing": "部分个人场景可试用；套餐价格以官网为准",
-    "pros": ["生态成熟，IDE 支持广", "适合团队统一采购"],
-    "cons": ["复杂任务仍需拆分和复核", "高级功能按套餐区分"],
+    "tagline": "融入常用 IDE 与 GitHub 流程的编程助手",
+    "description": "GitHub Copilot用于代码生成、理解、调试或应用搭建，适合在真实开发流程中辅助完成工程任务。",
+    "bestFor": [
+      "代码编写与重构",
+      "应用原型搭建",
+      "调试与项目理解"
+    ],
+    "features": [
+      "自然语言生成代码",
+      "项目上下文理解",
+      "预览或开发工具集成"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "desktop",
+      "extension"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "代码补全",
+      "IDE",
+      "GitHub"
+    ],
+    "searchTerms": [
+      "代码助手",
+      "单元测试",
+      "IDE 插件"
+    ],
+    "pros": [
+      "能加快原型和重复编码任务",
+      "便于从需求快速得到可运行结果"
+    ],
+    "cons": [
+      "生成代码必须审查和测试",
+      "复杂工程仍需开发经验"
+    ],
     "url": "https://github.com/features/copilot",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["cursor", "v0"]
+    "alternatives": [
+      "v0",
+      "lovable"
+    ]
   },
   {
     "slug": "v0",
     "name": "v0",
     "category": "coding",
-    "tagline": "用自然语言生成前端界面原型",
-    "description": "适合把一句产品想法快速变成可运行的界面草稿，再继续迭代组件和交互。",
-    "bestFor": ["前端原型和落地页", "设计与开发沟通", "快速试验 UI 方向"],
-    "features": ["文本生成界面", "React/Tailwind 代码", "在线预览和迭代"],
-    "pricing": "提供有限免费额度；订阅价格以官网为准",
-    "pros": ["从想法到页面速度快", "适合非设计师表达界面"],
-    "cons": ["复杂业务逻辑需要人工补齐", "生成代码仍需工程化整理"],
+    "tagline": "用自然语言快速生成前端界面和应用原型",
+    "description": "v0用于代码生成、理解、调试或应用搭建，适合在真实开发流程中辅助完成工程任务。",
+    "bestFor": [
+      "代码编写与重构",
+      "应用原型搭建",
+      "调试与项目理解"
+    ],
+    "features": [
+      "自然语言生成代码",
+      "项目上下文理解",
+      "预览或开发工具集成"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "前端",
+      "界面生成",
+      "原型"
+    ],
+    "searchTerms": [
+      "生成网页",
+      "React 界面",
+      "AI 建站"
+    ],
+    "pros": [
+      "能加快原型和重复编码任务",
+      "便于从需求快速得到可运行结果"
+    ],
+    "cons": [
+      "生成代码必须审查和测试",
+      "复杂工程仍需开发经验"
+    ],
     "url": "https://v0.dev/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["lovable", "cursor"]
+    "alternatives": [
+      "lovable",
+      "replit"
+    ]
   },
   {
     "slug": "lovable",
     "name": "Lovable",
     "category": "coding",
-    "tagline": "从自然语言快速做出可用的 Web 应用",
-    "description": "适合产品经理、设计师和独立开发者快速验证数据库应用、管理后台和服务型产品。",
-    "bestFor": ["无代码产品原型", "内部工具和后台", "快速验证 SaaS 想法"],
-    "features": ["自然语言生成应用", "数据库与登录接入", "在线部署和协作"],
-    "pricing": "提供试用额度；套餐价格以官网为准",
-    "pros": ["原型到可用页面链路短", "适合独立开发者验证市场"],
-    "cons": ["复杂需求需要手动调试", "长期维护仍需要代码能力"],
+    "tagline": "从自然语言快速搭建可用的 Web 应用",
+    "description": "Lovable用于代码生成、理解、调试或应用搭建，适合在真实开发流程中辅助完成工程任务。",
+    "bestFor": [
+      "代码编写与重构",
+      "应用原型搭建",
+      "调试与项目理解"
+    ],
+    "features": [
+      "自然语言生成代码",
+      "项目上下文理解",
+      "预览或开发工具集成"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "全栈",
+      "应用生成",
+      "原型"
+    ],
+    "searchTerms": [
+      "无代码开发",
+      "SaaS 原型",
+      "生成应用"
+    ],
+    "pros": [
+      "能加快原型和重复编码任务",
+      "便于从需求快速得到可运行结果"
+    ],
+    "cons": [
+      "生成代码必须审查和测试",
+      "复杂工程仍需开发经验"
+    ],
     "url": "https://lovable.dev/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["v0", "cursor"]
+    "alternatives": [
+      "replit",
+      "bolt-new"
+    ]
   },
   {
-    "slug": "notion",
-    "name": "Notion",
-    "category": "productivity",
-    "tagline": "把笔记、项目和团队知识放在一起",
-    "description": "适合把个人笔记、项目计划和团队知识库集中管理，再用 AI 做搜索、总结和内容生成。",
-    "bestFor": ["个人知识管理", "项目和任务协作", "团队 Wiki 与会议记录"],
-    "features": ["文档、数据库和看板", "AI 搜索与总结", "模板和团队权限"],
-    "pricing": "提供基础免费版；AI 与团队套餐以官网为准",
-    "pros": ["结构灵活，适配多种工作方式", "模板生态成熟"],
-    "cons": ["自由度高也意味着需要自己搭结构", "复杂数据库可能有学习成本"],
-    "url": "https://www.notion.so/",
+    "slug": "replit",
+    "name": "Replit",
+    "category": "coding",
+    "tagline": "集编码、运行、部署与 AI Agent 于一体的云开发平台",
+    "description": "Replit用于代码生成、理解、调试或应用搭建，适合在真实开发流程中辅助完成工程任务。",
+    "bestFor": [
+      "代码编写与重构",
+      "应用原型搭建",
+      "调试与项目理解"
+    ],
+    "features": [
+      "自然语言生成代码",
+      "项目上下文理解",
+      "预览或开发工具集成"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "云开发",
+      "部署",
+      "Agent"
+    ],
+    "searchTerms": [
+      "在线编程",
+      "云端 IDE",
+      "应用部署"
+    ],
+    "pros": [
+      "能加快原型和重复编码任务",
+      "便于从需求快速得到可运行结果"
+    ],
+    "cons": [
+      "生成代码必须审查和测试",
+      "复杂工程仍需开发经验"
+    ],
+    "url": "https://replit.com/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["gamma", "napkin"]
+    "alternatives": [
+      "bolt-new",
+      "windsurf"
+    ]
   },
   {
-    "slug": "perplexity",
-    "name": "Perplexity",
-    "category": "productivity",
-    "tagline": "带来源的 AI 搜索与研究助手",
-    "description": "适合从一个问题开始快速查资料、比较观点和追踪来源，减少在多个网页之间来回切换。",
-    "bestFor": ["快速资料检索", "产品和行业研究", "需要引用来源的问答"],
-    "features": ["联网搜索与引用", "深度研究模式", "文件和网页分析"],
-    "pricing": "提供免费搜索额度；高级模型以官网为准",
-    "pros": ["回答附带来源，便于继续查证", "研究流程比传统搜索集中"],
-    "cons": ["来源质量仍需人工判断", "复杂问题可能出现事实偏差"],
-    "url": "https://www.perplexity.ai/",
+    "slug": "bolt-new",
+    "name": "Bolt.new",
+    "category": "coding",
+    "tagline": "在浏览器里对话生成并运行全栈应用",
+    "description": "Bolt.new用于代码生成、理解、调试或应用搭建，适合在真实开发流程中辅助完成工程任务。",
+    "bestFor": [
+      "代码编写与重构",
+      "应用原型搭建",
+      "调试与项目理解"
+    ],
+    "features": [
+      "自然语言生成代码",
+      "项目上下文理解",
+      "预览或开发工具集成"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "全栈",
+      "浏览器",
+      "应用生成"
+    ],
+    "searchTerms": [
+      "对话编程",
+      "网站生成",
+      "全栈原型"
+    ],
+    "pros": [
+      "能加快原型和重复编码任务",
+      "便于从需求快速得到可运行结果"
+    ],
+    "cons": [
+      "生成代码必须审查和测试",
+      "复杂工程仍需开发经验"
+    ],
+    "url": "https://bolt.new/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["notion", "gamma"]
+    "alternatives": [
+      "windsurf",
+      "cursor"
+    ]
   },
   {
-    "slug": "gamma",
-    "name": "Gamma",
-    "category": "productivity",
-    "tagline": "把提纲快速变成演示文稿和网页",
-    "description": "适合把一段文字或一份提纲生成结构清晰的演示文稿、文档或营销页面。",
-    "bestFor": ["路演和汇报 PPT", "课程和培训材料", "轻量营销页面"],
-    "features": ["大纲生成页面", "主题和布局编辑", "在线分享与导出"],
-    "pricing": "提供免费额度；高级导出和协作以官网为准",
-    "pros": ["从内容到版式速度快", "适合先做结构再精修"],
-    "cons": ["高度定制需要人工调整", "复杂数据图表能力有限"],
-    "url": "https://gamma.app/",
+    "slug": "windsurf",
+    "name": "Windsurf",
+    "category": "coding",
+    "tagline": "以代码库理解和 Agent 工作流辅助开发的编辑器",
+    "description": "Windsurf用于代码生成、理解、调试或应用搭建，适合在真实开发流程中辅助完成工程任务。",
+    "bestFor": [
+      "代码编写与重构",
+      "应用原型搭建",
+      "调试与项目理解"
+    ],
+    "features": [
+      "自然语言生成代码",
+      "项目上下文理解",
+      "预览或开发工具集成"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "desktop"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "编辑器",
+      "Agent",
+      "代码库"
+    ],
+    "searchTerms": [
+      "AI 编辑器",
+      "代码生成",
+      "开发代理"
+    ],
+    "pros": [
+      "能加快原型和重复编码任务",
+      "便于从需求快速得到可运行结果"
+    ],
+    "cons": [
+      "生成代码必须审查和测试",
+      "复杂工程仍需开发经验"
+    ],
+    "url": "https://windsurf.com/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["canva", "napkin"]
-  },
-  {
-    "slug": "napkin",
-    "name": "Napkin AI",
-    "category": "productivity",
-    "tagline": "把文字观点变成图表和视觉解释",
-    "description": "适合把文章、会议记录和产品思路快速转成流程图、关系图或可视化说明。",
-    "bestFor": ["复杂概念可视化", "产品和流程说明", "文章配图和演示素材"],
-    "features": ["文本生成图示", "多种图表样式", "在线编辑和导出"],
-    "pricing": "提供免费使用额度；套餐价格以官网为准",
-    "pros": ["把抽象内容变得易懂", "适合非设计师快速配图"],
-    "cons": ["专业图表仍需手工校对", "中文排版需检查细节"],
-    "url": "https://www.napkin.ai/",
-    "updatedAt": "2026-08-26",
-    "alternatives": ["gamma", "canva"]
+    "alternatives": [
+      "cursor",
+      "github-copilot"
+    ]
   },
   {
     "slug": "elevenlabs",
     "name": "ElevenLabs",
     "category": "audio",
-    "tagline": "自然语音生成与声音工作室",
-    "description": "适合为视频、播客和有声内容生成自然语音，也支持配音、翻译和声音设计。",
-    "bestFor": ["视频和课程配音", "多语言内容本地化", "播客和有声读物"],
-    "features": ["文本转语音", "语音克隆与设计", "多语言配音和 API"],
-    "pricing": "提供免费字符额度；订阅价格以官网为准",
-    "pros": ["语音自然度高", "适合规模化生成音频"],
-    "cons": ["声音授权和克隆需谨慎", "长内容费用需要预算"],
+    "tagline": "自然语音生成、配音与声音设计平台",
+    "description": "ElevenLabs用于语音、音乐或录音内容的生成与处理，适合配音、播客和创意音频制作。",
+    "bestFor": [
+      "语音与配音制作",
+      "音乐和音频创作",
+      "录音增强与编辑"
+    ],
+    "features": [
+      "AI 音频生成或处理",
+      "风格与声音控制",
+      "音频导出与工作流集成"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "mobile",
+      "api"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "语音生成",
+      "配音",
+      "声音"
+    ],
+    "searchTerms": [
+      "文字转语音",
+      "AI 配音",
+      "声音克隆"
+    ],
+    "pros": [
+      "能快速制作音频样稿",
+      "适合反复比较声音方向"
+    ],
+    "cons": [
+      "声音授权与商用范围需确认",
+      "精细成品仍需人工听审"
+    ],
     "url": "https://elevenlabs.io/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["suno", "udio"]
+    "alternatives": [
+      "suno",
+      "udio"
+    ]
   },
   {
     "slug": "suno",
     "name": "Suno",
     "category": "audio",
-    "tagline": "用一句描述生成完整歌曲",
-    "description": "适合快速探索旋律、编曲和歌曲氛围，用于灵感草稿、短视频配乐或个人娱乐创作。",
-    "bestFor": ["歌曲灵感和小样", "短视频背景音乐", "非专业音乐创作"],
-    "features": ["文本生成歌曲", "歌词与风格控制", "歌曲续写和变体"],
-    "pricing": "提供免费生成额度；商用授权以官网为准",
-    "pros": ["从想法到成曲非常快", "适合探索不同音乐风格"],
-    "cons": ["精确控制编曲有限", "商用使用需确认授权范围"],
+    "tagline": "用文字描述快速生成完整歌曲",
+    "description": "Suno用于语音、音乐或录音内容的生成与处理，适合配音、播客和创意音频制作。",
+    "bestFor": [
+      "语音与配音制作",
+      "音乐和音频创作",
+      "录音增强与编辑"
+    ],
+    "features": [
+      "AI 音频生成或处理",
+      "风格与声音控制",
+      "音频导出与工作流集成"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "音乐生成",
+      "歌曲",
+      "作曲"
+    ],
+    "searchTerms": [
+      "AI 音乐",
+      "生成歌曲",
+      "短视频配乐"
+    ],
+    "pros": [
+      "能快速制作音频样稿",
+      "适合反复比较声音方向"
+    ],
+    "cons": [
+      "声音授权与商用范围需确认",
+      "精细成品仍需人工听审"
+    ],
     "url": "https://suno.com/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["udio", "elevenlabs"]
+    "alternatives": [
+      "udio",
+      "descript"
+    ]
   },
   {
     "slug": "udio",
     "name": "Udio",
     "category": "audio",
-    "tagline": "面向音乐创作者的 AI 作曲实验室",
-    "description": "适合用文字描述探索歌曲结构、风格和人声表现，再通过续写和变体逐步打磨作品。",
-    "bestFor": ["音乐风格探索", "歌曲片段续写", "创作灵感和 demo"],
-    "features": ["文本生成音乐", "片段延展", "风格与歌词编辑"],
-    "pricing": "提供免费额度；套餐和授权以官网为准",
-    "pros": ["音乐结构表现细腻", "适合多轮试验同一首歌"],
-    "cons": ["生成一致性需要多次尝试", "商用条款需单独确认"],
+    "tagline": "面向音乐创作与续写实验的 AI 作曲工具",
+    "description": "Udio用于语音、音乐或录音内容的生成与处理，适合配音、播客和创意音频制作。",
+    "bestFor": [
+      "语音与配音制作",
+      "音乐和音频创作",
+      "录音增强与编辑"
+    ],
+    "features": [
+      "AI 音频生成或处理",
+      "风格与声音控制",
+      "音频导出与工作流集成"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "音乐生成",
+      "续写",
+      "创作"
+    ],
+    "searchTerms": [
+      "AI 作曲",
+      "歌曲续写",
+      "音乐灵感"
+    ],
+    "pros": [
+      "能快速制作音频样稿",
+      "适合反复比较声音方向"
+    ],
+    "cons": [
+      "声音授权与商用范围需确认",
+      "精细成品仍需人工听审"
+    ],
     "url": "https://www.udio.com/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["suno", "elevenlabs"]
+    "alternatives": [
+      "descript",
+      "adobe-podcast"
+    ]
   },
   {
-    "slug": "otter",
-    "name": "Otter.ai",
+    "slug": "descript",
+    "name": "Descript",
     "category": "audio",
-    "tagline": "自动记录会议并提炼行动项",
-    "description": "适合在线会议、访谈和课程记录，把语音实时转写成可搜索的文字并提取重点。",
-    "bestFor": ["会议纪要", "访谈和用户研究", "课程与讲座记录"],
-    "features": ["实时转写", "说话人识别", "摘要与行动项"],
-    "pricing": "提供免费转写额度；套餐价格以官网为准",
-    "pros": ["减少手动记笔记负担", "会议后检索方便"],
-    "cons": ["专业术语需要校对", "录音前应取得参与者同意"],
-    "url": "https://otter.ai/",
+    "tagline": "像编辑文档一样处理播客和视频音频",
+    "description": "Descript用于语音、音乐或录音内容的生成与处理，适合配音、播客和创意音频制作。",
+    "bestFor": [
+      "语音与配音制作",
+      "音乐和音频创作",
+      "录音增强与编辑"
+    ],
+    "features": [
+      "AI 音频生成或处理",
+      "风格与声音控制",
+      "音频导出与工作流集成"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "none",
+    "accessModes": [
+      "desktop"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "播客",
+      "转写",
+      "音频编辑"
+    ],
+    "searchTerms": [
+      "播客剪辑",
+      "文字剪音频",
+      "录音转写"
+    ],
+    "pros": [
+      "能快速制作音频样稿",
+      "适合反复比较声音方向"
+    ],
+    "cons": [
+      "声音授权与商用范围需确认",
+      "精细成品仍需人工听审"
+    ],
+    "url": "https://www.descript.com/",
+    "addedAt": "2026-08-26",
     "updatedAt": "2026-08-26",
-    "alternatives": ["elevenlabs", "notion"]
+    "alternatives": [
+      "adobe-podcast",
+      "aiva"
+    ]
+  },
+  {
+    "slug": "adobe-podcast",
+    "name": "Adobe Podcast",
+    "category": "audio",
+    "tagline": "在线增强人声并制作清晰播客音频",
+    "description": "Adobe Podcast用于语音、音乐或录音内容的生成与处理，适合配音、播客和创意音频制作。",
+    "bestFor": [
+      "语音与配音制作",
+      "音乐和音频创作",
+      "录音增强与编辑"
+    ],
+    "features": [
+      "AI 音频生成或处理",
+      "风格与声音控制",
+      "音频导出与工作流集成"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "人声增强",
+      "播客",
+      "录音"
+    ],
+    "searchTerms": [
+      "降噪",
+      "录音增强",
+      "播客工具"
+    ],
+    "pros": [
+      "能快速制作音频样稿",
+      "适合反复比较声音方向"
+    ],
+    "cons": [
+      "声音授权与商用范围需确认",
+      "精细成品仍需人工听审"
+    ],
+    "url": "https://podcast.adobe.com/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "aiva",
+      "murf"
+    ]
+  },
+  {
+    "slug": "aiva",
+    "name": "AIVA",
+    "category": "audio",
+    "tagline": "面向配乐与主题音乐创作的 AI 作曲平台",
+    "description": "AIVA用于语音、音乐或录音内容的生成与处理，适合配音、播客和创意音频制作。",
+    "bestFor": [
+      "语音与配音制作",
+      "音乐和音频创作",
+      "录音增强与编辑"
+    ],
+    "features": [
+      "AI 音频生成或处理",
+      "风格与声音控制",
+      "音频导出与工作流集成"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "none",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "配乐",
+      "作曲",
+      "音乐"
+    ],
+    "searchTerms": [
+      "影视配乐",
+      "背景音乐",
+      "AI 作曲"
+    ],
+    "pros": [
+      "能快速制作音频样稿",
+      "适合反复比较声音方向"
+    ],
+    "cons": [
+      "声音授权与商用范围需确认",
+      "精细成品仍需人工听审"
+    ],
+    "url": "https://www.aiva.ai/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "murf",
+      "elevenlabs"
+    ]
+  },
+  {
+    "slug": "murf",
+    "name": "Murf",
+    "category": "audio",
+    "tagline": "为演示、课程和营销视频生成配音",
+    "description": "Murf用于语音、音乐或录音内容的生成与处理，适合配音、播客和创意音频制作。",
+    "bestFor": [
+      "语音与配音制作",
+      "音乐和音频创作",
+      "录音增强与编辑"
+    ],
+    "features": [
+      "AI 音频生成或处理",
+      "风格与声音控制",
+      "音频导出与工作流集成"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "api"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "配音",
+      "语音",
+      "视频"
+    ],
+    "searchTerms": [
+      "课程配音",
+      "广告旁白",
+      "文字转语音"
+    ],
+    "pros": [
+      "能快速制作音频样稿",
+      "适合反复比较声音方向"
+    ],
+    "cons": [
+      "声音授权与商用范围需确认",
+      "精细成品仍需人工听审"
+    ],
+    "url": "https://murf.ai/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "elevenlabs",
+      "suno"
+    ]
+  },
+  {
+    "slug": "perplexity",
+    "name": "Perplexity",
+    "category": "research",
+    "tagline": "提供来源链接的 AI 搜索与研究助手",
+    "description": "Perplexity用于检索、阅读和分析公开资料或学术文献，帮助用户形成带来源的研究线索。",
+    "bestFor": [
+      "资料检索与综述",
+      "论文与证据阅读",
+      "研究问题探索"
+    ],
+    "features": [
+      "语义搜索与问答",
+      "来源或引用追踪",
+      "资料总结与筛选"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "desktop",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "AI 搜索",
+      "引用",
+      "研究"
+    ],
+    "searchTerms": [
+      "带来源问答",
+      "联网搜索",
+      "行业研究"
+    ],
+    "pros": [
+      "能集中初步研究流程",
+      "便于继续检查原始来源"
+    ],
+    "cons": [
+      "来源质量仍需人工判断",
+      "不能替代完整的专业研究"
+    ],
+    "url": "https://www.perplexity.ai/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "elicit",
+      "consensus"
+    ],
+    "featuredOrder": 6
+  },
+  {
+    "slug": "elicit",
+    "name": "Elicit",
+    "category": "research",
+    "tagline": "辅助检索、筛选和总结研究论文",
+    "description": "Elicit用于检索、阅读和分析公开资料或学术文献，帮助用户形成带来源的研究线索。",
+    "bestFor": [
+      "资料检索与综述",
+      "论文与证据阅读",
+      "研究问题探索"
+    ],
+    "features": [
+      "语义搜索与问答",
+      "来源或引用追踪",
+      "资料总结与筛选"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "none",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "论文",
+      "文献综述",
+      "研究"
+    ],
+    "searchTerms": [
+      "论文检索",
+      "系统综述",
+      "研究证据"
+    ],
+    "pros": [
+      "能集中初步研究流程",
+      "便于继续检查原始来源"
+    ],
+    "cons": [
+      "来源质量仍需人工判断",
+      "不能替代完整的专业研究"
+    ],
+    "url": "https://elicit.com/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "consensus",
+      "scite"
+    ]
+  },
+  {
+    "slug": "consensus",
+    "name": "Consensus",
+    "category": "research",
+    "tagline": "从科研论文中查找问题的证据线索",
+    "description": "Consensus用于检索、阅读和分析公开资料或学术文献，帮助用户形成带来源的研究线索。",
+    "bestFor": [
+      "资料检索与综述",
+      "论文与证据阅读",
+      "研究问题探索"
+    ],
+    "features": [
+      "语义搜索与问答",
+      "来源或引用追踪",
+      "资料总结与筛选"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "none",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "学术搜索",
+      "证据",
+      "论文"
+    ],
+    "searchTerms": [
+      "科学证据",
+      "论文问答",
+      "学术研究"
+    ],
+    "pros": [
+      "能集中初步研究流程",
+      "便于继续检查原始来源"
+    ],
+    "cons": [
+      "来源质量仍需人工判断",
+      "不能替代完整的专业研究"
+    ],
+    "url": "https://consensus.app/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "scite",
+      "notebooklm"
+    ]
+  },
+  {
+    "slug": "scite",
+    "name": "Scite",
+    "category": "research",
+    "tagline": "通过引文语境判断论文如何被引用",
+    "description": "Scite用于检索、阅读和分析公开资料或学术文献，帮助用户形成带来源的研究线索。",
+    "bestFor": [
+      "资料检索与综述",
+      "论文与证据阅读",
+      "研究问题探索"
+    ],
+    "features": [
+      "语义搜索与问答",
+      "来源或引用追踪",
+      "资料总结与筛选"
+    ],
+    "pricing": "主要提供付费方案；具体价格与套餐以官网为准",
+    "pricingMode": "paid",
+    "chineseSupport": "none",
+    "accessModes": [
+      "web",
+      "extension"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "引文",
+      "论文",
+      "证据"
+    ],
+    "searchTerms": [
+      "引用分析",
+      "论文可信度",
+      "学术引文"
+    ],
+    "pros": [
+      "能集中初步研究流程",
+      "便于继续检查原始来源"
+    ],
+    "cons": [
+      "来源质量仍需人工判断",
+      "不能替代完整的专业研究"
+    ],
+    "url": "https://scite.ai/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "notebooklm",
+      "you-com"
+    ]
+  },
+  {
+    "slug": "notebooklm",
+    "name": "NotebookLM",
+    "category": "research",
+    "tagline": "基于用户资料生成摘要、问答和音频概览",
+    "description": "NotebookLM用于检索、阅读和分析公开资料或学术文献，帮助用户形成带来源的研究线索。",
+    "bestFor": [
+      "资料检索与综述",
+      "论文与证据阅读",
+      "研究问题探索"
+    ],
+    "features": [
+      "语义搜索与问答",
+      "来源或引用追踪",
+      "资料总结与筛选"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "资料库",
+      "摘要",
+      "问答"
+    ],
+    "searchTerms": [
+      "资料问答",
+      "文档研究",
+      "音频概览"
+    ],
+    "pros": [
+      "能集中初步研究流程",
+      "便于继续检查原始来源"
+    ],
+    "cons": [
+      "来源质量仍需人工判断",
+      "不能替代完整的专业研究"
+    ],
+    "url": "https://notebooklm.google.com/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "you-com",
+      "semantic-scholar"
+    ]
+  },
+  {
+    "slug": "you-com",
+    "name": "You.com",
+    "category": "research",
+    "tagline": "结合网页搜索与多模型对话的研究助手",
+    "description": "You.com用于检索、阅读和分析公开资料或学术文献，帮助用户形成带来源的研究线索。",
+    "bestFor": [
+      "资料检索与综述",
+      "论文与证据阅读",
+      "研究问题探索"
+    ],
+    "features": [
+      "语义搜索与问答",
+      "来源或引用追踪",
+      "资料总结与筛选"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "搜索",
+      "多模型",
+      "对话"
+    ],
+    "searchTerms": [
+      "AI 搜索",
+      "网页研究",
+      "多模型问答"
+    ],
+    "pros": [
+      "能集中初步研究流程",
+      "便于继续检查原始来源"
+    ],
+    "cons": [
+      "来源质量仍需人工判断",
+      "不能替代完整的专业研究"
+    ],
+    "url": "https://you.com/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "semantic-scholar",
+      "perplexity"
+    ]
+  },
+  {
+    "slug": "semantic-scholar",
+    "name": "Semantic Scholar",
+    "category": "research",
+    "tagline": "面向科研文献发现与引用追踪的学术搜索引擎",
+    "description": "Semantic Scholar用于检索、阅读和分析公开资料或学术文献，帮助用户形成带来源的研究线索。",
+    "bestFor": [
+      "资料检索与综述",
+      "论文与证据阅读",
+      "研究问题探索"
+    ],
+    "features": [
+      "语义搜索与问答",
+      "来源或引用追踪",
+      "资料总结与筛选"
+    ],
+    "pricing": "可使用基础服务；具体额度与政策以官网为准",
+    "pricingMode": "free",
+    "chineseSupport": "none",
+    "accessModes": [
+      "web",
+      "api"
+    ],
+    "requiresAccount": false,
+    "tags": [
+      "学术搜索",
+      "论文",
+      "引用"
+    ],
+    "searchTerms": [
+      "免费论文搜索",
+      "作者追踪",
+      "文献检索"
+    ],
+    "pros": [
+      "能集中初步研究流程",
+      "便于继续检查原始来源"
+    ],
+    "cons": [
+      "来源质量仍需人工判断",
+      "不能替代完整的专业研究"
+    ],
+    "url": "https://www.semanticscholar.org/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "perplexity",
+      "elicit"
+    ]
+  },
+  {
+    "slug": "jasper",
+    "name": "Jasper",
+    "category": "marketing",
+    "tagline": "面向品牌团队的营销内容与语气管理平台",
+    "description": "Jasper用于营销文案、社媒内容和广告素材规划，适合从创意到发布的日常内容工作。",
+    "bestFor": [
+      "营销文案与活动创意",
+      "社媒内容规划",
+      "广告素材制作"
+    ],
+    "features": [
+      "AI 文案与创意生成",
+      "品牌语气调整",
+      "内容排期或渠道适配"
+    ],
+    "pricing": "主要提供付费方案；具体价格与套餐以官网为准",
+    "pricingMode": "paid",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "extension"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "营销文案",
+      "品牌",
+      "内容"
+    ],
+    "searchTerms": [
+      "品牌文案",
+      "营销写作",
+      "活动创意"
+    ],
+    "pros": [
+      "能加快多版本内容产出",
+      "适合建立可复用营销流程"
+    ],
+    "cons": [
+      "品牌事实和合规需复核",
+      "差异化创意仍依赖人工判断"
+    ],
+    "url": "https://www.jasper.ai/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "copy-ai",
+      "hubspot-ai"
+    ]
+  },
+  {
+    "slug": "copy-ai",
+    "name": "Copy.ai",
+    "category": "marketing",
+    "tagline": "用工作流批量生成销售与营销内容",
+    "description": "Copy.ai用于营销文案、社媒内容和广告素材规划，适合从创意到发布的日常内容工作。",
+    "bestFor": [
+      "营销文案与活动创意",
+      "社媒内容规划",
+      "广告素材制作"
+    ],
+    "features": [
+      "AI 文案与创意生成",
+      "品牌语气调整",
+      "内容排期或渠道适配"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "营销",
+      "销售",
+      "文案"
+    ],
+    "searchTerms": [
+      "广告文案",
+      "销售邮件",
+      "内容工作流"
+    ],
+    "pros": [
+      "能加快多版本内容产出",
+      "适合建立可复用营销流程"
+    ],
+    "cons": [
+      "品牌事实和合规需复核",
+      "差异化创意仍依赖人工判断"
+    ],
+    "url": "https://www.copy.ai/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "hubspot-ai",
+      "predis-ai"
+    ]
+  },
+  {
+    "slug": "hubspot-ai",
+    "name": "HubSpot AI",
+    "category": "marketing",
+    "tagline": "融入 HubSpot 客户平台的营销与销售 AI",
+    "description": "HubSpot AI用于营销文案、社媒内容和广告素材规划，适合从创意到发布的日常内容工作。",
+    "bestFor": [
+      "营销文案与活动创意",
+      "社媒内容规划",
+      "广告素材制作"
+    ],
+    "features": [
+      "AI 文案与创意生成",
+      "品牌语气调整",
+      "内容排期或渠道适配"
+    ],
+    "pricing": "面向团队提供定制方案；具体价格与政策以官网为准",
+    "pricingMode": "contact",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "CRM",
+      "营销",
+      "销售"
+    ],
+    "searchTerms": [
+      "客户营销",
+      "销售助手",
+      "CRM 内容"
+    ],
+    "pros": [
+      "能加快多版本内容产出",
+      "适合建立可复用营销流程"
+    ],
+    "cons": [
+      "品牌事实和合规需复核",
+      "差异化创意仍依赖人工判断"
+    ],
+    "url": "https://www.hubspot.com/products/artificial-intelligence",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "predis-ai",
+      "buffer-ai"
+    ]
+  },
+  {
+    "slug": "predis-ai",
+    "name": "Predis.ai",
+    "category": "marketing",
+    "tagline": "从创意到图片文案生成社媒内容",
+    "description": "Predis.ai用于营销文案、社媒内容和广告素材规划，适合从创意到发布的日常内容工作。",
+    "bestFor": [
+      "营销文案与活动创意",
+      "社媒内容规划",
+      "广告素材制作"
+    ],
+    "features": [
+      "AI 文案与创意生成",
+      "品牌语气调整",
+      "内容排期或渠道适配"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "社媒",
+      "图文",
+      "排期"
+    ],
+    "searchTerms": [
+      "社交媒体内容",
+      "帖子生成",
+      "短视频文案"
+    ],
+    "pros": [
+      "能加快多版本内容产出",
+      "适合建立可复用营销流程"
+    ],
+    "cons": [
+      "品牌事实和合规需复核",
+      "差异化创意仍依赖人工判断"
+    ],
+    "url": "https://predis.ai/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "buffer-ai",
+      "adcreative-ai"
+    ]
+  },
+  {
+    "slug": "buffer-ai",
+    "name": "Buffer AI Assistant",
+    "category": "marketing",
+    "tagline": "在 Buffer 排期流程中构思和改写社媒帖子",
+    "description": "Buffer AI Assistant用于营销文案、社媒内容和广告素材规划，适合从创意到发布的日常内容工作。",
+    "bestFor": [
+      "营销文案与活动创意",
+      "社媒内容规划",
+      "广告素材制作"
+    ],
+    "features": [
+      "AI 文案与创意生成",
+      "品牌语气调整",
+      "内容排期或渠道适配"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "mobile",
+      "extension"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "社媒",
+      "排期",
+      "文案"
+    ],
+    "searchTerms": [
+      "社媒排期",
+      "帖子改写",
+      "内容日历"
+    ],
+    "pros": [
+      "能加快多版本内容产出",
+      "适合建立可复用营销流程"
+    ],
+    "cons": [
+      "品牌事实和合规需复核",
+      "差异化创意仍依赖人工判断"
+    ],
+    "url": "https://buffer.com/ai-assistant",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "adcreative-ai",
+      "ocoya"
+    ]
+  },
+  {
+    "slug": "adcreative-ai",
+    "name": "AdCreative.ai",
+    "category": "marketing",
+    "tagline": "批量生成广告视觉与转化文案素材",
+    "description": "AdCreative.ai用于营销文案、社媒内容和广告素材规划，适合从创意到发布的日常内容工作。",
+    "bestFor": [
+      "营销文案与活动创意",
+      "社媒内容规划",
+      "广告素材制作"
+    ],
+    "features": [
+      "AI 文案与创意生成",
+      "品牌语气调整",
+      "内容排期或渠道适配"
+    ],
+    "pricing": "主要提供付费方案；具体价格与套餐以官网为准",
+    "pricingMode": "paid",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "广告",
+      "素材",
+      "文案"
+    ],
+    "searchTerms": [
+      "广告图片",
+      "投放素材",
+      "广告文案"
+    ],
+    "pros": [
+      "能加快多版本内容产出",
+      "适合建立可复用营销流程"
+    ],
+    "cons": [
+      "品牌事实和合规需复核",
+      "差异化创意仍依赖人工判断"
+    ],
+    "url": "https://www.adcreative.ai/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "ocoya",
+      "jasper"
+    ]
+  },
+  {
+    "slug": "ocoya",
+    "name": "Ocoya",
+    "category": "marketing",
+    "tagline": "整合社媒内容生成、排期和分析的平台",
+    "description": "Ocoya用于营销文案、社媒内容和广告素材规划，适合从创意到发布的日常内容工作。",
+    "bestFor": [
+      "营销文案与活动创意",
+      "社媒内容规划",
+      "广告素材制作"
+    ],
+    "features": [
+      "AI 文案与创意生成",
+      "品牌语气调整",
+      "内容排期或渠道适配"
+    ],
+    "pricing": "主要提供付费方案；具体价格与套餐以官网为准",
+    "pricingMode": "paid",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "社媒",
+      "排期",
+      "分析"
+    ],
+    "searchTerms": [
+      "社媒管理",
+      "内容发布",
+      "营销排期"
+    ],
+    "pros": [
+      "能加快多版本内容产出",
+      "适合建立可复用营销流程"
+    ],
+    "cons": [
+      "品牌事实和合规需复核",
+      "差异化创意仍依赖人工判断"
+    ],
+    "url": "https://www.ocoya.com/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "jasper",
+      "copy-ai"
+    ]
+  },
+  {
+    "slug": "zapier",
+    "name": "Zapier",
+    "category": "automation",
+    "tagline": "连接大量在线应用并自动执行跨工具任务",
+    "description": "Zapier用于连接应用、自动处理数据或执行重复任务，适合搭建跨工具的业务工作流。",
+    "bestFor": [
+      "跨应用流程自动化",
+      "数据整理与分析",
+      "重复任务批处理"
+    ],
+    "features": [
+      "可视化或自然语言工作流",
+      "应用与数据连接",
+      "任务触发和执行记录"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "集成",
+      "工作流",
+      "无代码"
+    ],
+    "searchTerms": [
+      "自动化工作流",
+      "应用连接",
+      "无代码自动化"
+    ],
+    "pros": [
+      "能减少重复手工操作",
+      "便于逐步搭建业务流程"
+    ],
+    "cons": [
+      "关键流程需要异常处理",
+      "复杂用量的成本需提前评估"
+    ],
+    "url": "https://zapier.com/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "make",
+      "n8n"
+    ]
+  },
+  {
+    "slug": "make",
+    "name": "Make",
+    "category": "automation",
+    "tagline": "用可视化场景编排复杂应用与数据流程",
+    "description": "Make用于连接应用、自动处理数据或执行重复任务，适合搭建跨工具的业务工作流。",
+    "bestFor": [
+      "跨应用流程自动化",
+      "数据整理与分析",
+      "重复任务批处理"
+    ],
+    "features": [
+      "可视化或自然语言工作流",
+      "应用与数据连接",
+      "任务触发和执行记录"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "可视化",
+      "集成",
+      "工作流"
+    ],
+    "searchTerms": [
+      "流程编排",
+      "应用自动化",
+      "数据同步"
+    ],
+    "pros": [
+      "能减少重复手工操作",
+      "便于逐步搭建业务流程"
+    ],
+    "cons": [
+      "关键流程需要异常处理",
+      "复杂用量的成本需提前评估"
+    ],
+    "url": "https://www.make.com/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "n8n",
+      "airtable"
+    ]
+  },
+  {
+    "slug": "n8n",
+    "name": "n8n",
+    "category": "automation",
+    "tagline": "支持自托管和代码节点的灵活工作流平台",
+    "description": "n8n用于连接应用、自动处理数据或执行重复任务，适合搭建跨工具的业务工作流。",
+    "bestFor": [
+      "跨应用流程自动化",
+      "数据整理与分析",
+      "重复任务批处理"
+    ],
+    "features": [
+      "可视化或自然语言工作流",
+      "应用与数据连接",
+      "任务触发和执行记录"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "自托管",
+      "工作流",
+      "集成"
+    ],
+    "searchTerms": [
+      "开源自动化",
+      "AI 工作流",
+      "数据集成"
+    ],
+    "pros": [
+      "能减少重复手工操作",
+      "便于逐步搭建业务流程"
+    ],
+    "cons": [
+      "关键流程需要异常处理",
+      "复杂用量的成本需提前评估"
+    ],
+    "url": "https://n8n.io/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "airtable",
+      "bardeen"
+    ]
+  },
+  {
+    "slug": "airtable",
+    "name": "Airtable",
+    "category": "automation",
+    "tagline": "把结构化数据、应用界面和自动化放在一起",
+    "description": "Airtable用于连接应用、自动处理数据或执行重复任务，适合搭建跨工具的业务工作流。",
+    "bestFor": [
+      "跨应用流程自动化",
+      "数据整理与分析",
+      "重复任务批处理"
+    ],
+    "features": [
+      "可视化或自然语言工作流",
+      "应用与数据连接",
+      "任务触发和执行记录"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web",
+      "desktop",
+      "mobile"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "数据库",
+      "协作",
+      "自动化"
+    ],
+    "searchTerms": [
+      "在线数据库",
+      "项目数据",
+      "业务自动化"
+    ],
+    "pros": [
+      "能减少重复手工操作",
+      "便于逐步搭建业务流程"
+    ],
+    "cons": [
+      "关键流程需要异常处理",
+      "复杂用量的成本需提前评估"
+    ],
+    "url": "https://www.airtable.com/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "bardeen",
+      "rows"
+    ]
+  },
+  {
+    "slug": "bardeen",
+    "name": "Bardeen",
+    "category": "automation",
+    "tagline": "在浏览器中抓取网页并自动完成重复任务",
+    "description": "Bardeen用于连接应用、自动处理数据或执行重复任务，适合搭建跨工具的业务工作流。",
+    "bestFor": [
+      "跨应用流程自动化",
+      "数据整理与分析",
+      "重复任务批处理"
+    ],
+    "features": [
+      "可视化或自然语言工作流",
+      "应用与数据连接",
+      "任务触发和执行记录"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "none",
+    "accessModes": [
+      "web",
+      "extension"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "浏览器",
+      "抓取",
+      "自动化"
+    ],
+    "searchTerms": [
+      "网页自动化",
+      "数据抓取",
+      "浏览器工作流"
+    ],
+    "pros": [
+      "能减少重复手工操作",
+      "便于逐步搭建业务流程"
+    ],
+    "cons": [
+      "关键流程需要异常处理",
+      "复杂用量的成本需提前评估"
+    ],
+    "url": "https://www.bardeen.ai/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "rows",
+      "julius-ai"
+    ]
+  },
+  {
+    "slug": "rows",
+    "name": "Rows",
+    "category": "automation",
+    "tagline": "结合电子表格、数据连接和 AI 分析的工作台",
+    "description": "Rows用于连接应用、自动处理数据或执行重复任务，适合搭建跨工具的业务工作流。",
+    "bestFor": [
+      "跨应用流程自动化",
+      "数据整理与分析",
+      "重复任务批处理"
+    ],
+    "features": [
+      "可视化或自然语言工作流",
+      "应用与数据连接",
+      "任务触发和执行记录"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "表格",
+      "数据",
+      "分析"
+    ],
+    "searchTerms": [
+      "AI 表格",
+      "数据分析",
+      "自动报表"
+    ],
+    "pros": [
+      "能减少重复手工操作",
+      "便于逐步搭建业务流程"
+    ],
+    "cons": [
+      "关键流程需要异常处理",
+      "复杂用量的成本需提前评估"
+    ],
+    "url": "https://rows.com/ai",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "julius-ai",
+      "zapier"
+    ]
+  },
+  {
+    "slug": "julius-ai",
+    "name": "Julius AI",
+    "category": "automation",
+    "tagline": "通过对话分析表格并生成图表和结论",
+    "description": "Julius AI用于连接应用、自动处理数据或执行重复任务，适合搭建跨工具的业务工作流。",
+    "bestFor": [
+      "跨应用流程自动化",
+      "数据整理与分析",
+      "重复任务批处理"
+    ],
+    "features": [
+      "可视化或自然语言工作流",
+      "应用与数据连接",
+      "任务触发和执行记录"
+    ],
+    "pricing": "提供基础体验与付费升级；具体额度和套餐以官网为准",
+    "pricingMode": "freemium",
+    "chineseSupport": "partial",
+    "accessModes": [
+      "web"
+    ],
+    "requiresAccount": true,
+    "tags": [
+      "数据分析",
+      "图表",
+      "表格"
+    ],
+    "searchTerms": [
+      "对话式分析",
+      "表格问答",
+      "数据可视化"
+    ],
+    "pros": [
+      "能减少重复手工操作",
+      "便于逐步搭建业务流程"
+    ],
+    "cons": [
+      "关键流程需要异常处理",
+      "复杂用量的成本需提前评估"
+    ],
+    "url": "https://julius.ai/",
+    "addedAt": "2026-08-26",
+    "updatedAt": "2026-08-26",
+    "alternatives": [
+      "zapier",
+      "make"
+    ]
   }
 ]
