@@ -39,6 +39,12 @@ export interface AiTool {
   alternatives: string[]
 }
 
+export type ReadonlyAiTool = {
+  readonly [Field in keyof AiTool]: AiTool[Field] extends Array<infer Item>
+    ? readonly Item[]
+    : AiTool[Field]
+}
+
 export type CategoryFilter = ToolCategory | 'all'
 
 export const categoryLabels: Record<ToolCategory, string> = {
@@ -237,7 +243,7 @@ export function validateToolCollection(value: unknown): AiTool[] {
   return value as AiTool[]
 }
 
-function freezeToolCollection(collection: AiTool[]): readonly AiTool[] {
+function freezeToolCollection(collection: AiTool[]): readonly ReadonlyAiTool[] {
   collection.forEach((tool) => {
     Object.freeze(tool.bestFor)
     Object.freeze(tool.features)
@@ -259,11 +265,11 @@ function normalize(value: string): string {
   return value.trim().toLocaleLowerCase()
 }
 
-export function getAllTools(): readonly AiTool[] {
+export function getAllTools(): readonly ReadonlyAiTool[] {
   return tools
 }
 
-export function getToolBySlug(slug: string): AiTool | undefined {
+export function getToolBySlug(slug: string): ReadonlyAiTool | undefined {
   return tools.find((tool) => tool.slug === slug)
 }
 
@@ -283,7 +289,10 @@ export function getCategories(): ReadonlyArray<{
   }))
 }
 
-export function searchTools(query = '', category: CategoryFilter = 'all'): readonly AiTool[] {
+export function searchTools(
+  query = '',
+  category: CategoryFilter = 'all'
+): readonly ReadonlyAiTool[] {
   const normalizedQuery = normalize(query)
 
   return tools.filter((tool) => {
@@ -306,7 +315,7 @@ export function searchTools(query = '', category: CategoryFilter = 'all'): reado
   })
 }
 
-export function getFeaturedTools(limit = 6): readonly AiTool[] {
+export function getFeaturedTools(limit = 6): readonly ReadonlyAiTool[] {
   return tools
     .filter((tool) => tool.featuredOrder !== undefined)
     .sort((left, right) => left.featuredOrder! - right.featuredOrder!)

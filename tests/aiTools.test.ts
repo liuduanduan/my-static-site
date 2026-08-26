@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  type AiTool,
   categoryLabels,
   getAllTools,
   getCategories,
@@ -87,12 +88,12 @@ const originalSlugs = [
   'otter'
 ]
 
-function cloneCatalog(): Array<Record<string, any>> {
+function cloneCatalog(): Array<Record<string, unknown>> {
   return JSON.parse(JSON.stringify(getAllTools()))
 }
 
 function expectMutationToThrow(
-  mutate: (catalog: Array<Record<string, any>>) => unknown,
+  mutate: (catalog: Array<Record<string, unknown>>) => unknown,
   message: RegExp
 ): void {
   const catalog = cloneCatalog()
@@ -107,6 +108,27 @@ function attemptMutation(mutate: () => void): void {
     // Frozen public data rejects mutation in strict mode; state assertions below are authoritative.
   }
 }
+
+function assertReadonlyPublicCatalogTypes(): void {
+  const allTool = getAllTools()[0]
+  // @ts-expect-error Public catalog fields are readonly.
+  allTool.name = 'compile-time mutation'
+  // @ts-expect-error Public catalog nested arrays are readonly.
+  allTool.tags.push('compile-time mutation')
+
+  const lookupTool = getToolBySlug('cursor')!
+  // @ts-expect-error Lookup results expose readonly tool records.
+  lookupTool.category = 'chat'
+  // @ts-expect-error Lookup result alternatives are readonly.
+  lookupTool.alternatives.push('chatgpt')
+
+  // @ts-expect-error Search result tool arrays are readonly.
+  searchTools()[0].features.push('compile-time mutation')
+  // @ts-expect-error Featured result tool records are readonly.
+  getFeaturedTools()[0].tagline = 'compile-time mutation'
+}
+
+void assertReadonlyPublicCatalogTypes
 
 describe('ai tool directory data', () => {
   it('contains exactly 63 tools across the nine ordered categories', () => {
@@ -197,6 +219,8 @@ describe('ai tool directory data', () => {
   it('does not let public API consumers mutate the module catalog', () => {
     const publicTools = getAllTools()
     const cursor = getToolBySlug('cursor')!
+    const mutablePublicTools = publicTools as unknown as AiTool[]
+    const mutableCursor = cursor as unknown as AiTool
     const originalLength = publicTools.length
     const originalName = cursor.name
     const originalCategory = cursor.category
@@ -213,11 +237,11 @@ describe('ai tool directory data', () => {
     }
 
     try {
-      attemptMutation(() => { (publicTools as any[]).push(publicTools[0]) })
-      attemptMutation(() => { cursor.name = 'Polluted Cursor' })
-      attemptMutation(() => { cursor.category = 'chat' })
-      attemptMutation(() => { cursor.tags.push('污染标签') })
-      attemptMutation(() => { cursor.alternatives.push('chatgpt') })
+      attemptMutation(() => { mutablePublicTools.push(mutablePublicTools[0]) })
+      attemptMutation(() => { mutableCursor.name = 'Polluted Cursor' })
+      attemptMutation(() => { mutableCursor.category = 'chat' })
+      attemptMutation(() => { mutableCursor.tags.push('污染标签') })
+      attemptMutation(() => { mutableCursor.alternatives.push('chatgpt') })
 
       observed = {
         length: getAllTools().length,
@@ -229,12 +253,18 @@ describe('ai tool directory data', () => {
         alternatives: [...getToolBySlug('cursor')!.alternatives]
       }
     } finally {
-      attemptMutation(() => { (publicTools as any[]).splice(originalLength) })
-      attemptMutation(() => { cursor.name = originalName })
-      attemptMutation(() => { cursor.category = originalCategory })
-      attemptMutation(() => { cursor.tags.splice(0, cursor.tags.length, ...originalTags) })
+      attemptMutation(() => { mutablePublicTools.splice(originalLength) })
+      attemptMutation(() => { mutableCursor.name = originalName })
+      attemptMutation(() => { mutableCursor.category = originalCategory })
       attemptMutation(() => {
-        cursor.alternatives.splice(0, cursor.alternatives.length, ...originalAlternatives)
+        mutableCursor.tags.splice(0, mutableCursor.tags.length, ...originalTags)
+      })
+      attemptMutation(() => {
+        mutableCursor.alternatives.splice(
+          0,
+          mutableCursor.alternatives.length,
+          ...originalAlternatives
+        )
       })
     }
 
