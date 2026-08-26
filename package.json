@@ -1,16 +1,20 @@
 {
-  "name": "noicu-cultivator",
+  "name": "xunqi-ai-directory",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "content:generate": "node scripts/generate-content.mjs",
     "content:rmji": "node scripts/generate-rmji.mjs",
-    "docs:dev": "vitepress dev docs --host 0.0.0.0",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs --host 0.0.0.0"
+    "content:ai": "node scripts/generate-ai-pages.mjs",
+    "docs:dev": "vitepress dev docs --host 127.0.0.1",
+    "docs:build": "npm run content:ai && vitepress build docs",
+    "docs:preview": "vitepress preview docs --host 127.0.0.1",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "devDependencies": {
-    "vitepress": "^1.6.4"
+    "vitepress": "^1.6.4",
+    "vitest": "^4.1.10"
   }
 }

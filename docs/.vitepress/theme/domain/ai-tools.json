@@ -27,7 +27,7 @@
     "cons": ["部分地区访问受限", "中文生态和插件较少"],
     "url": "https://claude.ai/",
     "updatedAt": "2026-08-26",
-    "alternatives": ["chatgpt", "gemini"]
+    "alternatives": ["chatgpt", "kimi"]
   },
   {
     "slug": "deepseek",

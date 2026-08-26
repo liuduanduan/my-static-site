@@ -83,5 +83,10 @@ export function searchTools(query = '', category: CategoryFilter = 'all'): AiToo
 }
 
 export function getFeaturedTools(limit = 6): AiTool[] {
-  return tools.slice(0, limit)
+  const featuredSlugs = ['chatgpt', 'midjourney', 'runway', 'cursor', 'notion', 'elevenlabs']
+  const featured = featuredSlugs
+    .map((slug) => getToolBySlug(slug))
+    .filter((tool): tool is AiTool => Boolean(tool))
+
+  return featured.slice(0, limit)
 }

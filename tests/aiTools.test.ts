@@ -14,6 +14,17 @@ describe('ai tool directory data', () => {
     expect(getCategories().every((category) => category.count === 4)).toBe(true)
   })
 
+  it('keeps official URLs and alternatives internally consistent', () => {
+    const tools = getAllTools()
+    const slugs = new Set(tools.map((tool) => tool.slug))
+
+    expect(tools.every((tool) => tool.url.startsWith('https://'))).toBe(true)
+    expect(tools.every((tool) => tool.pricing.includes('以官网为准'))).toBe(true)
+    expect(
+      tools.every((tool) => tool.alternatives.every((slug) => slugs.has(slug)))
+    ).toBe(true)
+  })
+
   it('looks up a tool by stable slug', () => {
     expect(getToolBySlug('cursor')?.name).toBe('Cursor')
     expect(getToolBySlug('missing-tool')).toBeUndefined()
