@@ -200,8 +200,9 @@ describe('ToolCard source contract', () => {
     expect(occurrences(source, 'class="tool-fact-badge"')).toBe(2)
     expect(source).toContain('pricingModeLabels[tool.pricingMode]')
     expect(source).toContain('chineseSupportLabels[tool.chineseSupport]')
-    expect(source).toContain(':aria-label="`价格模式：${pricingModeLabels[tool.pricingMode]}`"')
-    expect(source).toContain(':aria-label="`中文支持：${chineseSupportLabels[tool.chineseSupport]}`"')
+    expect(source).toContain('<span class="sr-only">价格模式：</span>')
+    expect(source).toContain('<span class="sr-only">中文支持：</span>')
+    expect(source).not.toMatch(/class="tool-fact-badge"[^>]*aria-label/)
 
     expect(source).not.toMatch(/bestFor|features|verified|rating|votes|users|popularity|promotion/)
   })

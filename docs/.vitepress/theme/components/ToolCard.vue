@@ -39,14 +39,12 @@ const toolVisual = computed(() => getToolVisual(tool.name, tool.category))
 
     <div class="tool-card-footer">
       <div class="tool-fact-badges" aria-label="工具信息">
-        <span
-          class="tool-fact-badge"
-          :aria-label="`价格模式：${pricingModeLabels[tool.pricingMode]}`"
-        >{{ pricingModeLabels[tool.pricingMode] }}</span>
-        <span
-          class="tool-fact-badge"
-          :aria-label="`中文支持：${chineseSupportLabels[tool.chineseSupport]}`"
-        >{{ chineseSupportLabels[tool.chineseSupport] }}</span>
+        <span class="tool-fact-badge">
+          <span class="sr-only">价格模式：</span>{{ pricingModeLabels[tool.pricingMode] }}
+        </span>
+        <span class="tool-fact-badge">
+          <span class="sr-only">中文支持：</span>{{ chineseSupportLabels[tool.chineseSupport] }}
+        </span>
       </div>
       <a class="tool-detail-link" :href="`/tools/${tool.slug}`">
         查看工具 <span aria-hidden="true">→</span>

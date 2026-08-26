@@ -6,11 +6,53 @@ const css = readFileSync(
   'utf8'
 )
 
-function rule(selector: string): string {
-  const start = css.indexOf(`${selector} {`)
-  if (start < 0) throw new Error(`Missing CSS rule: ${selector}`)
-  const end = css.indexOf('}', start)
-  return css.slice(start, end + 1)
+interface CssBlock {
+  header: string
+  body: string
+  hasNestedBlocks: boolean
+}
+
+function blocks(source: string): CssBlock[] {
+  const result: CssBlock[] = []
+  const stack: Array<{ header: string; bodyStart: number; hasNestedBlocks: boolean }> = []
+  let headerStart = 0
+
+  for (let index = 0; index < source.length; index += 1) {
+    if (source[index] === '{') {
+      if (stack.length) stack[stack.length - 1].hasNestedBlocks = true
+      stack.push({
+        header: source.slice(headerStart, index).trim(),
+        bodyStart: index + 1,
+        hasNestedBlocks: false
+      })
+      headerStart = index + 1
+    } else if (source[index] === '}') {
+      const block = stack.pop()
+      if (!block) continue
+      result.push({
+        header: block.header,
+        body: source.slice(block.bodyStart, index),
+        hasNestedBlocks: block.hasNestedBlocks
+      })
+      headerStart = index + 1
+    }
+  }
+
+  return result
+}
+
+function rule(selector: string, source = css): string {
+  const candidates = blocks(source).filter(({ header, hasNestedBlocks }) =>
+    !hasNestedBlocks && header.split(',').map((part) => part.trim()).includes(selector)
+  )
+  if (!candidates.length) throw new Error(`Missing CSS rule: ${selector}`)
+  return candidates.map((block) => `${block.header} {${block.body}}`).join('\n')
+}
+
+function media(query: string): string {
+  const block = blocks(css).find(({ header }) => header === `@media ${query}`)
+  if (!block) throw new Error(`Missing media query: ${query}`)
+  return block.body
 }
 
 function hexToRgb(hex: string): [number, number, number] {
@@ -70,10 +112,87 @@ describe('platform text contrast', () => {
     expect(rule('.category-count')).toContain('color: var(--platform-ink)')
     expect(rule('.use-case-chips span')).toContain('color: var(--platform-muted)')
     expect(rule('.directory-search-card input::placeholder')).toContain('color: var(--platform-muted)')
-    expect(rule('.search-shortcut,\n.search-clear')).toContain('color: var(--platform-muted)')
+    expect(rule('.search-shortcut')).toContain('color: var(--platform-muted)')
     expect(rule('.tool-detail-disclosure')).toContain('color: var(--platform-muted-strong)')
+    expect(rule('.directory-filter label')).toContain('color: var(--platform-muted-strong)')
+    expect(rule('.directory-filter select')).toContain('color: var(--platform-ink)')
+    expect(rule('.tool-fact-badge')).toContain('color: var(--platform-muted-strong)')
+    expect(rule('.tool-facts strong')).toContain('color: var(--platform-ink)')
     expect(strongMuted).toBeDefined()
     expect(contrast('#65728a', '#fafbfe')).toBeGreaterThanOrEqual(4.5)
     expect(contrast(strongMuted!, '#eef2fc')).toBeGreaterThanOrEqual(4.5)
+  })
+})
+
+describe('expanded directory layout', () => {
+  it('uses three balanced columns for category, discovery, and tool cards', () => {
+    expect(rule('.category-grid')).toContain('grid-template-columns: repeat(3, minmax(0, 1fr))')
+    expect(rule('.discovery-grid')).toContain('grid-template-columns: repeat(3, minmax(0, 1fr))')
+    expect(rule('.tool-grid')).toContain('grid-template-columns: repeat(3, minmax(0, 1fr))')
+  })
+
+  it('shows four resilient fact cells on wide detail pages', () => {
+    expect(rule('.tool-facts')).toContain('grid-template-columns: repeat(4, minmax(0, 1fr))')
+    expect(rule('.tool-facts > div')).toContain('min-width: 0')
+    expect(rule('.tool-facts strong')).toContain('overflow-wrap: anywhere')
+  })
+
+  it('keeps filters grouped and all primary controls touch friendly', () => {
+    expect(rule('.directory-filters')).toContain('grid-template-columns: repeat(3, minmax(0, 1fr)) auto')
+    expect(rule('.directory-filters')).toContain('border: 1px solid var(--platform-line)')
+    expect(rule('.directory-filter select')).toContain('min-height: 44px')
+    expect(rule('.directory-filters > button')).toContain('min-height: 44px')
+    expect(rule('.discovery-tab')).toContain('min-height: 44px')
+    expect(rule('.directory-load-more')).toContain('justify-content: center')
+  })
+})
+
+describe('keyboard and motion accessibility', () => {
+  it.each([
+    '.category-card:focus-visible',
+    '.discovery-tab:focus-visible',
+    '.directory-filter select:focus-visible',
+    '.directory-filters > button:focus-visible',
+    '.directory-load-more .section-link:focus-visible',
+    '.tool-detail-link:focus-visible',
+    '.back-link:focus-visible',
+    '.official-link:focus-visible',
+    '.alternative-list a:focus-visible',
+    '.empty-reset:focus-visible'
+  ])('gives %s a high-contrast focus ring', (selector) => {
+    expect(rule(selector)).toContain('outline: 3px solid var(--platform-blue-deep)')
+    expect(rule(selector)).toContain('outline-offset: 3px')
+    expect(rule(selector)).toContain('box-shadow: 0 0 0 6px #ffd35c')
+  })
+
+  it('collapses filters, cards, and facts at phone widths', () => {
+    const phone = media('(max-width: 700px)')
+
+    expect(rule('.directory-filters', phone)).toContain('grid-template-columns: 1fr')
+    expect(rule('.category-grid', phone)).toContain('grid-template-columns: 1fr')
+    expect(rule('.discovery-grid', phone)).toContain('grid-template-columns: 1fr')
+    expect(rule('.tool-grid', phone)).toContain('grid-template-columns: 1fr')
+    expect(rule('.tool-facts', phone)).toContain('grid-template-columns: 1fr')
+  })
+
+  it('uses compact 390px padding without shrinking interactive targets', () => {
+    const compact = media('(max-width: 390px)')
+
+    expect(rule('.directory-filters', compact)).toContain('padding: 14px')
+    expect(rule('.tool-card', compact)).toContain('padding: 16px')
+    expect(rule('.directory-filter select', compact)).toContain('min-height: 44px')
+    expect(rule('.directory-filters > button', compact)).toContain('min-height: 44px')
+    expect(rule('.discovery-tab', compact)).toContain('min-height: 44px')
+    expect(rule('.directory-load-more .section-link', compact)).toContain('min-height: 44px')
+    expect(rule('.tool-detail-link', compact)).toContain('min-height: 44px')
+    expect(rule('.empty-reset', compact)).toContain('min-height: 44px')
+  })
+
+  it('removes motion for users who request it', () => {
+    const reducedMotion = media('(prefers-reduced-motion: reduce)')
+
+    expect(rule('*', reducedMotion)).toContain('transition-duration: 0.01ms !important')
+    expect(rule('*', reducedMotion)).toContain('animation-duration: 0.01ms !important')
+    expect(rule('*', reducedMotion)).toContain('animation-iteration-count: 1 !important')
   })
 })

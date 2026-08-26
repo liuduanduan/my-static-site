@@ -640,7 +640,9 @@ a {
 }
 
 .discovery-section {
-  padding-top: 76px;
+  margin-top: 76px;
+  padding-top: 64px;
+  border-top: 1px solid var(--platform-line);
 }
 
 .discovery-section .platform-section-heading {
@@ -649,15 +651,19 @@ a {
 }
 
 .discovery-tabs {
-  display: flex;
-  gap: 8px;
+  display: inline-flex;
+  gap: 4px;
   margin-bottom: 20px;
+  padding: 4px;
+  border: 1px solid var(--platform-line);
+  border-radius: 999px;
+  background: var(--platform-soft);
 }
 
 .discovery-tab {
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 16px;
-  border: 1px solid var(--platform-line);
+  border: 1px solid transparent;
   border-radius: 999px;
   background: var(--platform-surface);
   color: var(--platform-muted-strong);
@@ -678,8 +684,9 @@ a {
 }
 
 .discovery-tab:focus-visible {
-  outline: 3px solid #ffd35c;
+  outline: 3px solid var(--platform-blue-deep);
   outline-offset: 3px;
+  box-shadow: 0 0 0 6px #ffd35c;
 }
 
 .discovery-disclaimer {
@@ -690,6 +697,8 @@ a {
 }
 
 .discovery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 0;
 }
 
@@ -720,14 +729,14 @@ a {
 }
 
 .directory-filter label {
-  color: var(--platform-ink);
+  color: var(--platform-muted-strong);
   font-size: 11px;
   font-weight: 800;
 }
 
 .directory-filter select {
   width: 100%;
-  min-height: 42px;
+  min-height: 44px;
   padding: 0 34px 0 12px;
   border: 1px solid #d7dfef;
   border-radius: 10px;
@@ -740,12 +749,13 @@ a {
 
 .directory-filter select:focus-visible {
   border-color: var(--platform-blue);
-  outline: 3px solid #ffd35c;
-  outline-offset: 2px;
+  outline: 3px solid var(--platform-blue-deep);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px #ffd35c;
 }
 
 .directory-filters > button {
-  min-height: 42px;
+  min-height: 44px;
   padding: 0 15px;
   border: 1px solid var(--platform-blue);
   border-radius: 10px;
@@ -762,6 +772,7 @@ a {
 }
 
 .directory-result-count {
+  text-align: center;
   margin: 0 0 18px;
   color: var(--platform-muted-strong);
   font-size: 12px;
@@ -943,6 +954,29 @@ a {
   align-items: end;
   padding-top: 15px;
   border-top: 1px solid var(--platform-line);
+}
+
+.tool-fact-badges {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tool-fact-badge {
+  display: inline-flex;
+  max-width: 100%;
+  min-height: 26px;
+  align-items: center;
+  padding: 4px 8px;
+  border: 1px solid #e1e7f3;
+  border-radius: 999px;
+  background: var(--platform-soft);
+  color: var(--platform-muted-strong);
+  font-size: 10px;
+  font-weight: 750;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
 .tool-pricing {
@@ -1212,6 +1246,40 @@ a {
   padding: 34px 48px 42px;
 }
 
+.tool-facts {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  min-width: 0;
+  padding-bottom: 12px;
+}
+
+.tool-facts > div {
+  display: grid;
+  min-width: 0;
+  gap: 6px;
+  align-content: start;
+  padding: 14px;
+  border: 1px solid var(--platform-line);
+  border-radius: 12px;
+  background: var(--platform-soft);
+}
+
+.tool-facts span {
+  color: var(--platform-muted-strong);
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.tool-facts strong {
+  min-width: 0;
+  color: var(--platform-ink);
+  font-size: 12px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
 .detail-section {
   min-width: 0;
   padding: 22px 0;
@@ -1349,16 +1417,29 @@ a {
   border: 0;
 }
 
+.category-card:focus-visible,
+.discovery-tab:focus-visible,
+.directory-filter select:focus-visible,
+.directory-filters > button:focus-visible,
+.directory-load-more .section-link:focus-visible,
+.tool-detail-link:focus-visible,
+.back-link:focus-visible,
+.official-link:focus-visible,
+.alternative-list a:focus-visible,
+.empty-reset:focus-visible,
 button:focus-visible,
 input:focus-visible,
 a:focus-visible {
-  outline: 3px solid #ffd35c;
+  outline: 3px solid var(--platform-blue-deep);
   outline-offset: 3px;
+  box-shadow: 0 0 0 6px #ffd35c;
 }
 
 @media (max-width: 960px) {
   .category-grid,
-  .tool-grid {
+  .tool-grid,
+  .discovery-grid,
+  .tool-facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -1442,7 +1523,9 @@ a:focus-visible {
   }
 
   .category-grid,
+  .discovery-grid,
   .tool-grid,
+  .tool-facts,
   .tool-detail-body,
   .detail-pros-cons,
   .alternative-list {
@@ -1522,13 +1605,28 @@ a:focus-visible {
     padding: 14px;
   }
 
+  .directory-filters {
+    padding: 14px;
+  }
+
+  .discovery-tab,
+  .directory-filter select,
+  .directory-filters > button,
+  .directory-load-more .section-link,
+  .tool-detail-link,
+  .back-link,
+  .alternative-list a,
+  .empty-reset {
+    min-height: 44px;
+  }
+
   .category-icon {
     width: 44px;
     height: 44px;
   }
 
   .tool-card {
-    padding: 17px;
+    padding: 16px;
   }
 
   .tool-detail-hero,
