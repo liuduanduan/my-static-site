@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { dirname, join, relative, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { inflateSync } from 'node:zlib'
 
 const scriptPath = fileURLToPath(import.meta.url)
 const defaultRoot = resolve(dirname(scriptPath), '..')
@@ -192,9 +193,9 @@ export function validatePng(png, expectedWidth = 1200, expectedHeight = 630) {
 
   let offset = 8
   let chunkIndex = 0
-  let foundIdat = false
   let foundIend = false
   let image
+  const idatParts = []
 
   while (offset < png.length) {
     assert.ok(offset + 8 <= png.length, `PNG has a truncated chunk header at byte ${offset}`)
@@ -218,26 +219,35 @@ export function validatePng(png, expectedWidth = 1200, expectedHeight = 630) {
       const height = png.readUInt32BE(dataStart + 4)
       const bitDepth = png[dataStart + 8]
       const colorType = png[dataStart + 9]
+      const interlace = png[dataStart + 12]
       const validDepths = {
         0: [1, 2, 4, 8, 16],
         2: [8, 16],
-        3: [1, 2, 4, 8],
         4: [8, 16],
         6: [8, 16]
       }
+      const channelsByColorType = { 0: 1, 2: 3, 4: 2, 6: 4 }
       assert.ok(width > 0 && height > 0, 'PNG dimensions must be positive')
       assert.equal(width, expectedWidth, `PNG width must be ${expectedWidth} pixels`)
       assert.equal(height, expectedHeight, `PNG height must be ${expectedHeight} pixels`)
+      assert.ok(
+        Object.hasOwn(channelsByColorType, colorType),
+        `PNG color type ${colorType} is unsupported for scanline verification`
+      )
       assert.ok(validDepths[colorType]?.includes(bitDepth), 'PNG bit depth/color type is invalid')
       assert.equal(png[dataStart + 10], 0, 'PNG compression method must be 0')
       assert.equal(png[dataStart + 11], 0, 'PNG filter method must be 0')
-      assert.ok([0, 1].includes(png[dataStart + 12]), 'PNG interlace method must be 0 or 1')
-      image = { width, height, bitDepth, colorType }
+      assert.equal(interlace, 0, 'PNG must be non-interlaced for scanline verification')
+      const channels = channelsByColorType[colorType]
+      const bitsPerPixel = channels * bitDepth
+      const bytesPerPixel = Math.max(1, Math.ceil(bitsPerPixel / 8))
+      const rowBytes = Math.ceil((width * bitsPerPixel) / 8)
+      image = { width, height, bitDepth, colorType, channels, bytesPerPixel, rowBytes }
     } else {
       assert.notEqual(type, 'IHDR', 'PNG must contain exactly one IHDR chunk')
     }
 
-    if (type === 'IDAT') foundIdat = true
+    if (type === 'IDAT') idatParts.push(png.subarray(dataStart, crcOffset))
     if (type === 'IEND') {
       assert.equal(length, 0, 'PNG IEND chunk must be empty')
       assert.equal(chunkEnd, png.length, 'PNG must end exactly after IEND')
@@ -249,8 +259,26 @@ export function validatePng(png, expectedWidth = 1200, expectedHeight = 630) {
   }
 
   assert.ok(image, 'PNG is missing IHDR')
-  assert.ok(foundIdat, 'PNG is missing IDAT')
+  assert.ok(idatParts.length > 0, 'PNG is missing IDAT')
   assert.ok(foundIend, 'PNG is missing IEND')
+  const compressedImage = Buffer.concat(idatParts)
+  assert.ok(compressedImage.length > 0, 'PNG IDAT payload must not be empty')
+  const expectedScanlineLength = image.height * (1 + image.rowBytes)
+  let scanlines
+  try {
+    scanlines = inflateSync(compressedImage, { maxOutputLength: expectedScanlineLength + 1 })
+  } catch (error) {
+    throw new Error(`PNG IDAT zlib stream could not be inflated: ${error.message}`)
+  }
+  assert.equal(
+    scanlines.length,
+    expectedScanlineLength,
+    `PNG decompressed scanlines must contain exactly ${expectedScanlineLength} bytes`
+  )
+  for (let row = 0; row < image.height; row += 1) {
+    const filter = scanlines[row * (image.rowBytes + 1)]
+    assert.ok(filter <= 4, `PNG scanline ${row} has invalid filter byte ${filter}`)
+  }
   return image
 }
 
