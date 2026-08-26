@@ -13,8 +13,14 @@ export interface ToolVisual {
   soft: string
 }
 
+export function formatPlatformEyebrow(toolCount: number, categoryCount: number): string {
+  const tools = Number.isFinite(toolCount) ? Math.max(0, Math.trunc(toolCount)) : 0
+  const categories = Number.isFinite(categoryCount) ? Math.max(0, Math.trunc(categoryCount)) : 0
+
+  return `${tools}+ 款工具 · ${categories} 大使用场景 · 持续维护`
+}
+
 export const platformHero = {
-  eyebrow: '24+ 款工具 · 6 大使用场景',
   title: '你需要的 AI 工具，都在这里。',
   subtitle: '精选真正值得使用的 AI 工具，帮你完成写作、设计、视频、编程与办公。',
   actions: [
@@ -24,6 +30,12 @@ export const platformHero = {
 } as const
 
 export const categoryVisuals: Record<ToolCategory, CategoryVisual> = {
+  chat: {
+    icon: '•••',
+    accent: '#2563eb',
+    soft: '#eaf2ff',
+    summary: '模型对话、问答与灵感助手'
+  },
   writing: {
     icon: '✦',
     accent: '#7758f6',
@@ -32,33 +44,45 @@ export const categoryVisuals: Record<ToolCategory, CategoryVisual> = {
   },
   image: {
     icon: '◫',
-    accent: '#f05b8d',
+    accent: '#db4f83',
     soft: '#fff0f5',
     summary: '绘图、设计与视觉创意'
   },
   video: {
     icon: '▶',
-    accent: '#ff7043',
+    accent: '#e7653b',
     soft: '#fff1ec',
     summary: '视频生成、剪辑与动效'
   },
   coding: {
     icon: '</>',
-    accent: '#2676e8',
+    accent: '#1670d2',
     soft: '#eaf3ff',
     summary: '编程、原型与应用开发'
   },
-  productivity: {
-    icon: '✓',
-    accent: '#13a47b',
-    soft: '#e8faf5',
-    summary: '搜索、演示与团队协作'
-  },
   audio: {
     icon: '∿',
-    accent: '#e5a11a',
+    accent: '#c8890e',
     soft: '#fff7df',
     summary: '语音、音乐与会议记录'
+  },
+  research: {
+    icon: '◉',
+    accent: '#13899a',
+    soft: '#e8f8fa',
+    summary: '搜索、分析与深度研究'
+  },
+  marketing: {
+    icon: '↗',
+    accent: '#d4514c',
+    soft: '#ffefee',
+    summary: '营销内容、推广与社媒运营'
+  },
+  automation: {
+    icon: '⌘',
+    accent: '#17845f',
+    soft: '#e8f7f1',
+    summary: '工作流、集成与数据自动化'
   }
 }
 
