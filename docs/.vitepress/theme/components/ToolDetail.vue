@@ -22,7 +22,7 @@ function formatDate(value: string): string {
 </script>
 
 <template>
-  <main v-if="tool" class="tool-detail-shell">
+  <div v-if="tool" class="tool-detail-shell">
     <a class="back-link" href="/">← 返回工具目录</a>
 
     <article class="tool-detail-card">
@@ -96,12 +96,12 @@ function formatDate(value: string): string {
         我们只提供信息整理。价格、功能、数据处理和商用授权请以 {{ tool.name }} 官方说明为准。
       </footer>
     </article>
-  </main>
+  </div>
 
-  <main v-else class="tool-empty tool-empty--detail" role="status">
+  <section v-else class="tool-empty tool-empty--detail" role="status">
     <p class="directory-kicker">TOOL NOT FOUND</p>
     <h1>这个工具暂时不在目录里</h1>
     <p>返回首页看看其他精选工具。</p>
     <a class="empty-reset" href="/">返回工具目录</a>
-  </main>
+  </section>
 </template>

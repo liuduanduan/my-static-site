@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
-import { dirname, join, resolve } from 'node:path'
+import { dirname, join, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
@@ -16,6 +16,7 @@ const categoryLabels = {
   productivity: '办公效率',
   audio: '音频音乐'
 }
+const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 
 function escapeFrontmatter(value) {
   return String(value).replaceAll('"', '\\"')
@@ -28,6 +29,37 @@ function ensureDirectory(path) {
 function writePage(path, content) {
   ensureDirectory(dirname(path))
   writeFileSync(path, content, 'utf8')
+}
+
+function isWithin(path, parent) {
+  const resolvedPath = resolve(path)
+  const resolvedParent = resolve(parent)
+  return resolvedPath === resolvedParent || resolvedPath.startsWith(`${resolvedParent}${sep}`)
+}
+
+function validateTools(items) {
+  const seen = new Set()
+
+  for (const tool of items) {
+    if (!slugPattern.test(tool.slug)) {
+      throw new Error(`Unsafe tool slug: ${tool.slug}`)
+    }
+    if (seen.has(tool.slug)) {
+      throw new Error(`Duplicate tool slug: ${tool.slug}`)
+    }
+    if (!(tool.category in categoryLabels)) {
+      throw new Error(`Unknown category for ${tool.slug}: ${tool.category}`)
+    }
+    seen.add(tool.slug)
+  }
+
+  for (const tool of items) {
+    for (const alternative of tool.alternatives) {
+      if (!seen.has(alternative)) {
+        throw new Error(`Unknown alternative for ${tool.slug}: ${alternative}`)
+      }
+    }
+  }
 }
 
 function detailPage(tool) {
@@ -47,11 +79,13 @@ const previous = existsSync(manifestPath)
   ? JSON.parse(readFileSync(manifestPath, 'utf8'))
   : []
 
+validateTools(tools)
+
 for (const relativePath of previous) {
   const absolutePath = join(root, relativePath)
   const safeToolsRoot = join(root, 'docs', 'tools')
   const safeCategoriesRoot = join(root, 'docs', 'ai-categories')
-  if (absolutePath.startsWith(safeToolsRoot) || absolutePath.startsWith(safeCategoriesRoot)) {
+  if (isWithin(absolutePath, safeToolsRoot) || isWithin(absolutePath, safeCategoriesRoot)) {
     rmSync(absolutePath, { force: true })
   }
 }

@@ -11,21 +11,37 @@ import {
 
 const query = ref('')
 const activeCategory = ref<CategoryFilter>('all')
+const showAll = ref(false)
 const categories = getCategories()
 
 const filteredTools = computed(() => searchTools(query.value, activeCategory.value))
 const isFiltered = computed(() => Boolean(query.value.trim()) || activeCategory.value !== 'all')
+const isBrowsingAll = computed(() => showAll.value && !query.value.trim() && activeCategory.value === 'all')
+const isInitialView = computed(() => !isFiltered.value && !isBrowsingAll.value)
 const displayedTools = computed(() =>
-  isFiltered.value ? filteredTools.value : getFeaturedTools(6)
+  isFiltered.value || isBrowsingAll.value ? filteredTools.value : getFeaturedTools(6)
 )
+const sectionKicker = computed(() => {
+  if (query.value.trim()) return 'SEARCH RESULTS'
+  if (isInitialView.value) return 'START HERE'
+  return 'BROWSE DIRECTORY'
+})
+const sectionTitle = computed(() => {
+  if (query.value.trim()) return '搜索结果'
+  if (isBrowsingAll.value) return '全部工具'
+  if (activeCategory.value !== 'all') return getCategoryLabel(activeCategory.value)
+  return '从这里开始'
+})
 
 function chooseCategory(category: CategoryFilter) {
   activeCategory.value = category
+  showAll.value = category === 'all'
 }
 
 function clearSearch() {
   query.value = ''
   activeCategory.value = 'all'
+  showAll.value = false
 }
 
 function formatDate(value: string): string {
@@ -100,10 +116,12 @@ function formatDate(value: string): string {
     <section class="tool-section" aria-labelledby="tool-list-title">
       <header class="tool-section-heading">
         <div>
-          <p class="directory-kicker">{{ isFiltered ? 'SEARCH RESULTS' : 'START HERE' }}</p>
-          <h2 id="tool-list-title">{{ isFiltered ? '搜索结果' : '从这里开始' }}</h2>
+          <p class="directory-kicker">{{ sectionKicker }}</p>
+          <h2 id="tool-list-title">{{ sectionTitle }}</h2>
         </div>
-        <span class="tool-count">{{ filteredTools.length }} 个工具</span>
+        <span class="tool-count">
+          {{ isInitialView ? `精选 ${displayedTools.length} 个` : `${displayedTools.length} 个工具` }}
+        </span>
       </header>
 
       <div v-if="displayedTools.length" class="tool-grid">

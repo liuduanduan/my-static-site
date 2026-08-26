@@ -22,15 +22,27 @@ export default defineConfig({
   sitemap: {
     hostname: 'https://no996noicu.com'
   },
+  transformHead({ pageData }) {
+    const pageTitle = pageData.title
+      ? `${pageData.title} · 寻器`
+      : '寻器 AI 工具目录'
+    const pageDescription = pageData.description || '按真实使用场景，找到适合你的 AI 工具。'
+
+    return [
+      ['meta', { property: 'og:title', content: pageTitle }],
+      ['meta', { property: 'og:description', content: pageDescription }],
+      ['meta', { property: 'og:image', content: 'https://no996noicu.com/social-card.png' }],
+      ['meta', { name: 'twitter:title', content: pageTitle }],
+      ['meta', { name: 'twitter:description', content: pageDescription }],
+      ['meta', { name: 'twitter:image', content: 'https://no996noicu.com/social-card.png' }]
+    ]
+  },
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
     ['link', { rel: 'manifest', href: '/site.webmanifest' }],
     ['meta', { name: 'theme-color', content: '#122033' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: '寻器 AI 工具目录' }],
-    ['meta', { property: 'og:title', content: '寻器 AI 工具目录' }],
-    ['meta', { property: 'og:description', content: '按真实使用场景，找到适合你的 AI 工具。' }],
-    ['meta', { property: 'og:image', content: 'https://no996noicu.com/social-card.svg' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'keywords', content: 'AI工具, AI工具导航, AI写作, AI绘画, AI视频, AI编程, AI办公' }]
   ],
