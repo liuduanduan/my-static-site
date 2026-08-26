@@ -100,6 +100,14 @@ function expectMutationToThrow(
   expect(() => validateToolCollection(value)).toThrow(message)
 }
 
+function attemptMutation(mutate: () => void): void {
+  try {
+    mutate()
+  } catch {
+    // Frozen public data rejects mutation in strict mode; state assertions below are authoritative.
+  }
+}
+
 describe('ai tool directory data', () => {
   it('contains exactly 63 tools across the nine ordered categories', () => {
     expect(getAllTools()).toHaveLength(63)
@@ -185,9 +193,75 @@ describe('ai tool directory data', () => {
   it('returns an empty list for an unknown query', () => {
     expect(searchTools('不存在的工具')).toEqual([])
   })
+
+  it('does not let public API consumers mutate the module catalog', () => {
+    const publicTools = getAllTools()
+    const cursor = getToolBySlug('cursor')!
+    const originalLength = publicTools.length
+    const originalName = cursor.name
+    const originalCategory = cursor.category
+    const originalTags = [...cursor.tags]
+    const originalAlternatives = [...cursor.alternatives]
+    let observed: {
+      length: number
+      name: string | undefined
+      pollutedSearchCount: number
+      codingCount: number | undefined
+      chatCount: number | undefined
+      tags: string[]
+      alternatives: string[]
+    }
+
+    try {
+      attemptMutation(() => { (publicTools as any[]).push(publicTools[0]) })
+      attemptMutation(() => { cursor.name = 'Polluted Cursor' })
+      attemptMutation(() => { cursor.category = 'chat' })
+      attemptMutation(() => { cursor.tags.push('污染标签') })
+      attemptMutation(() => { cursor.alternatives.push('chatgpt') })
+
+      observed = {
+        length: getAllTools().length,
+        name: getToolBySlug('cursor')?.name,
+        pollutedSearchCount: searchTools('Polluted Cursor').length,
+        codingCount: getCategories().find(({ value }) => value === 'coding')?.count,
+        chatCount: getCategories().find(({ value }) => value === 'chat')?.count,
+        tags: [...getToolBySlug('cursor')!.tags],
+        alternatives: [...getToolBySlug('cursor')!.alternatives]
+      }
+    } finally {
+      attemptMutation(() => { (publicTools as any[]).splice(originalLength) })
+      attemptMutation(() => { cursor.name = originalName })
+      attemptMutation(() => { cursor.category = originalCategory })
+      attemptMutation(() => { cursor.tags.splice(0, cursor.tags.length, ...originalTags) })
+      attemptMutation(() => {
+        cursor.alternatives.splice(0, cursor.alternatives.length, ...originalAlternatives)
+      })
+    }
+
+    expect(observed).toEqual({
+      length: originalLength,
+      name: originalName,
+      pollutedSearchCount: 0,
+      codingCount: 7,
+      chatCount: 7,
+      tags: originalTags,
+      alternatives: originalAlternatives
+    })
+  })
 })
 
 describe('validateToolCollection', () => {
+  it('leaves a caller-owned valid collection mutable', () => {
+    const catalog = cloneCatalog()
+    const validated = validateToolCollection(catalog)
+
+    validated[0].name = 'Caller-owned mutation'
+    validated[0].tags.push('调用方标签')
+
+    expect(catalog[0].name).toBe('Caller-owned mutation')
+    expect(catalog[0].tags).toContain('调用方标签')
+  })
+
   it('rejects a non-array value and a collection below 60 tools', () => {
     expect(() => validateToolCollection({})).toThrow(/expected an array/)
     expect(() => validateToolCollection(cloneCatalog().slice(0, 59))).toThrow(/at least 60 tools/)
@@ -234,6 +308,17 @@ describe('validateToolCollection', () => {
         tool.category = 'writing'
       })
     }, /category chat must contain at least five tools/)
+  })
+
+  it('rejects self-referential and duplicate alternatives', () => {
+    expectMutationToThrow(
+      (catalog) => { catalog[0].alternatives = [catalog[0].slug] },
+      /alternatives must not reference the tool itself/
+    )
+    expectMutationToThrow(
+      (catalog) => { catalog[0].alternatives = [catalog[1].slug, catalog[1].slug] },
+      /alternatives must not contain duplicates/
+    )
   })
 
   it('rejects a non-boolean requiresAccount', () => {

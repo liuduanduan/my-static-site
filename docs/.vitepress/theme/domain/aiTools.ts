@@ -199,7 +199,14 @@ export function validateToolCollection(value: unknown): AiTool[] {
 
     requireDate(candidate, 'addedAt', context)
     requireDate(candidate, 'updatedAt', context)
-    requireStringList(candidate, 'alternatives', context)
+
+    const alternatives = requireStringList(candidate, 'alternatives', context)
+    if (alternatives.includes(slug)) {
+      fail(`${context}.alternatives must not reference the tool itself`)
+    }
+    if (new Set(alternatives).size !== alternatives.length) {
+      fail(`${context}.alternatives must not contain duplicates`)
+    }
 
     if (candidate.featuredOrder !== undefined) {
       const order = candidate.featuredOrder
@@ -230,13 +237,29 @@ export function validateToolCollection(value: unknown): AiTool[] {
   return value as AiTool[]
 }
 
-const tools = validateToolCollection(rawTools)
+function freezeToolCollection(collection: AiTool[]): readonly AiTool[] {
+  collection.forEach((tool) => {
+    Object.freeze(tool.bestFor)
+    Object.freeze(tool.features)
+    Object.freeze(tool.accessModes)
+    Object.freeze(tool.tags)
+    Object.freeze(tool.searchTerms)
+    Object.freeze(tool.pros)
+    Object.freeze(tool.cons)
+    Object.freeze(tool.alternatives)
+    Object.freeze(tool)
+  })
+
+  return Object.freeze(collection)
+}
+
+const tools = freezeToolCollection(validateToolCollection(rawTools))
 
 function normalize(value: string): string {
   return value.trim().toLocaleLowerCase()
 }
 
-export function getAllTools(): AiTool[] {
+export function getAllTools(): readonly AiTool[] {
   return tools
 }
 
@@ -248,7 +271,11 @@ export function getCategoryLabel(category: ToolCategory): string {
   return categoryLabels[category]
 }
 
-export function getCategories(): Array<{ value: ToolCategory; label: string; count: number }> {
+export function getCategories(): ReadonlyArray<{
+  value: ToolCategory
+  label: string
+  count: number
+}> {
   return requiredCategories.map((value) => ({
     value,
     label: categoryLabels[value],
@@ -256,7 +283,7 @@ export function getCategories(): Array<{ value: ToolCategory; label: string; cou
   }))
 }
 
-export function searchTools(query = '', category: CategoryFilter = 'all'): AiTool[] {
+export function searchTools(query = '', category: CategoryFilter = 'all'): readonly AiTool[] {
   const normalizedQuery = normalize(query)
 
   return tools.filter((tool) => {
@@ -279,7 +306,7 @@ export function searchTools(query = '', category: CategoryFilter = 'all'): AiToo
   })
 }
 
-export function getFeaturedTools(limit = 6): AiTool[] {
+export function getFeaturedTools(limit = 6): readonly AiTool[] {
   return tools
     .filter((tool) => tool.featuredOrder !== undefined)
     .sort((left, right) => left.featuredOrder! - right.featuredOrder!)
