@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useId } from 'vue'
 import {
   chineseSupportLabels,
   pricingModeLabels,
@@ -7,6 +8,13 @@ import {
   type PricingFilter,
   type ToolCategory
 } from '../domain/aiTools'
+import {
+  chineseSupportModes,
+  handleCategoryFilterValue,
+  handleChineseSupportFilterValue,
+  handlePricingFilterValue,
+  pricingModes
+} from './directoryFilterValues'
 
 interface DirectoryCategory {
   readonly value: ToolCategory
@@ -28,40 +36,36 @@ const emit = defineEmits<{
   'reset': []
 }>()
 
-const pricingModes = ['free', 'freemium', 'paid', 'contact'] as const
-const chineseSupportModes = ['native', 'partial', 'none'] as const
+const filterId = useId()
+const categoryId = `${filterId}-category`
+const pricingId = `${filterId}-pricing`
+const chineseSupportId = `${filterId}-chinese-support`
 
 function selectedValue(event: Event): string | undefined {
   const select = event.currentTarget
   return select instanceof HTMLSelectElement ? select.value : undefined
 }
 
-function isCategoryFilter(value: string): value is CategoryFilter {
-  return value === 'all' || categories.some((option) => option.value === value)
-}
-
-function isPricingFilter(value: string): value is PricingFilter {
-  return value === 'all' || (pricingModes as readonly string[]).includes(value)
-}
-
-function isChineseSupportFilter(value: string): value is ChineseSupportFilter {
-  return value === 'all' || (chineseSupportModes as readonly string[]).includes(value)
-}
-
 function updateCategory(event: Event) {
   const value = selectedValue(event)
-  if (value !== undefined && isCategoryFilter(value)) emit('update:category', value)
+  if (value !== undefined) {
+    handleCategoryFilterValue(value, categories, (resolved) => emit('update:category', resolved))
+  }
 }
 
 function updatePricingMode(event: Event) {
   const value = selectedValue(event)
-  if (value !== undefined && isPricingFilter(value)) emit('update:pricingMode', value)
+  if (value !== undefined) {
+    handlePricingFilterValue(value, (resolved) => emit('update:pricingMode', resolved))
+  }
 }
 
 function updateChineseSupport(event: Event) {
   const value = selectedValue(event)
-  if (value !== undefined && isChineseSupportFilter(value)) {
-    emit('update:chineseSupport', value)
+  if (value !== undefined) {
+    handleChineseSupportFilterValue(value, (resolved) => {
+      emit('update:chineseSupport', resolved)
+    })
   }
 }
 </script>
@@ -69,8 +73,8 @@ function updateChineseSupport(event: Event) {
 <template>
   <div class="directory-filters">
     <div class="directory-filter">
-      <label for="directory-category-filter">工具分类</label>
-      <select id="directory-category-filter" :value="category" @change="updateCategory">
+      <label :for="categoryId">工具分类</label>
+      <select :id="categoryId" :value="category" @change="updateCategory">
         <option value="all">全部分类</option>
         <option v-for="option in categories" :key="option.value" :value="option.value">
           {{ option.label }}（{{ option.count }}）
@@ -79,8 +83,8 @@ function updateChineseSupport(event: Event) {
     </div>
 
     <div class="directory-filter">
-      <label for="directory-pricing-filter">价格模式</label>
-      <select id="directory-pricing-filter" :value="pricingMode" @change="updatePricingMode">
+      <label :for="pricingId">价格模式</label>
+      <select :id="pricingId" :value="pricingMode" @change="updatePricingMode">
         <option value="all">全部价格</option>
         <option v-for="mode in pricingModes" :key="mode" :value="mode">
           {{ pricingModeLabels[mode] }}
@@ -89,9 +93,9 @@ function updateChineseSupport(event: Event) {
     </div>
 
     <div class="directory-filter">
-      <label for="directory-chinese-filter">中文支持</label>
+      <label :for="chineseSupportId">中文支持</label>
       <select
-        id="directory-chinese-filter"
+        :id="chineseSupportId"
         :value="chineseSupport"
         @change="updateChineseSupport"
       >

@@ -1,5 +1,10 @@
 import { existsSync, readFileSync } from 'node:fs'
+import { compileScript, compileTemplate, parse } from '@vue/compiler-sfc'
 import { describe, expect, it } from 'vitest'
+import {
+  chineseSupportLabels,
+  pricingModeLabels
+} from '../docs/.vitepress/theme/domain/aiTools'
 
 const componentsDirectory = new URL(
   '../docs/.vitepress/theme/components/',
@@ -15,6 +20,102 @@ function componentSource(name: string): string {
 function occurrences(source: string, value: string): number {
   return source.split(value).length - 1
 }
+
+async function filterValuesModule() {
+  const url = new URL(
+    '../docs/.vitepress/theme/components/directoryFilterValues.ts',
+    import.meta.url
+  )
+  if (!existsSync(url)) return undefined
+  return import(url.href)
+}
+
+function compileSfc(filename: string, source: string): string[] {
+  const parsed = parse(source, { filename })
+  const errors = parsed.errors.map(String)
+  const { descriptor } = parsed
+
+  try {
+    if (descriptor.script || descriptor.scriptSetup) {
+      compileScript(descriptor, { id: filename })
+    }
+  } catch (error) {
+    errors.push(String(error))
+  }
+
+  if (descriptor.template) {
+    const template = compileTemplate({
+      id: filename,
+      filename,
+      source: descriptor.template.content
+    })
+    errors.push(...template.errors.map(String))
+  }
+
+  return errors
+}
+
+describe('directory component compilation', () => {
+  it.each(['DirectoryFilters.vue', 'ToolCard.vue'])('compiles %s directly', (name) => {
+    expect(compileSfc(name, componentSource(name))).toEqual([])
+  })
+
+  it('reports invalid script and template syntax', () => {
+    expect(compileSfc('InvalidScript.vue', '<script setup lang="ts">const =</script>')).not.toEqual([])
+    expect(compileSfc('InvalidTemplate.vue', '<template><div></template>')).not.toEqual([])
+  })
+})
+
+describe('directory filter change values', () => {
+  it('derives pricing and Chinese-support options from the canonical labels', async () => {
+    const values = await filterValuesModule()
+
+    expect(values).toBeDefined()
+    if (!values) return
+    expect(values.pricingModes).toEqual(Object.keys(pricingModeLabels))
+    expect(values.chineseSupportModes).toEqual(Object.keys(chineseSupportLabels))
+  })
+
+  it('emits valid category DOM values and ignores invalid values', async () => {
+    const values = await filterValuesModule()
+    const emitted: string[] = []
+
+    expect(values).toBeDefined()
+    if (!values) return
+    const categories = [{ value: 'image' }, { value: 'coding' }] as const
+    values.handleCategoryFilterValue('image', categories, (value: string) => emitted.push(value))
+    values.handleCategoryFilterValue('all', categories, (value: string) => emitted.push(value))
+    values.handleCategoryFilterValue('unknown', categories, (value: string) => emitted.push(value))
+
+    expect(emitted).toEqual(['image', 'all'])
+  })
+
+  it('emits valid pricing DOM values and ignores invalid values', async () => {
+    const values = await filterValuesModule()
+    const emitted: string[] = []
+
+    expect(values).toBeDefined()
+    if (!values) return
+    values.handlePricingFilterValue('freemium', (value: string) => emitted.push(value))
+    values.handlePricingFilterValue('all', (value: string) => emitted.push(value))
+    values.handlePricingFilterValue('trial', (value: string) => emitted.push(value))
+
+    expect(emitted).toEqual(['freemium', 'all'])
+  })
+
+  it('emits valid Chinese-support DOM values and ignores invalid values', async () => {
+    const values = await filterValuesModule()
+    const emitted: string[] = []
+
+    expect(values).toBeDefined()
+    if (!values) return
+    values.handleChineseSupportFilterValue('native', (value: string) => emitted.push(value))
+    values.handleChineseSupportFilterValue('all', (value: string) => emitted.push(value))
+    values.handleChineseSupportFilterValue('full', (value: string) => emitted.push(value))
+
+    expect(emitted).toEqual(['native', 'all'])
+  })
+})
 
 describe('DirectoryFilters source contract', () => {
   it('exposes the controlled readonly props and exact update/reset events', () => {
@@ -38,17 +139,20 @@ describe('DirectoryFilters source contract', () => {
     const source = componentSource('DirectoryFilters.vue')
 
     expect(occurrences(source, '<select')).toBe(3)
-    expect(source).toContain('<label for="directory-category-filter">工具分类</label>')
-    expect(source).toContain('<label for="directory-pricing-filter">价格模式</label>')
-    expect(source).toContain('<label for="directory-chinese-filter">中文支持</label>')
-    expect(source).toContain('id="directory-category-filter"')
-    expect(source).toContain('id="directory-pricing-filter"')
-    expect(source).toContain('id="directory-chinese-filter"')
+    expect(source).toContain("import { useId } from 'vue'")
+    expect(source).toContain('const filterId = useId()')
+    expect(source).toContain('<label :for="categoryId">工具分类</label>')
+    expect(source).toContain('<label :for="pricingId">价格模式</label>')
+    expect(source).toContain('<label :for="chineseSupportId">中文支持</label>')
+    expect(source).toContain(':id="categoryId"')
+    expect(source).toContain(':id="pricingId"')
+    expect(source).toContain(':id="chineseSupportId"')
 
     expect(source).toContain('<option value="all">全部分类</option>')
     expect(source).toContain('v-for="option in categories"')
-    expect(source).toContain("const pricingModes = ['free', 'freemium', 'paid', 'contact'] as const")
-    expect(source).toContain("const chineseSupportModes = ['native', 'partial', 'none'] as const")
+    expect(source).toContain("from './directoryFilterValues'")
+    expect(source).toContain('v-for="mode in pricingModes"')
+    expect(source).toContain('v-for="mode in chineseSupportModes"')
     expect(source).toContain('pricingModeLabels[mode]')
     expect(source).toContain('chineseSupportLabels[mode]')
   })
@@ -59,6 +163,9 @@ describe('DirectoryFilters source contract', () => {
     expect(source).toContain("emit('update:category'")
     expect(source).toContain("emit('update:pricingMode'")
     expect(source).toContain("emit('update:chineseSupport'")
+    expect(source).toContain('handleCategoryFilterValue(value, categories')
+    expect(source).toContain('handlePricingFilterValue(value')
+    expect(source).toContain('handleChineseSupportFilterValue(value')
     expect(source).toContain('<button type="button" @click="emit(\'reset\')">重置筛选</button>')
     expect(source).not.toContain('v-model')
     expect(source).not.toMatch(/localStorage|sessionStorage|URLSearchParams|history\./)
@@ -83,9 +190,11 @@ describe('ToolCard source contract', () => {
     expect(source).toContain('{{ tool.name }}')
     expect(source).toContain('{{ tool.tagline }}')
     expect(source).toContain('{{ tool.description }}')
-    expect(occurrences(source, '<span class="tool-fact-badge">')).toBe(2)
+    expect(occurrences(source, 'class="tool-fact-badge"')).toBe(2)
     expect(source).toContain('pricingModeLabels[tool.pricingMode]')
     expect(source).toContain('chineseSupportLabels[tool.chineseSupport]')
+    expect(source).toContain(':aria-label="`价格模式：${pricingModeLabels[tool.pricingMode]}`"')
+    expect(source).toContain(':aria-label="`中文支持：${chineseSupportLabels[tool.chineseSupport]}`"')
 
     expect(source).not.toMatch(/bestFor|features|verified|rating|votes|users|popularity|promotion/)
   })
