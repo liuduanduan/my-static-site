@@ -37,6 +37,17 @@ function pngWithIdat(data: Buffer) {
   return Buffer.concat([pngSignatureAndIhdr, pngChunk('IDAT', data), pngChunk('IEND')])
 }
 
+function validScanlines() {
+  const width = socialCard.readUInt32BE(16)
+  const height = socialCard.readUInt32BE(20)
+  const bitDepth = socialCard[24]
+  const colorType = socialCard[25]
+  const channels = { 0: 1, 2: 3, 4: 2, 6: 4 }[colorType]
+  expect(channels, 'fixture requires a supported non-palette color type').toBeDefined()
+  expect(bitDepth).toBe(8)
+  return Buffer.alloc(height * (width * channels! + 1))
+}
+
 function exportedFunction(name: string) {
   const candidate = (verifier as Record<string, unknown>)[name]
   expect(candidate, `${name} must be exported`).toBeTypeOf('function')
@@ -80,17 +91,35 @@ describe('PNG structural validation', () => {
 
   test('rejects a decodable image stream with an invalid scanline filter', () => {
     const validatePng = exportedFunction('validatePng')
-    const width = socialCard.readUInt32BE(16)
-    const height = socialCard.readUInt32BE(20)
-    const bitDepth = socialCard[24]
-    const colorType = socialCard[25]
-    const channels = { 0: 1, 2: 3, 4: 2, 6: 4 }[colorType]
-    expect(channels, 'fixture requires a supported non-palette color type').toBeDefined()
-    expect(bitDepth).toBe(8)
-    const rowBytes = width * channels!
-    const scanlines = Buffer.alloc(height * (rowBytes + 1))
+    const scanlines = validScanlines()
     scanlines[0] = 5
     expect(() => validatePng(pngWithIdat(deflateSync(scanlines)))).toThrow(/filter/i)
+  })
+
+  test('rejects non-consecutive IDAT chunks separated by an ancillary chunk', () => {
+    const validatePng = exportedFunction('validatePng')
+    const compressed = deflateSync(validScanlines())
+    const split = Math.floor(compressed.length / 2)
+    const png = Buffer.concat([
+      pngSignatureAndIhdr,
+      pngChunk('IDAT', compressed.subarray(0, split)),
+      pngChunk('tEXt', Buffer.from('note')),
+      pngChunk('IDAT', compressed.subarray(split)),
+      pngChunk('IEND')
+    ])
+    expect(() => validatePng(png)).toThrow(/IDAT.*consecutive|consecutive.*IDAT|order/i)
+  })
+
+  test('rejects a second complete zlib stream appended in a consecutive IDAT chunk', () => {
+    const validatePng = exportedFunction('validatePng')
+    const compressed = deflateSync(validScanlines())
+    const png = Buffer.concat([
+      pngSignatureAndIhdr,
+      pngChunk('IDAT', compressed),
+      pngChunk('IDAT', deflateSync(Buffer.from('hidden stream'))),
+      pngChunk('IEND')
+    ])
+    expect(() => validatePng(png)).toThrow(/consume|trailing|zlib|stream/i)
   })
 })
 
@@ -134,6 +163,20 @@ describe('meta attribute shape', () => {
     `
     expect(() => propertyMeta(duplicate, 'og:title', 'fixture')).toThrow(/exactly one/i)
   })
+
+  test('rejects duplicate link attributes case-insensitively', () => {
+    const parseAttributes = exportedFunction('parseAttributes')
+    expect(() =>
+      parseAttributes('<a href="https://evil.example" HREF="https://expected.example">')
+    ).toThrow(/duplicate.*href|href.*duplicate/i)
+  })
+
+  test('rejects duplicate meta content attributes', () => {
+    const parseAttributes = exportedFunction('parseAttributes')
+    expect(() =>
+      parseAttributes('<meta property="og:title" content="evil" content="expected">')
+    ).toThrow(/duplicate.*content|content.*duplicate/i)
+  })
 })
 
 describe('exact route verification', () => {
@@ -151,9 +194,21 @@ describe('exact route verification', () => {
   test('parses exact sitemap URL pathnames without substring matches', () => {
     const sitemapPathSet = exportedFunction('sitemapPathSet')
     const paths = sitemapPathSet(`<?xml version="1.0"?>
-      <urlset><url><loc>https://example.com/tools/chatgpt-copy</loc></url>
-      <url><loc>https://example.com/ai-categories/automation</loc></url></urlset>`)
+      <urlset><url><loc>https://no996noicu.com/tools/chatgpt-copy</loc></url>
+      <url><loc>https://no996noicu.com/ai-categories/automation</loc></url></urlset>`)
     expect(paths).toEqual(new Set(['/tools/chatgpt-copy', '/ai-categories/automation']))
     expect(paths.has('/tools/chatgpt')).toBe(false)
+  })
+
+  test.each([
+    ['a different origin', 'https://evil.example/tools/chatgpt'],
+    ['an HTTP URL', 'http://no996noicu.com/tools/chatgpt'],
+    ['a query string', 'https://no996noicu.com/tools/chatgpt?ref=evil'],
+    ['a fragment', 'https://no996noicu.com/tools/chatgpt#evil']
+  ])('rejects sitemap locations with %s', (_label, location) => {
+    const sitemapPathSet = exportedFunction('sitemapPathSet')
+    expect(() =>
+      sitemapPathSet(`<?xml version="1.0"?><urlset><url><loc>${location}</loc></url></urlset>`)
+    ).toThrow(/https|origin|query|fragment|search|hash/i)
   })
 })

@@ -71,7 +71,12 @@ export function parseAttributes(tag) {
   const attributes = {}
   const attributePattern = /\s([^\s=/>]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g
   for (const match of tag.matchAll(attributePattern)) {
-    attributes[match[1].toLowerCase()] = decodeHtmlEntities(
+    const name = match[1].toLowerCase()
+    assert.ok(
+      !Object.hasOwn(attributes, name),
+      `HTML tag contains duplicate attribute ${name}: ${tag}`
+    )
+    attributes[name] = decodeHtmlEntities(
       match[2] ?? match[3] ?? match[4] ?? ''
     )
   }
@@ -196,6 +201,7 @@ export function validatePng(png, expectedWidth = 1200, expectedHeight = 630) {
   let foundIend = false
   let image
   const idatParts = []
+  let idatSequenceEnded = false
 
   while (offset < png.length) {
     assert.ok(offset + 8 <= png.length, `PNG has a truncated chunk header at byte ${offset}`)
@@ -247,8 +253,21 @@ export function validatePng(png, expectedWidth = 1200, expectedHeight = 630) {
       assert.notEqual(type, 'IHDR', 'PNG must contain exactly one IHDR chunk')
     }
 
-    if (type === 'IDAT') idatParts.push(png.subarray(dataStart, crcOffset))
+    const knownCriticalChunks = new Set(['IHDR', 'PLTE', 'IDAT', 'IEND'])
+    if (type[0] === type[0].toUpperCase()) {
+      assert.ok(knownCriticalChunks.has(type), `PNG contains unknown critical chunk ${type}`)
+    }
+    if (type === 'PLTE') {
+      assert.equal(idatParts.length, 0, 'PNG PLTE chunk must precede IDAT chunks')
+    }
+    if (type === 'IDAT') {
+      assert.ok(!idatSequenceEnded, 'PNG IDAT chunks must be consecutive')
+      idatParts.push(png.subarray(dataStart, crcOffset))
+    } else if (idatParts.length > 0) {
+      idatSequenceEnded = true
+    }
     if (type === 'IEND') {
+      assert.ok(idatParts.length > 0, 'PNG IEND chunk must follow IDAT chunks')
       assert.equal(length, 0, 'PNG IEND chunk must be empty')
       assert.equal(chunkEnd, png.length, 'PNG must end exactly after IEND')
       foundIend = true
@@ -264,12 +283,21 @@ export function validatePng(png, expectedWidth = 1200, expectedHeight = 630) {
   const compressedImage = Buffer.concat(idatParts)
   assert.ok(compressedImage.length > 0, 'PNG IDAT payload must not be empty')
   const expectedScanlineLength = image.height * (1 + image.rowBytes)
-  let scanlines
+  let inflation
   try {
-    scanlines = inflateSync(compressedImage, { maxOutputLength: expectedScanlineLength + 1 })
+    inflation = inflateSync(compressedImage, {
+      maxOutputLength: expectedScanlineLength + 1,
+      info: true
+    })
   } catch (error) {
     throw new Error(`PNG IDAT zlib stream could not be inflated: ${error.message}`)
   }
+  assert.equal(
+    inflation.engine.bytesWritten,
+    compressedImage.length,
+    'PNG IDAT payload must contain exactly one fully consumed zlib stream with no trailing data'
+  )
+  const scanlines = inflation.buffer
   assert.equal(
     scanlines.length,
     expectedScanlineLength,
@@ -282,12 +310,16 @@ export function validatePng(png, expectedWidth = 1200, expectedHeight = 630) {
   return image
 }
 
-export function sitemapPathSet(xml) {
+export function sitemapPathSet(xml, expectedOrigin = 'https://no996noicu.com') {
   const paths = new Set()
   const locations = [...xml.matchAll(/<loc\b[^>]*>([\s\S]*?)<\/loc>/gi)]
   for (const match of locations) {
     const value = decodeHtmlEntities(match[1].trim())
     const url = new URL(value)
+    assert.equal(url.protocol, 'https:', `sitemap location must use HTTPS: ${value}`)
+    assert.equal(url.origin, expectedOrigin, `sitemap location has unexpected origin: ${value}`)
+    assert.equal(url.search, '', `sitemap location must not contain a query string: ${value}`)
+    assert.equal(url.hash, '', `sitemap location must not contain a fragment: ${value}`)
     assert.ok(!paths.has(url.pathname), `sitemap contains duplicate path ${url.pathname}`)
     paths.add(url.pathname)
   }
