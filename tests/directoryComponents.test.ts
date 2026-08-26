@@ -10,6 +10,7 @@ const componentsDirectory = new URL(
   '../docs/.vitepress/theme/components/',
   import.meta.url
 )
+const themeDirectory = new URL('../docs/.vitepress/theme/', import.meta.url)
 
 function componentSource(name: string): string {
   const url = new URL(name, componentsDirectory)
@@ -19,6 +20,12 @@ function componentSource(name: string): string {
 
 function occurrences(source: string, value: string): number {
   return source.split(value).length - 1
+}
+
+function themeSource(name: string): string {
+  const url = new URL(name, themeDirectory)
+  expect(existsSync(url), `${name} should exist`).toBe(true)
+  return existsSync(url) ? readFileSync(url, 'utf8') : ''
 }
 
 async function filterValuesModule() {
@@ -239,7 +246,9 @@ describe('AiDirectory extraction contract', () => {
     expect(source).toMatch(
       /watch\(\s*\[query, category, pricingMode, chineseSupport\],\s*\(\) => \{\s*visibleCount\.value = PAGE_SIZE\s*\}\s*\)/
     )
-    expect(source).toMatch(/function loadMore\(\) \{\s*visibleCount\.value \+= PAGE_SIZE\s*\}/)
+    expect(source).toMatch(
+      /function loadMore\(\) \{\s*if \(!hasMore\.value\) return\s*visibleCount\.value \+= PAGE_SIZE\s*\}/
+    )
   })
 
   it('clears all filters explicitly while Escape clears only the query', () => {
@@ -265,7 +274,10 @@ describe('AiDirectory extraction contract', () => {
     expect(source).toContain('{{ toolCount }}')
     expect(source).not.toMatch(/\b24\b|\b6\b/)
     expect(source).toContain('category.value = selectedCategory')
-    expect(occurrences(source, "document.getElementById('tool-directory')?.scrollIntoView({ behavior: 'smooth', block: 'start' })")).toBe(2)
+    expect(source).toContain("window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'")
+    expect(source).toContain("document.getElementById('tool-directory')?.scrollIntoView({ behavior, block: 'start' })")
+    expect(occurrences(source, '\n  scrollToDirectory()')).toBe(2)
+    expect(source).not.toContain("scrollIntoView({ behavior: 'smooth'")
     expect(source).toContain('@click="chooseCategory(categoryOption.value as ToolCategory)"')
     expect(source).toContain('@click="browseAll"')
   })
@@ -297,11 +309,56 @@ describe('AiDirectory extraction contract', () => {
     expect(source).toContain(':chinese-support="chineseSupport"')
     expect(source).toContain('@update:chinese-support="chineseSupport = $event"')
     expect(source).toContain('@reset="resetFilters"')
-    expect(source).toContain('`共找到 ${filteredTools.length} 款工具`')
-    expect(source).toContain('v-if="hasMore"')
+    expect(source).toContain('`共找到 ${filteredTools.value.length} 款工具，当前显示 ${displayedTools.value.length} 款`')
+    expect(source).toContain("`${progress}，已显示全部`")
+    expect(source).toContain('aria-live="polite"')
+    expect(source).toContain('{{ resultStatus }}')
+    expect(source).toContain('v-if="filteredTools.length"')
+    expect(source).toContain(':class="{ complete: !hasMore }"')
+    expect(source).toContain(":aria-disabled=\"hasMore ? undefined : 'true'\"")
+    expect(source).toContain("{{ hasMore ? '加载更多' : '已显示全部' }}")
     expect(source).toContain('@click="loadMore"')
+    expect(source).not.toMatch(/\s(?::)?disabled(?:=|\s|>)/)
+    expect(source).not.toMatch(/\.focus\(|autofocus|ref="loadMore/)
     expect(source).toContain('没有符合当前条件的工具')
     expect(source).toContain('<button class="empty-reset" type="button" @click="resetFilters">清除全部条件</button>')
     expect(source).not.toMatch(/showAll|isInitialView|featured-only/)
+  })
+})
+
+describe('AI directory style contract', () => {
+  it('styles every discovery and directory control introduced by the homepage', () => {
+    const css = themeSource('custom.css')
+    const requiredSelectors = [
+      '.discovery-section',
+      '.discovery-section .platform-section-heading',
+      '.discovery-tabs',
+      '.discovery-tab',
+      '.discovery-tab.active',
+      '.discovery-tab:focus-visible',
+      '.discovery-disclaimer',
+      '.discovery-grid',
+      '.directory-filters',
+      '.directory-filter',
+      '.directory-filter label',
+      '.directory-filter select',
+      '.directory-filter select:focus-visible',
+      '.directory-filters > button',
+      '.directory-result-count',
+      '.directory-load-more',
+      '.directory-load-more button.complete'
+    ]
+
+    for (const selector of requiredSelectors) {
+      expect(css, `${selector} should have a CSS rule`).toContain(`${selector} {`)
+    }
+  })
+
+  it('stacks filters and wraps discovery tabs at the mobile breakpoint', () => {
+    const css = themeSource('custom.css')
+    const mobile = css.match(/@media \(max-width: 700px\) \{([\s\S]*?)\n\}/)?.[1] ?? ''
+
+    expect(mobile).toMatch(/\.directory-filters\s*\{[\s\S]*?grid-template-columns:\s*1fr/)
+    expect(mobile).toMatch(/\.discovery-tabs\s*\{[\s\S]*?flex-wrap:\s*wrap/)
   })
 })

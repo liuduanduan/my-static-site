@@ -48,6 +48,10 @@ const filteredTools = computed(() =>
 const displayedTools = computed(() => paginateTools(filteredTools.value, visibleCount.value))
 const discoveryTools = computed(() => getDiscoveryTools(activeDiscovery.value))
 const hasMore = computed(() => displayedTools.value.length < filteredTools.value.length)
+const resultStatus = computed(() => {
+  const progress = `共找到 ${filteredTools.value.length} 款工具，当前显示 ${displayedTools.value.length} 款`
+  return hasMore.value ? progress : `${progress}，已显示全部`
+})
 
 watch([query, category, pricingMode, chineseSupport], () => {
   visibleCount.value = PAGE_SIZE
@@ -64,17 +68,23 @@ function resetFilters() {
   chineseSupport.value = 'all'
 }
 
+function scrollToDirectory() {
+  const behavior = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+  document.getElementById('tool-directory')?.scrollIntoView({ behavior, block: 'start' })
+}
+
 function chooseCategory(selectedCategory: CategoryFilter) {
   category.value = selectedCategory
-  document.getElementById('tool-directory')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  scrollToDirectory()
 }
 
 function browseAll() {
   resetFilters()
-  document.getElementById('tool-directory')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  scrollToDirectory()
 }
 
 function loadMore() {
+  if (!hasMore.value) return
   visibleCount.value += PAGE_SIZE
 }
 </script>
@@ -229,7 +239,7 @@ function loadMore() {
         />
 
         <p class="directory-result-count" aria-live="polite">
-          {{ `共找到 ${filteredTools.length} 款工具` }}
+          {{ resultStatus }}
         </p>
 
         <div v-if="displayedTools.length" class="tool-grid">
@@ -244,8 +254,16 @@ function loadMore() {
           <button class="empty-reset" type="button" @click="resetFilters">清除全部条件</button>
         </div>
 
-        <div v-if="hasMore" class="directory-load-more">
-          <button class="section-link" type="button" @click="loadMore">加载更多</button>
+        <div v-if="filteredTools.length" class="directory-load-more">
+          <button
+            class="section-link"
+            :class="{ complete: !hasMore }"
+            type="button"
+            :aria-disabled="hasMore ? undefined : 'true'"
+            @click="loadMore"
+          >
+            {{ hasMore ? '加载更多' : '已显示全部' }}
+          </button>
         </div>
       </section>
 
