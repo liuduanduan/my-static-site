@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import {
+  getAllTools,
   getCategories,
   getCategoryLabel,
   getFeaturedTools,
@@ -10,14 +11,16 @@ import {
 } from '../domain/aiTools'
 import {
   categoryVisuals,
-  getToolVisual,
+  formatPlatformEyebrow,
   platformHero
 } from '../domain/directoryPresentation'
+import ToolCard from './ToolCard.vue'
 
 const query = ref('')
 const activeCategory = ref<CategoryFilter>('all')
 const showAll = ref(false)
 const categories = getCategories()
+const heroEyebrow = formatPlatformEyebrow(getAllTools().length, categories.length)
 
 const filteredTools = computed(() => searchTools(query.value, activeCategory.value))
 const isFiltered = computed(() => Boolean(query.value.trim()) || activeCategory.value !== 'all')
@@ -65,7 +68,7 @@ function clearSearch() {
       <div class="directory-hero-inner">
         <p class="hero-eyebrow">
           <span aria-hidden="true">✦</span>
-          {{ platformHero.eyebrow }}
+          {{ heroEyebrow }}
         </p>
         <h1 id="directory-title">{{ platformHero.title }}</h1>
         <p class="directory-lede">{{ platformHero.subtitle }}</p>
@@ -175,41 +178,7 @@ function clearSearch() {
         </header>
 
         <div v-if="displayedTools.length" class="tool-grid">
-          <article v-for="tool in displayedTools" :key="tool.slug" class="tool-card">
-            <div class="tool-card-topline">
-              <span
-                class="tool-brand-mark"
-                :style="{
-                  '--tool-accent': getToolVisual(tool.name, tool.category).accent,
-                  '--tool-soft': getToolVisual(tool.name, tool.category).soft
-                }"
-                aria-hidden="true"
-              >
-                {{ getToolVisual(tool.name, tool.category).mark }}
-              </span>
-              <div class="tool-card-badges">
-                <span class="tool-category">{{ getCategoryLabel(tool.category) }}</span>
-                <span class="verified-badge" title="人工整理">✓</span>
-              </div>
-            </div>
-
-            <div class="tool-card-copy">
-              <h3><a :href="`/tools/${tool.slug}`">{{ tool.name }}</a></h3>
-              <p class="tool-tagline">{{ tool.tagline }}</p>
-              <p class="tool-description">{{ tool.description }}</p>
-            </div>
-
-            <div class="use-case-chips" aria-label="适用场景">
-              <span v-for="useCase in tool.bestFor.slice(0, 2)" :key="useCase">{{ useCase }}</span>
-            </div>
-
-            <div class="tool-card-footer">
-              <span class="tool-pricing">{{ tool.pricing }}</span>
-              <a class="tool-detail-link" :href="`/tools/${tool.slug}`">
-                查看工具 <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </article>
+          <ToolCard v-for="tool in displayedTools" :key="tool.slug" :tool="tool" />
         </div>
 
         <div v-else class="tool-empty" role="status">
