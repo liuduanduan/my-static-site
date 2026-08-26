@@ -80,6 +80,7 @@ const chineseSupportModes = Object.keys(chineseSupportLabels) as ChineseSupport[
 const accessModes = Object.keys(accessModeLabels) as AccessMode[]
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const datePattern = /^\d{4}-\d{2}-\d{2}$/
+const chineseCharacterPattern = /[\u3400-\u4DBF\u4E00-\u9FFF]/u
 
 function fail(message: string): never {
   throw new Error(`Invalid AI tool collection: ${message}`)
@@ -177,17 +178,24 @@ export function validateToolCollection(value: unknown): AiTool[] {
       fail(`${context}.requiresAccount must be a boolean`)
     }
 
-    requireStringList(candidate, 'tags', context, 2)
-    requireStringList(candidate, 'searchTerms', context, 2)
+    const tags = requireStringList(candidate, 'tags', context, 2)
+    if (tags.length > 5) fail(`${context}.tags must contain at most 5 strings`)
+
+    const searchTerms = requireStringList(candidate, 'searchTerms', context, 2)
+    if (searchTerms.some((term) => !chineseCharacterPattern.test(term))) {
+      fail(`${context}.searchTerms entries must contain Chinese characters`)
+    }
     requireStringList(candidate, 'pros', context)
     requireStringList(candidate, 'cons', context)
 
     const url = requireString(candidate, 'url', context)
+    let parsedUrl: URL
     try {
-      if (new URL(url).protocol !== 'https:') fail(`${context}.url must use HTTPS`)
+      parsedUrl = new URL(url)
     } catch {
       fail(`${context}.url must be a valid HTTPS URL`)
     }
+    if (parsedUrl.protocol !== 'https:') fail(`${context}.url must use HTTPS`)
 
     requireDate(candidate, 'addedAt', context)
     requireDate(candidate, 'updatedAt', context)
