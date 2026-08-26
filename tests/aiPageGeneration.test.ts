@@ -71,6 +71,26 @@ function generateFixture(fixtureRoot: string): string[] {
   }) as string[]
 }
 
+function assertGeneratedArtifactsMatch(
+  generatedRoot: string,
+  committedRoot: string,
+  relativePaths: readonly string[]
+): void {
+  relativePaths.forEach((relativePath) => {
+    const generatedPath = resolve(generatedRoot, relativePath)
+    const committedPath = resolve(committedRoot, relativePath)
+    if (!existsSync(generatedPath)) {
+      throw new Error(`Missing generated artifact: ${relativePath}`)
+    }
+    if (!existsSync(committedPath)) {
+      throw new Error(`Missing committed artifact: ${relativePath}`)
+    }
+    if (!readFileSync(generatedPath).equals(readFileSync(committedPath))) {
+      throw new Error(`Generated artifact content drift: ${relativePath}`)
+    }
+  })
+}
+
 function createDirectoryLink(target: string, linkPath: string): void {
   symlinkSync(target, linkPath, process.platform === 'win32' ? 'junction' : 'dir')
 }
@@ -165,20 +185,44 @@ describe('AI page generation', () => {
     }
   })
 
-  it('keeps the committed generated artifacts in sync without rewriting them', () => {
-    const catalog = cloneCatalog()
-    const manifest = JSON.parse(
-      readFileSync(resolve(root, 'docs/.vitepress/ai-pages-manifest.json'), 'utf8')
-    ) as string[]
-    const expectedManifest = [
-      ...catalog.map((tool) => `docs/tools/${tool.slug}.md`),
-      ...categories.map((category) => `docs/ai-categories/${category}.md`),
-      'docs/tools/index.md',
-      'docs/ai-categories/index.md'
-    ]
+  it('detects byte drift even when generated and committed paths both exist', () => {
+    const generatedRoot = mkdtempSync(resolve(tmpdir(), 'ai-generated-stale-check-'))
+    const committedRoot = mkdtempSync(resolve(tmpdir(), 'ai-committed-stale-check-'))
+    const relativePath = 'docs/tools/example.md'
 
-    expect(manifest).toEqual(expectedManifest)
-    expect(manifest.every((path) => existsSync(resolve(root, path)))).toBe(true)
+    try {
+      mkdirSync(resolve(generatedRoot, 'docs/tools'), { recursive: true })
+      mkdirSync(resolve(committedRoot, 'docs/tools'), { recursive: true })
+      writeFileSync(resolve(generatedRoot, relativePath), 'current\n', 'utf8')
+      writeFileSync(resolve(committedRoot, relativePath), 'stale\n', 'utf8')
+
+      expect(() =>
+        assertGeneratedArtifactsMatch(generatedRoot, committedRoot, [relativePath])
+      ).toThrow(/content drift/i)
+    } finally {
+      rmSync(generatedRoot, { recursive: true, force: true })
+      rmSync(committedRoot, { recursive: true, force: true })
+    }
+  })
+
+  it('matches all generated fixture bytes to the committed artifacts read-only', () => {
+    const fixture = createFixture('ai-page-committed-sync-')
+
+    try {
+      const generatedManifest = generateFixture(fixture.root)
+      const committedManifest = JSON.parse(
+        readFileSync(resolve(root, 'docs/.vitepress/ai-pages-manifest.json'), 'utf8')
+      ) as string[]
+
+      expect(generatedManifest).toHaveLength(74)
+      expect(generatedManifest).toEqual(committedManifest)
+      assertGeneratedArtifactsMatch(fixture.root, root, [
+        ...generatedManifest,
+        'docs/.vitepress/ai-pages-manifest.json'
+      ])
+    } finally {
+      rmSync(fixture.root, { recursive: true, force: true })
+    }
   })
 
   it('uses resolved directory boundaries for generated-file cleanup', () => {
