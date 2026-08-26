@@ -49,6 +49,15 @@ function rule(selector: string, source = css): string {
   return candidates.map((block) => `${block.header} {${block.body}}`).join('\n')
 }
 
+function lastRule(selector: string, source = css): string {
+  const candidates = blocks(source).filter(({ header, hasNestedBlocks }) =>
+    !hasNestedBlocks && header.split(',').map((part) => part.trim()).includes(selector)
+  )
+  const block = candidates.at(-1)
+  if (!block) throw new Error(`Missing CSS rule: ${selector}`)
+  return `${block.header} {${block.body}}`
+}
+
 function media(query: string): string {
   const block = blocks(css).find(({ header }) => header === `@media ${query}`)
   if (!block) throw new Error(`Missing media query: ${query}`)
@@ -145,6 +154,19 @@ describe('expanded directory layout', () => {
     expect(rule('.discovery-tab')).toContain('min-height: 44px')
     expect(rule('.directory-load-more')).toContain('justify-content: center')
   })
+
+  it.each([
+    '.section-link',
+    '.empty-reset',
+    '.back-link',
+    '.tool-detail-link'
+  ])('keeps the final %s rule aligned and at least 44px tall', (selector) => {
+    const finalRule = lastRule(selector)
+
+    expect(finalRule).toContain('display: inline-flex')
+    expect(finalRule).toContain('align-items: center')
+    expect(finalRule).toContain('min-height: 44px')
+  })
 })
 
 describe('keyboard and motion accessibility', () => {
@@ -183,9 +205,6 @@ describe('keyboard and motion accessibility', () => {
     expect(rule('.directory-filter select', compact)).toContain('min-height: 44px')
     expect(rule('.directory-filters > button', compact)).toContain('min-height: 44px')
     expect(rule('.discovery-tab', compact)).toContain('min-height: 44px')
-    expect(rule('.directory-load-more .section-link', compact)).toContain('min-height: 44px')
-    expect(rule('.tool-detail-link', compact)).toContain('min-height: 44px')
-    expect(rule('.empty-reset', compact)).toContain('min-height: 44px')
   })
 
   it('removes motion for users who request it', () => {
