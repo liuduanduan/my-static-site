@@ -46,6 +46,18 @@ export type ReadonlyAiTool = {
 }
 
 export type CategoryFilter = ToolCategory | 'all'
+export type PricingFilter = PricingMode | 'all'
+export type ChineseSupportFilter = ChineseSupport | 'all'
+export type DiscoveryKind = 'featured' | 'latest' | 'free'
+
+export interface ToolFilters {
+  query?: string
+  category?: CategoryFilter
+  pricingMode?: PricingFilter
+  chineseSupport?: ChineseSupportFilter
+}
+
+export const PAGE_SIZE = 12
 
 export const categoryLabels: Record<ToolCategory, string> = {
   chat: '对话与模型',
@@ -260,9 +272,45 @@ function freezeToolCollection(collection: AiTool[]): readonly ReadonlyAiTool[] {
 }
 
 const tools = freezeToolCollection(validateToolCollection(rawTools))
+const taskAliases: Readonly<Partial<Record<AiTool['slug'], readonly string[]>>> = {
+  'remove-bg': ['去背景'],
+  'semantic-scholar': ['论文检索']
+}
 
 function normalize(value: string): string {
-  return value.trim().toLocaleLowerCase()
+  return value.trim().toLowerCase().replace(/\s+/g, ' ')
+}
+
+function compareDefaultOrder(left: ReadonlyAiTool, right: ReadonlyAiTool): number {
+  const leftFeatured = left.featuredOrder
+  const rightFeatured = right.featuredOrder
+
+  if (leftFeatured !== undefined || rightFeatured !== undefined) {
+    if (leftFeatured === undefined) return 1
+    if (rightFeatured === undefined) return -1
+    if (leftFeatured !== rightFeatured) return leftFeatured - rightFeatured
+  }
+
+  const dateOrder = right.addedAt.localeCompare(left.addedAt)
+  if (dateOrder !== 0) return dateOrder
+  return left.name.localeCompare(right.name, 'zh-CN')
+}
+
+function getQueryScore(tool: ReadonlyAiTool, normalizedQuery: string): number {
+  if (normalize(tool.name).includes(normalizedQuery)) return 300
+
+  const metadataFields = [...tool.tags, ...tool.searchTerms, ...(taskAliases[tool.slug] ?? [])]
+  if (metadataFields.some((field) => normalize(field).includes(normalizedQuery))) return 200
+
+  const detailFields = [
+    tool.tagline,
+    tool.description,
+    ...tool.bestFor,
+    ...tool.features
+  ]
+  if (detailFields.some((field) => normalize(field).includes(normalizedQuery))) return 100
+
+  return 0
 }
 
 export function getAllTools(): readonly ReadonlyAiTool[] {
@@ -292,32 +340,68 @@ export function getCategories(): ReadonlyArray<{
 export function searchTools(
   query = '',
   category: CategoryFilter = 'all'
-): readonly ReadonlyAiTool[] {
-  const normalizedQuery = normalize(query)
-
-  return tools.filter((tool) => {
-    if (category !== 'all' && tool.category !== category) return false
-    if (!normalizedQuery) return true
-
-    const haystack = [
-      tool.name,
-      tool.tagline,
-      tool.description,
-      ...tool.bestFor,
-      ...tool.features,
-      ...tool.tags,
-      ...tool.searchTerms
-    ]
-      .join(' ')
-      .toLocaleLowerCase()
-
-    return haystack.includes(normalizedQuery)
-  })
+): ReadonlyAiTool[] {
+  return filterTools({ query, category })
 }
 
-export function getFeaturedTools(limit = 6): readonly ReadonlyAiTool[] {
+export function filterTools(filters: ToolFilters = {}): ReadonlyAiTool[] {
+  const {
+    query = '',
+    category = 'all',
+    pricingMode = 'all',
+    chineseSupport = 'all'
+  } = filters
+  const normalizedQuery = normalize(query)
+
   return tools
-    .filter((tool) => tool.featuredOrder !== undefined)
-    .sort((left, right) => left.featuredOrder! - right.featuredOrder!)
-    .slice(0, limit)
+    .filter((tool) => category === 'all' || tool.category === category)
+    .filter((tool) => pricingMode === 'all' || tool.pricingMode === pricingMode)
+    .filter((tool) => chineseSupport === 'all' || tool.chineseSupport === chineseSupport)
+    .map((tool) => ({ tool, score: normalizedQuery ? getQueryScore(tool, normalizedQuery) : 0 }))
+    .filter(({ score }) => !normalizedQuery || score > 0)
+    .sort((left, right) => right.score - left.score || compareDefaultOrder(left.tool, right.tool))
+    .map(({ tool }) => tool)
+}
+
+export function getDiscoveryTools(
+  kind: DiscoveryKind,
+  limit = 6
+): ReadonlyAiTool[] {
+  const resolvedLimit = Number.isFinite(limit) && Number.isInteger(limit) && limit > 0 ? limit : 6
+  let matches: ReadonlyAiTool[]
+
+  if (kind === 'featured') {
+    matches = tools
+      .filter((tool) => tool.featuredOrder !== undefined)
+      .sort((left, right) => left.featuredOrder! - right.featuredOrder!)
+  } else if (kind === 'latest') {
+    matches = [...tools].sort(
+      (left, right) =>
+        right.addedAt.localeCompare(left.addedAt) || left.name.localeCompare(right.name, 'zh-CN')
+    )
+  } else {
+    matches = tools
+      .filter((tool) => tool.pricingMode === 'free' || tool.pricingMode === 'freemium')
+      .sort(compareDefaultOrder)
+  }
+
+  return matches.slice(0, resolvedLimit)
+}
+
+export function paginateTools(
+  items: readonly ReadonlyAiTool[],
+  visibleCount: number
+): ReadonlyAiTool[] {
+  const count =
+    Number.isFinite(visibleCount) &&
+    Number.isInteger(visibleCount) &&
+    visibleCount >= PAGE_SIZE
+      ? visibleCount
+      : PAGE_SIZE
+
+  return items.slice(0, count)
+}
+
+export function getFeaturedTools(limit = 6): ReadonlyAiTool[] {
+  return getDiscoveryTools('featured', limit)
 }

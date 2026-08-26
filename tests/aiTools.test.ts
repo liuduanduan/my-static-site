@@ -1,11 +1,15 @@
 import { describe, expect, it } from 'vitest'
 import {
   type AiTool,
+  PAGE_SIZE,
   categoryLabels,
+  filterTools,
   getAllTools,
   getCategories,
+  getDiscoveryTools,
   getFeaturedTools,
   getToolBySlug,
+  paginateTools,
   searchTools,
   validateToolCollection
 } from '../docs/.vitepress/theme/domain/aiTools'
@@ -277,6 +281,127 @@ describe('ai tool directory data', () => {
       tags: originalTags,
       alternatives: originalAlternatives
     })
+  })
+})
+
+describe('ai tool directory filtering and discovery', () => {
+  it('ranks a name match ahead of lower-priority field matches', () => {
+    expect(filterTools({ query: 'notion' })[0].slug).toBe('notion')
+  })
+
+  it.each([
+    ['会议纪要', 'otter'],
+    ['去背景', 'remove-bg'],
+    ['论文检索', 'semantic-scholar']
+  ])('finds the real task %s as %s', (query, slug) => {
+    expect(filterTools({ query }).map((tool) => tool.slug)).toContain(slug)
+  })
+
+  it('normalizes query case and collapses surrounding and internal whitespace', () => {
+    expect(filterTools({ query: '  MICROSOFT     COPILOT  ' })[0].slug).toBe(
+      'microsoft-copilot'
+    )
+  })
+
+  it('applies category, pricing, and Chinese-support filters together', () => {
+    const results = filterTools({
+      category: 'research',
+      pricingMode: 'freemium',
+      chineseSupport: 'partial'
+    })
+
+    expect(results.map((tool) => tool.slug)).toContain('notebooklm')
+    expect(results.length).toBeGreaterThan(0)
+    expect(
+      results.every(
+        (tool) =>
+          tool.category === 'research' &&
+          tool.pricingMode === 'freemium' &&
+          tool.chineseSupport === 'partial'
+      )
+    ).toBe(true)
+  })
+
+  it('treats empty queries and explicit all filters like the defaults', () => {
+    const defaults = filterTools()
+    const explicitAll = filterTools({
+      query: '',
+      category: 'all',
+      pricingMode: 'all',
+      chineseSupport: 'all'
+    })
+
+    expect(defaults).toHaveLength(63)
+    expect(explicitAll.map((tool) => tool.slug)).toEqual(defaults.map((tool) => tool.slug))
+    expect(filterTools({ query: '', category: 'image' })).toHaveLength(7)
+  })
+
+  it('returns the exact ordered featured discovery set stably', () => {
+    const expected = ['chatgpt', 'claude', 'midjourney', 'runway', 'cursor', 'perplexity']
+
+    expect(getDiscoveryTools('featured').map((tool) => tool.slug)).toEqual(expected)
+    expect(getDiscoveryTools('featured').map((tool) => tool.slug)).toEqual(expected)
+  })
+
+  it('returns the six latest tools by date then Chinese name order stably', () => {
+    const expected = [
+      'doubao',
+      'kling',
+      'adcreative-ai',
+      'firefly',
+      'adobe-podcast',
+      'airtable'
+    ]
+
+    expect(getDiscoveryTools('latest')).toHaveLength(6)
+    expect(getDiscoveryTools('latest').map((tool) => tool.slug)).toEqual(expected)
+    expect(getDiscoveryTools('latest').map((tool) => tool.slug)).toEqual(expected)
+  })
+
+  it('returns a stable default free discovery set containing only free or freemium tools', () => {
+    const first = getDiscoveryTools('free')
+    const second = getDiscoveryTools('free')
+
+    expect(first).toHaveLength(6)
+    expect(first.length).toBeLessThanOrEqual(6)
+    expect(first.every((tool) => ['free', 'freemium'].includes(tool.pricingMode))).toBe(true)
+    expect(second.map((tool) => tool.slug)).toEqual(first.map((tool) => tool.slug))
+  })
+
+  it('uses the default discovery limit when the requested limit is invalid', () => {
+    const expected = getDiscoveryTools('featured').map((tool) => tool.slug)
+
+    expect(getDiscoveryTools('featured', Number.NaN).map((tool) => tool.slug)).toEqual(expected)
+    expect(getDiscoveryTools('featured', 0).map((tool) => tool.slug)).toEqual(expected)
+    expect(getDiscoveryTools('featured', 1.5).map((tool) => tool.slug)).toEqual(expected)
+  })
+
+  it('paginates the default catalog in non-overlapping 12-tool increments', () => {
+    const items = filterTools()
+    const firstPage = paginateTools(items, PAGE_SIZE)
+    const secondPage = paginateTools(items, PAGE_SIZE * 2)
+
+    expect(PAGE_SIZE).toBe(12)
+    expect(firstPage).toEqual(items.slice(0, 12))
+    expect(secondPage).toEqual(items.slice(0, 24))
+    expect(new Set(secondPage.map((tool) => tool.slug))).toHaveProperty('size', 24)
+  })
+
+  it.each([Number.NaN, Number.POSITIVE_INFINITY, 11, 12.5])(
+    'clamps invalid visible count %s to PAGE_SIZE',
+    (visibleCount) => {
+      const items = filterTools()
+      expect(paginateTools(items, visibleCount)).toEqual(items.slice(0, PAGE_SIZE))
+    }
+  )
+
+  it('does not mutate the pagination input', () => {
+    const items = [...filterTools()]
+    const before = items.map((tool) => tool.slug)
+    const page = paginateTools(items, 24)
+
+    expect(items.map((tool) => tool.slug)).toEqual(before)
+    expect(page).not.toBe(items)
   })
 })
 
