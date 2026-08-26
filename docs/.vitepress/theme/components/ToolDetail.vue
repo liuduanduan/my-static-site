@@ -4,12 +4,17 @@ import {
   getCategoryLabel,
   getToolBySlug
 } from '../domain/aiTools'
+import { getToolVisual } from '../domain/directoryPresentation'
 
 const props = defineProps<{
   slug: string
 }>()
 
 const tool = computed(() => getToolBySlug(props.slug))
+const visual = computed(() => tool.value
+  ? getToolVisual(tool.value.name, tool.value.category)
+  : null
+)
 const alternatives = computed(() =>
   tool.value?.alternatives
     .map((slug) => getToolBySlug(slug))
@@ -27,7 +32,23 @@ function formatDate(value: string): string {
 
     <article class="tool-detail-card">
       <header class="tool-detail-hero">
-        <div class="directory-kicker">{{ getCategoryLabel(tool.category) }} / AI TOOL</div>
+        <div class="detail-brand-row">
+          <span
+            v-if="visual"
+            class="tool-brand-mark tool-brand-mark--large"
+            :style="{
+              '--tool-accent': visual.accent,
+              '--tool-soft': visual.soft
+            }"
+            aria-hidden="true"
+          >
+            {{ visual.mark }}
+          </span>
+          <div>
+            <div class="detail-kicker">{{ getCategoryLabel(tool.category) }} / VERIFIED TOOL</div>
+            <span class="detail-curated">✓ 人工整理</span>
+          </div>
+        </div>
         <h1>{{ tool.name }}</h1>
         <p class="tool-detail-tagline">{{ tool.tagline }}</p>
         <p class="tool-detail-description">{{ tool.description }}</p>

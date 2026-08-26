@@ -5,6 +5,7 @@ export default defineConfig({
   title: '寻器 AI 工具目录',
   titleTemplate: ':title · 寻器',
   description: '为中文用户精选真正值得使用的 AI 工具，按场景找到合适的工具。',
+  appearance: false,
   cleanUrls: true,
   lastUpdated: false,
   srcExclude: [
@@ -52,7 +53,8 @@ export default defineConfig({
     nav: [
       { text: '工具目录', link: '/' },
       { text: '按场景浏览', link: '/ai-categories/' },
-      { text: '关于寻器', link: '/about' }
+      { text: '关于寻器', link: '/about' },
+      { text: '提交工具', link: '/about#更新建议' }
     ],
     search: {
       provider: 'local'
