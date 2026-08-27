@@ -7,6 +7,25 @@ import { inflateSync } from 'node:zlib'
 const scriptPath = fileURLToPath(import.meta.url)
 const defaultRoot = resolve(dirname(scriptPath), '..')
 const socialImageUrl = 'https://no996noicu.com/social-card.png'
+const siteOrigin = 'https://no996noicu.com'
+const categoryLabels = {
+  chat: '对话与模型',
+  writing: '写作与办公',
+  image: '图像与设计',
+  video: '视频与数字人',
+  coding: '编程与建站',
+  audio: '音频与音乐',
+  research: '搜索与研究',
+  marketing: '营销与社媒',
+  automation: '自动化与数据'
+}
+const accessModeLabels = {
+  web: '网页',
+  desktop: '桌面端',
+  mobile: '移动端',
+  api: 'API',
+  extension: '浏览器扩展'
+}
 const pngSignature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])
 const launchToolSlugs = [
   'chatgpt', 'claude', 'deepseek', 'kimi', 'gemini', 'microsoft-copilot', 'doubao',
@@ -152,6 +171,112 @@ function countOpeningTags(html, name) {
   return (html.match(new RegExp(`<${name}(?:\\s|>)`, 'gi')) ?? []).length
 }
 
+export function jsonLdDocuments(html, pageName = 'page') {
+  const documents = []
+  const pattern = /<script\b[^>]*>([\s\S]*?)<\/script\s*>/gi
+  for (const match of html.matchAll(pattern)) {
+    const openingTag = match[0].slice(0, match[0].indexOf('>') + 1)
+    const attributes = parseAttributes(openingTag)
+    if ((attributes.type ?? '').toLowerCase() !== 'application/ld+json') continue
+    try {
+      documents.push(JSON.parse(match[1]))
+    } catch (error) {
+      throw new Error(`${pageName} contains invalid JSON-LD: ${error.message}`)
+    }
+  }
+  return documents
+}
+
+function expectedBreadcrumbItems(tool) {
+  const categoryLabel = categoryLabels[tool.category]
+  return [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: '首页',
+      item: `${siteOrigin}/`
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: categoryLabel,
+      item: `${siteOrigin}/ai-categories/${tool.category}`
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: tool.name,
+      item: `${siteOrigin}/tools/${tool.slug}`
+    }
+  ]
+}
+
+export function verifyToolStructuredData(html, tool) {
+  const pageName = tool.name
+  const documents = jsonLdDocuments(html, pageName)
+  assert.equal(documents.length, 1, `${pageName} must emit exactly one JSON-LD document`)
+  const document = documents[0]
+  assert.equal(document?.['@context'], 'https://schema.org', `${pageName} JSON-LD context is invalid`)
+  assert.ok(Array.isArray(document?.['@graph']), `${pageName} JSON-LD must contain an @graph`)
+  const applications = document['@graph'].filter((item) => item?.['@type'] === 'SoftwareApplication')
+  const breadcrumbGraphs = document['@graph'].filter((item) => item?.['@type'] === 'BreadcrumbList')
+  assert.equal(applications.length, 1, `${pageName} must emit exactly one SoftwareApplication`)
+  assert.equal(breadcrumbGraphs.length, 1, `${pageName} must emit exactly one BreadcrumbList`)
+
+  const application = applications[0]
+  assert.equal(application.name, tool.name, `${pageName} structured name must match the catalog`)
+  assert.equal(
+    application.url,
+    `${siteOrigin}/tools/${tool.slug}`,
+    `${pageName} structured canonical URL must match its route`
+  )
+  assert.equal(
+    application.applicationCategory,
+    categoryLabels[tool.category],
+    `${pageName} structured application category must match the catalog`
+  )
+  assert.deepEqual(
+    application.operatingSystem,
+    tool.accessModes.map((mode) => accessModeLabels[mode]),
+    `${pageName} structured operating-system labels must match access modes`
+  )
+  if (tool.pricingMode === 'free') {
+    assert.deepEqual(
+      application.offers,
+      { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      `${pageName} free offer must declare only a zero USD price`
+    )
+  } else {
+    assert.ok(!Object.hasOwn(application, 'offers'), `${pageName} must not invent an offer or price`)
+  }
+
+  const breadcrumbs = breadcrumbGraphs[0]
+  assert.deepEqual(
+    breadcrumbs.itemListElement,
+    expectedBreadcrumbItems(tool),
+    `${pageName} structured breadcrumbs must match the tool route`
+  )
+  return { application, breadcrumbs }
+}
+
+export function verifyCategoryStructuredData(html, category, tools) {
+  const pageName = `${category} category`
+  const itemLists = jsonLdDocuments(html, pageName).filter((item) => item?.['@type'] === 'ItemList')
+  assert.equal(itemLists.length, 1, `${pageName} must emit exactly one ItemList`)
+  const expected = tools.map((tool, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: tool.name,
+    url: `${siteOrigin}/tools/${tool.slug}`
+  }))
+  assert.deepEqual(
+    itemLists[0].itemListElement,
+    expected,
+    `${pageName} ItemList positions and order must match the rendered catalog order`
+  )
+  return itemLists[0]
+}
+
 export function verifyToolHtml(html, tool, imageUrl = socialImageUrl) {
   const pageName = tool.name
   assert.equal(countOpeningTags(html, 'main'), 1, `${pageName} must contain exactly one <main>`)
@@ -195,6 +320,8 @@ export function verifyToolHtml(html, tool, imageUrl = socialImageUrl) {
     html.includes(`最后核验 ${verificationDate}`),
     `${pageName} must render 最后核验 ${verificationDate}`
   )
+
+  verifyToolStructuredData(html, tool)
 
   return { title, description }
 }
@@ -484,6 +611,17 @@ export function runVerification(root = defaultRoot) {
     assert.equal(titles.size, tools.length, 'all tool page titles must be globally unique')
     assert.equal(descriptions.size, tools.length, 'all tool descriptions must be globally unique')
     results.toolPagesVerified = tools.length
+  })
+
+  check('all category pages emit ordered ItemList structured data', () => {
+    for (const category of categorySlugs) {
+      const html = readFileSync(artifactPath(distDir, `ai-categories/${category}`), 'utf8')
+      verifyCategoryStructuredData(
+        html,
+        category,
+        tools.filter((tool) => tool.category === category)
+      )
+    }
   })
 
   check('homepage SSR reflects the current catalog and emitted CSS', () => {

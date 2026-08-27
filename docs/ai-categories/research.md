@@ -2,6 +2,11 @@
 title: "搜索与研究 AI 工具"
 description: "寻器整理的搜索与研究 AI 工具，按真实使用场景选择合适产品。"
 pageClass: ai-category-page
+head:
+  - - script
+    - type: application/ld+json
+    - >-
+      {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"Perplexity","url":"https://no996noicu.com/tools/perplexity"},{"@type":"ListItem","position":2,"name":"Elicit","url":"https://no996noicu.com/tools/elicit"},{"@type":"ListItem","position":3,"name":"Consensus","url":"https://no996noicu.com/tools/consensus"},{"@type":"ListItem","position":4,"name":"Scite","url":"https://no996noicu.com/tools/scite"},{"@type":"ListItem","position":5,"name":"NotebookLM","url":"https://no996noicu.com/tools/notebooklm"},{"@type":"ListItem","position":6,"name":"You.com","url":"https://no996noicu.com/tools/you-com"},{"@type":"ListItem","position":7,"name":"Semantic Scholar","url":"https://no996noicu.com/tools/semantic-scholar"}]}
 ---
 
 # 搜索与研究 AI 工具

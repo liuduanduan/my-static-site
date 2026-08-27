@@ -1,0 +1,29 @@
+name: Purge expired tool submission data
+
+on:
+  schedule:
+    - cron: '41 2 * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  purge-expired-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call the protected purge endpoint
+        shell: bash
+        env:
+          SUBMISSIONS_API_BASE: ${{ secrets.SUBMISSIONS_API_BASE }}
+          SUBMISSIONS_ADMIN_TOKEN: ${{ secrets.SUBMISSIONS_ADMIN_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$SUBMISSIONS_API_BASE"
+          test -n "$SUBMISSIONS_ADMIN_TOKEN"
+          api_base="${SUBMISSIONS_API_BASE%/}"
+          curl --fail --silent --show-error \
+            --request POST \
+            --header "Authorization: Bearer ${SUBMISSIONS_ADMIN_TOKEN}" \
+            --header "Content-Type: application/json" \
+            --data '{}' \
+            "${api_base}/api/admin/submissions/purge" > /dev/null

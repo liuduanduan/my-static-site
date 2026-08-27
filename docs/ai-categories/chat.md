@@ -2,6 +2,11 @@
 title: "对话与模型 AI 工具"
 description: "寻器整理的对话与模型 AI 工具，按真实使用场景选择合适产品。"
 pageClass: ai-category-page
+head:
+  - - script
+    - type: application/ld+json
+    - >-
+      {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"ChatGPT","url":"https://no996noicu.com/tools/chatgpt"},{"@type":"ListItem","position":2,"name":"Claude","url":"https://no996noicu.com/tools/claude"},{"@type":"ListItem","position":3,"name":"DeepSeek","url":"https://no996noicu.com/tools/deepseek"},{"@type":"ListItem","position":4,"name":"Kimi","url":"https://no996noicu.com/tools/kimi"},{"@type":"ListItem","position":5,"name":"Gemini","url":"https://no996noicu.com/tools/gemini"},{"@type":"ListItem","position":6,"name":"Microsoft Copilot","url":"https://no996noicu.com/tools/microsoft-copilot"},{"@type":"ListItem","position":7,"name":"豆包","url":"https://no996noicu.com/tools/doubao"}]}
 ---
 
 # 对话与模型 AI 工具

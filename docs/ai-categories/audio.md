@@ -2,6 +2,11 @@
 title: "音频与音乐 AI 工具"
 description: "寻器整理的音频与音乐 AI 工具，按真实使用场景选择合适产品。"
 pageClass: ai-category-page
+head:
+  - - script
+    - type: application/ld+json
+    - >-
+      {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"ElevenLabs","url":"https://no996noicu.com/tools/elevenlabs"},{"@type":"ListItem","position":2,"name":"Suno","url":"https://no996noicu.com/tools/suno"},{"@type":"ListItem","position":3,"name":"Udio","url":"https://no996noicu.com/tools/udio"},{"@type":"ListItem","position":4,"name":"Descript","url":"https://no996noicu.com/tools/descript"},{"@type":"ListItem","position":5,"name":"Adobe Podcast","url":"https://no996noicu.com/tools/adobe-podcast"},{"@type":"ListItem","position":6,"name":"AIVA","url":"https://no996noicu.com/tools/aiva"},{"@type":"ListItem","position":7,"name":"Murf","url":"https://no996noicu.com/tools/murf"}]}
 ---
 
 # 音频与音乐 AI 工具

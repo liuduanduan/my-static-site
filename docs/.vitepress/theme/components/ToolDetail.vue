@@ -9,6 +9,7 @@ import {
 } from '../domain/aiTools'
 import { getToolVisual } from '../domain/directoryPresentation'
 import AffiliateAction from './AffiliateAction.vue'
+import ToolStructuredData from './ToolStructuredData.vue'
 
 const props = defineProps<{
   slug: string
@@ -32,6 +33,7 @@ function formatDate(value: string): string {
 
 <template>
   <div v-if="tool" class="tool-detail-shell">
+    <ToolStructuredData :slug="tool.slug" />
     <a class="back-link" href="/">← 返回工具目录</a>
 
     <article class="tool-detail-card">

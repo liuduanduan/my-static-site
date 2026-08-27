@@ -2,6 +2,11 @@
 title: "写作与办公 AI 工具"
 description: "寻器整理的写作与办公 AI 工具，按真实使用场景选择合适产品。"
 pageClass: ai-category-page
+head:
+  - - script
+    - type: application/ld+json
+    - >-
+      {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"Notion","url":"https://no996noicu.com/tools/notion"},{"@type":"ListItem","position":2,"name":"Gamma","url":"https://no996noicu.com/tools/gamma"},{"@type":"ListItem","position":3,"name":"Napkin AI","url":"https://no996noicu.com/tools/napkin"},{"@type":"ListItem","position":4,"name":"Otter.ai","url":"https://no996noicu.com/tools/otter"},{"@type":"ListItem","position":5,"name":"Grammarly","url":"https://no996noicu.com/tools/grammarly"},{"@type":"ListItem","position":6,"name":"QuillBot","url":"https://no996noicu.com/tools/quillbot"},{"@type":"ListItem","position":7,"name":"WPS AI","url":"https://no996noicu.com/tools/wps-ai"}]}
 ---
 
 # 写作与办公 AI 工具

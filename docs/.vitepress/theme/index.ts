@@ -7,6 +7,7 @@ import ToolSubmissionForm from './components/ToolSubmissionForm.vue'
 import SubmissionStatus from './components/SubmissionStatus.vue'
 import SponsoredTools from './components/SponsoredTools.vue'
 import AffiliateAction from './components/AffiliateAction.vue'
+import ToolStructuredData from './components/ToolStructuredData.vue'
 
 const theme: Theme = {
   extends: DefaultTheme,
@@ -17,6 +18,7 @@ const theme: Theme = {
     app.component('SubmissionStatus', SubmissionStatus)
     app.component('SponsoredTools', SponsoredTools)
     app.component('AffiliateAction', AffiliateAction)
+    app.component('ToolStructuredData', ToolStructuredData)
   }
 }
 

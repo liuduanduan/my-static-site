@@ -2,6 +2,11 @@
 title: "营销与社媒 AI 工具"
 description: "寻器整理的营销与社媒 AI 工具，按真实使用场景选择合适产品。"
 pageClass: ai-category-page
+head:
+  - - script
+    - type: application/ld+json
+    - >-
+      {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"Jasper","url":"https://no996noicu.com/tools/jasper"},{"@type":"ListItem","position":2,"name":"Copy.ai","url":"https://no996noicu.com/tools/copy-ai"},{"@type":"ListItem","position":3,"name":"HubSpot AI","url":"https://no996noicu.com/tools/hubspot-ai"},{"@type":"ListItem","position":4,"name":"Predis.ai","url":"https://no996noicu.com/tools/predis-ai"},{"@type":"ListItem","position":5,"name":"Buffer AI Assistant","url":"https://no996noicu.com/tools/buffer-ai"},{"@type":"ListItem","position":6,"name":"AdCreative.ai","url":"https://no996noicu.com/tools/adcreative-ai"},{"@type":"ListItem","position":7,"name":"Ocoya","url":"https://no996noicu.com/tools/ocoya"}]}
 ---
 
 # 营销与社媒 AI 工具

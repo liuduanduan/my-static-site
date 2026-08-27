@@ -2,6 +2,11 @@
 title: "自动化与数据 AI 工具"
 description: "寻器整理的自动化与数据 AI 工具，按真实使用场景选择合适产品。"
 pageClass: ai-category-page
+head:
+  - - script
+    - type: application/ld+json
+    - >-
+      {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"Zapier","url":"https://no996noicu.com/tools/zapier"},{"@type":"ListItem","position":2,"name":"Make","url":"https://no996noicu.com/tools/make"},{"@type":"ListItem","position":3,"name":"n8n","url":"https://no996noicu.com/tools/n8n"},{"@type":"ListItem","position":4,"name":"Airtable","url":"https://no996noicu.com/tools/airtable"},{"@type":"ListItem","position":5,"name":"Bardeen","url":"https://no996noicu.com/tools/bardeen"},{"@type":"ListItem","position":6,"name":"Rows","url":"https://no996noicu.com/tools/rows"},{"@type":"ListItem","position":7,"name":"Julius AI","url":"https://no996noicu.com/tools/julius-ai"}]}
 ---
 
 # 自动化与数据 AI 工具

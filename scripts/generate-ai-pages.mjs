@@ -280,6 +280,10 @@ function frontmatterScalar(value) {
   return JSON.stringify(String(value))
 }
 
+function jsonLd(value) {
+  return JSON.stringify(value).replaceAll('<', '\\u003c')
+}
+
 function ensureDirectory(path) {
   mkdirSync(path, { recursive: true })
 }
@@ -293,8 +297,18 @@ function categoryPage(category, items) {
   const links = items
     .map((tool) => `- [${tool.name}](/tools/${tool.slug})：${tool.tagline}`)
     .join('\n')
+  const itemList = jsonLd({
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: items.map((tool, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: tool.name,
+      url: `https://no996noicu.com/tools/${tool.slug}`
+    }))
+  })
 
-  return `---\ntitle: ${frontmatterScalar(`${label} AI 工具`)}\ndescription: ${frontmatterScalar(`寻器整理的${label} AI 工具，按真实使用场景选择合适产品。`)}\npageClass: ai-category-page\n---\n\n# ${label} AI 工具\n\n这一页收录适合${label}场景的 AI 工具。先看一句话结论，再进入详情页了解能力、价格和替代选项。\n\n## 工具列表\n\n${links}\n\n<p class="generated-page-note"><a href="/">← 返回全部工具</a></p>\n`
+  return `---\ntitle: ${frontmatterScalar(`${label} AI 工具`)}\ndescription: ${frontmatterScalar(`寻器整理的${label} AI 工具，按真实使用场景选择合适产品。`)}\npageClass: ai-category-page\nhead:\n  - - script\n    - type: application/ld+json\n    - >-\n      ${itemList}\n---\n\n# ${label} AI 工具\n\n这一页收录适合${label}场景的 AI 工具。先看一句话结论，再进入详情页了解能力、价格和替代选项。\n\n## 工具列表\n\n${links}\n\n<p class="generated-page-note"><a href="/">← 返回全部工具</a></p>\n`
 }
 
 function readPreviousManifest(manifestPath) {

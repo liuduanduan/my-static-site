@@ -2,6 +2,11 @@
 title: "视频与数字人 AI 工具"
 description: "寻器整理的视频与数字人 AI 工具，按真实使用场景选择合适产品。"
 pageClass: ai-category-page
+head:
+  - - script
+    - type: application/ld+json
+    - >-
+      {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"Runway","url":"https://no996noicu.com/tools/runway"},{"@type":"ListItem","position":2,"name":"CapCut","url":"https://no996noicu.com/tools/capcut"},{"@type":"ListItem","position":3,"name":"可灵 Kling","url":"https://no996noicu.com/tools/kling"},{"@type":"ListItem","position":4,"name":"Pika","url":"https://no996noicu.com/tools/pika"},{"@type":"ListItem","position":5,"name":"HeyGen","url":"https://no996noicu.com/tools/heygen"},{"@type":"ListItem","position":6,"name":"Synthesia","url":"https://no996noicu.com/tools/synthesia"},{"@type":"ListItem","position":7,"name":"Luma Dream Machine","url":"https://no996noicu.com/tools/luma-dream-machine"}]}
 ---
 
 # 视频与数字人 AI 工具

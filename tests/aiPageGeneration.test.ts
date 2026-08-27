@@ -15,6 +15,7 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import * as pageGenerator from '../scripts/generate-ai-pages.mjs'
+import vitepressConfig from '../docs/.vitepress/config'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const catalogPath = resolve(root, 'docs/.vitepress/theme/domain/ai-tools.json')
@@ -95,6 +96,14 @@ function createDirectoryLink(target: string, linkPath: string): void {
   symlinkSync(target, linkPath, process.platform === 'win32' ? 'junction' : 'dir')
 }
 
+function jsonLdFromMarkdown(source: string): Record<string, unknown> {
+  const match = source.match(
+    /head:\n  - - script\n    - type: application\/ld\+json\n    - >-\n      (\{[^\n]+\})\n---/
+  )
+  expect(match, 'generated page frontmatter must contain JSON-LD').not.toBeNull()
+  return JSON.parse(match![1]) as Record<string, unknown>
+}
+
 describe('AI page generation', () => {
   it('exposes an explicit-root generator without running the CLI on import', () => {
     expect(pageGenerator.generateAiPages).toBeTypeOf('function')
@@ -156,9 +165,55 @@ describe('AI page generation', () => {
         expect(source.match(/<ToolDetail\b/g)).toHaveLength(1)
         expect(source).toContain(`<ToolDetail slug="${slug}" />`)
       })
+
+      categories.forEach((category) => {
+        const categoryTools = catalog.filter((tool) => tool.category === category)
+        const source = readFileSync(resolve(fixture.categoriesDirectory, `${category}.md`), 'utf8')
+        const structuredData = jsonLdFromMarkdown(source)
+        expect(structuredData['@type']).toBe('ItemList')
+        expect(structuredData.itemListElement).toEqual(categoryTools.map((tool, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: tool.name,
+          url: `https://no996noicu.com/tools/${tool.slug}`
+        })))
+        const renderedOrder = [...source.matchAll(/\[([^\]]+)\]\(\/tools\/([^)]+)\)/g)]
+          .map((match) => match[2])
+        expect(renderedOrder).toEqual(categoryTools.map((tool) => tool.slug))
+      })
     } finally {
       rmSync(fixture.root, { recursive: true, force: true })
     }
+  })
+
+  it('adds route-aware breadcrumbs outside tool routes while preserving status noindex', () => {
+    const transformHead = vitepressConfig.transformHead
+    expect(transformHead).toBeTypeOf('function')
+
+    const headFor = (relativePath: string, title: string) => transformHead!({
+      pageData: { relativePath, title, description: '' }
+    } as never)
+    const graphFor = (relativePath: string, title: string) => {
+      const head = headFor(relativePath, title)
+      const script = head.find((item) => item[0] === 'script' && item[1]?.type === 'application/ld+json')
+      return script ? JSON.parse(String(script[2])) : undefined
+    }
+
+    expect(graphFor('ai-categories/chat.md', '对话与模型 AI 工具')).toMatchObject({
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { position: 1, item: 'https://no996noicu.com/' },
+        { position: 2, item: 'https://no996noicu.com/ai-categories/' },
+        { position: 3, item: 'https://no996noicu.com/ai-categories/chat' }
+      ]
+    })
+    expect(graphFor('submit.md', '提交工具')).toMatchObject({ '@type': 'BreadcrumbList' })
+    expect(graphFor('submit/status.md', '查询收录进度')).toMatchObject({ '@type': 'BreadcrumbList' })
+    expect(graphFor('privacy.md', '隐私说明')).toMatchObject({ '@type': 'BreadcrumbList' })
+    expect(graphFor('promote.md', '合作说明')).toMatchObject({ '@type': 'BreadcrumbList' })
+    expect(graphFor('about.md', '关于寻器')).toMatchObject({ '@type': 'BreadcrumbList' })
+    expect(graphFor('tools/chatgpt.md', 'ChatGPT')).toBeUndefined()
+
   })
 
   it('keeps CLI execution isolated while reporting generated counts', () => {

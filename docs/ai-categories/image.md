@@ -2,6 +2,11 @@
 title: "图像与设计 AI 工具"
 description: "寻器整理的图像与设计 AI 工具，按真实使用场景选择合适产品。"
 pageClass: ai-category-page
+head:
+  - - script
+    - type: application/ld+json
+    - >-
+      {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"Midjourney","url":"https://no996noicu.com/tools/midjourney"},{"@type":"ListItem","position":2,"name":"Canva","url":"https://no996noicu.com/tools/canva"},{"@type":"ListItem","position":3,"name":"Adobe Firefly","url":"https://no996noicu.com/tools/firefly"},{"@type":"ListItem","position":4,"name":"Leonardo AI","url":"https://no996noicu.com/tools/leonardo-ai"},{"@type":"ListItem","position":5,"name":"Ideogram","url":"https://no996noicu.com/tools/ideogram"},{"@type":"ListItem","position":6,"name":"Stable Diffusion","url":"https://no996noicu.com/tools/stable-diffusion"},{"@type":"ListItem","position":7,"name":"remove.bg","url":"https://no996noicu.com/tools/remove-bg"}]}
 ---
 
 # 图像与设计 AI 工具

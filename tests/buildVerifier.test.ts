@@ -230,3 +230,88 @@ describe('exact route verification', () => {
     ).toThrow(/https|origin|query|fragment|search|hash/i)
   })
 })
+
+describe('tool structured-data verification', () => {
+  const tool = {
+    slug: 'example-ai',
+    name: 'Example AI',
+    category: 'research',
+    pricingMode: 'free',
+    accessModes: ['web', 'desktop']
+  }
+  const graph = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'SoftwareApplication',
+        name: 'Example AI',
+        url: 'https://no996noicu.com/tools/example-ai',
+        applicationCategory: '搜索与研究',
+        operatingSystem: ['网页', '桌面端'],
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: '首页', item: 'https://no996noicu.com/' },
+          { '@type': 'ListItem', position: 2, name: '搜索与研究', item: 'https://no996noicu.com/ai-categories/research' },
+          { '@type': 'ListItem', position: 3, name: 'Example AI', item: 'https://no996noicu.com/tools/example-ai' }
+        ]
+      }
+    ]
+  }
+
+  test('parses and validates the tool graph against catalog facts', () => {
+    const verifyToolStructuredData = exportedFunction('verifyToolStructuredData')
+    const html = `<script type="application/ld+json">${JSON.stringify(graph)}</script>`
+    expect(verifyToolStructuredData(html, tool)).toMatchObject({
+      application: { name: 'Example AI' },
+      breadcrumbs: { '@type': 'BreadcrumbList' }
+    })
+  })
+
+  test('rejects an invented paid offer and a mismatched canonical URL', () => {
+    const verifyToolStructuredData = exportedFunction('verifyToolStructuredData')
+    const paidTool = { ...tool, pricingMode: 'paid' }
+    expect(() => verifyToolStructuredData(
+      `<script type="application/ld+json">${JSON.stringify(graph)}</script>`,
+      paidTool
+    )).toThrow(/offer|price/i)
+
+    const wrong = structuredClone(graph)
+    wrong['@graph'][0].url = 'https://no996noicu.com/tools/not-example'
+    expect(() => verifyToolStructuredData(
+      `<script type="application/ld+json">${JSON.stringify(wrong)}</script>`,
+      tool
+    )).toThrow(/canonical|url/i)
+  })
+})
+
+describe('category structured-data verification', () => {
+  test('requires ItemList positions and URLs to match rendered catalog order', () => {
+    const verifyCategoryStructuredData = exportedFunction('verifyCategoryStructuredData')
+    const tools = [
+      { slug: 'first', name: 'First' },
+      { slug: 'second', name: 'Second' }
+    ]
+    const graph = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      itemListElement: tools.map((tool, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: tool.name,
+        url: `https://no996noicu.com/tools/${tool.slug}`
+      }))
+    }
+    const html = `<script type="application/ld+json">${JSON.stringify(graph)}</script>`
+    expect(() => verifyCategoryStructuredData(html, 'chat', tools)).not.toThrow()
+
+    graph.itemListElement.reverse()
+    expect(() => verifyCategoryStructuredData(
+      `<script type="application/ld+json">${JSON.stringify(graph)}</script>`,
+      'chat',
+      tools
+    )).toThrow(/position|order|itemlist/i)
+  })
+})

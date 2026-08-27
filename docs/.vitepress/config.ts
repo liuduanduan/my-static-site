@@ -1,5 +1,48 @@
 import { defineConfig } from 'vitepress'
 
+const siteOrigin = 'https://no996noicu.com'
+
+function pageRoute(relativePath: string): string {
+  const withoutExtension = relativePath.replace(/\.md$/i, '')
+  if (withoutExtension === 'index') return '/'
+  if (withoutExtension.endsWith('/index')) return `/${withoutExtension.slice(0, -'/index'.length)}/`
+  return `/${withoutExtension}`
+}
+
+function jsonLd(value: unknown): string {
+  return JSON.stringify(value).replaceAll('<', '\\u003c')
+}
+
+function breadcrumbGraph(relativePath: string, title: string) {
+  if (/^tools\/[^/]+\.md$/i.test(relativePath)) return undefined
+
+  const route = pageRoute(relativePath)
+  const items = [
+    { name: '首页', item: `${siteOrigin}/` }
+  ]
+
+  if (relativePath.startsWith('ai-categories/')) {
+    items.push({ name: '按场景浏览', item: `${siteOrigin}/ai-categories/` })
+  } else if (relativePath === 'submit/status.md') {
+    items.push({ name: '提交工具', item: `${siteOrigin}/submit` })
+  }
+
+  if (route !== '/' && items.at(-1)?.item !== `${siteOrigin}${route}`) {
+    items.push({ name: title || '寻器', item: `${siteOrigin}${route}` })
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.item
+    }))
+  }
+}
+
 export default defineConfig({
   lang: 'zh-CN',
   title: '寻器 AI 工具目录',
@@ -29,7 +72,7 @@ export default defineConfig({
       : '寻器 AI 工具目录'
     const pageDescription = pageData.description || '按真实使用场景，找到适合你的 AI 工具。'
 
-    return [
+    const head = [
       ['meta', { property: 'og:title', content: pageTitle }],
       ['meta', { property: 'og:description', content: pageDescription }],
       ['meta', { property: 'og:image', content: 'https://no996noicu.com/social-card.png' }],
@@ -37,6 +80,11 @@ export default defineConfig({
       ['meta', { name: 'twitter:description', content: pageDescription }],
       ['meta', { name: 'twitter:image', content: 'https://no996noicu.com/social-card.png' }]
     ]
+    const breadcrumbs = breadcrumbGraph(pageData.relativePath, pageData.title)
+    if (breadcrumbs) {
+      head.push(['script', { type: 'application/ld+json' }, jsonLd(breadcrumbs)])
+    }
+    return head
   },
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],

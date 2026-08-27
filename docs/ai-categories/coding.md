@@ -2,6 +2,11 @@
 title: "编程与建站 AI 工具"
 description: "寻器整理的编程与建站 AI 工具，按真实使用场景选择合适产品。"
 pageClass: ai-category-page
+head:
+  - - script
+    - type: application/ld+json
+    - >-
+      {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"Cursor","url":"https://no996noicu.com/tools/cursor"},{"@type":"ListItem","position":2,"name":"GitHub Copilot","url":"https://no996noicu.com/tools/github-copilot"},{"@type":"ListItem","position":3,"name":"v0","url":"https://no996noicu.com/tools/v0"},{"@type":"ListItem","position":4,"name":"Lovable","url":"https://no996noicu.com/tools/lovable"},{"@type":"ListItem","position":5,"name":"Replit","url":"https://no996noicu.com/tools/replit"},{"@type":"ListItem","position":6,"name":"Bolt.new","url":"https://no996noicu.com/tools/bolt-new"},{"@type":"ListItem","position":7,"name":"Windsurf","url":"https://no996noicu.com/tools/windsurf"}]}
 ---
 
 # 编程与建站 AI 工具
