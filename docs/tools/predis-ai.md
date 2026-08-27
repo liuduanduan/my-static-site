@@ -1,6 +1,6 @@
 ---
 title: "Predis.ai - AI 工具介绍"
-description: "Predis.ai用于营销文案、社媒内容和广告素材规划，适合从创意到发布的日常内容工作。"
+description: "Predis.ai 根据品牌信息生成社交媒体帖子、配图和短视频草稿，并提供内容日历与发布衔接。"
 pageClass: ai-detail-page
 ---
 

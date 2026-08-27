@@ -203,6 +203,7 @@ describe('ToolCard source contract', () => {
     expect(source).toContain('<span class="sr-only">价格模式：</span>')
     expect(source).toContain('<span class="sr-only">中文支持：</span>')
     expect(source).not.toMatch(/class="tool-fact-badge"[^>]*aria-label/)
+    expect(source).not.toContain('tool.tags')
 
     expect(source).not.toMatch(/bestFor|features|verified|rating|votes|users|popularity|promotion/)
   })
@@ -233,6 +234,18 @@ describe('ToolDetail source contract', () => {
     expect(facts).toContain("<strong>{{ tool.accessModes.map((mode) => accessModeLabels[mode]).join('、') }}</strong>")
     expect(facts).toContain('<span>是否注册</span>')
     expect(facts).toContain("<strong>{{ tool.requiresAccount ? '需要注册' : '无需注册' }}</strong>")
+  })
+
+  it('renders canonical tags as a restrained labelled section after the facts', () => {
+    const source = componentSource('ToolDetail.vue')
+    const factsEnd = source.indexOf('</section>', source.indexOf('class="tool-facts"'))
+    const tagsStart = source.indexOf('class="detail-tags"')
+
+    expect(tagsStart).toBeGreaterThan(factsEnd)
+    expect(source).toContain('能力标签')
+    expect(source).toContain('v-for="tag in tool.tags"')
+    expect(source).toContain('class="detail-tag-list"')
+    expect(source).toContain('{{ tag }}')
   })
 
   it('labels updatedAt as a last verification and keeps the official link safe and dormant', () => {

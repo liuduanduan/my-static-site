@@ -1,6 +1,6 @@
 ---
 title: "ElevenLabs - AI 工具介绍"
-description: "ElevenLabs用于语音、音乐或录音内容的生成与处理，适合配音、播客和创意音频制作。"
+description: "适合为视频、播客和有声内容生成自然语音，也支持配音、翻译和声音设计。"
 pageClass: ai-detail-page
 ---
 

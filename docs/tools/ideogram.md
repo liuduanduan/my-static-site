@@ -1,6 +1,6 @@
 ---
 title: "Ideogram - AI 工具介绍"
-description: "Ideogram用于生成、编辑或排版视觉内容，适合概念探索、营销素材和日常设计任务。"
+description: "Ideogram 是强调文字呈现的图像生成工具，适合制作含标题、海报字样或品牌短语的视觉草图。"
 pageClass: ai-detail-page
 ---
 

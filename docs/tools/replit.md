@@ -1,6 +1,6 @@
 ---
 title: "Replit - AI 工具介绍"
-description: "Replit用于代码生成、理解、调试或应用搭建，适合在真实开发流程中辅助完成工程任务。"
+description: "Replit 将云端 IDE、协作运行环境与 AI Agent 放在浏览器中，可从需求生成代码并直接预览、部署应用。"
 pageClass: ai-detail-page
 ---
 

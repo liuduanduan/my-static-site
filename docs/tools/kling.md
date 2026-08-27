@@ -1,6 +1,6 @@
 ---
 title: "可灵 Kling - AI 工具介绍"
-description: "可灵 Kling用于生成、编辑或本地化视频内容，适合短片、产品演示和数字人口播制作。"
+description: "支持从文字或图片生成短视频，适合做产品展示、镜头预演和创意内容测试。"
 pageClass: ai-detail-page
 ---
 

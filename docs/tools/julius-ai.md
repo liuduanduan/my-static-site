@@ -1,6 +1,6 @@
 ---
 title: "Julius AI - AI 工具介绍"
-description: "Julius AI用于连接应用、自动处理数据或执行重复任务，适合搭建跨工具的业务工作流。"
+description: "Julius AI 允许用户用自然语言分析上传的表格和数据文件，可生成计算、图表与解释性结论。"
 pageClass: ai-detail-page
 ---
 

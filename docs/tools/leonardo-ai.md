@@ -1,6 +1,6 @@
 ---
 title: "Leonardo AI - AI 工具介绍"
-description: "Leonardo AI用于生成、编辑或排版视觉内容，适合概念探索、营销素材和日常设计任务。"
+description: "提供模型、风格和画布编辑能力，适合需要持续探索角色、场景和产品视觉的创作者。"
 pageClass: ai-detail-page
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Gamma - AI 工具介绍"
-description: "Gamma面向文档、演示、会议或语言优化工作，帮助用户更快整理信息并产出可编辑内容。"
+description: "适合把一段文字或一份提纲生成结构清晰的演示文稿、文档或营销页面。"
 pageClass: ai-detail-page
 ---
 

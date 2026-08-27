@@ -155,6 +155,16 @@ describe('expanded directory layout', () => {
     expect(rule('.directory-load-more')).toContain('justify-content: center')
   })
 
+  it('keeps the search clear control centered with a 44px touch target', () => {
+    const clearRule = rule('.search-clear')
+
+    expect(clearRule).toContain('display: inline-flex')
+    expect(clearRule).toContain('align-items: center')
+    expect(clearRule).toContain('justify-content: center')
+    expect(clearRule).toContain('min-width: 44px')
+    expect(clearRule).toContain('min-height: 44px')
+  })
+
   it.each([
     '.section-link',
     '.empty-reset',

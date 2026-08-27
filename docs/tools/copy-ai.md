@@ -1,6 +1,6 @@
 ---
 title: "Copy.ai - AI 工具介绍"
-description: "Copy.ai用于营销文案、社媒内容和广告素材规划，适合从创意到发布的日常内容工作。"
+description: "Copy.ai 提供销售与营销内容生成及工作流编排，可把研究、个性化撰写和内容改写串成重复执行的流程。"
 pageClass: ai-detail-page
 ---
 

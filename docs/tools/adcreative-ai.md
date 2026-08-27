@@ -1,6 +1,6 @@
 ---
 title: "AdCreative.ai - AI 工具介绍"
-description: "AdCreative.ai用于营销文案、社媒内容和广告素材规划，适合从创意到发布的日常内容工作。"
+description: "AdCreative.ai 面向广告投放生成不同尺寸的图片素材与配套文案，便于团队快速准备待测试的创意版本。"
 pageClass: ai-detail-page
 ---
 

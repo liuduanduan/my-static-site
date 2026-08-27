@@ -89,6 +89,13 @@ function formatDate(value: string): string {
           </div>
         </section>
 
+        <section class="detail-tags" aria-label="能力标签">
+          <p class="detail-label">能力标签</p>
+          <ul class="detail-tag-list">
+            <li v-for="tag in tool.tags" :key="tag">{{ tag }}</li>
+          </ul>
+        </section>
+
         <section class="detail-section">
           <p class="detail-label">适合谁</p>
           <ul class="detail-list detail-list--plain">

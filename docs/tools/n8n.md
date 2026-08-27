@@ -1,6 +1,6 @@
 ---
 title: "n8n - AI 工具介绍"
-description: "n8n用于连接应用、自动处理数据或执行重复任务，适合搭建跨工具的业务工作流。"
+description: "n8n 是可自托管的工作流自动化平台，可用节点连接应用、数据库和 API，并在流程中加入代码或 AI 步骤。"
 pageClass: ai-detail-page
 ---
 

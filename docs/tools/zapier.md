@@ -1,6 +1,6 @@
 ---
 title: "Zapier - AI 工具介绍"
-description: "Zapier用于连接应用、自动处理数据或执行重复任务，适合搭建跨工具的业务工作流。"
+description: "Zapier 用触发器和操作连接不同在线应用，可在无需编写代码的情况下搭建多步骤自动化工作流。"
 pageClass: ai-detail-page
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Make - AI 工具介绍"
-description: "Make用于连接应用、自动处理数据或执行重复任务，适合搭建跨工具的业务工作流。"
+description: "Make 通过可视化画布编排应用和数据流，支持分支、循环、字段转换与错误处理，适合较复杂的自动化场景。"
 pageClass: ai-detail-page
 ---
 

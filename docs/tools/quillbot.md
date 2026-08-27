@@ -1,6 +1,6 @@
 ---
 title: "QuillBot - AI 工具介绍"
-description: "QuillBot面向文档、演示、会议或语言优化工作，帮助用户更快整理信息并产出可编辑内容。"
+description: "QuillBot 提供英文改写、语法检查、摘要与引文辅助，适合在保留原意的前提下调整表达。"
 pageClass: ai-detail-page
 ---
 

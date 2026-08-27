@@ -1,6 +1,6 @@
 ---
 title: "Adobe Firefly - AI 工具介绍"
-description: "Adobe Firefly用于生成、编辑或排版视觉内容，适合概念探索、营销素材和日常设计任务。"
+description: "适合已经使用 Photoshop 或 Illustrator 的设计者，用自然语言补图、换背景和探索视觉方案。"
 pageClass: ai-detail-page
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Canva - AI 工具介绍"
-description: "Canva用于生成、编辑或排版视觉内容，适合概念探索、营销素材和日常设计任务。"
+description: "把模板、素材和 AI 生成功能放在一个编辑器里，适合社交媒体、演示文稿和营销物料。"
 pageClass: ai-detail-page
 ---
 

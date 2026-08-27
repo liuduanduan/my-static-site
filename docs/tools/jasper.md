@@ -1,6 +1,6 @@
 ---
 title: "Jasper - AI 工具介绍"
-description: "Jasper用于营销文案、社媒内容和广告素材规划，适合从创意到发布的日常内容工作。"
+description: "Jasper 面向营销团队生成和改写品牌内容，可用品牌语调与活动背景协助制作广告、邮件和长短文案。"
 pageClass: ai-detail-page
 ---
 

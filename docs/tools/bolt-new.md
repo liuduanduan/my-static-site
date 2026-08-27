@@ -1,6 +1,6 @@
 ---
 title: "Bolt.new - AI 工具介绍"
-description: "Bolt.new用于代码生成、理解、调试或应用搭建，适合在真实开发流程中辅助完成工程任务。"
+description: "Bolt.new 在浏览器中根据提示生成和运行 Web 应用，可直接修改文件、安装依赖并预览界面。"
 pageClass: ai-detail-page
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "AIVA - AI 工具介绍"
-description: "AIVA用于语音、音乐或录音内容的生成与处理，适合配音、播客和创意音频制作。"
+description: "AIVA 面向配乐创作，可根据风格、情绪和结构生成音乐草稿，并提供轨道编辑与导出选项。"
 pageClass: ai-detail-page
 ---
 

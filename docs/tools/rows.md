@@ -1,6 +1,6 @@
 ---
 title: "Rows - AI 工具介绍"
-description: "Rows用于连接应用、自动处理数据或执行重复任务，适合搭建跨工具的业务工作流。"
+description: "Rows 是连接外部数据与在线表格的分析工具，可在单元格和表格工作流中使用 AI、集成与可视化。"
 pageClass: ai-detail-page
 ---
 

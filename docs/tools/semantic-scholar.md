@@ -1,6 +1,6 @@
 ---
 title: "Semantic Scholar - AI 工具介绍"
-description: "Semantic Scholar用于检索、阅读和分析公开资料或学术文献，帮助用户形成带来源的研究线索。"
+description: "Semantic Scholar 是面向科学文献的免费搜索服务，可检索论文、作者与引用关系，并通过推荐发现相关研究。"
 pageClass: ai-detail-page
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "DeepSeek - AI 工具介绍"
-description: "DeepSeek用于连续对话、知识问答、内容理解和多步骤任务协作，适合先验证结果再用于正式工作。"
+description: "面向中文用户的通用模型，适合日常问答、资料整理、数学推理和代码辅助。"
 pageClass: ai-detail-page
 ---
 

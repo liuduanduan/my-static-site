@@ -1,6 +1,6 @@
 ---
 title: "Consensus - AI 工具介绍"
-description: "Consensus用于检索、阅读和分析公开资料或学术文献，帮助用户形成带来源的研究线索。"
+description: "Consensus 从学术论文中检索与问题相关的研究结论，并以摘要和来源链接辅助理解科学证据。"
 pageClass: ai-detail-page
 ---
 

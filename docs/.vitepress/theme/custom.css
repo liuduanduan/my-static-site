@@ -490,9 +490,13 @@ a {
 }
 
 .search-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   right: 76px;
-  min-height: 31px;
-  padding: 0 9px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
   border: 0;
   border-radius: 6px;
   background: var(--platform-soft);
@@ -1285,6 +1289,37 @@ a {
   font-size: 12px;
   line-height: 1.55;
   overflow-wrap: anywhere;
+}
+
+.detail-tags {
+  grid-column: 1 / -1;
+  padding: 8px 0 14px;
+  border-bottom: 1px solid var(--platform-line);
+}
+
+.detail-tags .detail-label {
+  margin-bottom: 8px;
+  color: var(--platform-muted-strong);
+}
+
+.detail-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.detail-tag-list li {
+  padding: 4px 9px;
+  border: 1px solid var(--platform-line);
+  border-radius: 999px;
+  background: var(--platform-soft);
+  color: var(--platform-muted-strong);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.4;
 }
 
 .detail-section {

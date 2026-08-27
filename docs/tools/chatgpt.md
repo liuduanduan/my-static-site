@@ -1,6 +1,6 @@
 ---
 title: "ChatGPT - AI 工具介绍"
-description: "ChatGPT用于连续对话、知识问答、内容理解和多步骤任务协作，适合先验证结果再用于正式工作。"
+description: "适合把零散想法整理成文字、方案和可执行步骤，也能通过对话帮助你快速理解复杂问题。"
 pageClass: ai-detail-page
 ---
 

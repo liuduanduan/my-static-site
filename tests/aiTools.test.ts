@@ -186,6 +186,54 @@ describe('ai tool directory data', () => {
     ).toBe(true)
   })
 
+  it('keeps every detail narrative and list signature tool-specific', () => {
+    const tools = getAllTools()
+    const normalizedDescriptions = tools.map((tool) => {
+      const escapedName = tool.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      return tool.description
+        .replace(new RegExp(escapedName, 'i'), '')
+        .toLowerCase()
+        .replace(/\s+/g, ' ')
+        .trim()
+    })
+
+    expect(new Set(normalizedDescriptions).size).toBe(63)
+    expect(new Set(tools.map((tool) => tool.bestFor.join('|'))).size).toBe(63)
+    expect(new Set(tools.map((tool) => tool.features.join('|'))).size).toBe(63)
+    expect(new Set(tools.map((tool) => tool.pros.join('|'))).size).toBe(63)
+    expect(new Set(tools.map((tool) => tool.cons.join('|'))).size).toBe(63)
+    expect(tools.every((tool) => tool.bestFor.length >= 3)).toBe(true)
+    expect(tools.every((tool) => tool.features.length >= 3)).toBe(true)
+    expect(tools.every((tool) => tool.pros.length >= 2)).toBe(true)
+    expect(tools.every((tool) => tool.cons.length >= 2)).toBe(true)
+  })
+
+  it('keeps representative product facts accurate across all nine categories', () => {
+    const facts = (slug: string) => {
+      const tool = getToolBySlug(slug)!
+      return [...tool.bestFor, ...tool.features, tool.description].join('|')
+    }
+
+    expect(facts('gemini')).toMatch(/多模态|Google/)
+
+    expect(facts('otter')).toMatch(/转写|说话人/)
+    expect(facts('otter')).toMatch(/行动项|摘要|会议/)
+    expect(facts('otter')).not.toMatch(/AI 内容生成/)
+
+    expect(facts('remove-bg')).toMatch(/去背景|抠图|透明背景/)
+    expect(facts('remove-bg')).not.toMatch(/图像生成|风格与构图控制/)
+
+    expect(facts('heygen')).toMatch(/数字人|口型|配音/)
+    expect(facts('replit')).toMatch(/云端|代码|开发/)
+    expect(facts('descript')).toMatch(/转写|音频|视频/)
+
+    expect(facts('notebooklm')).toMatch(/来源|资料|笔记/)
+    expect(`${facts('semantic-scholar')}|${facts('elicit')}`).toMatch(/学术|论文|文献/)
+
+    expect(facts('hubspot-ai')).toMatch(/CRM|营销/)
+    expect(`${facts('zapier')}|${facts('n8n')}`).toMatch(/工作流|集成|自动化/)
+  })
+
   it('looks up a tool by stable slug', () => {
     expect(getToolBySlug('cursor')?.name).toBe('Cursor')
     expect(getToolBySlug('missing-tool')).toBeUndefined()
@@ -285,6 +333,15 @@ describe('ai tool directory data', () => {
 })
 
 describe('ai tool directory filtering and discovery', () => {
+  it.each([
+    ['做 PPT', ['gamma', 'wps-ai']],
+    ['写代码', ['cursor', 'github-copilot']],
+    ['生成视频', ['runway', 'kling']]
+  ])('returns a useful result for the advertised query %s', (query, expectedSlugs) => {
+    const slugs = filterTools({ query }).map((tool) => tool.slug)
+    expect(expectedSlugs.some((slug) => slugs.includes(slug))).toBe(true)
+  })
+
   it('ranks a name match ahead of lower-priority field matches', () => {
     expect(filterTools({ query: 'notion' })[0].slug).toBe('notion')
   })

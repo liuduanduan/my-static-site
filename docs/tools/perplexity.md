@@ -1,6 +1,6 @@
 ---
 title: "Perplexity - AI 工具介绍"
-description: "Perplexity用于检索、阅读和分析公开资料或学术文献，帮助用户形成带来源的研究线索。"
+description: "适合从一个问题开始快速查资料、比较观点和追踪来源，减少在多个网页之间来回切换。"
 pageClass: ai-detail-page
 ---
 

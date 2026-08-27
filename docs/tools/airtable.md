@@ -1,6 +1,6 @@
 ---
 title: "Airtable - AI 工具介绍"
-description: "Airtable用于连接应用、自动处理数据或执行重复任务，适合搭建跨工具的业务工作流。"
+description: "Airtable 将关系型数据表、视图、界面和自动化结合，适合用结构化记录管理项目与业务流程。"
 pageClass: ai-detail-page
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "NotebookLM - AI 工具介绍"
-description: "NotebookLM用于检索、阅读和分析公开资料或学术文献，帮助用户形成带来源的研究线索。"
+description: "NotebookLM 以用户加入的来源资料为依据建立研究笔记，可针对文档提问、生成带出处的摘要并制作音频概览。"
 pageClass: ai-detail-page
 ---
 

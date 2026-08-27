@@ -1,6 +1,6 @@
 ---
 title: "HubSpot AI - AI 工具介绍"
-description: "HubSpot AI用于营销文案、社媒内容和广告素材规划，适合从创意到发布的日常内容工作。"
+description: "HubSpot AI 将生成式辅助融入 HubSpot CRM 的营销、销售和客户服务流程，可利用客户记录起草内容并整理互动信息。"
 pageClass: ai-detail-page
 ---
 

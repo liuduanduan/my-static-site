@@ -1,6 +1,6 @@
 ---
 title: "Ocoya - AI 工具介绍"
-description: "Ocoya用于营销文案、社媒内容和广告素材规划，适合从创意到发布的日常内容工作。"
+description: "Ocoya 集中处理社交媒体文案、简单视觉制作、内容日历和多平台发布，适合管理日常账号更新。"
 pageClass: ai-detail-page
 ---
 
