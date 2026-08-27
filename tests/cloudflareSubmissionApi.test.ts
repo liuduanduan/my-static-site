@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import type {
   AdminStatusUpdate,
+  CampaignPublic,
   ClaimedSubmission,
   PublicSubmissionStatus,
   SubmissionInput,
@@ -8,6 +9,7 @@ import type {
 } from '../shared/submissions/contracts'
 import type { SubmissionSecurity } from '../functions/_lib/crypto'
 import {
+  CampaignRepository,
   DuplicateSubmissionError,
   InvalidStatusTransitionError,
   type NormalizedSubmission,
@@ -17,6 +19,7 @@ import {
 import { createAdminClaimHandler } from '../functions/api/admin/submissions/claim'
 import { createAdminUpdateHandler } from '../functions/api/admin/submissions/[id]'
 import { createAdminPurgeHandler } from '../functions/api/admin/submissions/purge'
+import { createCampaignsHandler } from '../functions/api/campaigns'
 import { createSubmissionHandler } from '../functions/api/submissions/index'
 import { createStatusHandler } from '../functions/api/submissions/status'
 import { verifyTurnstile } from '../functions/_lib/turnstile'
@@ -641,5 +644,73 @@ describe('trusted submission administration APIs', () => {
       deletedRateBuckets: 3
     })
     expect(repository.purgeExpired).toHaveBeenCalledWith('2026-07-01T00:00:00.000Z')
+  })
+})
+
+describe('GET /api/campaigns', () => {
+  function repository(campaigns: unknown[] = []): { listActive: ReturnType<typeof vi.fn> } {
+    return { listActive: vi.fn(async () => campaigns) }
+  }
+
+  it('returns only strict public campaigns for currently published slugs', async () => {
+    const valid: CampaignPublic = {
+      toolSlug: 'chatgpt',
+      type: 'sponsored_card',
+      label: '赞助',
+      destinationUrl: 'https://example.com/offer'
+    }
+    const privateExtras = {
+      ...valid,
+      id: 'private-campaign-id',
+      price: 5000,
+      contactEmail: 'owner@example.com'
+    }
+    const invalid = {
+      toolSlug: 'not-published',
+      type: 'sponsored_card',
+      label: '赞助',
+      destinationUrl: 'https://example.com/other'
+    }
+    const campaignRepository = repository([privateExtras, invalid])
+    const handler = createCampaignsHandler({
+      repository: campaignRepository as unknown as CampaignRepository,
+      publishedSlugs: new Set(['chatgpt']),
+      now: () => new Date('2026-01-01T12:34:56.000Z')
+    })
+
+    const response = await handler({
+      request: new Request(`${origin}/api/campaigns`, { method: 'GET' })
+    } as never)
+    const body = await responseJson(response)
+
+    expect(response.status).toBe(200)
+    expect(response.headers.get('Cache-Control')).toBe('public, max-age=60')
+    expect(body).toEqual({ campaigns: [valid] })
+    expect(JSON.stringify(body)).not.toMatch(/private-campaign-id|price|owner@example\.com/)
+    expect(campaignRepository.listActive).toHaveBeenCalledWith(
+      '2026-01-01T12:34:56.000Z',
+      new Set(['chatgpt'])
+    )
+  })
+
+  it('rejects non-GET requests and fails closed on repository errors', async () => {
+    const campaignRepository = repository()
+    const handler = createCampaignsHandler({
+      repository: campaignRepository as unknown as CampaignRepository,
+      publishedSlugs: new Set(['chatgpt']),
+      now: () => new Date('2026-01-01T12:34:56.000Z')
+    })
+    const methodResponse = await handler({
+      request: new Request(`${origin}/api/campaigns`, { method: 'POST' })
+    } as never)
+    expect(methodResponse.status).toBe(405)
+    expect(campaignRepository.listActive).not.toHaveBeenCalled()
+
+    campaignRepository.listActive.mockRejectedValueOnce(new Error('D1 private detail'))
+    const failure = await handler({
+      request: new Request(`${origin}/api/campaigns`, { method: 'GET' })
+    } as never)
+    expect(failure.status).toBe(503)
+    expect(await responseJson(failure)).toMatchObject({ code: 'campaigns_unavailable' })
   })
 })

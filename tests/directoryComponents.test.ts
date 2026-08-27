@@ -63,7 +63,14 @@ function compileSfc(filename: string, source: string): string[] {
 }
 
 describe('directory component compilation', () => {
-  it.each(['AiDirectory.vue', 'DirectoryFilters.vue', 'ToolCard.vue', 'ToolDetail.vue'])('compiles %s directly', (name) => {
+  it.each([
+    'AiDirectory.vue',
+    'DirectoryFilters.vue',
+    'ToolCard.vue',
+    'ToolDetail.vue',
+    'SponsoredTools.vue',
+    'AffiliateAction.vue'
+  ])('compiles %s directly', (name) => {
     expect(compileSfc(name, componentSource(name))).toEqual([])
   })
 
@@ -236,6 +243,19 @@ describe('ToolDetail source contract', () => {
     expect(facts).toContain("<strong>{{ tool.requiresAccount ? '需要注册' : '无需注册' }}</strong>")
   })
 
+  it('keeps the official link unchanged and renders a separate optional affiliate action', () => {
+    const source = componentSource('ToolDetail.vue')
+    const officialStart = source.indexOf('class="official-link"')
+    const affiliateStart = source.indexOf('<AffiliateAction :slug="tool.slug" />')
+
+    expect(source).toContain("import AffiliateAction from './AffiliateAction.vue'")
+    expect(officialStart).toBeGreaterThan(-1)
+    expect(affiliateStart).toBeGreaterThan(officialStart)
+    expect(source).toMatch(
+      /<a\s+class="official-link"\s+:href="tool\.url"\s+target="_blank"\s+rel="noreferrer noopener"/
+    )
+  })
+
   it('renders canonical tags as a restrained labelled section after the facts', () => {
     const source = componentSource('ToolDetail.vue')
     const factsEnd = source.indexOf('</section>', source.indexOf('class="tool-facts"'))
@@ -280,6 +300,17 @@ describe('AiDirectory extraction contract', () => {
     expect(source).toContain('<ToolCard v-for="tool in displayedTools" :key="tool.slug" :tool="tool" />')
     expect(source).not.toContain('<article v-for="tool in displayedTools"')
     expect(source).not.toContain('platformHero.eyebrow')
+  })
+
+  it('places sponsorship in its own region outside discovery and natural results', () => {
+    const source = componentSource('AiDirectory.vue')
+    const discoveryEnd = source.indexOf('</section>', source.indexOf('class="discovery-section"'))
+    const sponsored = source.indexOf('<SponsoredTools />')
+    const directoryStart = source.indexOf('<section id="tool-directory"')
+
+    expect(source).toContain("import SponsoredTools from './SponsoredTools.vue'")
+    expect(sponsored).toBeGreaterThan(discoveryEnd)
+    expect(sponsored).toBeLessThan(directoryStart)
   })
 
   it('owns the complete controlled filter and pagination state', () => {
@@ -387,6 +418,43 @@ describe('AiDirectory extraction contract', () => {
 
     expect(source).not.toContain('class="search-shortcut"')
     expect(source).not.toContain('⌘ K')
+  })
+})
+
+describe('commercial disclosure isolation', () => {
+  it('renders sponsored tools only in an explicitly labelled standalone region', () => {
+    const source = componentSource('SponsoredTools.vue')
+
+    expect(source).toContain('onMounted')
+    expect(source).toContain("fetch('/api/campaigns'")
+    expect(source).toContain('parseCampaignPublic')
+    expect(source).toContain("campaign.type === 'sponsored_card'")
+    expect(source).toContain('getToolBySlug')
+    expect(source).toContain('aria-labelledby="sponsored-tools-title"')
+    expect(source).toContain('id="sponsored-tools-title">赞助工具</h2>')
+    expect(source).toMatch(/<span[^>]*>赞助<\/span>[\s\S]*?<a/)
+    expect(source).toContain('rel="sponsored noreferrer noopener"')
+    expect(source).not.toMatch(/featuredOrder|filterTools|searchTools|alternatives\s*=|getDiscoveryTools/)
+  })
+
+  it('renders an affiliate link with disclosure and never replaces the official URL', () => {
+    const source = componentSource('AffiliateAction.vue')
+
+    expect(source).toContain('onMounted')
+    expect(source).toContain("campaign.type === 'affiliate_link'")
+    expect(source).toContain('campaign.toolSlug === props.slug')
+    expect(source).toContain('联盟链接')
+    expect(source).toContain('rel="sponsored noreferrer noopener"')
+    expect(source).not.toContain('tool.url')
+    expect(source).not.toMatch(/featuredOrder|alternatives|filterTools|searchTools/)
+  })
+
+  it('fails closed to no commercial UI when the campaign endpoint is unavailable', () => {
+    for (const component of ['SponsoredTools.vue', 'AffiliateAction.vue']) {
+      const source = componentSource(component)
+      expect(source).toMatch(/catch\s*\{[\s\S]*campaigns\.value = \[\]/)
+      expect(source).toContain('v-if=')
+    }
   })
 })
 

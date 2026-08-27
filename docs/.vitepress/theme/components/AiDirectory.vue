@@ -19,6 +19,7 @@ import {
   platformHero
 } from '../domain/directoryPresentation'
 import DirectoryFilters from './DirectoryFilters.vue'
+import SponsoredTools from './SponsoredTools.vue'
 import ToolCard from './ToolCard.vue'
 
 const query = ref('')
@@ -216,6 +217,8 @@ function loadMore() {
           <ToolCard v-for="tool in discoveryTools" :key="tool.slug" :tool="tool" />
         </div>
       </section>
+
+      <SponsoredTools />
 
       <section id="tool-directory" class="tool-section" aria-labelledby="tool-list-title">
         <header class="platform-section-heading tool-section-heading">

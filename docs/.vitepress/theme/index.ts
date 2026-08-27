@@ -5,6 +5,8 @@ import AiDirectory from './components/AiDirectory.vue'
 import ToolDetail from './components/ToolDetail.vue'
 import ToolSubmissionForm from './components/ToolSubmissionForm.vue'
 import SubmissionStatus from './components/SubmissionStatus.vue'
+import SponsoredTools from './components/SponsoredTools.vue'
+import AffiliateAction from './components/AffiliateAction.vue'
 
 const theme: Theme = {
   extends: DefaultTheme,
@@ -13,6 +15,8 @@ const theme: Theme = {
     app.component('ToolDetail', ToolDetail)
     app.component('ToolSubmissionForm', ToolSubmissionForm)
     app.component('SubmissionStatus', SubmissionStatus)
+    app.component('SponsoredTools', SponsoredTools)
+    app.component('AffiliateAction', AffiliateAction)
   }
 }
 

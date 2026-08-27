@@ -1776,6 +1776,112 @@ a {
   font-size: 12px;
 }
 
+.sponsored-tools {
+  margin: 56px 0;
+  padding: 24px;
+  border: 1px solid #e7c66d;
+  border-radius: 18px;
+  background: #fffaf0;
+}
+
+.sponsored-tools__heading {
+  display: flex;
+  gap: 20px;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.sponsored-tools__heading h2 {
+  margin: 4px 0 0;
+  color: var(--platform-ink);
+  font-size: 24px;
+}
+
+.sponsored-tools__heading > p {
+  max-width: 470px;
+  margin: 0;
+  color: var(--platform-muted-strong);
+  font-size: 11px;
+  line-height: 1.65;
+  text-align: right;
+}
+
+.sponsored-tools__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.sponsored-tool-card {
+  position: relative;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #ead9a8;
+  border-radius: 13px;
+  background: #ffffff;
+}
+
+.commercial-label {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 2px 8px;
+  border: 1px solid #cf9d21;
+  border-radius: 999px;
+  background: #fff1c8;
+  color: #6b4700;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.sponsored-tool-card > a {
+  display: grid;
+  gap: 7px;
+  min-height: 112px;
+  margin-top: 12px;
+  color: var(--platform-ink);
+  text-decoration: none;
+}
+
+.sponsored-tool-card > a strong {
+  font-size: 16px;
+}
+
+.sponsored-tool-card > a > span {
+  color: var(--platform-muted-strong);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.sponsored-tool-card > a small {
+  align-self: end;
+  color: var(--platform-blue-deep);
+  font-weight: 800;
+}
+
+.affiliate-action {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 45px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 999px;
+  background: rgba(20, 33, 58, 0.18);
+  color: #ffffff !important;
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration: none !important;
+}
+
+.affiliate-action .commercial-label {
+  border-color: rgba(255, 255, 255, 0.75);
+  background: #ffffff;
+  color: #6b4700;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1959,6 +2065,19 @@ a:focus-visible {
   .submission-intents small {
     grid-column: auto;
   }
+
+  .sponsored-tools__heading {
+    display: block;
+  }
+
+  .sponsored-tools__heading > p {
+    margin-top: 10px;
+    text-align: left;
+  }
+
+  .sponsored-tools__grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 390px) {
@@ -2039,6 +2158,10 @@ a:focus-visible {
 
   .status-query > div {
     grid-template-columns: 1fr;
+  }
+
+  .sponsored-tools {
+    padding: 16px;
   }
 }
 

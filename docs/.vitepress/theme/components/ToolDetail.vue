@@ -8,6 +8,7 @@ import {
   pricingModeLabels
 } from '../domain/aiTools'
 import { getToolVisual } from '../domain/directoryPresentation'
+import AffiliateAction from './AffiliateAction.vue'
 
 const props = defineProps<{
   slug: string
@@ -65,6 +66,7 @@ function formatDate(value: string): string {
           >
             访问官方网站 <span aria-hidden="true">↗</span>
           </a>
+          <AffiliateAction :slug="tool.slug" />
           <span class="detail-updated">最后核验 {{ formatDate(tool.updatedAt) }}</span>
         </div>
       </header>
