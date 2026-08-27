@@ -1,5 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import type {
+  AdminStatusUpdate,
+  ClaimedSubmission,
   PublicSubmissionStatus,
   SubmissionInput,
   SubmissionStatus
@@ -7,15 +9,20 @@ import type {
 import type { SubmissionSecurity } from '../functions/_lib/crypto'
 import {
   DuplicateSubmissionError,
+  InvalidStatusTransitionError,
   type NormalizedSubmission,
   type SubmissionRepository,
   type SubmissionWriteContext
 } from '../functions/_lib/submissionRepository'
+import { createAdminClaimHandler } from '../functions/api/admin/submissions/claim'
+import { createAdminUpdateHandler } from '../functions/api/admin/submissions/[id]'
+import { createAdminPurgeHandler } from '../functions/api/admin/submissions/purge'
 import { createSubmissionHandler } from '../functions/api/submissions/index'
 import { createStatusHandler } from '../functions/api/submissions/status'
 import { verifyTurnstile } from '../functions/_lib/turnstile'
 
 const origin = 'https://no996noicu.com'
+const adminToken = 'test-admin-token-with-enough-entropy'
 const validCode = 'abcdefghijklmnopqrstuv'
 const validSubmission: SubmissionInput = {
   name: 'Example AI',
@@ -117,6 +124,57 @@ function statusHandler(repository = createRepository()) {
 
 async function responseJson(response: Response): Promise<Record<string, unknown>> {
   return (await response.json()) as Record<string, unknown>
+}
+
+interface AdminRepositoryDouble {
+  claimAvailable: ReturnType<typeof vi.fn>
+  updateStatus: ReturnType<typeof vi.fn>
+  purgeExpired: ReturnType<typeof vi.fn>
+}
+
+const claimedSubmission: ClaimedSubmission = {
+  id: '0191f271-d0d1-7f15-80bb-9f7abf778999',
+  publicRef: 'abcdefghijklm',
+  name: 'Example AI',
+  officialUrl: 'https://example.com/product',
+  normalizedDomain: 'example.com',
+  tagline: '把公开资料整理成可核验答案',
+  description: '面向需要整理官方资料的团队。',
+  category: 'research',
+  bestFor: ['资料整理', '事实核验', '研究简报'],
+  features: ['来源提取', '结构化摘要', '链接回溯'],
+  pricingMode: 'freemium',
+  chineseSupport: 'partial',
+  accessModes: ['web'],
+  status: 'processing',
+  attemptCount: 1
+}
+
+function createAdminRepository(): AdminRepositoryDouble {
+  return {
+    claimAvailable: vi.fn(async () => [claimedSubmission]),
+    updateStatus: vi.fn(async (_id: string, _update: AdminStatusUpdate) => undefined),
+    purgeExpired: vi.fn(async () => ({ deletedSubmissions: 2, deletedRateBuckets: 3 }))
+  }
+}
+
+function adminRequest(
+  path: string,
+  body: unknown,
+  options: { method?: string; authorization?: string; origin?: string } = {}
+): Request {
+  const headers = new Headers({ 'Content-Type': 'application/json' })
+  if (options.authorization !== undefined) headers.set('Authorization', options.authorization)
+  if (options.origin !== undefined) headers.set('Origin', options.origin)
+  return new Request(`${origin}${path}`, {
+    method: options.method ?? 'POST',
+    headers,
+    body: JSON.stringify(body)
+  })
+}
+
+function adminContext(request: Request, id?: string) {
+  return { request, params: id === undefined ? {} : { id } }
 }
 
 describe('Turnstile boundary', () => {
@@ -409,5 +467,179 @@ describe('POST /api/submissions/status', () => {
       status: 'published',
       message: '工具已经通过审核并发布。'
     })
+  })
+})
+
+describe('trusted submission administration APIs', () => {
+  it('returns one uniform 401 for missing, malformed, and wrong bearer tokens', async () => {
+    const repository = createAdminRepository()
+    const handler = createAdminClaimHandler({
+      repository: repository as unknown as SubmissionRepository,
+      adminToken,
+      now: () => new Date('2026-01-01T12:34:56.000Z')
+    })
+    const authorizations = [undefined, 'Basic dGVzdA==', 'Bearer wrong-token']
+    const bodies: Record<string, unknown>[] = []
+
+    for (const authorization of authorizations) {
+      const response = await handler(
+        adminContext(adminRequest('/api/admin/submissions/claim', { limit: 1 }, { authorization })) as never
+      )
+      expect(response.status).toBe(401)
+      expect(response.headers.get('Cache-Control')).toBe('no-store')
+      bodies.push(await responseJson(response))
+    }
+
+    expect(bodies.map(({ code, message }) => ({ code, message }))).toEqual([
+      { code: 'unauthorized', message: '身份验证失败。' },
+      { code: 'unauthorized', message: '身份验证失败。' },
+      { code: 'unauthorized', message: '身份验证失败。' }
+    ])
+    expect(repository.claimAvailable).not.toHaveBeenCalled()
+  })
+
+  it('clamps claim limits to 1..5 without requiring a browser Origin', async () => {
+    const repository = createAdminRepository()
+    repository.claimAvailable.mockResolvedValue([])
+    const handler = createAdminClaimHandler({
+      repository: repository as unknown as SubmissionRepository,
+      adminToken,
+      now: () => new Date('2026-01-01T12:34:56.000Z')
+    })
+
+    for (const limit of [-20, 99]) {
+      const response = await handler(
+        adminContext(adminRequest('/api/admin/submissions/claim', { limit }, {
+          authorization: `Bearer ${adminToken}`,
+          origin: 'https://unrelated.example'
+        })) as never
+      )
+      expect(response.status).toBe(200)
+      expect(await responseJson(response)).toEqual({ submissions: [] })
+    }
+
+    expect(repository.claimAvailable.mock.calls).toEqual([
+      [1, '2026-01-01T12:34:56.000Z'],
+      [5, '2026-01-01T12:34:56.000Z']
+    ])
+  })
+
+  it('returns only the explicit non-secret claimed submission contract', async () => {
+    const repository = createAdminRepository()
+    repository.claimAvailable.mockResolvedValueOnce([{
+      ...claimedSubmission,
+      publicCode: validCode,
+      publicCodeHash: 'secret-hash',
+      contactEmailCiphertext: 'ciphertext',
+      ipHash: 'ip-hash',
+      domainHash: 'domain-hash',
+      contentHash: 'content-hash',
+      commercialNote: 'private cooperation note'
+    }])
+    const handler = createAdminClaimHandler({
+      repository: repository as unknown as SubmissionRepository,
+      adminToken,
+      now: () => new Date('2026-01-01T12:34:56.000Z')
+    })
+
+    const response = await handler(
+      adminContext(adminRequest('/api/admin/submissions/claim', { limit: 1 }, {
+        authorization: `Bearer ${adminToken}`
+      })) as never
+    )
+    const body = await responseJson(response)
+
+    expect(response.status).toBe(200)
+    expect(body).toEqual({ submissions: [claimedSubmission] })
+    expect(JSON.stringify(body)).not.toMatch(/publicCode|ciphertext|ipHash|domainHash|contentHash|commercialNote/)
+  })
+
+  it('accepts only the strict AdminStatusUpdate union and GitHub PR URLs', async () => {
+    const repository = createAdminRepository()
+    const handler = createAdminUpdateHandler({
+      repository: repository as unknown as SubmissionRepository,
+      adminToken
+    })
+    const validUpdate = {
+      status: 'pr_open',
+      prUrl: 'https://github.com/example/directory/pull/42'
+    }
+    const validResponse = await handler(
+      adminContext(adminRequest('/api/admin/submissions/abcdefghijklm', validUpdate, {
+        method: 'PATCH',
+        authorization: `Bearer ${adminToken}`
+      }), 'abcdefghijklm') as never
+    )
+
+    expect(validResponse.status).toBe(200)
+    expect(repository.updateStatus).toHaveBeenCalledWith('abcdefghijklm', validUpdate)
+
+    const invalidBodies = [
+      { ...validUpdate, extra: true },
+      { status: 'error', errorCode: 'raw-network-stack' },
+      { status: 'pr_open', prUrl: 'https://evil.example/pull/42' },
+      { status: 'pending' },
+      { status: 'published', prUrl: validUpdate.prUrl, publishedAt: '2026-01-01' }
+    ]
+    for (const body of invalidBodies) {
+      const response = await handler(
+        adminContext(adminRequest('/api/admin/submissions/row-id', body, {
+          method: 'PATCH',
+          authorization: `Bearer ${adminToken}`
+        }), 'row-id') as never
+      )
+      expect(response.status).toBe(400)
+      expect(await responseJson(response)).toMatchObject({ code: 'invalid_admin_update' })
+    }
+    expect(repository.updateStatus).toHaveBeenCalledTimes(1)
+  })
+
+  it('maps repository transition races to a safe conflict', async () => {
+    const repository = createAdminRepository()
+    repository.updateStatus.mockRejectedValueOnce(new InvalidStatusTransitionError())
+    const handler = createAdminUpdateHandler({
+      repository: repository as unknown as SubmissionRepository,
+      adminToken
+    })
+    const response = await handler(
+      adminContext(adminRequest('/api/admin/submissions/row-id', {
+        status: 'rejected',
+        publicMessage: '经人工审核暂未收录'
+      }, {
+        method: 'PATCH',
+        authorization: `Bearer ${adminToken}`
+      }), 'row-id') as never
+    )
+
+    expect(response.status).toBe(409)
+    expect(await responseJson(response)).toMatchObject({ code: 'invalid_status_transition' })
+  })
+
+  it('purges only at the server-selected time and returns counts only', async () => {
+    const repository = createAdminRepository()
+    const handler = createAdminPurgeHandler({
+      repository: repository as unknown as SubmissionRepository,
+      adminToken,
+      now: () => new Date('2026-07-01T00:00:00.000Z')
+    })
+    const rejected = await handler(
+      adminContext(adminRequest('/api/admin/submissions/purge', {
+        cutoff: '1970-01-01T00:00:00.000Z'
+      }, { authorization: `Bearer ${adminToken}` })) as never
+    )
+    expect(rejected.status).toBe(400)
+    expect(repository.purgeExpired).not.toHaveBeenCalled()
+
+    const response = await handler(
+      adminContext(adminRequest('/api/admin/submissions/purge', {}, {
+        authorization: `Bearer ${adminToken}`
+      })) as never
+    )
+    expect(response.status).toBe(200)
+    expect(await responseJson(response)).toEqual({
+      deletedSubmissions: 2,
+      deletedRateBuckets: 3
+    })
+    expect(repository.purgeExpired).toHaveBeenCalledWith('2026-07-01T00:00:00.000Z')
   })
 })
