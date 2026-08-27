@@ -12,11 +12,17 @@
     "verify:build": "npm run docs:build && node scripts/verify-ai-build.mjs",
     "docs:preview": "vitepress preview docs --host 127.0.0.1",
     "test": "vitest run",
+    "test:submissions": "vitest run tests/submissionContracts.test.ts tests/submissionPersistence.test.ts tests/cloudflareSubmissionApi.test.ts",
+    "typecheck:functions": "tsc --noEmit -p tsconfig.functions.json",
     "test:watch": "vitest"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "5.20260827.1",
     "@vue/compiler-sfc": "3.5.39",
+    "miniflare": "5.20260825.0-alpha",
+    "typescript": "7.0.2",
     "vitepress": "^1.6.4",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.10",
+    "wrangler": "4.126.0"
   }
 }

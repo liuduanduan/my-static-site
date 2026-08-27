@@ -88,11 +88,11 @@ export interface ClaimedSubmission {
   tagline: string
   description: string
   category: ToolCategory
-  bestFor: [string, string, string]
-  features: [string, string, string]
+  bestFor: readonly [string, string, string]
+  features: readonly [string, string, string]
   pricingMode: PricingMode
   chineseSupport: ChineseSupport
-  accessModes: AccessMode[]
+  accessModes: readonly AccessMode[]
   status: 'processing'
   attemptCount: number
 }
