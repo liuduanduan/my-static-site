@@ -222,4 +222,27 @@ describe('optional OpenAI Responses content enricher', () => {
     expect(clientFailure).toHaveBeenCalledTimes(1)
     expect(invalidOutput).toHaveBeenCalledTimes(1)
   })
+
+  it.each([
+    ['network failure', () => { throw new Error('network detail') }],
+    ['server failure', () => apiResponse({ error: 'temporary' }, 503)],
+    ['provider timeout', () => apiResponse({ error: 'timeout' }, 408)],
+    ['provider rate limit', () => apiResponse({ error: 'rate limited' }, 429)]
+  ])('exposes an exhausted transient %s as retryable queue work', async (_label, failure) => {
+    const fetchStub = vi.fn().mockImplementation(failure)
+    const enricher = createOpenAiContentEnricher({
+      apiKey: 'secret-api-key',
+      model: 'configured-model',
+      fetch: fetchStub as typeof fetch
+    })!
+
+    await expect(enricher.enrich(submission, evidence)).rejects.toEqual(
+      expect.objectContaining({
+        name: 'ContentEnricherUnavailableError',
+        code: 'enricher_failed',
+        message: 'enricher_failed'
+      })
+    )
+    expect(fetchStub).toHaveBeenCalledTimes(2)
+  })
 })

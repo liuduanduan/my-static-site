@@ -51,6 +51,7 @@ export interface PublicSubmissionStatus {
 export type AllowedAutomationError =
   | 'official_fetch_rejected'
   | 'official_fetch_failed'
+  | 'enricher_failed'
   | 'enricher_invalid_output'
   | 'catalog_validation_failed'
   | 'build_failed'

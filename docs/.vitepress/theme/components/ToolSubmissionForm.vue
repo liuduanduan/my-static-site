@@ -2,7 +2,10 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import {
   createSubmissionFormState,
-  submitToolSubmission
+  submitToolSubmission,
+  validateSubmissionForm,
+  type SubmissionFormErrorKey,
+  type SubmissionFormErrors
 } from './submissionFormState'
 
 declare global {
@@ -19,6 +22,7 @@ const form = reactive(createSubmissionFormState())
 const submitting = ref(false)
 const message = ref('')
 const publicCode = ref('')
+const fieldErrors = reactive<SubmissionFormErrors>({})
 const turnstileHost = ref<HTMLElement>()
 const widgetId = ref('')
 const siteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined
@@ -31,21 +35,25 @@ const intentChoices = [
   { value: 'commercial_interest', label: '希望了解商业合作' }
 ] as const
 
-function lineCount(value: string): number {
-  return value.split(/\r?\n/).map((line) => line.trim()).filter(Boolean).length
+function replaceFieldErrors(next: SubmissionFormErrors) {
+  for (const key of Object.keys(fieldErrors) as SubmissionFormErrorKey[]) {
+    delete fieldErrors[key]
+  }
+  Object.assign(fieldErrors, next)
 }
 
 function validateForm(): string {
-  if (lineCount(form.bestForText) !== 3) return '请填写恰好 3 个使用场景，每行一个。'
-  if (lineCount(form.featuresText) !== 3) return '请填写恰好 3 个核心能力，每行一个。'
-  if (!form.acceptedTerms) return '请先同意隐私说明与“提交不保证收录”。'
-  if (!form.turnstileToken) return '请完成人机验证。'
-  return ''
+  replaceFieldErrors(validateSubmissionForm(form))
+  return Object.values(fieldErrors)[0] ?? ''
 }
 
 async function handleSubmit() {
   message.value = validateForm()
-  if (message.value || submitting.value) return
+  if (message.value || submitting.value) {
+    await nextTick()
+    document.querySelector<HTMLElement>('.submission-form [aria-invalid="true"]')?.focus()
+    return
+  }
   submitting.value = true
   publicCode.value = ''
   const result = await submitToolSubmission(form)
@@ -120,25 +128,28 @@ onBeforeUnmount(() => {
       <div class="submission-grid">
         <div class="submission-field">
           <label for="submission-name">工具名称 <span>必填</span></label>
-          <input id="submission-name" v-model="form.name" name="name" required maxlength="80" aria-describedby="submission-name-help submission-name-error" />
+          <input id="submission-name" v-model="form.name" name="name" required maxlength="80" aria-describedby="submission-name-help submission-name-error" :aria-invalid="Boolean(fieldErrors.name)" />
           <small id="submission-name-help">使用官网显示的正式名称。</small>
-          <small id="submission-name-error" class="field-error"></small>
+          <small v-if="fieldErrors.name" id="submission-name-error" class="field-error">{{ fieldErrors.name }}</small>
         </div>
         <div class="submission-field">
           <label for="submission-url">官方 HTTPS 地址 <span>必填</span></label>
-          <input id="submission-url" v-model="form.officialUrl" name="officialUrl" type="url" inputmode="url" required placeholder="https://" />
+          <input id="submission-url" v-model="form.officialUrl" name="officialUrl" type="url" inputmode="url" required placeholder="https://" aria-describedby="submission-url-error" :aria-invalid="Boolean(fieldErrors.officialUrl)" />
+          <small v-if="fieldErrors.officialUrl" id="submission-url-error" class="field-error">{{ fieldErrors.officialUrl }}</small>
         </div>
         <div class="submission-field submission-field--wide">
           <label for="submission-tagline">一句话介绍 <span>必填</span></label>
-          <input id="submission-tagline" v-model="form.tagline" name="tagline" required maxlength="120" />
+          <input id="submission-tagline" v-model="form.tagline" name="tagline" required maxlength="120" aria-describedby="submission-tagline-error" :aria-invalid="Boolean(fieldErrors.tagline)" />
+          <small v-if="fieldErrors.tagline" id="submission-tagline-error" class="field-error">{{ fieldErrors.tagline }}</small>
         </div>
         <div class="submission-field submission-field--wide">
           <label for="submission-description">更完整的产品介绍 <span>选填</span></label>
-          <textarea id="submission-description" v-model="form.description" name="description" rows="4" maxlength="1500"></textarea>
+          <textarea id="submission-description" v-model="form.description" name="description" rows="4" maxlength="1500" aria-describedby="submission-description-error" :aria-invalid="Boolean(fieldErrors.description)"></textarea>
+          <small v-if="fieldErrors.description" id="submission-description-error" class="field-error">{{ fieldErrors.description }}</small>
         </div>
         <div class="submission-field">
           <label for="submission-category">主要分类 <span>必填</span></label>
-          <select id="submission-category" v-model="form.category" required>
+          <select id="submission-category" v-model="form.category" required aria-describedby="submission-category-error" :aria-invalid="Boolean(fieldErrors.category)">
             <option value="" disabled>请选择</option>
             <option value="chat">对话与模型</option><option value="writing">写作与办公</option>
             <option value="image">图像与设计</option><option value="video">视频与数字人</option>
@@ -146,29 +157,34 @@ onBeforeUnmount(() => {
             <option value="research">搜索与研究</option><option value="marketing">营销与社媒</option>
             <option value="automation">自动化与数据</option>
           </select>
+          <small v-if="fieldErrors.category" id="submission-category-error" class="field-error">{{ fieldErrors.category }}</small>
         </div>
         <div class="submission-field">
           <label for="submission-pricing">价格模式 <span>必填</span></label>
-          <select id="submission-pricing" v-model="form.pricingMode" required>
+          <select id="submission-pricing" v-model="form.pricingMode" required aria-describedby="submission-pricing-error" :aria-invalid="Boolean(fieldErrors.pricingMode)">
             <option value="" disabled>请选择</option><option value="free">免费</option>
             <option value="freemium">免费增值</option><option value="paid">付费</option>
             <option value="contact">联系询价</option>
           </select>
+          <small v-if="fieldErrors.pricingMode" id="submission-pricing-error" class="field-error">{{ fieldErrors.pricingMode }}</small>
         </div>
         <div class="submission-field">
           <label for="submission-best-for">3 个具体使用场景 <span>必填</span></label>
-          <textarea id="submission-best-for" v-model="form.bestForText" rows="4" required placeholder="每行一个，恰好三行"></textarea>
+          <textarea id="submission-best-for" v-model="form.bestForText" rows="4" required placeholder="每行一个，恰好三行" aria-describedby="submission-best-for-error" :aria-invalid="Boolean(fieldErrors.bestForText)"></textarea>
+          <small v-if="fieldErrors.bestForText" id="submission-best-for-error" class="field-error">{{ fieldErrors.bestForText }}</small>
         </div>
         <div class="submission-field">
           <label for="submission-features">3 个核心能力 <span>必填</span></label>
-          <textarea id="submission-features" v-model="form.featuresText" rows="4" required placeholder="每行一个，恰好三行"></textarea>
+          <textarea id="submission-features" v-model="form.featuresText" rows="4" required placeholder="每行一个，恰好三行" aria-describedby="submission-features-error" :aria-invalid="Boolean(fieldErrors.featuresText)"></textarea>
+          <small v-if="fieldErrors.featuresText" id="submission-features-error" class="field-error">{{ fieldErrors.featuresText }}</small>
         </div>
         <div class="submission-field">
           <label for="submission-chinese">中文支持 <span>必填</span></label>
-          <select id="submission-chinese" v-model="form.chineseSupport" required>
+          <select id="submission-chinese" v-model="form.chineseSupport" required aria-describedby="submission-chinese-error" :aria-invalid="Boolean(fieldErrors.chineseSupport)">
             <option value="" disabled>请选择</option><option value="native">原生中文</option>
             <option value="partial">部分支持</option><option value="none">暂不支持</option>
           </select>
+          <small v-if="fieldErrors.chineseSupport" id="submission-chinese-error" class="field-error">{{ fieldErrors.chineseSupport }}</small>
         </div>
         <fieldset class="submission-field submission-field--checks">
           <legend>使用平台 <span>选填</span></legend>
@@ -179,39 +195,46 @@ onBeforeUnmount(() => {
         </fieldset>
         <div class="submission-field">
           <label for="submission-pros">2 个优点 <span>选填</span></label>
-          <textarea id="submission-pros" v-model="form.prosText" rows="3" placeholder="每行一个"></textarea>
+          <textarea id="submission-pros" v-model="form.prosText" rows="3" placeholder="每行一个" aria-describedby="submission-pros-error" :aria-invalid="Boolean(fieldErrors.prosText)"></textarea>
+          <small v-if="fieldErrors.prosText" id="submission-pros-error" class="field-error">{{ fieldErrors.prosText }}</small>
         </div>
         <div class="submission-field">
           <label for="submission-cons">2 个限制 <span>选填</span></label>
-          <textarea id="submission-cons" v-model="form.consText" rows="3" placeholder="每行一个"></textarea>
+          <textarea id="submission-cons" v-model="form.consText" rows="3" placeholder="每行一个" aria-describedby="submission-cons-error" :aria-invalid="Boolean(fieldErrors.consText)"></textarea>
+          <small v-if="fieldErrors.consText" id="submission-cons-error" class="field-error">{{ fieldErrors.consText }}</small>
         </div>
         <div class="submission-field submission-field--wide">
           <label for="submission-logo">官方 Logo / 品牌素材 HTTPS 地址 <span>选填</span></label>
-          <input id="submission-logo" v-model="form.logoUrl" type="url" inputmode="url" placeholder="只接受官方素材 URL，不上传文件" />
+          <input id="submission-logo" v-model="form.logoUrl" type="url" inputmode="url" placeholder="只接受官方素材 URL，不上传文件" aria-describedby="submission-logo-error" :aria-invalid="Boolean(fieldErrors.logoUrl)" />
+          <small v-if="fieldErrors.logoUrl" id="submission-logo-error" class="field-error">{{ fieldErrors.logoUrl }}</small>
         </div>
         <div class="submission-field">
           <label for="submission-email">联系邮箱 <span>必填 · 不公开</span></label>
-          <input id="submission-email" v-model="form.contactEmail" type="email" autocomplete="email" required />
+          <input id="submission-email" v-model="form.contactEmail" type="email" autocomplete="email" required aria-describedby="submission-email-error" :aria-invalid="Boolean(fieldErrors.contactEmail)" />
+          <small v-if="fieldErrors.contactEmail" id="submission-email-error" class="field-error">{{ fieldErrors.contactEmail }}</small>
         </div>
         <div class="submission-field">
           <label for="submission-relationship">你与工具的关系 <span>必填</span></label>
-          <select id="submission-relationship" v-model="form.submitterRelationship" required>
+          <select id="submission-relationship" v-model="form.submitterRelationship" required aria-describedby="submission-relationship-error" :aria-invalid="Boolean(fieldErrors.submitterRelationship)">
             <option value="" disabled>请选择</option><option value="founder">创始团队</option>
             <option value="user">用户</option><option value="partner">代理 / 合作方</option>
             <option value="other">其他</option>
           </select>
+          <small v-if="fieldErrors.submitterRelationship" id="submission-relationship-error" class="field-error">{{ fieldErrors.submitterRelationship }}</small>
         </div>
-        <fieldset class="submission-field submission-field--wide submission-intents">
+        <fieldset class="submission-field submission-field--wide submission-intents" aria-describedby="submission-intent-error" :aria-invalid="Boolean(fieldErrors.intent)">
           <legend>提交意向 <span>必填</span></legend>
           <label v-for="choice in intentChoices" :key="choice.value">
             <input v-model="form.intent" type="radio" name="intent" :value="choice.value" />
             <strong>{{ choice.label }}</strong>
           </label>
           <small>加急只影响处理时间，不影响收录判断；本页不收费。</small>
+          <small v-if="fieldErrors.intent" id="submission-intent-error" class="field-error">{{ fieldErrors.intent }}</small>
         </fieldset>
         <div v-if="commercialIntent" class="submission-field submission-field--wide">
           <label for="submission-commercial-note">合作说明 <span>选填 · 不公开</span></label>
-          <textarea id="submission-commercial-note" v-model="form.commercialNote" rows="3" maxlength="1000"></textarea>
+          <textarea id="submission-commercial-note" v-model="form.commercialNote" rows="3" maxlength="1000" aria-describedby="submission-commercial-note-error" :aria-invalid="Boolean(fieldErrors.commercialNote)"></textarea>
+          <small v-if="fieldErrors.commercialNote" id="submission-commercial-note-error" class="field-error">{{ fieldErrors.commercialNote }}</small>
         </div>
       </div>
 
@@ -220,11 +243,13 @@ onBeforeUnmount(() => {
         <input id="submission-website" v-model="form.website" name="website" tabindex="-1" autocomplete="off" />
       </div>
 
-      <div ref="turnstileHost" class="submission-turnstile" aria-label="人机验证"></div>
+      <div ref="turnstileHost" class="submission-turnstile" aria-label="人机验证" aria-describedby="submission-turnstile-error" :aria-invalid="Boolean(fieldErrors.turnstileToken)"></div>
+      <small v-if="fieldErrors.turnstileToken" id="submission-turnstile-error" class="field-error">{{ fieldErrors.turnstileToken }}</small>
       <label class="submission-terms">
-        <input v-model="form.acceptedTerms" type="checkbox" required />
+        <input v-model="form.acceptedTerms" type="checkbox" required aria-describedby="submission-terms-error" :aria-invalid="Boolean(fieldErrors.acceptedTerms)" />
         <span>我已阅读<a href="/privacy">隐私说明</a>，并理解提交不保证收录。</span>
       </label>
+      <small v-if="fieldErrors.acceptedTerms" id="submission-terms-error" class="field-error">{{ fieldErrors.acceptedTerms }}</small>
 
       <button class="submission-submit" type="submit" :disabled="!serviceConfigured || submitting">
         {{ submitting ? '正在提交…' : '提交审核' }}

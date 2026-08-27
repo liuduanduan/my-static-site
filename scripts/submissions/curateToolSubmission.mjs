@@ -12,7 +12,11 @@ import { randomUUID } from 'node:crypto'
 import { generateAiPages, validateTools } from '../generate-ai-pages.mjs'
 import { buildCatalogTool } from '../../shared/submissions/contentDraft.mjs'
 
-const allowedFetchErrors = new Set(['official_fetch_rejected', 'official_fetch_failed'])
+const allowedRetryableErrors = new Set([
+  'official_fetch_rejected',
+  'official_fetch_failed',
+  'enricher_failed'
+])
 
 export class CurationError extends Error {
   constructor(code, statusUpdate) {
@@ -250,7 +254,7 @@ export async function runCurationOnce(deps) {
       })
       return identity
     }
-    if (allowedFetchErrors.has(error?.code)) {
+    if (allowedRetryableErrors.has(error?.code)) {
       await deps.client.updateSubmission(submission.id, {
         status: 'error',
         errorCode: error.code

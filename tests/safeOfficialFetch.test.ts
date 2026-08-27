@@ -164,6 +164,7 @@ describe('safe official-site fetching', () => {
       <style>.secret { display:none }</style>
       </head><body>
       <h1>Useful product</h1>
+      <a href="/pricing">Pricing</a>
       <form><input type="hidden" value="hidden-token">form secret</form>
       <div hidden>hidden instructions</div>
       <p>${visible}</p><!-- private comment -->
@@ -176,9 +177,11 @@ describe('safe official-site fetching', () => {
 
     expect(evidence).toEqual({
       finalUrl: 'https://example.com/start',
+      statusCode: 200,
       title: 'Example & AI',
       metaDescription: 'A focused & verifiable product',
       canonicalUrl: 'https://example.com/product',
+      pricingLinks: ['https://example.com/pricing'],
       visibleText: expect.any(String)
     })
     expect(evidence.visibleText).toContain('Useful product')
@@ -188,10 +191,23 @@ describe('safe official-site fetching', () => {
     )
     expect(Object.keys(evidence)).toEqual([
       'finalUrl',
+      'statusCode',
       'title',
       'metaDescription',
       'canonicalUrl',
+      'pricingLinks',
       'visibleText'
     ])
+  })
+
+  it('reports a safe HTTP status for non-success responses', async () => {
+    const deps = safeDeps({
+      requestHttps: vi.fn(async () => httpsResponse({ status: 503 }))
+    })
+
+    await expect(safeFetchOfficialPage('https://example.com', deps)).rejects.toMatchObject({
+      code: 'official_fetch_failed',
+      statusCode: 503
+    })
   })
 })

@@ -22,8 +22,10 @@ import {
 } from '../../_lib/turnstile'
 import {
   SubmissionValidationError,
-  parseSubmissionInput
+  parseSubmissionInput,
+  toDomainKey
 } from '../../../shared/submissions/validation'
+import publishedTools from '../../../docs/.vitepress/theme/domain/ai-tools.json'
 
 interface RequestContext {
   request: Request
@@ -46,6 +48,10 @@ const validationMessages: Record<string, string> = {
   terms_required: '需要同意隐私说明和收录规则。',
   spam_detected: '提交未通过垃圾信息检查。'
 }
+
+const publishedCatalogDomains: ReadonlySet<string> = new Set(
+  publishedTools.map((tool) => toDomainKey(tool.url))
+)
 
 function duplicateResponse(): Response {
   return errorResponse(
@@ -72,6 +78,9 @@ export function createSubmissionHandler(deps: SubmissionHandlerDeps) {
       }
 
       const normalized = normalizeSubmissionForStorage(parsed)
+      if (publishedCatalogDomains.has(normalized.normalizedDomain)) {
+        return duplicateResponse()
+      }
       const hour = utcHourStart(deps.now())
       const ipRateKey = await deps.security.hashForPurpose('rate-ip', remoteIp)
       const domainRateKey = await deps.security.hashForPurpose(

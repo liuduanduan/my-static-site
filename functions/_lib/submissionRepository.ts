@@ -280,6 +280,12 @@ export class SubmissionRepository {
   async findActiveByDomain(
     domain: string
   ): Promise<{ id: string; status: SubmissionStatus } | null> {
+    const published = await this.db
+      .prepare('SELECT normalized_domain FROM published_tool_domains WHERE normalized_domain = ?')
+      .bind(domain)
+      .first<{ normalized_domain: string }>()
+    if (published) return { id: published.normalized_domain, status: 'published' }
+
     return this.db
       .prepare(
         "SELECT id, status FROM tool_submissions WHERE normalized_domain = ? AND status <> 'rejected' LIMIT 1"
@@ -356,9 +362,14 @@ export class SubmissionRepository {
 
   async updateStatus(idOrPublicRef: string, update: AdminStatusUpdate): Promise<void> {
     const current = await this.db
-      .prepare('SELECT id, status, attempt_count FROM tool_submissions WHERE id = ? OR public_ref = ?')
+      .prepare('SELECT id, status, attempt_count, normalized_domain FROM tool_submissions WHERE id = ? OR public_ref = ?')
       .bind(idOrPublicRef, idOrPublicRef)
-      .first<{ id: string; status: SubmissionStatus; attempt_count: number }>()
+      .first<{
+        id: string
+        status: SubmissionStatus
+        attempt_count: number
+        normalized_domain: string
+      }>()
     if (!current || !this.canTransition(current.status, update.status)) {
       throw new InvalidStatusTransitionError()
     }
@@ -384,8 +395,7 @@ export class SubmissionRepository {
         ? addDays(now, 180)
         : null
 
-    const result = await this.db
-      .prepare(`
+    const updateStatement = this.db.prepare(`
         UPDATE tool_submissions
         SET status = ?, last_error_code = ?, next_attempt_at = ?, claim_expires_at = NULL,
             github_pr_url = COALESCE(?, github_pr_url), public_message = ?,
@@ -405,7 +415,22 @@ export class SubmissionRepository {
         current.id,
         current.status
       )
-      .run()
+    let result: D1ResultLike
+    if (update.status === 'published') {
+      const results = await this.db.batch([
+        updateStatement,
+        this.db.prepare(`
+          INSERT INTO published_tool_domains (normalized_domain, published_at, created_at)
+          SELECT normalized_domain, ?, ?
+          FROM tool_submissions
+          WHERE id = ? AND status = 'published'
+          ON CONFLICT(normalized_domain) DO UPDATE SET published_at = excluded.published_at
+        `).bind(update.publishedAt, now, current.id)
+      ])
+      result = results[0]
+    } else {
+      result = await updateStatement.run()
+    }
     if ((result.meta?.changes ?? 0) !== 1) throw new InvalidStatusTransitionError()
   }
 

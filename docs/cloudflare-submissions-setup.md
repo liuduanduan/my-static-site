@@ -87,7 +87,7 @@ npm exec wrangler d1 migrations apply xunqi-submissions --remote
 
 - `curate-tool-submission.yml`：每次最多领取一条申请，只创建待人工审核 PR，不自动合并。
 - `sync-tool-submission-pr.yml`：PR 关闭后同步公开状态，不检出或执行 PR 代码。
-- `check-ai-tool-links.yml`：每周只读检查官网并上传报告，不接收管理或 OpenAI 密钥。
+- `check-ai-tool-links.yml`：每周只读检查官网的 HTTP 状态、跳转、标题和关键价格页指纹；与上一份可信报告比较，有变化时只创建或追加 GitHub 人工审核任务，不自动修改目录，也不接收管理或 OpenAI 密钥。
 - `maintain-tool-submissions.yml`：每天调用受保护的清理接口，不 checkout、不执行仓库代码。
 
 ## 6. 每日保留期清理与核验
@@ -108,11 +108,12 @@ $purgeUri = "$($env:SUBMISSIONS_API_BASE.TrimEnd('/'))/api/admin/submissions/pur
 Invoke-RestMethod -Method Post -Uri $purgeUri -Headers $purgeHeaders -ContentType 'application/json' -Body '{}'
 ```
 
-清理后执行以下只读 SQL，第一条应返回 `0`，第二条用于核对仅保留的匿名日汇总：
+清理后执行以下只读 SQL：第一条应返回 `0`；第二条用于核对匿名日汇总；第三条仅包含已经公开收录工具的规范化官网域名，不含邮箱、IP、查询码或原始申请内容，用于长期阻止重复申请：
 
 ```powershell
 npm exec wrangler d1 execute xunqi-submissions --remote --command "SELECT COUNT(*) AS expired_rows FROM tool_submissions WHERE retention_until <= datetime('now');"
 npm exec wrangler d1 execute xunqi-submissions --remote --command "SELECT day, source, intent, outcome, count FROM submission_daily_stats ORDER BY day DESC, source, intent, outcome LIMIT 100;"
+npm exec wrangler d1 execute xunqi-submissions --remote --command "SELECT normalized_domain, published_at FROM published_tool_domains ORDER BY published_at DESC LIMIT 100;"
 ```
 
 若每日工作流失败，不要删除或直接修改单条申请；先检查 Pages Functions 日志、绑定和管理令牌，再手动补跑。日志中不得输出 Authorization、查询码、邮箱密文、请求正文或完整 IP。

@@ -21,7 +21,10 @@ jobs:
           test -n "$SUBMISSIONS_API_BASE"
           test -n "$SUBMISSIONS_ADMIN_TOKEN"
           api_base="${SUBMISSIONS_API_BASE%/}"
-          curl --fail --silent --show-error \
+          if [[ ! "$api_base" =~ ^https://[^/?#]+$ ]]; then
+            exit 1
+          fi
+          curl --fail --silent --show-error --proto '=https' --tlsv1.2 \
             --request POST \
             --header "Authorization: Bearer ${SUBMISSIONS_ADMIN_TOKEN}" \
             --header "Content-Type: application/json" \

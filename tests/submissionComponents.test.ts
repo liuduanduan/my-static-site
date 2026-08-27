@@ -4,7 +4,8 @@ import { describe, expect, it, vi } from 'vitest'
 import siteConfig from '../docs/.vitepress/config'
 import {
   createSubmissionFormState,
-  submitToolSubmission
+  submitToolSubmission,
+  validateSubmissionForm
 } from '../docs/.vitepress/theme/components/submissionFormState'
 import { querySubmissionStatus } from '../docs/.vitepress/theme/components/submissionStatusClient'
 
@@ -88,6 +89,50 @@ describe('submission component compilation and semantics', () => {
 })
 
 describe('submission client behavior', () => {
+  it('returns field-level errors for every missing required value before submission', () => {
+    expect(validateSubmissionForm).toBeTypeOf('function')
+    if (typeof validateSubmissionForm !== 'function') return
+    const errors = validateSubmissionForm(createSubmissionFormState())
+
+    expect(Object.keys(errors)).toEqual([
+      'name',
+      'officialUrl',
+      'tagline',
+      'category',
+      'bestForText',
+      'featuresText',
+      'pricingMode',
+      'chineseSupport',
+      'contactEmail',
+      'submitterRelationship',
+      'acceptedTerms',
+      'turnstileToken'
+    ])
+    expect(Object.values(errors).every((message) => message.length > 0)).toBe(true)
+  })
+
+  it('accepts a complete form and identifies invalid field formats locally', () => {
+    expect(validateSubmissionForm).toBeTypeOf('function')
+    if (typeof validateSubmissionForm !== 'function') return
+    const valid = fillRequiredForm()
+    expect(validateSubmissionForm(valid)).toEqual({})
+
+    Object.assign(valid, {
+      officialUrl: 'http://user:pass@example.com:8080',
+      contactEmail: 'not-an-email',
+      prosText: '只有一项',
+      consText: '第一项\n第二项\n第三项',
+      logoUrl: 'http://example.com/logo.svg'
+    })
+    expect(validateSubmissionForm(valid)).toMatchObject({
+      officialUrl: expect.any(String),
+      contactEmail: expect.any(String),
+      prosText: expect.any(String),
+      consText: expect.any(String),
+      logoUrl: expect.any(String)
+    })
+  })
+
   it('sends only the API contract and preserves every value after failure', async () => {
     const form = fillRequiredForm()
     const before = structuredClone(form)

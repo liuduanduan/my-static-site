@@ -334,6 +334,24 @@ describe('POST /api/submissions', () => {
     expect(JSON.stringify(body)).not.toContain('private-id')
   })
 
+  it('blocks domains that already exist in the published catalog without relying on D1 history', async () => {
+    const repository = createRepository()
+    const { handler } = submissionHandler(repository)
+
+    const response = await handler(
+      context(jsonRequest('/api/submissions', {
+        ...validSubmission,
+        name: 'ChatGPT duplicate',
+        officialUrl: 'https://chatgpt.com/new-product'
+      })) as never
+    )
+
+    expect(response.status).toBe(409)
+    expect(await responseJson(response)).toMatchObject({ code: 'duplicate_submission' })
+    expect(repository.findActiveByDomain).not.toHaveBeenCalled()
+    expect(repository.create).not.toHaveBeenCalled()
+  })
+
   it('returns 503 rather than false success when persistence fails', async () => {
     const repository = createRepository()
     repository.create.mockRejectedValueOnce(new Error('D1 unavailable'))
@@ -577,6 +595,21 @@ describe('trusted submission administration APIs', () => {
     expect(validResponse.status).toBe(200)
     expect(repository.updateStatus).toHaveBeenCalledWith('abcdefghijklm', validUpdate)
 
+    const transientEnricherResponse = await handler(
+      adminContext(adminRequest('/api/admin/submissions/abcdefghijklm', {
+        status: 'error',
+        errorCode: 'enricher_failed'
+      }, {
+        method: 'PATCH',
+        authorization: `Bearer ${adminToken}`
+      }), 'abcdefghijklm') as never
+    )
+    expect(transientEnricherResponse.status).toBe(200)
+    expect(repository.updateStatus).toHaveBeenLastCalledWith('abcdefghijklm', {
+      status: 'error',
+      errorCode: 'enricher_failed'
+    })
+
     const invalidBodies = [
       { ...validUpdate, extra: true },
       { status: 'error', errorCode: 'raw-network-stack' },
@@ -594,7 +627,7 @@ describe('trusted submission administration APIs', () => {
       expect(response.status).toBe(400)
       expect(await responseJson(response)).toMatchObject({ code: 'invalid_admin_update' })
     }
-    expect(repository.updateStatus).toHaveBeenCalledTimes(1)
+    expect(repository.updateStatus).toHaveBeenCalledTimes(2)
   })
 
   it('maps repository transition races to a safe conflict', async () => {

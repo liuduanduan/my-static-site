@@ -77,7 +77,15 @@ jobs:
           git checkout -b "$BRANCH"
           git add -- docs/.vitepress/theme/domain/ai-tools.json docs/.vitepress/ai-pages-manifest.json docs/tools docs/ai-categories
           git commit -m "$PR_TITLE"
-          git push origin "$BRANCH"
+          if git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null; then
+            git fetch origin "refs/heads/$BRANCH:refs/remotes/origin/$BRANCH"
+            if ! git diff --quiet "origin/$BRANCH" HEAD --; then
+              printf 'Remote submission branch exists with different content; refusing to overwrite it.\n' >&2
+              exit 1
+            fi
+          else
+            git push origin "$BRANCH"
+          fi
           pr_url="$(gh pr list --head "$BRANCH" --state open --json url --jq '.[0].url // empty')"
           if [ -z "$pr_url" ]; then
             body_file="$(mktemp)"

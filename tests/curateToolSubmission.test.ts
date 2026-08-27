@@ -175,6 +175,28 @@ describe('one-submission catalog curation', () => {
     expect(readFileSync(catalogPath, 'utf8')).toBe(before)
   })
 
+  it('records an exhausted transient enricher failure for repository backoff', async () => {
+    const client = clientDouble()
+    const enricherError = Object.assign(new Error('private provider detail'), {
+      code: 'enricher_failed'
+    })
+    const before = readFileSync(catalogPath, 'utf8')
+
+    await expect(
+      runCurationOnce({
+        client,
+        ...curationDeps(projectRoot, {
+          enricher: { enrich: vi.fn(async () => { throw enricherError }) }
+        })
+      })
+    ).rejects.toBe(enricherError)
+    expect(client.updateSubmission).toHaveBeenCalledWith(submission.id, {
+      status: 'error',
+      errorCode: 'enricher_failed'
+    })
+    expect(readFileSync(catalogPath, 'utf8')).toBe(before)
+  })
+
   it('validates and atomically adds one non-featured tool with two same-category alternatives', async () => {
     const before = JSON.parse(readFileSync(catalogPath, 'utf8')) as Array<Record<string, unknown>>
 
@@ -366,6 +388,19 @@ describe('trusted PR workflows', () => {
     expect(workflow).toContain('git diff --check')
     expect(workflow).toContain('gh pr create')
     expect(workflow).not.toMatch(/auto-merge|gh pr merge|push[^\n]*\bmain\b/)
+  })
+
+  it('safely reuses an identical remote submission branch after a partial GitHub failure', () => {
+    const workflow = readFileSync(
+      resolve(dirname(sourceCatalog), '../../../../.github/workflows/curate-tool-submission.yml'),
+      'utf8'
+    )
+
+    expect(workflow).toContain('git ls-remote --exit-code --heads origin "$BRANCH"')
+    expect(workflow).toContain('git fetch origin "refs/heads/$BRANCH:refs/remotes/origin/$BRANCH"')
+    expect(workflow).toContain('git diff --quiet "origin/$BRANCH" HEAD --')
+    expect(workflow).not.toMatch(/git push[^\n]*--force/)
+    expect(workflow).toContain('gh pr list --head "$BRANCH" --state open')
   })
 
   it('syncs closed PR status without checking out or executing pull-request code', () => {

@@ -7,6 +7,7 @@ const identifierPattern = /^[A-Za-z0-9-]{1,128}$/
 const allowedErrors = new Set([
   'official_fetch_rejected',
   'official_fetch_failed',
+  'enricher_failed',
   'enricher_invalid_output',
   'catalog_validation_failed',
   'build_failed',

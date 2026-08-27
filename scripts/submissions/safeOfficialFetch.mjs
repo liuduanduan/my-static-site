@@ -9,10 +9,11 @@ const MAX_REDIRECTS = 3
 const redirectStatuses = new Set([301, 302, 303, 307, 308])
 
 export class OfficialFetchError extends Error {
-  constructor(code) {
+  constructor(code, statusCode) {
     super(code)
     this.name = 'OfficialFetchError'
     this.code = code
+    if (Number.isInteger(statusCode)) this.statusCode = statusCode
   }
 }
 
@@ -20,8 +21,8 @@ function rejected() {
   return new OfficialFetchError('official_fetch_rejected')
 }
 
-function failed() {
-  return new OfficialFetchError('official_fetch_failed')
+function failed(statusCode) {
+  return new OfficialFetchError('official_fetch_failed', statusCode)
 }
 
 function parseIpv4(value) {
@@ -211,7 +212,29 @@ function safeCanonical(html, finalUrl) {
   }
 }
 
-function extractEvidence(html, finalUrl) {
+function pricingLinks(html, finalUrl) {
+  const links = []
+  for (const match of html.matchAll(/<a\b[^>]*>/gi)) {
+    const href = attributes(match[0]).href
+    if (!href) continue
+    try {
+      const candidate = assertSafeUrl(new URL(href, finalUrl))
+      if (normalizedHostname(candidate) !== normalizedHostname(finalUrl)) continue
+      if (!/(?:^|[-_/.])(pricing|price|plans?|billing|subscriptions?)(?:[-_/.]|$)/i.test(candidate.pathname)) {
+        continue
+      }
+      candidate.hash = ''
+      const value = candidate.toString()
+      if (!links.includes(value)) links.push(value)
+      if (links.length === 3) break
+    } catch {
+      // Ignore unsafe or malformed page links; the main response remains usable evidence.
+    }
+  }
+  return links
+}
+
+function extractEvidence(html, finalUrl, statusCode) {
   const titleMatch = html.match(/<title\b[^>]*>([\s\S]*?)<\/title\s*>/i)
   const descriptionTag = firstTag(html, 'meta', (value) =>
     String(value.name ?? '').toLowerCase() === 'description'
@@ -224,13 +247,14 @@ function extractEvidence(html, finalUrl) {
     .replace(/<[^>]+>/g, ' ')
   visible = normalizeText(visible, MAX_VISIBLE_TEXT)
 
+  const canonicalUrl = safeCanonical(html, finalUrl)
   return {
     finalUrl: finalUrl.toString(),
+    statusCode,
     title: normalizeText(titleMatch?.[1] ?? '', 300),
     metaDescription: normalizeText(descriptionTag?.content ?? '', 1_000),
-    ...(safeCanonical(html, finalUrl)
-      ? { canonicalUrl: safeCanonical(html, finalUrl) }
-      : {}),
+    ...(canonicalUrl ? { canonicalUrl } : {}),
+    pricingLinks: pricingLinks(html, finalUrl),
     visibleText: visible
   }
 }
@@ -329,7 +353,7 @@ export async function safeFetchOfficialPage(value, deps = createNodeSafeFetchDep
       continue
     }
 
-    if (response.status < 200 || response.status >= 300) throw failed()
+    if (response.status < 200 || response.status >= 300) throw failed(response.status)
     const contentType = headerValue(response.headers, 'content-type')?.toLowerCase()
     const contentEncoding = headerValue(response.headers, 'content-encoding')?.toLowerCase()
     if (!contentType?.startsWith('text/html')) throw rejected()
@@ -338,7 +362,7 @@ export async function safeFetchOfficialPage(value, deps = createNodeSafeFetchDep
     if (Number.isFinite(declaredLength) && declaredLength > MAX_RESPONSE_BYTES) throw rejected()
 
     const html = await readBody(response.body, deps.now, deadline)
-    return Object.freeze(extractEvidence(html, url))
+    return Object.freeze(extractEvidence(html, url, response.status))
   }
 }
 

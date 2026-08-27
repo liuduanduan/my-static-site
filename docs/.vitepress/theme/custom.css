@@ -1603,6 +1603,21 @@ a {
   line-height: 1.6;
 }
 
+.submission-form .field-error {
+  display: block;
+  margin-top: 7px;
+  color: #a33222;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.submission-field input[aria-invalid='true'],
+.submission-field select[aria-invalid='true'],
+.submission-field textarea[aria-invalid='true'] {
+  border-color: #b6402d;
+}
+
 .submission-field--checks {
   display: flex;
   flex-wrap: wrap;

@@ -10,6 +10,14 @@ export class ContentEnricherError extends Error {
   }
 }
 
+export class ContentEnricherUnavailableError extends Error {
+  constructor() {
+    super('enricher_failed')
+    this.name = 'ContentEnricherUnavailableError'
+    this.code = 'enricher_failed'
+  }
+}
+
 function safeSubmission(value) {
   return {
     name: value.name,
@@ -111,9 +119,12 @@ async function fetchAttempt(fetcher, apiKey, body) {
       signal
     })
     if (!response.ok) {
+      const retryable = response.status === 408 || response.status === 429 || response.status >= 500
       return {
-        retryable: response.status >= 500,
-        error: new ContentEnricherError()
+        retryable,
+        error: retryable
+          ? new ContentEnricherUnavailableError()
+          : new ContentEnricherError()
       }
     }
     let payload
@@ -124,7 +135,7 @@ async function fetchAttempt(fetcher, apiKey, body) {
     }
     return { retryable: false, payload }
   } catch {
-    return { retryable: true, error: new ContentEnricherError() }
+    return { retryable: true, error: new ContentEnricherUnavailableError() }
   }
 }
 

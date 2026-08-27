@@ -30,6 +30,7 @@ type ErrorUpdate = Extract<AdminStatusUpdate, { status: 'error' }>
 const automationErrors = new Set([
   'official_fetch_rejected',
   'official_fetch_failed',
+  'enricher_failed',
   'enricher_invalid_output',
   'catalog_validation_failed',
   'build_failed',

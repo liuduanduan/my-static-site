@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { Miniflare, convertV4MiniflareOptions } from 'miniflare'
@@ -18,8 +18,10 @@ import {
 } from '../functions/_lib/submissionRepository'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const migration1 = readFileSync(resolve(root, 'migrations/0001_tool_submissions.sql'), 'utf8')
-const migration2 = readFileSync(resolve(root, 'migrations/0002_campaigns.sql'), 'utf8')
+const migrations = readdirSync(resolve(root, 'migrations'))
+  .filter((name) => /^\d+_.+\.sql$/.test(name))
+  .sort()
+  .map((name) => readFileSync(resolve(root, 'migrations', name), 'utf8'))
 const encryptionKey = Buffer.alloc(32, 7).toString('base64')
 const securityEnv = {
   PUBLIC_CODE_PEPPER: 'test-pepper-with-enough-entropy',
@@ -49,8 +51,9 @@ const baseInput: SubmissionInput = {
 async function applyMigrations(db: D1DatabaseLike): Promise<void> {
   // D1Database.exec treats each newline as a statement boundary; Wrangler applies
   // migration files as complete SQL, so preserve that behavior in the local runtime.
-  await db.exec(migration1.replace(/\r?\n/g, ' '))
-  await db.exec(migration2.replace(/\r?\n/g, ' '))
+  for (const migration of migrations) {
+    await db.exec(migration.replace(/\r?\n/g, ' '))
+  }
 }
 
 describe('submission persistence with a real local D1 runtime', () => {
@@ -145,6 +148,28 @@ describe('submission persistence with a real local D1 runtime', () => {
     })
 
     await expect(createSubmission()).resolves.toMatchObject({ publicCode: expect.any(String) })
+  })
+
+  it('continues blocking a published domain after private submission data is purged', async () => {
+    await createSubmission()
+    const [claimed] = await repository.claimAvailable(1, currentTime.toISOString())
+    await repository.updateStatus(claimed.id, {
+      status: 'pr_open',
+      prUrl: 'https://github.com/example/directory/pull/42'
+    })
+    await repository.updateStatus(claimed.id, {
+      status: 'published',
+      prUrl: 'https://github.com/example/directory/pull/42',
+      publishedAt: '2026-01-01T00:00:00.000Z'
+    })
+
+    currentTime = new Date('2026-07-01T00:00:00.000Z')
+    await repository.purgeExpired(currentTime.toISOString())
+
+    expect(
+      await db.prepare('SELECT COUNT(*) AS count FROM tool_submissions').first<{ count: number }>()
+    ).toEqual({ count: 0 })
+    await expect(createSubmission()).rejects.toBeInstanceOf(DuplicateSubmissionError)
   })
 
   it('increments hourly rate buckets atomically and rejects the sixth attempt', async () => {
