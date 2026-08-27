@@ -400,7 +400,7 @@ describe('AiDirectory extraction contract', () => {
     expect(source).toContain('aria-live="polite"')
     expect(source).toContain('{{ resultStatus }}')
     expect(source).toContain('<div v-if="hasMore" class="directory-load-more">')
-    expect(source).toContain('>\n            加载更多\n          </button>')
+    expect(source).toMatch(/>\r?\n\s+加载更多\r?\n\s+<\/button>/)
     expect(source).toContain('@click="loadMore"')
     expect(source).not.toContain('v-if="filteredTools.length"')
     expect(source).not.toContain(':class="{ complete: !hasMore }"')
