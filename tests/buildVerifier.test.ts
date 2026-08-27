@@ -180,6 +180,24 @@ describe('meta attribute shape', () => {
 })
 
 describe('exact route verification', () => {
+  test('allows reviewed growth only when the complete launch roster remains', () => {
+    const assertCatalogGrowthPolicy = exportedFunction('assertCatalogGrowthPolicy')
+    const launchSlugs = Array.from({ length: 63 }, (_value, index) => `launch-${index + 1}`)
+
+    expect(() =>
+      assertCatalogGrowthPolicy(
+        [...launchSlugs.map((slug) => ({ slug })), { slug: 'reviewed-addition' }],
+        launchSlugs
+      )
+    ).not.toThrow()
+    expect(() =>
+      assertCatalogGrowthPolicy(
+        [...launchSlugs.slice(1).map((slug) => ({ slug })), { slug: 'replacement' }],
+        launchSlugs
+      )
+    ).toThrow(/launch-1/i)
+  })
+
   test('rejects equal-sized route sets when one expected route is replaced by an extra route', () => {
     const assertExactSet = exportedFunction('assertExactSet')
     expect(() =>

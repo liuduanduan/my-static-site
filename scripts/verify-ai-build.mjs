@@ -8,6 +8,17 @@ const scriptPath = fileURLToPath(import.meta.url)
 const defaultRoot = resolve(dirname(scriptPath), '..')
 const socialImageUrl = 'https://no996noicu.com/social-card.png'
 const pngSignature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])
+const launchToolSlugs = [
+  'chatgpt', 'claude', 'deepseek', 'kimi', 'gemini', 'microsoft-copilot', 'doubao',
+  'notion', 'gamma', 'napkin', 'otter', 'grammarly', 'quillbot', 'wps-ai',
+  'midjourney', 'canva', 'firefly', 'leonardo-ai', 'ideogram', 'stable-diffusion', 'remove-bg',
+  'runway', 'capcut', 'kling', 'pika', 'heygen', 'synthesia', 'luma-dream-machine',
+  'cursor', 'github-copilot', 'v0', 'lovable', 'replit', 'bolt-new', 'windsurf',
+  'elevenlabs', 'suno', 'udio', 'descript', 'adobe-podcast', 'aiva', 'murf',
+  'perplexity', 'elicit', 'consensus', 'scite', 'notebooklm', 'you-com', 'semantic-scholar',
+  'jasper', 'copy-ai', 'hubspot-ai', 'predis-ai', 'buffer-ai', 'adcreative-ai', 'ocoya',
+  'zapier', 'make', 'n8n', 'airtable', 'bardeen', 'rows', 'julius-ai'
+]
 
 function pathsEqual(left, right) {
   const normalizedLeft = resolve(left)
@@ -38,6 +49,17 @@ export function assertExactSet(actual, expected, label) {
     { missing: [], extra: [] },
     `${label} mismatch; missing: ${missing.join(', ') || '(none)'}; extra: ${extra.join(', ') || '(none)'}`
   )
+}
+
+export function assertCatalogGrowthPolicy(tools, requiredSlugs = launchToolSlugs) {
+  assert.ok(Array.isArray(tools), 'production data must be an array')
+  assert.ok(
+    tools.length >= requiredSlugs.length,
+    `production data must contain at least ${requiredSlugs.length} tools`
+  )
+  const actualSlugs = new Set(tools.map((tool) => tool?.slug))
+  const missing = requiredSlugs.filter((slug) => !actualSlugs.has(slug))
+  assert.deepEqual(missing, [], `production data is missing launch tools: ${missing.join(', ')}`)
 }
 
 export function artifactRouteSet(directory, routePrefix) {
@@ -442,11 +464,11 @@ export function runVerification(root = defaultRoot) {
     assert.ok(source.equals(built), 'built social-card.png differs from the public source asset')
   })
 
-  check('source and built social-card.svg match the launch scale', () => {
+  check('source and built social-card.svg use evergreen directory copy', () => {
     const source = readFileSync(join(docsDir, 'public', 'social-card.svg'), 'utf8')
     const built = readFileSync(join(distDir, 'social-card.svg'), 'utf8')
     assert.equal(built, source, 'built social-card.svg differs from the public source asset')
-    assert.match(source, /63\+\s*款工具\s*·\s*9\s*大使用场景/)
+    assert.match(source, /精选\s*AI\s*工具\s*·\s*9\s*大使用场景/i)
     assert.doesNotMatch(source, /24\+\s*款工具|6\s*大使用场景/)
   })
 
@@ -464,9 +486,9 @@ export function runVerification(root = defaultRoot) {
     results.toolPagesVerified = tools.length
   })
 
-  check('homepage SSR reflects launch scale and emitted CSS', () => {
+  check('homepage SSR reflects the current catalog and emitted CSS', () => {
     const html = readFileSync(artifactPath(distDir, 'index'), 'utf8')
-    assert.match(html, /63\+\s*款工具\s*·\s*9\s*大使用场景/)
+    assert.match(html, new RegExp(`${tools.length}\\+\\s*款工具\\s*·\\s*9\\s*大使用场景`))
     assert.doesNotMatch(html, /24\+\s*款工具|6\s*大使用场景/)
 
     const stylesheets = tags(html, 'link').filter(({ attributes }) =>
@@ -486,7 +508,7 @@ export function runVerification(root = defaultRoot) {
   })
 
   check('generated Markdown and manifest match the production data set', () => {
-    assert.equal(tools.length, 63, 'production data must contain 63 tools')
+    assertCatalogGrowthPolicy(tools)
     assert.equal(categorySlugs.length, 9, 'production data must contain 9 categories')
     const expected = [
       ...tools.map((tool) => `docs/tools/${tool.slug}.md`),

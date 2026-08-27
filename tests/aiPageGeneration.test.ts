@@ -131,7 +131,7 @@ describe('AI page generation', () => {
       const manifest = JSON.parse(readFileSync(fixture.manifestPath, 'utf8')) as string[]
 
       expect(generated).toEqual(expectedManifest)
-      expect(manifest).toHaveLength(74)
+      expect(manifest).toHaveLength(catalog.length + categories.length + 2)
       expect(manifest).toEqual(expectedManifest)
       expect(new Set(manifest).size).toBe(manifest.length)
       expect(manifest).toContain('docs/tools/chatgpt.md')
@@ -163,6 +163,7 @@ describe('AI page generation', () => {
 
   it('keeps CLI execution isolated while reporting generated counts', () => {
     const fixture = createFixture('ai-page-cli-')
+    const catalog = cloneCatalog()
     const fixtureScriptsDirectory = resolve(fixture.root, 'scripts')
     const fixtureScript = resolve(fixtureScriptsDirectory, 'generate-ai-pages.mjs')
 
@@ -177,9 +178,48 @@ describe('AI page generation', () => {
       const manifest = JSON.parse(readFileSync(fixture.manifestPath, 'utf8')) as string[]
 
       expect(output.replaceAll('\r\n', '\n')).toBe(
-        'Generated 63 tool pages and 9 category pages.\n'
+        `Generated ${catalog.length} tool pages and ${categories.length} category pages.\n`
       )
-      expect(manifest).toHaveLength(74)
+      expect(manifest).toHaveLength(catalog.length + categories.length + 2)
+    } finally {
+      rmSync(fixture.root, { recursive: true, force: true })
+    }
+  })
+
+  it('derives generated routes and counts from a reviewed 64th tool', () => {
+    const fixture = createFixture('ai-page-growth-')
+    const catalog = cloneCatalog()
+    const extra = {
+      ...catalog.find((tool) => tool.slug === 'chatgpt'),
+      slug: 'example-ai',
+      name: 'Example AI',
+      tagline: '为增长测试提供独立工具条目',
+      description: 'Example AI 是目录增长测试使用的独立工具条目。',
+      bestFor: ['目录增长验证', '静态路由验证', '清单数量验证'],
+      features: ['独立详情页', '分类页计数', '动态清单'],
+      pros: ['测试事实清晰', '不会修改现有条目'],
+      cons: ['仅用于测试', '不代表真实产品'],
+      searchTerms: ['目录增长', '工具测试'],
+      featuredOrder: undefined,
+      alternatives: ['chatgpt', 'claude']
+    }
+    catalog.push(extra)
+
+    try {
+      writeFileSync(
+        resolve(fixture.dataDirectory, 'ai-tools.json'),
+        JSON.stringify(catalog),
+        'utf8'
+      )
+
+      const generated = generateFixture(fixture.root)
+      const manifest = JSON.parse(readFileSync(fixture.manifestPath, 'utf8')) as string[]
+
+      expect(generated).toContain('docs/tools/example-ai.md')
+      expect(manifest).toHaveLength(75)
+      expect(readFileSync(resolve(fixture.toolsDirectory, 'example-ai.md'), 'utf8')).toContain(
+        '<ToolDetail slug="example-ai" />'
+      )
     } finally {
       rmSync(fixture.root, { recursive: true, force: true })
     }
@@ -214,7 +254,7 @@ describe('AI page generation', () => {
         readFileSync(resolve(root, 'docs/.vitepress/ai-pages-manifest.json'), 'utf8')
       ) as string[]
 
-      expect(generatedManifest).toHaveLength(74)
+      expect(generatedManifest).toHaveLength(cloneCatalog().length + categories.length + 2)
       expect(generatedManifest).toEqual(committedManifest)
       assertGeneratedArtifactsMatch(fixture.root, root, [
         ...generatedManifest,
