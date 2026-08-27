@@ -13,6 +13,8 @@
     "docs:preview": "vitepress preview docs --host 127.0.0.1",
     "test": "vitest run",
     "test:submissions": "vitest run tests/submissionContracts.test.ts tests/submissionPersistence.test.ts tests/cloudflareSubmissionApi.test.ts",
+    "submissions:curate": "node scripts/submissions/runCuration.mjs",
+    "submissions:sync": "node scripts/submissions/syncSubmissionStatus.mjs",
     "typecheck:functions": "tsc --noEmit -p tsconfig.functions.json",
     "test:watch": "vitest"
   },

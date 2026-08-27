@@ -1,0 +1,104 @@
+name: Curate one AI tool submission
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: curate-tool-submission
+  cancel-in-progress: false
+
+jobs:
+  curate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out trusted default branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Curate one claimed submission
+        id: curate
+        env:
+          SUBMISSIONS_API_BASE: ${{ secrets.SUBMISSIONS_API_BASE }}
+          SUBMISSIONS_ADMIN_TOKEN: ${{ secrets.SUBMISSIONS_ADMIN_TOKEN }}
+          CONTENT_ENRICHER_API_KEY: ${{ secrets.CONTENT_ENRICHER_API_KEY }}
+          CONTENT_ENRICHER_MODEL: ${{ secrets.CONTENT_ENRICHER_MODEL }}
+        run: npm run submissions:curate
+
+      - name: Verify the complete catalog change
+        id: verify
+        if: steps.curate.outputs.has_changes == 'true'
+        continue-on-error: true
+        run: |
+          npm test
+          npm run verify:build
+          git diff --check
+
+      - name: Record validation failure
+        if: steps.curate.outputs.has_changes == 'true' && steps.verify.outcome == 'failure'
+        env:
+          SUBMISSIONS_API_BASE: ${{ secrets.SUBMISSIONS_API_BASE }}
+          SUBMISSIONS_ADMIN_TOKEN: ${{ secrets.SUBMISSIONS_ADMIN_TOKEN }}
+          SUBMISSION_ID: ${{ steps.curate.outputs.submission_id }}
+        run: npm run submissions:sync -- error "$SUBMISSION_ID" build_failed
+
+      - name: Stop after validation failure
+        if: steps.curate.outputs.has_changes == 'true' && steps.verify.outcome == 'failure'
+        run: exit 1
+
+      - name: Create or reuse the review pull request
+        id: pull_request
+        if: steps.curate.outputs.has_changes == 'true' && steps.verify.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.curate.outputs.branch }}
+          PR_TITLE: ${{ steps.curate.outputs.pr_title }}
+          PR_BODY: ${{ steps.curate.outputs.pr_body }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add -- docs/.vitepress/theme/domain/ai-tools.json docs/.vitepress/ai-pages-manifest.json docs/tools docs/ai-categories
+          git commit -m "$PR_TITLE"
+          git push origin "$BRANCH"
+          pr_url="$(gh pr list --head "$BRANCH" --state open --json url --jq '.[0].url // empty')"
+          if [ -z "$pr_url" ]; then
+            body_file="$(mktemp)"
+            printf '%s\n' "$PR_BODY" > "$body_file"
+            pr_url="$(gh pr create --base main --head "$BRANCH" --title "$PR_TITLE" --body-file "$body_file")"
+          fi
+          printf 'pr_url=%s\n' "$pr_url" >> "$GITHUB_OUTPUT"
+
+      - name: Mark submission as publicly under review
+        if: steps.pull_request.outcome == 'success'
+        env:
+          SUBMISSIONS_API_BASE: ${{ secrets.SUBMISSIONS_API_BASE }}
+          SUBMISSIONS_ADMIN_TOKEN: ${{ secrets.SUBMISSIONS_ADMIN_TOKEN }}
+          SUBMISSION_ID: ${{ steps.curate.outputs.submission_id }}
+          PR_URL: ${{ steps.pull_request.outputs.pr_url }}
+        run: npm run submissions:sync -- pr-open "$SUBMISSION_ID" "$PR_URL"
+
+      - name: Record pull request failure
+        if: failure() && steps.curate.outputs.has_changes == 'true' && steps.verify.outcome == 'success'
+        env:
+          SUBMISSIONS_API_BASE: ${{ secrets.SUBMISSIONS_API_BASE }}
+          SUBMISSIONS_ADMIN_TOKEN: ${{ secrets.SUBMISSIONS_ADMIN_TOKEN }}
+          SUBMISSION_ID: ${{ steps.curate.outputs.submission_id }}
+        run: npm run submissions:sync -- error "$SUBMISSION_ID" github_pr_failed

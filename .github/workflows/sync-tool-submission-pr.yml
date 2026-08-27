@@ -1,0 +1,64 @@
+name: Sync reviewed tool submission status
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  validate-source:
+    if: github.event.pull_request.head.repo.full_name == github.repository && startsWith(github.event.pull_request.head.ref, 'submission/')
+    runs-on: ubuntu-latest
+    outputs:
+      valid: ${{ steps.branch.outputs.valid }}
+      submission_ref: ${{ steps.branch.outputs.submission_ref }}
+    steps:
+      - name: Validate same-repository automation branch
+        id: branch
+        env:
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+        run: |
+          set -euo pipefail
+          if [[ "$BRANCH_NAME" =~ ^submission/([a-z2-7]{13})-[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+            printf 'valid=true\n' >> "$GITHUB_OUTPUT"
+            printf 'submission_ref=%s\n' "${BASH_REMATCH[1]}" >> "$GITHUB_OUTPUT"
+          else
+            printf 'valid=false\n' >> "$GITHUB_OUTPUT"
+          fi
+
+  sync-status:
+    needs: validate-source
+    if: needs.validate-source.outputs.valid == 'true'
+    runs-on: ubuntu-latest
+    env:
+      SUBMISSIONS_API_BASE: ${{ secrets.SUBMISSIONS_API_BASE }}
+      SUBMISSIONS_ADMIN_TOKEN: ${{ secrets.SUBMISSIONS_ADMIN_TOKEN }}
+      SUBMISSION_REF: ${{ needs.validate-source.outputs.submission_ref }}
+      PR_URL: ${{ github.event.pull_request.html_url }}
+      MERGED: ${{ github.event.pull_request.merged }}
+      MERGED_AT: ${{ github.event.pull_request.merged_at }}
+    steps:
+      - name: Send the reviewed public status only
+        run: |
+          set -euo pipefail
+          api_base="${SUBMISSIONS_API_BASE%/}"
+          if [[ ! "$api_base" =~ ^https://[^/?#]+$ ]]; then
+            exit 1
+          fi
+          if [ "$MERGED" = "true" ]; then
+            payload="$(jq -cn --arg status published --arg prUrl "$PR_URL" --arg publishedAt "$MERGED_AT" '{status:$status,prUrl:$prUrl,publishedAt:$publishedAt}')"
+          else
+            payload="$(jq -cn --arg status rejected --arg publicMessage '经人工审核暂未收录' '{status:$status,publicMessage:$publicMessage}')"
+          fi
+          http_status="$(curl --silent --show-error --output response.json --write-out '%{http_code}' \
+            --request PATCH \
+            --header "Authorization: Bearer $SUBMISSIONS_ADMIN_TOKEN" \
+            --header 'Content-Type: application/json' \
+            --data "$payload" \
+            "$api_base/api/admin/submissions/$SUBMISSION_REF")"
+          if [[ ! "$http_status" =~ ^2 ]]; then
+            exit 1
+          fi
