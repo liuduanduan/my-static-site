@@ -208,30 +208,86 @@ describe('ai tool directory data', () => {
     expect(tools.every((tool) => tool.cons.length >= 2)).toBe(true)
   })
 
-  it('keeps representative product facts accurate across all nine categories', () => {
+  describe('representative product facts across all nine categories', () => {
     const facts = (slug: string) => {
       const tool = getToolBySlug(slug)!
       return [...tool.bestFor, ...tool.features, tool.description].join('|')
     }
 
-    expect(facts('gemini')).toMatch(/多模态|Google/)
+    it('identifies Gemini as a Google multimodal assistant', () => {
+      expect(facts('gemini')).toContain('Google')
+      expect(facts('gemini')).toContain('多模态')
+    })
 
-    expect(facts('otter')).toMatch(/转写|说话人/)
-    expect(facts('otter')).toMatch(/行动项|摘要|会议/)
-    expect(facts('otter')).not.toMatch(/AI 内容生成/)
+    it('describes Otter transcription, speakers, meetings, summaries, and action items', () => {
+      expect(facts('otter')).toContain('转写')
+      expect(facts('otter')).toContain('说话人')
+      expect(facts('otter')).toContain('会议')
+      expect(facts('otter')).toContain('摘要')
+      expect(facts('otter')).toContain('行动项')
+      expect(facts('otter')).not.toContain('AI 内容生成')
+    })
 
-    expect(facts('remove-bg')).toMatch(/去背景|抠图|透明背景/)
-    expect(facts('remove-bg')).not.toMatch(/图像生成|风格与构图控制/)
+    it('keeps remove.bg focused on background removal and cutouts', () => {
+      expect(facts('remove-bg')).toContain('去背景')
+      expect(facts('remove-bg')).toContain('抠图')
+      expect(facts('remove-bg')).toContain('透明背景')
+      expect(facts('remove-bg')).not.toContain('图像生成')
+      expect(facts('remove-bg')).not.toContain('风格与构图控制')
+    })
 
-    expect(facts('heygen')).toMatch(/数字人|口型|配音/)
-    expect(facts('replit')).toMatch(/云端|代码|开发/)
-    expect(facts('descript')).toMatch(/转写|音频|视频/)
+    it('describes HeyGen digital people, dubbing, and lip synchronization', () => {
+      expect(facts('heygen')).toContain('数字人')
+      expect(facts('heygen')).toContain('配音')
+      expect(facts('heygen')).toContain('口型')
+    })
 
-    expect(facts('notebooklm')).toMatch(/来源|资料|笔记/)
-    expect(`${facts('semantic-scholar')}|${facts('elicit')}`).toMatch(/学术|论文|文献/)
+    it('describes Replit cloud coding and development', () => {
+      expect(facts('replit')).toContain('云端')
+      expect(facts('replit')).toContain('代码')
+      expect(facts('replit')).toContain('开发')
+    })
 
-    expect(facts('hubspot-ai')).toMatch(/CRM|营销/)
-    expect(`${facts('zapier')}|${facts('n8n')}`).toMatch(/工作流|集成|自动化/)
+    it('describes Descript transcription for audio and video', () => {
+      expect(facts('descript')).toContain('转写')
+      expect(facts('descript')).toContain('音频')
+      expect(facts('descript')).toContain('视频')
+    })
+
+    it('describes NotebookLM source-grounded research notes', () => {
+      expect(facts('notebooklm')).toContain('来源')
+      expect(facts('notebooklm')).toContain('资料')
+      expect(facts('notebooklm')).toContain('笔记')
+    })
+
+    it('describes Semantic Scholar academic paper and literature search', () => {
+      expect(facts('semantic-scholar')).toContain('学术')
+      expect(facts('semantic-scholar')).toContain('论文')
+      expect(facts('semantic-scholar')).toContain('文献')
+    })
+
+    it('describes Elicit academic paper and literature research', () => {
+      expect(facts('elicit')).toContain('学术')
+      expect(facts('elicit')).toContain('论文')
+      expect(facts('elicit')).toContain('文献')
+    })
+
+    it('describes HubSpot AI in CRM and marketing workflows', () => {
+      expect(facts('hubspot-ai')).toContain('CRM')
+      expect(facts('hubspot-ai')).toContain('营销')
+    })
+
+    it('describes Zapier workflow integrations and automation', () => {
+      expect(facts('zapier')).toContain('工作流')
+      expect(facts('zapier')).toContain('集成')
+      expect(facts('zapier')).toContain('自动化')
+    })
+
+    it('describes n8n workflow integrations and automation', () => {
+      expect(facts('n8n')).toContain('工作流')
+      expect(facts('n8n')).toContain('集成')
+      expect(facts('n8n')).toContain('自动化')
+    })
   })
 
   it('looks up a tool by stable slug', () => {

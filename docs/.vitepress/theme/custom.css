@@ -439,7 +439,7 @@ a {
   width: 100%;
   min-width: 0;
   min-height: 68px;
-  padding: 0 92px 0 0;
+  padding: 0 144px 0 0;
   border: 0;
   outline: none;
   background: transparent;
@@ -1522,7 +1522,7 @@ a:focus-visible {
 
   .directory-search-card input {
     min-height: 62px;
-    padding-right: 52px;
+    padding-right: 80px;
     font-size: 13px;
   }
 

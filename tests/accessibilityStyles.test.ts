@@ -165,6 +165,14 @@ describe('expanded directory layout', () => {
     expect(clearRule).toContain('min-height: 44px')
   })
 
+  it('reserves search input space for desktop and phone controls without collapsing the field', () => {
+    const phone = media('(max-width: 700px)')
+
+    expect(rule('.directory-search-card input')).toContain('min-width: 0')
+    expect(rule('.directory-search-card input')).toContain('padding: 0 144px 0 0')
+    expect(rule('.directory-search-card input', phone)).toContain('padding-right: 80px')
+  })
+
   it.each([
     '.section-link',
     '.empty-reset',
