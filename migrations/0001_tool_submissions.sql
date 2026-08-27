@@ -19,6 +19,7 @@ CREATE TABLE tool_submissions (
   contact_email_ciphertext TEXT NOT NULL,
   submitter_relationship TEXT NOT NULL,
   intent TEXT NOT NULL CHECK (intent IN ('standard', 'priority_interest', 'commercial_interest')),
+  commercial_note TEXT NOT NULL DEFAULT '',
   status TEXT NOT NULL CHECK (
     status IN (
       'pending', 'processing', 'needs_info', 'needs_enrichment',

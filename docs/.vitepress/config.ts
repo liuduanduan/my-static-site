@@ -54,7 +54,7 @@ export default defineConfig({
       { text: '工具目录', link: '/' },
       { text: '按场景浏览', link: '/ai-categories/' },
       { text: '关于寻器', link: '/about' },
-      { text: '提交工具', link: '/about#更新建议' }
+      { text: '提交工具', link: '/submit' }
     ],
     search: {
       provider: 'local'

@@ -112,6 +112,22 @@ describe('submission persistence with a real local D1 runtime', () => {
     expect(await security.decryptEmail(row!.contact_email_ciphertext)).toBe('owner@example.com')
   })
 
+  it('keeps a commercial cooperation note in private D1 and out of claimed content', async () => {
+    const created = await createSubmission({
+      ...baseInput,
+      intent: 'commercial_interest',
+      commercialNote: '希望了解赞助合作，不要求保证收录。'
+    } as SubmissionInput)
+    const row = await db
+      .prepare('SELECT commercial_note FROM tool_submissions WHERE id = ?')
+      .bind(created.id)
+      .first<{ commercial_note: string }>()
+    const [claimed] = await repository.claimAvailable(1, currentTime.toISOString())
+
+    expect(row?.commercial_note).toBe('希望了解赞助合作，不要求保证收录。')
+    expect(claimed).not.toHaveProperty('commercialNote')
+  })
+
   it('uses deterministic purpose-separated hashes', async () => {
     const first = await security.hashForPurpose('ip', '203.0.113.7')
     expect(await security.hashForPurpose('ip', '203.0.113.7')).toBe(first)

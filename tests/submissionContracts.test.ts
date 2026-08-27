@@ -64,6 +64,23 @@ describe('submission contracts', () => {
     })
   })
 
+  it('accepts a bounded private commercial cooperation note', () => {
+    expect(
+      parseSubmissionInput({
+        ...validSubmission,
+        intent: 'commercial_interest',
+        commercialNote: '希望了解首页赞助位，但不要求保证收录。'
+      })
+    ).toMatchObject({
+      intent: 'commercial_interest',
+      commercialNote: '希望了解首页赞助位，但不要求保证收录。'
+    })
+    expectCode(
+      { ...validSubmission, commercialNote: '合'.repeat(1_001) },
+      'invalid_length'
+    )
+  })
+
   it.each([
     ['an unknown field', { ...validSubmission, ranking: 1 }, 'unknown_field'],
     ['an HTTP URL', { ...validSubmission, officialUrl: 'http://example.com' }, 'invalid_url'],

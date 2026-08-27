@@ -34,6 +34,7 @@ export interface SubmissionInput {
   contactEmail: string
   submitterRelationship: SubmitterRelationship
   intent: SubmissionIntent
+  commercialNote?: string
   logoUrl?: string
   acceptedTerms: true
   turnstileToken: string

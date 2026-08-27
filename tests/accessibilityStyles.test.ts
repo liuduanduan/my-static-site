@@ -224,6 +224,12 @@ describe('keyboard and motion accessibility', () => {
     expect(rule('.discovery-tab', compact)).toContain('min-height: 44px')
   })
 
+  it('keeps submission choice and consent targets at least 44px tall', () => {
+    expect(rule('.submission-field--checks label')).toContain('min-height: 44px')
+    expect(rule('.submission-intents label')).toContain('min-height: 44px')
+    expect(rule('.submission-terms')).toContain('min-height: 44px')
+  })
+
   it('removes motion for users who request it', () => {
     const reducedMotion = media('(prefers-reduced-motion: reduce)')
 

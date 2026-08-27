@@ -47,6 +47,7 @@ export interface NormalizedSubmission {
   contactEmail: string
   submitterRelationship: SubmissionInput['submitterRelationship']
   intent: SubmissionInput['intent']
+  commercialNote: string
   logoUrl: string | null
 }
 
@@ -159,6 +160,7 @@ export function normalizeSubmissionForStorage(
     contactEmail: input.contactEmail,
     submitterRelationship: input.submitterRelationship,
     intent: input.intent,
+    commercialNote: input.commercialNote ?? '',
     logoUrl: input.logoUrl ?? null
   }
 }
@@ -204,11 +206,11 @@ export class SubmissionRepository {
             id, public_ref, public_code_hash, name, official_url, normalized_domain,
             category, pricing_mode, chinese_support, tagline, description,
             best_for_json, features_json, pros_json, cons_json, access_modes_json,
-            logo_url, contact_email_ciphertext, submitter_relationship, intent,
+            logo_url, contact_email_ciphertext, submitter_relationship, intent, commercial_note,
             status, source, content_hash, domain_hash, ip_hash, attempt_count,
             public_message, retention_until, created_at, updated_at
           ) VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
             'pending', 'public_form', ?, ?, ?, 0, ?, ?, ?, ?
           )
         `)
@@ -233,6 +235,7 @@ export class SubmissionRepository {
           encryptedEmail,
           input.submitterRelationship,
           input.intent,
+          input.commercialNote,
           context.contentHash,
           context.domainHash,
           context.ipHash,
