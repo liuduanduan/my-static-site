@@ -439,7 +439,7 @@ a {
   width: 100%;
   min-width: 0;
   min-height: 68px;
-  padding: 0 144px 0 0;
+  padding: 0 92px 0 0;
   border: 0;
   outline: none;
   background: transparent;
@@ -472,28 +472,17 @@ a {
   transform: rotate(45deg);
 }
 
-.search-shortcut,
 .search-clear {
   position: absolute;
   right: 20px;
-  color: var(--platform-muted);
   font-size: 11px;
   font-weight: 750;
-}
-
-.search-shortcut {
-  min-width: 44px;
-  padding: 5px 7px;
-  border: 1px solid #e5eaf2;
-  border-radius: 6px;
-  background: #f7f9fc;
 }
 
 .search-clear {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  right: 76px;
   min-width: 44px;
   min-height: 44px;
   padding: 0 12px;
@@ -797,12 +786,6 @@ a {
   padding: 0 18px;
   border: 1px solid var(--platform-blue);
   border-radius: 999px;
-}
-
-.directory-load-more button.complete {
-  border-color: var(--platform-line);
-  color: var(--platform-muted);
-  cursor: default;
 }
 
 .tool-heading-actions {
@@ -1528,10 +1511,6 @@ a:focus-visible {
 
   .search-icon {
     left: 20px;
-  }
-
-  .search-shortcut {
-    display: none;
   }
 
   .search-clear {

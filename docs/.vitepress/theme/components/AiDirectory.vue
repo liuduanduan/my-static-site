@@ -142,7 +142,6 @@ function loadMore() {
           >
             清除
           </button>
-          <span class="search-shortcut" aria-hidden="true">⌘ K</span>
         </div>
       </div>
     </section>
@@ -254,15 +253,13 @@ function loadMore() {
           <button class="empty-reset" type="button" @click="resetFilters">清除全部条件</button>
         </div>
 
-        <div v-if="filteredTools.length" class="directory-load-more">
+        <div v-if="hasMore" class="directory-load-more">
           <button
             class="section-link"
-            :class="{ complete: !hasMore }"
             type="button"
-            :aria-disabled="hasMore ? undefined : 'true'"
             @click="loadMore"
           >
-            {{ hasMore ? '加载更多' : '已显示全部' }}
+            加载更多
           </button>
         </div>
       </section>

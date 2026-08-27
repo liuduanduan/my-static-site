@@ -352,7 +352,7 @@ describe('AiDirectory extraction contract', () => {
     expect(source).not.toMatch(/热门榜单|votes|stars|traffic/i)
   })
 
-  it('always exposes complete filters, result count, pagination, and empty reset', () => {
+  it('shows pagination only while more filtered tools remain and keeps result announcements live', () => {
     const source = componentSource('AiDirectory.vue')
 
     expect(source).toContain('<DirectoryFilters')
@@ -368,16 +368,25 @@ describe('AiDirectory extraction contract', () => {
     expect(source).toContain("`${progress}，已显示全部`")
     expect(source).toContain('aria-live="polite"')
     expect(source).toContain('{{ resultStatus }}')
-    expect(source).toContain('v-if="filteredTools.length"')
-    expect(source).toContain(':class="{ complete: !hasMore }"')
-    expect(source).toContain(":aria-disabled=\"hasMore ? undefined : 'true'\"")
-    expect(source).toContain("{{ hasMore ? '加载更多' : '已显示全部' }}")
+    expect(source).toContain('<div v-if="hasMore" class="directory-load-more">')
+    expect(source).toContain('>\n            加载更多\n          </button>')
     expect(source).toContain('@click="loadMore"')
+    expect(source).not.toContain('v-if="filteredTools.length"')
+    expect(source).not.toContain(':class="{ complete: !hasMore }"')
+    expect(source).not.toContain('aria-disabled')
+    expect(source).not.toContain("{{ hasMore ? '加载更多' : '已显示全部' }}")
     expect(source).not.toMatch(/\s(?::)?disabled(?:=|\s|>)/)
     expect(source).not.toMatch(/\.focus\(|autofocus|ref="loadMore/)
     expect(source).toContain('没有符合当前条件的工具')
     expect(source).toContain('<button class="empty-reset" type="button" @click="resetFilters">清除全部条件</button>')
     expect(source).not.toMatch(/showAll|isInitialView|featured-only/)
+  })
+
+  it('does not advertise an unimplemented search keyboard shortcut', () => {
+    const source = componentSource('AiDirectory.vue')
+
+    expect(source).not.toContain('class="search-shortcut"')
+    expect(source).not.toContain('⌘ K')
   })
 })
 
@@ -400,13 +409,15 @@ describe('AI directory style contract', () => {
       '.directory-filter select:focus-visible',
       '.directory-filters > button',
       '.directory-result-count',
-      '.directory-load-more',
-      '.directory-load-more button.complete'
+      '.directory-load-more'
     ]
 
     for (const selector of requiredSelectors) {
       expect(css, `${selector} should have a CSS rule`).toContain(`${selector} {`)
     }
+
+    expect(css).not.toContain('.directory-load-more button.complete')
+    expect(css).not.toContain('.search-shortcut')
   })
 
   it('stacks filters and wraps discovery tabs at the mobile breakpoint', () => {

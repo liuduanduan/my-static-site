@@ -121,7 +121,6 @@ describe('platform text contrast', () => {
     expect(rule('.category-count')).toContain('color: var(--platform-ink)')
     expect(rule('.use-case-chips span')).toContain('color: var(--platform-muted)')
     expect(rule('.directory-search-card input::placeholder')).toContain('color: var(--platform-muted)')
-    expect(rule('.search-shortcut')).toContain('color: var(--platform-muted)')
     expect(rule('.tool-detail-disclosure')).toContain('color: var(--platform-muted-strong)')
     expect(rule('.directory-filter label')).toContain('color: var(--platform-muted-strong)')
     expect(rule('.directory-filter select')).toContain('color: var(--platform-ink)')
@@ -169,7 +168,7 @@ describe('expanded directory layout', () => {
     const phone = media('(max-width: 700px)')
 
     expect(rule('.directory-search-card input')).toContain('min-width: 0')
-    expect(rule('.directory-search-card input')).toContain('padding: 0 144px 0 0')
+    expect(rule('.directory-search-card input')).toContain('padding: 0 92px 0 0')
     expect(rule('.directory-search-card input', phone)).toContain('padding-right: 80px')
   })
 
