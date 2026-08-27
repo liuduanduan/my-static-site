@@ -1,0 +1,68 @@
+name: Check AI tool official links
+
+on:
+  schedule:
+    - cron: '23 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  issues: write
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out trusted default branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Download the previous trusted report baseline
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p .baseline
+          run_id="$(gh run list --workflow check-ai-tool-links.yml --branch main --status success --limit 1 --json databaseId --jq '.[0].databaseId // empty')"
+          if [ -n "$run_id" ]; then
+            if ! gh run download "$run_id" --name ai-tool-link-report --dir .baseline; then
+              rm -f -- .baseline/ai-tool-link-report.json .baseline/ai-tool-link-audit.md
+              printf 'Previous report artifact is unavailable; this run will establish a new baseline.\n'
+            fi
+          fi
+
+      - name: Create read-only official-link report
+        run: npm run tools:check-links -- --baseline .baseline/ai-tool-link-report.json --audit ai-tool-link-audit.md
+
+      - name: Create or update the human audit task
+        if: ${{ hashFiles('ai-tool-link-audit.md') != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          issue_number="$(gh issue list --state open --search 'AI 工具官网变化审核 in:title' --json number,title --jq 'map(select(.title == "AI 工具官网变化审核")) | .[0].number // empty')"
+          if [[ "$issue_number" =~ ^[0-9]+$ ]]; then
+            gh issue comment "$issue_number" --body-file ai-tool-link-audit.md
+          else
+            gh issue create --title 'AI 工具官网变化审核' --body-file ai-tool-link-audit.md
+          fi
+
+      - name: Upload official-link report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: ai-tool-link-report
+          path: |
+            ai-tool-link-report.json
+            ai-tool-link-audit.md
+          if-no-files-found: error
+          retention-days: 14

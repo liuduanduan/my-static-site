@@ -1,11 +1,11 @@
 {
-  "name": "NoICU Cultivator",
-  "short_name": "NoICU Cultivator",
-  "description": "Bilingual xianxia and cultivation encyclopedia.",
+  "name": "寻器 AI 工具目录",
+  "short_name": "寻器",
+  "description": "按真实使用场景整理的中文 AI 工具目录。",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f7f3eb",
-  "theme_color": "#2d8c6f",
+  "background_color": "#f6f4ef",
+  "theme_color": "#122033",
   "icons": [
     {
       "src": "/favicon.svg",

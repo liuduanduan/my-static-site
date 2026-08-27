@@ -1,6 +1,9 @@
 node_modules/
+.worktrees/
 .DS_Store
 .vscode/
 docs/.vitepress/.temp/
 docs/.vitepress/cache/
 docs/.vitepress/dist/
+ai-tool-link-report.json
+.local-backups/

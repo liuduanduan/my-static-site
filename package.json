@@ -1,16 +1,32 @@
 {
-  "name": "noicu-cultivator",
+  "name": "xunqi-ai-directory",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "content:generate": "node scripts/generate-content.mjs",
     "content:rmji": "node scripts/generate-rmji.mjs",
-    "docs:dev": "vitepress dev docs --host 0.0.0.0",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs --host 0.0.0.0"
+    "content:ai": "node scripts/generate-ai-pages.mjs",
+    "docs:dev": "vitepress dev docs --host 127.0.0.1",
+    "docs:build": "npm run content:ai && vitepress build docs",
+    "verify:build": "npm run docs:build && node scripts/verify-ai-build.mjs",
+    "docs:preview": "vitepress preview docs --host 127.0.0.1",
+    "test": "vitest run",
+    "test:submissions": "vitest run tests/submissionContracts.test.ts tests/submissionPersistence.test.ts tests/cloudflareSubmissionApi.test.ts",
+    "submissions:curate": "node scripts/submissions/runCuration.mjs",
+    "submissions:sync": "node scripts/submissions/syncSubmissionStatus.mjs",
+    "search:notify": "node scripts/notify-search-indexes.mjs",
+    "tools:check-links": "node scripts/check-ai-tool-links.mjs",
+    "typecheck:functions": "tsc --noEmit -p tsconfig.functions.json",
+    "test:watch": "vitest"
   },
   "devDependencies": {
-    "vitepress": "^1.6.4"
+    "@cloudflare/workers-types": "5.20260827.1",
+    "@vue/compiler-sfc": "3.5.39",
+    "miniflare": "5.20260825.0-alpha",
+    "typescript": "7.0.2",
+    "vitepress": "^1.6.4",
+    "vitest": "^4.1.10",
+    "wrangler": "4.126.0"
   }
 }
