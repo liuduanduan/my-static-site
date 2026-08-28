@@ -93,6 +93,7 @@ export default defineConfig({
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: '寻器 AI 工具目录' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'baidu-site-verification', content: 'codeva-NviX9WP2zz' }],
     ['meta', { name: 'keywords', content: 'AI工具, AI工具导航, AI写作, AI绘画, AI视频, AI编程, AI办公' }]
   ],
   themeConfig: {

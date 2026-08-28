@@ -179,6 +179,24 @@ describe('meta attribute shape', () => {
   })
 })
 
+describe('site ownership verification', () => {
+  test('requires the homepage to emit the exact Baidu verification metadata', () => {
+    const verifyBaiduSiteVerification = exportedFunction('verifyBaiduSiteVerification')
+
+    expect(() => verifyBaiduSiteVerification('<head></head>')).toThrow(/Baidu|verification/i)
+    expect(() =>
+      verifyBaiduSiteVerification(
+        '<meta name="baidu-site-verification" content="codeva-wrong">'
+      )
+    ).toThrow(/codeva-NviX9WP2zz/)
+    expect(() =>
+      verifyBaiduSiteVerification(
+        '<meta content="codeva-NviX9WP2zz" name="baidu-site-verification">'
+      )
+    ).not.toThrow()
+  })
+})
+
 describe('exact route verification', () => {
   test('allows reviewed growth only when the complete launch roster remains', () => {
     const assertCatalogGrowthPolicy = exportedFunction('assertCatalogGrowthPolicy')

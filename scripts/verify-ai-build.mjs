@@ -158,6 +158,14 @@ export function propertyMeta(html, key, pageName) {
   return exactMeta(html, 'property', key, pageName)
 }
 
+export function verifyBaiduSiteVerification(html) {
+  assert.equal(
+    namedMeta(html, 'baidu-site-verification', 'homepage'),
+    'codeva-NviX9WP2zz',
+    'homepage Baidu verification must equal codeva-NviX9WP2zz'
+  )
+}
+
 function oneTitle(html, pageName) {
   const titles = [...html.matchAll(/<title>([\s\S]*?)<\/title>/gi)].map((match) =>
     decodeHtmlEntities(match[1].trim())
@@ -626,6 +634,7 @@ export function runVerification(root = defaultRoot) {
 
   check('homepage SSR reflects the current catalog and emitted CSS', () => {
     const html = readFileSync(artifactPath(distDir, 'index'), 'utf8')
+    verifyBaiduSiteVerification(html)
     assert.match(html, new RegExp(`${tools.length}\\+\\s*款工具\\s*·\\s*9\\s*大使用场景`))
     assert.doesNotMatch(html, /24\+\s*款工具|6\s*大使用场景/)
 
