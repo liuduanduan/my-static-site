@@ -35,4 +35,31 @@ describe('trusted AI discovery workflow', () => {
     expect(workflow).not.toContain('pull_request_target')
     expect(workflow).not.toMatch(/curl[^\n]*\$\{\{.*candidate/i)
   })
+
+  it('stages and validates the exact generated catalog tree before committing', () => {
+    const workflow = readFileSync(workflowPath, 'utf8')
+    const createBranch = workflow.indexOf('git checkout -b "$BATCH_BRANCH"')
+    const stageCatalog = workflow.indexOf('git add -- docs/.vitepress/theme/domain/ai-tools.json')
+    const validateStaged = workflow.indexOf('git diff --cached --name-only -z')
+
+    expect(createBranch).toBeGreaterThan(-1)
+    expect(stageCatalog).toBeGreaterThan(createBranch)
+    expect(validateStaged).toBeGreaterThan(stageCatalog)
+    expect(workflow).toContain('git diff --name-only HEAD -z')
+    expect(workflow).toContain('git ls-files --others --exclude-standard -z')
+    expect(workflow).toContain('read -r -d')
+    expect(workflow).toContain('docs/tools/*.md')
+    expect(workflow).not.toContain('git diff --name-only main...HEAD')
+  })
+
+  it('binds the tested commit to the remote branch, pull request, and squash merge', () => {
+    const workflow = readFileSync(workflowPath, 'utf8')
+
+    expect(workflow).toContain('EXPECTED_HEAD="$(git rev-parse HEAD)"')
+    expect(workflow).toContain('git ls-remote --exit-code origin "refs/heads/$BATCH_BRANCH"')
+    expect(workflow).toContain('"$remote_head" != "$EXPECTED_HEAD"')
+    expect(workflow).toContain('--json headRefOid')
+    expect(workflow).toContain('[[ "$head_oid" == "$EXPECTED_HEAD" ]]')
+    expect(workflow).toContain('gh pr merge "$pr_url" --squash --delete-branch --match-head-commit "$EXPECTED_HEAD"')
+  })
 })

@@ -31,6 +31,8 @@ const CANDIDATE_ERROR_CODES = new Set([
   'catalog_maximum_reached',
   'publish_limit_reached'
 ])
+const CATALOG_DETAIL_ORIGIN = 'https://no996noicu.com'
+const CATALOG_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 
 function frozenList(values) {
   return Object.freeze(values.map((value) => Object.freeze({ ...value })))
@@ -115,6 +117,13 @@ function publishedItem(candidate, tool, evidence, score) {
     sourceId: candidate.sourceId,
     gateScore: score
   })
+}
+
+function catalogDetailUrl(slug) {
+  if (typeof slug !== 'string' || !CATALOG_SLUG.test(slug)) {
+    throw new Error('invalid_discovery_slug')
+  }
+  return `${CATALOG_DETAIL_ORIGIN}/tools/${slug}`
 }
 
 /**
@@ -219,6 +228,6 @@ export async function runDiscovery(options) {
     published: frozenList(published),
     review: frozenList(review),
     nextState,
-    changedUrls: Object.freeze(published.map(({ officialUrl }) => officialUrl))
+    changedUrls: Object.freeze(published.map(({ slug }) => catalogDetailUrl(slug)))
   })
 }

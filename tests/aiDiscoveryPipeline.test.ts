@@ -11,9 +11,11 @@ import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { runDiscovery } from '../scripts/discovery/runDiscovery.mjs'
+import { runDiscoveryFromEnvironment } from '../scripts/run-ai-discovery.mjs'
 
 const sourceCatalog = resolve(dirname(fileURLToPath(import.meta.url)), '../docs/.vitepress/theme/domain/ai-tools.json')
 const sourceScenarios = resolve(dirname(fileURLToPath(import.meta.url)), '../docs/.vitepress/theme/domain/ai-scenarios.json')
+const sourceConfig = resolve(dirname(fileURLToPath(import.meta.url)), '../config/ai-discovery-sources.json')
 const now = () => new Date('2026-09-03T00:00:00.000Z')
 
 function config(overrides: Record<string, number> = {}) {
@@ -117,6 +119,8 @@ describe('automatic AI discovery pipeline', () => {
     expect(result.review.map(({ errorCode }) => errorCode)).toEqual([
       'duplicate_catalog_entry', 'insufficient_official_evidence'
     ])
+    expect(dryRun.changedUrls).toEqual(['https://no996noicu.com/tools/useful-ai'])
+    expect(result.changedUrls).toEqual(['https://no996noicu.com/tools/useful-ai'])
     expect(JSON.parse(readFileSync(catalogPath, 'utf8'))).toHaveLength(121)
   })
 
@@ -155,6 +159,7 @@ describe('automatic AI discovery pipeline', () => {
     })
     expect(skippedFetch).not.toHaveBeenCalled()
     expect(skipped.published).toEqual([])
+    expect(skipped.changedUrls).toEqual([])
     expect(readFileSync(catalogPath, 'utf8')).toBe(before)
 
     const cooledState = {
@@ -227,5 +232,30 @@ describe('automatic AI discovery pipeline', () => {
       now
     })).rejects.toThrow('catalog_validation_failed')
     expect(readFileSync(catalogPath, 'utf8')).toBe(before)
+  })
+
+  it('writes canonical catalog detail URLs to the discovery notification allowlist', async () => {
+    mkdirSync(join(projectRoot, 'config'), { recursive: true })
+    copyFileSync(sourceConfig, join(projectRoot, 'config/ai-discovery-sources.json'))
+    const githubOutput = join(projectRoot, 'github-output.txt')
+    writeFileSync(githubOutput, '', 'utf8')
+
+    const result = await runDiscoveryFromEnvironment({}, {
+      projectRoot,
+      argv: ['--dry-run'],
+      githubOutput,
+      discoverFromSources: async () => ({
+        candidates: [candidate('Useful AI', 'https://useful-ai.example/')],
+        errors: []
+      }),
+      fetchOfficialPage: async (url: string) => evidence(`${url.replace(/\/$/u, '')}/product`),
+      enricher: { enrich: async () => draft() },
+      now
+    })
+
+    expect(result.changedUrls).toEqual(['https://no996noicu.com/tools/useful-ai'])
+    expect(readFileSync(join(projectRoot, 'discovered-urls.txt'), 'utf8'))
+      .toBe('https://no996noicu.com/tools/useful-ai\n')
+    expect(readFileSync(githubOutput, 'utf8')).toContain('changed_urls_path')
   })
 })

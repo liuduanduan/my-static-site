@@ -133,38 +133,75 @@ jobs:
           PR_BODY: ${{ steps.discover.outputs.pr_body }}
         run: |
           set -euo pipefail
-          validate_changed_paths() {
+          is_catalog_path() {
+            local path="$1"
+            case "$path" in
+              docs/.vitepress/theme/domain/ai-tools.json|docs/.vitepress/ai-pages-manifest.json) return 0 ;;
+            esac
+            [[ "$path" =~ ^docs/(tools|ai-categories|ai-scenarios)/[a-z0-9]+(-[a-z0-9]+)*\.md$ ]]
+          }
+          validate_catalog_paths() {
             local path
             local found=false
-            while IFS= read -r path; do
-              [[ -z "$path" ]] && continue
+            while IFS= read -r -d '' path; do
               found=true
-              case "$path" in
-                docs/.vitepress/theme/domain/ai-tools.json|docs/.vitepress/ai-pages-manifest.json|docs/tools/*.md|docs/ai-categories/*.md|docs/ai-scenarios/*.md) ;;
-                *) printf 'Refusing an unexpected changed path: %s\n' "$path" >&2; return 1 ;;
-              esac
+              if ! is_catalog_path "$path"; then
+                printf 'Refusing an unexpected tracked path: %s\n' "$path" >&2
+                return 1
+              fi
             done
             [[ "$found" == true ]]
+          }
+          validate_untracked_paths() {
+            local path
+            while IFS= read -r -d '' path; do
+              case "$path" in
+                ai-discovery-state.json|ai-discovery-review.md|discovered-urls.txt) ;;
+                *)
+                  if ! is_catalog_path "$path"; then
+                    printf 'Refusing an unexpected untracked path: %s\n' "$path" >&2
+                    return 1
+                  fi
+                  ;;
+              esac
+            done
           }
 
           if [[ ! "$BATCH_BRANCH" =~ ^discovery/[0-9]{4}-[0-9]{2}-[0-9]{2}-[1-9][0-9]*$ ]]; then
             printf 'Refusing an invalid discovery branch.\n' >&2
             exit 1
           fi
-          git diff --name-only main...HEAD | validate_changed_paths
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BATCH_BRANCH"
           git add -- docs/.vitepress/theme/domain/ai-tools.json docs/.vitepress/ai-pages-manifest.json docs/tools docs/ai-categories docs/ai-scenarios
+          git diff --name-only HEAD -z | validate_catalog_paths
+          git ls-files --others --exclude-standard -z | validate_untracked_paths
+          git diff --cached --name-only -z | validate_catalog_paths
           git commit -m "$PR_TITLE"
+          EXPECTED_HEAD="$(git rev-parse HEAD)"
+          if [[ ! "$EXPECTED_HEAD" =~ ^[0-9a-f]{40}$ ]]; then
+            printf 'Git produced an invalid tested commit identifier.\n' >&2
+            exit 1
+          fi
           if git ls-remote --exit-code --heads origin "$BATCH_BRANCH" > /dev/null; then
             git fetch origin "refs/heads/$BATCH_BRANCH:refs/remotes/origin/$BATCH_BRANCH"
-            if ! git diff --quiet "origin/$BATCH_BRANCH" HEAD --; then
+            if ! git diff --quiet "origin/$BATCH_BRANCH" "$EXPECTED_HEAD" --; then
               printf 'Remote discovery branch exists with different content; refusing to overwrite it.\n' >&2
               exit 1
             fi
           else
             git push origin "$BATCH_BRANCH"
+          fi
+          git fetch origin "refs/heads/$BATCH_BRANCH:refs/remotes/origin/$BATCH_BRANCH"
+          remote_head="$(git ls-remote --exit-code origin "refs/heads/$BATCH_BRANCH" | cut -f1)"
+          if [[ ! "$remote_head" =~ ^[0-9a-f]{40}$ || "$remote_head" != "$EXPECTED_HEAD" ]]; then
+            printf 'Remote discovery branch does not match the tested commit.\n' >&2
+            exit 1
+          fi
+          if ! git diff --quiet "$EXPECTED_HEAD" "origin/$BATCH_BRANCH" --; then
+            printf 'Remote discovery branch tree does not match the tested commit.\n' >&2
+            exit 1
           fi
           pr_url="$(gh pr list --head "$BATCH_BRANCH" --base main --state open --json url --jq '.[0].url // empty')"
           if [[ -z "$pr_url" ]]; then
@@ -177,6 +214,7 @@ jobs:
             exit 1
           fi
           printf 'pr_url=%s\n' "$pr_url" >> "$GITHUB_OUTPUT"
+          printf 'expected_head=%s\n' "$EXPECTED_HEAD" >> "$GITHUB_OUTPUT"
 
       - name: Verify pull request targets and changed paths
         if: steps.pull_request.outcome == 'success'
@@ -184,6 +222,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           PR_URL: ${{ steps.pull_request.outputs.pr_url }}
           BATCH_BRANCH: ${{ steps.validate.outputs.batch_branch }}
+          EXPECTED_HEAD: ${{ steps.pull_request.outputs.expected_head }}
         run: |
           set -euo pipefail
           validate_changed_paths() {
@@ -202,6 +241,10 @@ jobs:
 
           [[ "$(gh pr view "$PR_URL" --json baseRefName --jq '.baseRefName')" == 'main' ]]
           [[ "$(gh pr view "$PR_URL" --json headRefName --jq '.headRefName')" == "$BATCH_BRANCH" ]]
+          head_oid="$(gh pr view "$PR_URL" --json headRefOid --jq '.headRefOid')"
+          [[ "$EXPECTED_HEAD" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$head_oid" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$head_oid" == "$EXPECTED_HEAD" ]]
           gh pr view "$PR_URL" --json files --jq '.files[].path' | validate_changed_paths
 
       - name: Squash merge the verified discovery batch
@@ -210,10 +253,12 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           PR_URL: ${{ steps.pull_request.outputs.pr_url }}
+          EXPECTED_HEAD: ${{ steps.pull_request.outputs.expected_head }}
         run: |
           set -euo pipefail
           pr_url="$PR_URL"
-          gh pr merge "$pr_url" --squash --delete-branch
+          [[ "$EXPECTED_HEAD" =~ ^[0-9a-f]{40}$ ]]
+          gh pr merge "$pr_url" --squash --delete-branch --match-head-commit "$EXPECTED_HEAD"
           printf 'merged=true\n' >> "$GITHUB_OUTPUT"
 
       - name: Create or update the discovery review issue

@@ -5,7 +5,7 @@ import { createDiscoveryEnricher } from './discovery/discoveryEnricher.mjs'
 import { runDiscovery } from './discovery/runDiscovery.mjs'
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url))
-const projectRoot = resolve(scriptDirectory, '..')
+const defaultProjectRoot = resolve(scriptDirectory, '..')
 const allowedOutputNames = new Set([
   'ai-discovery-state.json',
   'ai-discovery-review.md',
@@ -17,7 +17,7 @@ function isWithin(path, root) {
   return difference === '' || (!difference.startsWith(`..${sep}`) && difference !== '..' && !isAbsolute(difference))
 }
 
-function repositoryPath(value, kind, { output = false } = {}) {
+function repositoryPath(value, kind, { output = false, projectRoot = defaultProjectRoot } = {}) {
   if (typeof value !== 'string' || !value.trim()) throw new Error(`invalid_${kind}_path`)
   const path = resolve(projectRoot, value)
   if (!isWithin(path, projectRoot)) throw new Error(`invalid_${kind}_path`)
@@ -111,12 +111,13 @@ function emitGithubOutputs(result, paths, outputPath, now = new Date()) {
 
 export async function runDiscoveryFromEnvironment(env = process.env, options = {}) {
   const args = parseArguments(options.argv ?? process.argv.slice(2))
+  const projectRoot = resolve(options.projectRoot ?? defaultProjectRoot)
   const paths = {
-    config: repositoryPath(args.config, 'config'),
-    state: repositoryPath(args.state, 'state'),
-    output: repositoryPath(args.output, 'output', { output: true }),
-    review: repositoryPath(args.review, 'review', { output: true }),
-    urls: repositoryPath(args.urls, 'urls', { output: true })
+    config: repositoryPath(args.config, 'config', { projectRoot }),
+    state: repositoryPath(args.state, 'state', { projectRoot }),
+    output: repositoryPath(args.output, 'output', { output: true, projectRoot }),
+    review: repositoryPath(args.review, 'review', { output: true, projectRoot }),
+    urls: repositoryPath(args.urls, 'urls', { output: true, projectRoot })
   }
   const result = await runDiscovery({
     config: readJson(paths.config),
