@@ -386,7 +386,7 @@ describe('trusted PR workflows', () => {
     )
 
     expect(workflow).toContain("cron: '17 */6 * * *'")
-    expect(workflow).toContain('group: curate-tool-submission')
+    expect(workflow).toContain('group: ai-catalog-writes')
     expect(workflow).toContain('cancel-in-progress: false')
     expect(workflow).toContain('actions/checkout@11d5960a326750d5838078e36cf38b85af677262')
     expect(workflow).toContain('actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020')

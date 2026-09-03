@@ -1,0 +1,250 @@
+name: Discover verified AI tools
+
+on:
+  schedule:
+    - cron: '47 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  actions: read
+
+concurrency:
+  group: ai-catalog-writes
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out trusted default branch with history
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Restore the latest trusted discovery state
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p .baseline
+          run_id="$(gh run list --workflow discover-ai-tools.yml --branch main --status success --limit 1 --json databaseId --jq '.[0].databaseId // empty')"
+          if [[ "$run_id" =~ ^[1-9][0-9]*$ ]]; then
+            if ! gh run download "$run_id" --name ai-discovery-state --dir .baseline; then
+              rm -f -- .baseline/ai-discovery-state.json .baseline/ai-discovery-review.md
+              printf 'Previous discovery state artifact is unavailable; this run will establish a new baseline.\n'
+            fi
+          fi
+
+      - name: Discover up to the configured three-tool batch
+        id: discover
+        env:
+          CONTENT_ENRICHER_API_KEY: ${{ secrets.CONTENT_ENRICHER_API_KEY }}
+          CONTENT_ENRICHER_MODEL: ${{ secrets.CONTENT_ENRICHER_MODEL }}
+        run: npm run tools:discover
+
+      - name: Validate discovery outputs before GitHub or Git operations
+        id: validate
+        env:
+          HAS_CHANGES: ${{ steps.discover.outputs.has_changes }}
+          SLUGS: ${{ steps.discover.outputs.slugs }}
+          BRANCH: ${{ steps.discover.outputs.branch }}
+          PR_TITLE: ${{ steps.discover.outputs.pr_title }}
+          PR_BODY: ${{ steps.discover.outputs.pr_body }}
+          REVIEW_PATH: ${{ steps.discover.outputs.review_path }}
+          STATE_PATH: ${{ steps.discover.outputs.state_path }}
+          CHANGED_URLS_PATH: ${{ steps.discover.outputs.changed_urls_path }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          if [[ "$HAS_CHANGES" != 'true' && "$HAS_CHANGES" != 'false' ]]; then
+            printf 'Discovery emitted an invalid change flag.\n' >&2
+            exit 1
+          fi
+          if [[ "$STATE_PATH" != 'ai-discovery-state.json' || "$CHANGED_URLS_PATH" != 'discovered-urls.txt' ]]; then
+            printf 'Discovery emitted an invalid artifact path.\n' >&2
+            exit 1
+          fi
+          if [[ -n "$REVIEW_PATH" && "$REVIEW_PATH" != 'ai-discovery-review.md' ]]; then
+            printf 'Discovery emitted an invalid review path.\n' >&2
+            exit 1
+          fi
+          if [[ ! "$RUN_ID" =~ ^[1-9][0-9]*$ ]]; then
+            printf 'GitHub supplied an invalid run identifier.\n' >&2
+            exit 1
+          fi
+
+          slug_count=0
+          while IFS= read -r slug || [[ -n "$slug" ]]; do
+            [[ -z "$slug" ]] && continue
+            if [[ ! "$slug" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+              printf 'Discovery emitted an invalid slug.\n' >&2
+              exit 1
+            fi
+            slug_count=$((slug_count + 1))
+          done <<< "$SLUGS"
+
+          if [[ "$HAS_CHANGES" == 'true' ]]; then
+            if [[ ! "$BRANCH" =~ ^discovery/[0-9]{4}-[0-9]{2}-[0-9]{2}$ || "$slug_count" -lt 1 || "$slug_count" -gt 3 ]]; then
+              printf 'Discovery emitted an invalid batch identity.\n' >&2
+              exit 1
+            fi
+            if [[ ! "$PR_TITLE" =~ ^收录\ [1-3]\ 个\ AI\ 工具$ || -z "$PR_BODY" ]]; then
+              printf 'Discovery emitted invalid pull request metadata.\n' >&2
+              exit 1
+            fi
+            printf 'batch_branch=%s-%s\n' "$BRANCH" "$RUN_ID" >> "$GITHUB_OUTPUT"
+          elif [[ -n "$SLUGS$BRANCH$PR_TITLE$PR_BODY" ]]; then
+            printf 'Discovery emitted change metadata without a change.\n' >&2
+            exit 1
+          fi
+
+          touch ai-discovery-review.md
+          printf 'state_path=ai-discovery-state.json\n' >> "$GITHUB_OUTPUT"
+          printf 'changed_urls_path=discovered-urls.txt\n' >> "$GITHUB_OUTPUT"
+          printf 'has_review=%s\n' "$([[ -n "$REVIEW_PATH" ]] && printf true || printf false)" >> "$GITHUB_OUTPUT"
+
+      - name: Run the complete catalog gates
+        if: steps.discover.outputs.has_changes == 'true'
+        run: |
+          npm test
+          npm run verify:build
+          git diff --check
+
+      - name: Create or reuse the verified batch pull request
+        id: pull_request
+        if: steps.discover.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BATCH_BRANCH: ${{ steps.validate.outputs.batch_branch }}
+          PR_TITLE: ${{ steps.discover.outputs.pr_title }}
+          PR_BODY: ${{ steps.discover.outputs.pr_body }}
+        run: |
+          set -euo pipefail
+          validate_changed_paths() {
+            local path
+            local found=false
+            while IFS= read -r path; do
+              [[ -z "$path" ]] && continue
+              found=true
+              case "$path" in
+                docs/.vitepress/theme/domain/ai-tools.json|docs/.vitepress/ai-pages-manifest.json|docs/tools/*.md|docs/ai-categories/*.md|docs/ai-scenarios/*.md) ;;
+                *) printf 'Refusing an unexpected changed path: %s\n' "$path" >&2; return 1 ;;
+              esac
+            done
+            [[ "$found" == true ]]
+          }
+
+          if [[ ! "$BATCH_BRANCH" =~ ^discovery/[0-9]{4}-[0-9]{2}-[0-9]{2}-[1-9][0-9]*$ ]]; then
+            printf 'Refusing an invalid discovery branch.\n' >&2
+            exit 1
+          fi
+          git diff --name-only main...HEAD | validate_changed_paths
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BATCH_BRANCH"
+          git add -- docs/.vitepress/theme/domain/ai-tools.json docs/.vitepress/ai-pages-manifest.json docs/tools docs/ai-categories docs/ai-scenarios
+          git commit -m "$PR_TITLE"
+          if git ls-remote --exit-code --heads origin "$BATCH_BRANCH" > /dev/null; then
+            git fetch origin "refs/heads/$BATCH_BRANCH:refs/remotes/origin/$BATCH_BRANCH"
+            if ! git diff --quiet "origin/$BATCH_BRANCH" HEAD --; then
+              printf 'Remote discovery branch exists with different content; refusing to overwrite it.\n' >&2
+              exit 1
+            fi
+          else
+            git push origin "$BATCH_BRANCH"
+          fi
+          pr_url="$(gh pr list --head "$BATCH_BRANCH" --base main --state open --json url --jq '.[0].url // empty')"
+          if [[ -z "$pr_url" ]]; then
+            body_file="$(mktemp)"
+            printf '%s\n' "$PR_BODY" > "$body_file"
+            pr_url="$(gh pr create --base main --head "$BATCH_BRANCH" --title "$PR_TITLE" --body-file "$body_file")"
+          fi
+          if [[ ! "$pr_url" =~ ^https://github\.com/.+/pull/[1-9][0-9]*$ ]]; then
+            printf 'GitHub returned an invalid pull request URL.\n' >&2
+            exit 1
+          fi
+          printf 'pr_url=%s\n' "$pr_url" >> "$GITHUB_OUTPUT"
+
+      - name: Verify pull request targets and changed paths
+        if: steps.pull_request.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_URL: ${{ steps.pull_request.outputs.pr_url }}
+          BATCH_BRANCH: ${{ steps.validate.outputs.batch_branch }}
+        run: |
+          set -euo pipefail
+          validate_changed_paths() {
+            local path
+            local found=false
+            while IFS= read -r path; do
+              [[ -z "$path" ]] && continue
+              found=true
+              case "$path" in
+                docs/.vitepress/theme/domain/ai-tools.json|docs/.vitepress/ai-pages-manifest.json|docs/tools/*.md|docs/ai-categories/*.md|docs/ai-scenarios/*.md) ;;
+                *) printf 'Refusing an unexpected pull request path: %s\n' "$path" >&2; return 1 ;;
+              esac
+            done
+            [[ "$found" == true ]]
+          }
+
+          [[ "$(gh pr view "$PR_URL" --json baseRefName --jq '.baseRefName')" == 'main' ]]
+          [[ "$(gh pr view "$PR_URL" --json headRefName --jq '.headRefName')" == "$BATCH_BRANCH" ]]
+          gh pr view "$PR_URL" --json files --jq '.files[].path' | validate_changed_paths
+
+      - name: Squash merge the verified discovery batch
+        id: merge
+        if: steps.pull_request.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_URL: ${{ steps.pull_request.outputs.pr_url }}
+        run: |
+          set -euo pipefail
+          pr_url="$PR_URL"
+          gh pr merge "$pr_url" --squash --delete-branch
+          printf 'merged=true\n' >> "$GITHUB_OUTPUT"
+
+      - name: Create or update the discovery review issue
+        if: steps.validate.outputs.has_review == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          issue_number="$(gh issue list --state all --search 'AI 工具自动发现审核 in:title' --json number,title --jq 'map(select(.title == "AI 工具自动发现审核")) | .[0].number // empty')"
+          if [[ "$issue_number" =~ ^[1-9][0-9]*$ ]]; then
+            gh issue comment "$issue_number" --body-file ai-discovery-review.md
+          else
+            gh issue create --title 'AI 工具自动发现审核' --body-file ai-discovery-review.md
+          fi
+
+      - name: Preserve the discovery state and review
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: ai-discovery-state
+          path: |
+            ai-discovery-state.json
+            ai-discovery-review.md
+          if-no-files-found: warn
+          retention-days: 90
+
+      - name: Notify configured search indexes after merge
+        if: steps.merge.outputs.merged == 'true'
+        continue-on-error: true
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          BAIDU_TOKEN: ${{ secrets.BAIDU_TOKEN }}
+          CHANGED_URLS_PATH: ${{ steps.validate.outputs.changed_urls_path }}
+        run: npm run search:notify -- --sitemap docs/.vitepress/dist/sitemap.xml --urls "$CHANGED_URLS_PATH"

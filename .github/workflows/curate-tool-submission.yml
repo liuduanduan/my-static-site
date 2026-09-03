@@ -10,7 +10,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: curate-tool-submission
+  group: ai-catalog-writes
   cancel-in-progress: false
 
 jobs:
