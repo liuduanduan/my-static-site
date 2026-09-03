@@ -1,0 +1,145 @@
+const CONFIG_LIMIT_CAPS = Object.freeze({
+  sourceRecords: 50,
+  newDomains: 15,
+  publishPerRun: 3,
+  catalogMaximum: 300
+})
+
+const SOURCE_FIELDS = Object.freeze({
+  'github-search': ['id', 'kind', 'enabled', 'query', 'minimumStars', 'score'],
+  'hacker-news': ['id', 'kind', 'enabled', 'query', 'minimumPoints', 'lookbackDays', 'score'],
+  feed: ['id', 'kind', 'enabled', 'url', 'score']
+})
+
+const SOURCE_KINDS = new Set(Object.keys(SOURCE_FIELDS))
+const TRACKING_PARAMETER = /^(utm_.*|ref|source|fbclid)$/i
+const SAFE_ID = /^[a-z0-9][a-z0-9-]{0,63}$/
+
+function invalidConfig() {
+  throw new Error('invalid_discovery_config')
+}
+
+function invalidCandidate() {
+  throw new Error('invalid_discovery_candidate')
+}
+
+function isPlainObject(value) {
+  return value !== null && typeof value === 'object' && !Array.isArray(value)
+}
+
+function hasOnlyKeys(value, allowedKeys) {
+  return Object.keys(value).every((key) => allowedKeys.includes(key))
+}
+
+function isSafeText(value) {
+  return typeof value === 'string'
+    && value.trim().length > 0
+    && value.trim().length <= 160
+    && !/[\u0000-\u001f\u007f]/.test(value)
+}
+
+function isSafeName(value) {
+  return isSafeText(value) && !/[<>]/.test(value)
+}
+
+function isPositiveInteger(value, maximum) {
+  return Number.isInteger(value) && value > 0 && value <= maximum
+}
+
+function isScore(value) {
+  return Number.isInteger(value) && value >= 0 && value <= 100
+}
+
+function normalizeUrl(value, onInvalid) {
+  if (typeof value !== 'string' || value.trim().length === 0) onInvalid()
+
+  let parsed
+  try {
+    parsed = new URL(value.trim())
+  } catch {
+    onInvalid()
+  }
+
+  if (parsed.protocol !== 'https:' || parsed.username || parsed.password || parsed.port) onInvalid()
+
+  for (const key of [...parsed.searchParams.keys()]) {
+    if (TRACKING_PARAMETER.test(key)) parsed.searchParams.delete(key)
+  }
+  parsed.hash = ''
+  return parsed.toString()
+}
+
+function normalizeSource(source) {
+  if (!isPlainObject(source) || typeof source.kind !== 'string' || !SOURCE_KINDS.has(source.kind)) {
+    invalidConfig()
+  }
+
+  const fields = SOURCE_FIELDS[source.kind]
+  if (!hasOnlyKeys(source, fields) || !fields.every((field) => Object.hasOwn(source, field))) invalidConfig()
+  if (typeof source.id !== 'string' || !SAFE_ID.test(source.id) || typeof source.enabled !== 'boolean' || !isScore(source.score)) {
+    invalidConfig()
+  }
+
+  if (source.kind === 'github-search') {
+    if (!isSafeText(source.query) || !isPositiveInteger(source.minimumStars, 1_000_000)) invalidConfig()
+  }
+  if (source.kind === 'hacker-news') {
+    if (!isSafeText(source.query)
+      || !isPositiveInteger(source.minimumPoints, 1_000_000)
+      || !isPositiveInteger(source.lookbackDays, 365)) invalidConfig()
+  }
+  if (source.kind === 'feed') {
+    normalizeUrl(source.url, invalidConfig)
+  }
+
+  return Object.freeze({ ...source, ...(source.kind === 'feed' ? { url: normalizeUrl(source.url, invalidConfig) } : {}) })
+}
+
+export function parseDiscoveryConfig(value) {
+  if (!isPlainObject(value)
+    || !hasOnlyKeys(value, ['version', 'limits', 'sources'])
+    || value.version !== 1
+    || !isPlainObject(value.limits)
+    || !hasOnlyKeys(value.limits, Object.keys(CONFIG_LIMIT_CAPS))
+    || !Object.keys(CONFIG_LIMIT_CAPS).every((key) => Object.hasOwn(value.limits, key))
+    || !Array.isArray(value.sources)) invalidConfig()
+
+  for (const [key, cap] of Object.entries(CONFIG_LIMIT_CAPS)) {
+    if (!isPositiveInteger(value.limits[key], cap)) invalidConfig()
+  }
+
+  const sources = value.sources.map(normalizeSource)
+  if (new Set(sources.map(({ id }) => id)).size !== sources.length) invalidConfig()
+
+  return Object.freeze({
+    version: 1,
+    limits: Object.freeze({ ...value.limits }),
+    sources: Object.freeze(sources)
+  })
+}
+
+export function normalizeCandidate(value, source, now = new Date()) {
+  if (!isPlainObject(value) || !isSafeName(value.name) || !isPlainObject(source)) invalidCandidate()
+  if (typeof source.id !== 'string' || !SAFE_ID.test(source.id) || !SOURCE_KINDS.has(source.kind) || !isScore(source.score)) {
+    invalidCandidate()
+  }
+  if (!(now instanceof Date) || Number.isNaN(now.valueOf())) invalidCandidate()
+
+  return Object.freeze({
+    name: value.name.trim(),
+    url: normalizeUrl(value.url, invalidCandidate),
+    sourceId: source.id,
+    sourceKind: source.kind,
+    discoveredAt: now.toISOString(),
+    sourceScore: source.score
+  })
+}
+
+export function candidateKey(candidate) {
+  if (!isPlainObject(candidate)) invalidCandidate()
+  const url = normalizeUrl(candidate.url, invalidCandidate)
+  const hostname = new URL(url).hostname.toLowerCase()
+  const key = hostname.startsWith('www.') ? hostname.slice(4) : hostname
+  if (!key) invalidCandidate()
+  return key
+}

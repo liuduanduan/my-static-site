@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "limits": {
+    "sourceRecords": 50,
+    "newDomains": 15,
+    "publishPerRun": 3,
+    "catalogMaximum": 300
+  },
+  "sources": [
+    {
+      "id": "github-ai-products",
+      "kind": "github-search",
+      "enabled": true,
+      "query": "topic:ai-tool stars:>=200 archived:false",
+      "minimumStars": 200,
+      "score": 50
+    },
+    {
+      "id": "show-hn-ai",
+      "kind": "hacker-news",
+      "enabled": true,
+      "query": "Show HN AI",
+      "minimumPoints": 20,
+      "lookbackDays": 30,
+      "score": 40
+    }
+  ]
+}
