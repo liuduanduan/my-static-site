@@ -168,6 +168,7 @@ a {
 .ai-info-page .VPDoc .container,
 .ai-index-page .VPDoc .container,
 .ai-category-page .VPDoc .container,
+.ai-scenario-page .VPDoc .container,
 .ai-detail-page .VPDoc .container {
   max-width: none !important;
   padding: 0 24px !important;
@@ -176,6 +177,12 @@ a {
 .ai-info-page .vp-doc,
 .ai-index-page .vp-doc,
 .ai-category-page .vp-doc {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 72px 0 96px;
+}
+
+.ai-scenario-page .vp-doc {
   max-width: 800px;
   margin: 0 auto;
   padding: 72px 0 96px;
@@ -191,9 +198,24 @@ a {
   letter-spacing: -0.045em;
 }
 
+.ai-scenario-page .vp-doc h1 {
+  margin: 0 0 22px;
+  color: var(--platform-ink);
+  font-size: 44px;
+  font-weight: 850;
+  letter-spacing: -0.045em;
+}
+
 .ai-info-page .vp-doc h2,
 .ai-index-page .vp-doc h2,
 .ai-category-page .vp-doc h2 {
+  margin: 46px 0 14px;
+  color: var(--platform-ink);
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+
+.ai-scenario-page .vp-doc h2 {
   margin: 46px 0 14px;
   color: var(--platform-ink);
   font-size: 22px;
@@ -211,9 +233,21 @@ a {
   line-height: 1.9;
 }
 
+.ai-scenario-page .vp-doc p,
+.ai-scenario-page .vp-doc li {
+  color: var(--platform-muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
 .ai-info-page .vp-doc a,
 .ai-index-page .vp-doc a,
 .ai-category-page .vp-doc a {
+  color: var(--platform-blue);
+  font-weight: 700;
+}
+
+.ai-scenario-page .vp-doc a {
   color: var(--platform-blue);
   font-weight: 700;
 }
@@ -501,6 +535,7 @@ a {
 }
 
 .category-section,
+.scenario-section,
 .tool-section {
   scroll-margin-top: 86px;
 }
@@ -632,6 +667,74 @@ a {
   color: var(--platform-ink);
   font-size: 11px;
   font-weight: 850;
+}
+
+.scenario-section {
+  margin-top: 76px;
+  padding-top: 64px;
+  border-top: 1px solid var(--platform-line);
+}
+
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.scenario-card {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: start;
+  min-width: 0;
+  min-height: 118px;
+  padding: 18px;
+  border: 1px solid var(--platform-line);
+  border-radius: 15px;
+  background: var(--platform-surface);
+  color: var(--platform-ink);
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(41, 68, 140, 0.04);
+  transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.scenario-card:hover {
+  border-color: #9fb5f6;
+  box-shadow: var(--platform-shadow-soft);
+  transform: translateY(-2px);
+}
+
+.scenario-card__index {
+  color: var(--platform-blue);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.scenario-card__copy {
+  display: grid;
+  min-width: 0;
+  gap: 6px;
+}
+
+.scenario-card__copy strong {
+  color: var(--platform-ink);
+  font-size: 15px;
+  font-weight: 850;
+}
+
+.scenario-card__copy small {
+  color: var(--platform-muted);
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.scenario-card__count {
+  align-self: end;
+  color: var(--platform-blue);
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 .discovery-section {
@@ -1305,6 +1408,36 @@ a {
   line-height: 1.4;
 }
 
+.detail-scenarios {
+  padding-top: 18px;
+}
+
+.detail-scenario-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.detail-scenario-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid #c9d5f6;
+  border-radius: 9px;
+  background: #f6f8ff;
+  color: var(--platform-blue);
+  font-size: 11px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.detail-scenario-links a:hover {
+  border-color: var(--platform-blue);
+  background: #edf2ff;
+}
+
 .detail-section {
   min-width: 0;
   padding: 22px 0;
@@ -1928,8 +2061,9 @@ a:focus-visible {
 }
 
 @media (max-width: 960px) {
-  .category-grid,
-  .tool-grid,
+.category-grid,
+.scenario-grid,
+.tool-grid,
   .discovery-grid,
   .tool-facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2011,6 +2145,7 @@ a:focus-visible {
   }
 
   .category-grid,
+  .scenario-grid,
   .discovery-grid,
   .tool-grid,
   .tool-facts,

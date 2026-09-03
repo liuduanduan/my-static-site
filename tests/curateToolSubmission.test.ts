@@ -26,6 +26,10 @@ const sourceCatalog = resolve(
   dirname(fileURLToPath(import.meta.url)),
   '../docs/.vitepress/theme/domain/ai-tools.json'
 )
+const sourceScenarios = resolve(
+  dirname(fileURLToPath(import.meta.url)),
+  '../docs/.vitepress/theme/domain/ai-scenarios.json'
+)
 
 const submission: ClaimedSubmission = {
   id: '0191f271-d0d1-7f15-80bb-9f7abf778999',
@@ -97,6 +101,7 @@ describe('one-submission catalog curation', () => {
     catalogPath = join(projectRoot, 'docs/.vitepress/theme/domain/ai-tools.json')
     mkdirSync(dirname(catalogPath), { recursive: true })
     copyFileSync(sourceCatalog, catalogPath)
+    copyFileSync(sourceScenarios, join(dirname(catalogPath), 'ai-scenarios.json'))
   })
 
   afterEach(() => rmSync(projectRoot, { recursive: true, force: true }))
@@ -237,6 +242,9 @@ describe('one-submission catalog curation', () => {
     expect(added.alternatives).not.toContain(draft.slug)
     expect(readFileSync(join(projectRoot, `docs/tools/${draft.slug}.md`), 'utf8')).toContain(
       `<ToolDetail slug="${draft.slug}" />`
+    )
+    expect(readFileSync(join(projectRoot, 'docs/ai-scenarios/study.md'), 'utf8')).toContain(
+      '[Example Evidence AI](/tools/example-evidence-ai)'
     )
   })
 

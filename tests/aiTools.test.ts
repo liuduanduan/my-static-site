@@ -8,6 +8,9 @@ import {
   getCategories,
   getDiscoveryTools,
   getFeaturedTools,
+  getScenarioBySlug,
+  getScenarioTools,
+  getScenarios,
   getToolBySlug,
   paginateTools,
   searchTools,
@@ -146,6 +149,10 @@ describe('ai tool directory data', () => {
     expect(
       Object.values(approvedRoster).flat().every((slug) => slugs.has(slug))
     ).toBe(true)
+  })
+
+  it('expands the directory to at least 120 reviewed tool pages', () => {
+    expect(getAllTools().length).toBeGreaterThanOrEqual(120)
   })
 
   it('retains every slug from the original 24-tool catalog', () => {
@@ -330,6 +337,8 @@ describe('ai tool directory data', () => {
     const originalCategory = cursor.category
     const originalTags = [...cursor.tags]
     const originalAlternatives = [...cursor.alternatives]
+    const originalCodingCount = getCategories().find(({ value }) => value === 'coding')?.count
+    const originalChatCount = getCategories().find(({ value }) => value === 'chat')?.count
     let observed: {
       length: number
       name: string | undefined
@@ -376,11 +385,46 @@ describe('ai tool directory data', () => {
       length: originalLength,
       name: originalName,
       pollutedSearchCount: 0,
-      codingCount: 7,
-      chatCount: 7,
+      codingCount: originalCodingCount,
+      chatCount: originalChatCount,
       tags: originalTags,
       alternatives: originalAlternatives
     })
+  })
+})
+
+describe('AI task scenarios', () => {
+  it('exposes nine stable high-intent scenario entry points', () => {
+    expect(getScenarios().map((scenario) => scenario.slug)).toEqual([
+      'study',
+      'create',
+      'work',
+      'marketing',
+      'build',
+      'life',
+      'design',
+      'data',
+      'podcast'
+    ])
+    expect(getScenarios().every((scenario) => scenario.name && scenario.description)).toBe(true)
+  })
+
+  it('matches each scenario to a useful set of existing tools', () => {
+    getScenarios().forEach((scenario) => {
+      const tools = getScenarioTools(scenario.slug)
+      expect(tools.length, `${scenario.slug} should have matches`).toBeGreaterThanOrEqual(5)
+      expect(new Set(tools.map((tool) => tool.slug)).size).toBe(tools.length)
+    })
+  })
+
+  it('returns undefined for an unknown scenario and preserves catalog order', () => {
+    expect(getScenarioBySlug('missing-scenario')).toBeUndefined()
+    const tools = getScenarioTools('build')
+    expect(tools.map((tool) => tool.slug)).toEqual(
+      getAllTools()
+        .filter((tool) => tools.some((match) => match.slug === tool.slug))
+        .map((tool) => tool.slug)
+    )
   })
 })
 
@@ -468,12 +512,12 @@ describe('ai tool directory filtering and discovery', () => {
 
   it('returns the six latest tools by date then Chinese name order stably', () => {
     const expected = [
-      'doubao',
-      'kling',
-      'adcreative-ai',
-      'firefly',
-      'adobe-podcast',
-      'airtable'
+      'hailuo-ai',
+      'yi',
+      'qwen',
+      'activepieces',
+      'aider',
+      'amazon-q-developer'
     ]
 
     expect(getDiscoveryTools('latest')).toHaveLength(6)
@@ -593,7 +637,7 @@ describe('validateToolCollection', () => {
   it('rejects unknown alternatives and underfilled required categories', () => {
     expectMutationToThrow((catalog) => { catalog[0].alternatives = ['missing-tool'] }, /alternatives references unknown slug/)
     expectMutationToThrow((catalog) => {
-      catalog.filter((tool) => tool.category === 'chat').slice(0, 3).forEach((tool) => {
+      catalog.filter((tool) => tool.category === 'chat').slice(0, 10).forEach((tool) => {
         tool.category = 'writing'
       })
     }, /category chat must contain at least five tools/)

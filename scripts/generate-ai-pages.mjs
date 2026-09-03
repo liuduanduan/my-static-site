@@ -284,6 +284,45 @@ function jsonLd(value) {
   return JSON.stringify(value).replaceAll('<', '\\u003c')
 }
 
+function scenarioMatches(tool, scenario) {
+  const content = [
+    tool.name,
+    tool.tagline,
+    tool.description,
+    ...tool.bestFor,
+    ...tool.features,
+    ...tool.tags,
+    ...tool.searchTerms
+  ]
+    .join(' ')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+
+  return scenario.keywords.some((keyword) => content.includes(String(keyword).toLowerCase()))
+}
+
+function validateScenarios(scenarios) {
+  if (!Array.isArray(scenarios) || scenarios.length < 1) {
+    throw new Error('Invalid AI scenario collection: expected a non-empty array')
+  }
+
+  const slugs = new Set()
+  scenarios.forEach((scenario, index) => {
+    const context = `scenario[${index}]`
+    if (!isRecord(scenario)) throw new Error(`Invalid AI scenario collection: ${context} must be an object`)
+    for (const field of ['slug', 'name', 'description', 'guide']) {
+      requireString(scenario, field, context)
+    }
+    if (!slugPattern.test(scenario.slug)) throw new Error(`Invalid AI scenario collection: ${context}.slug is unsafe`)
+    if (slugs.has(scenario.slug)) throw new Error(`Invalid AI scenario collection: duplicate slug ${scenario.slug}`)
+    slugs.add(scenario.slug)
+    requireStringList(scenario, 'keywords', context, 1)
+  })
+
+  return scenarios
+}
+
 function ensureDirectory(path) {
   mkdirSync(path, { recursive: true })
 }
@@ -292,7 +331,7 @@ function detailPage(tool) {
   return `---\ntitle: ${frontmatterScalar(`${tool.name} - AI 工具介绍`)}\ndescription: ${frontmatterScalar(tool.description)}\npageClass: ai-detail-page\n---\n\n<ToolDetail slug="${tool.slug}" />\n`
 }
 
-function categoryPage(category, items) {
+function categoryPage(category, items, scenarios) {
   const label = categoryLabels[category]
   const links = items
     .map((tool) => `- [${tool.name}](/tools/${tool.slug})：${tool.tagline}`)
@@ -308,7 +347,32 @@ function categoryPage(category, items) {
     }))
   })
 
-  return `---\ntitle: ${frontmatterScalar(`${label} AI 工具`)}\ndescription: ${frontmatterScalar(`寻器整理的${label} AI 工具，按真实使用场景选择合适产品。`)}\npageClass: ai-category-page\nhead:\n  - - script\n    - type: application/ld+json\n    - >-\n      ${itemList}\n---\n\n# ${label} AI 工具\n\n这一页收录适合${label}场景的 AI 工具。先看一句话结论，再进入详情页了解能力、价格和替代选项。\n\n## 工具列表\n\n${links}\n\n<p class="generated-page-note"><a href="/">← 返回全部工具</a></p>\n`
+  const relatedScenarios = scenarios.filter((scenario) =>
+    items.some((tool) => scenarioMatches(tool, scenario))
+  )
+  const scenarioLinks = relatedScenarios
+    .map((scenario) => `- [${scenario.name}](/ai-scenarios/${scenario.slug})：${scenario.description}`)
+    .join('\n')
+
+  return `---\ntitle: ${frontmatterScalar(`${label} AI 工具`)}\ndescription: ${frontmatterScalar(`寻器整理的${label} AI 工具，按真实使用场景选择合适产品。`)}\npageClass: ai-category-page\nhead:\n  - - script\n    - type: application/ld+json\n    - >-\n      ${itemList}\n---\n\n# ${label} AI 工具\n\n这一页收录适合${label}场景的 AI 工具。先看一句话结论，再进入详情页了解能力、价格和替代选项。\n\n## 工具列表\n\n${links}\n\n## 相关场景\n\n${scenarioLinks}\n\n<p class="generated-page-note"><a href="/">← 返回全部工具</a></p>\n`
+}
+
+function scenarioPage(scenario, items) {
+  const links = items
+    .map((tool) => `- [${tool.name}](/tools/${tool.slug})：${tool.tagline}`)
+    .join('\n')
+  const itemList = jsonLd({
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: items.map((tool, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: tool.name,
+      url: `https://no996noicu.com/tools/${tool.slug}`
+    }))
+  })
+
+  return `---\ntitle: ${frontmatterScalar(`${scenario.name} AI 工具`)}\ndescription: ${frontmatterScalar(scenario.description)}\npageClass: ai-scenario-page\nhead:\n  - - script\n    - type: application/ld+json\n    - >-\n      ${itemList}\n---\n\n# ${scenario.name} AI 工具\n\n${scenario.description}\n\n## 适合什么时候用\n\n${scenario.guide}\n\n## 推荐工具\n\n${links}\n\n<p class="generated-page-note"><a href="/ai-scenarios/">← 返回全部场景</a> · <a href="/">返回工具目录</a></p>\n`
 }
 
 function readPreviousManifest(manifestPath) {
@@ -321,7 +385,7 @@ function readPreviousManifest(manifestPath) {
   return previous
 }
 
-function getCleanupTargets(previous, projectRoot, toolsDir, categoriesDir) {
+function getCleanupTargets(previous, projectRoot, toolsDir, categoriesDir, scenariosDir) {
   return previous.flatMap((relativePath) => {
     const absolutePath = resolve(projectRoot, relativePath)
     if (isWithin(absolutePath, toolsDir) && !pathsEqual(absolutePath, toolsDir)) {
@@ -329,6 +393,9 @@ function getCleanupTargets(previous, projectRoot, toolsDir, categoriesDir) {
     }
     if (isWithin(absolutePath, categoriesDir) && !pathsEqual(absolutePath, categoriesDir)) {
       return [{ absolutePath, allowedRoot: categoriesDir }]
+    }
+    if (isWithin(absolutePath, scenariosDir) && !pathsEqual(absolutePath, scenariosDir)) {
+      return [{ absolutePath, allowedRoot: scenariosDir }]
     }
     return []
   })
@@ -338,12 +405,14 @@ function preflightGenerationPaths({
   projectRoot,
   toolsDir,
   categoriesDir,
+  scenariosDir,
   manifestPath,
   cleanupTargets,
   pageWrites
 }) {
   assertSafePhysicalPath(toolsDir, toolsDir, projectRoot)
   assertSafePhysicalPath(categoriesDir, categoriesDir, projectRoot)
+  assertSafePhysicalPath(scenariosDir, scenariosDir, projectRoot)
 
   cleanupTargets.forEach(({ absolutePath, allowedRoot }) => {
     assertSafePhysicalPath(absolutePath, allowedRoot, projectRoot)
@@ -397,15 +466,18 @@ export function generateAiPages(options = {}) {
   )
   const toolsDir = join(projectRoot, 'docs', 'tools')
   const categoriesDir = join(projectRoot, 'docs', 'ai-categories')
+  const scenariosDir = join(projectRoot, 'docs', 'ai-scenarios')
   const manifestPath = join(projectRoot, 'docs', '.vitepress', 'ai-pages-manifest.json')
+  const requestedScenarioPath = options.scenarioPath ?? join(projectRoot, 'docs', '.vitepress', 'theme', 'domain', 'ai-scenarios.json')
+  const scenarioPath = resolve(requestedScenarioPath)
   const logger = options.logger ?? console.log
   if (typeof logger !== 'function') {
     throw new Error('Invalid AI page generator options: logger must be a function')
   }
 
   const tools = JSON.parse(readFileSync(dataPath, 'utf8'))
-
   validateTools(tools)
+  const scenarios = validateScenarios(JSON.parse(readFileSync(scenarioPath, 'utf8')))
 
   const previous = readPreviousManifest(manifestPath)
   const generated = []
@@ -427,7 +499,18 @@ export function generateAiPages(options = {}) {
     pageWrites.push({
       absolutePath: resolve(projectRoot, relativePath),
       allowedRoot: categoriesDir,
-      content: categoryPage(category, items)
+      content: categoryPage(category, items, scenarios)
+    })
+    generated.push(relativePath)
+  }
+
+  for (const scenario of scenarios) {
+    const items = tools.filter((tool) => scenarioMatches(tool, scenario))
+    const relativePath = `docs/ai-scenarios/${scenario.slug}.md`
+    pageWrites.push({
+      absolutePath: resolve(projectRoot, relativePath),
+      allowedRoot: scenariosDir,
+      content: scenarioPage(scenario, items)
     })
     generated.push(relativePath)
   }
@@ -452,11 +535,22 @@ export function generateAiPages(options = {}) {
   })
   generated.push('docs/ai-categories/index.md')
 
-  const cleanupTargets = getCleanupTargets(previous, projectRoot, toolsDir, categoriesDir)
+  const scenarioLinks = scenarios
+    .map((scenario) => `- [${scenario.name}](/ai-scenarios/${scenario.slug})：${scenario.description}`)
+    .join('\n')
+  pageWrites.push({
+    absolutePath: join(scenariosDir, 'index.md'),
+    allowedRoot: scenariosDir,
+    content: `---\ntitle: 按事情找 AI 工具\ndescription: 按学生学习、内容创作、职场办公、营销增长、开发建站、个人效率、设计视觉、数据分析和音频播客等 ${scenarios.length} 个真实任务场景浏览 AI 工具。\npageClass: ai-index-page\n---\n\n# 按事情找 AI 工具\n\n${scenarioLinks}\n\n<p class="generated-page-note"><a href="/">← 返回首页搜索</a> · <a href="/ai-categories/">按九大分类浏览</a></p>\n`
+  })
+  generated.push('docs/ai-scenarios/index.md')
+
+  const cleanupTargets = getCleanupTargets(previous, projectRoot, toolsDir, categoriesDir, scenariosDir)
   preflightGenerationPaths({
     projectRoot,
     toolsDir,
     categoriesDir,
+    scenariosDir,
     manifestPath,
     cleanupTargets,
     pageWrites
@@ -465,6 +559,7 @@ export function generateAiPages(options = {}) {
   removePreviouslyGeneratedFiles(cleanupTargets, projectRoot)
   ensureSafeDirectory(toolsDir, toolsDir, projectRoot)
   ensureSafeDirectory(categoriesDir, categoriesDir, projectRoot)
+  ensureSafeDirectory(scenariosDir, scenariosDir, projectRoot)
   pageWrites.forEach((pageWrite) => writeSafePage(pageWrite, projectRoot))
   writeSafePage(
     {
@@ -475,7 +570,7 @@ export function generateAiPages(options = {}) {
     projectRoot
   )
 
-  logger(`Generated ${tools.length} tool pages and ${requiredCategories.length} category pages.`)
+  logger(`Generated ${tools.length} tool pages, ${requiredCategories.length} category pages, and ${scenarios.length} scenario pages.`)
   return generated
 }
 

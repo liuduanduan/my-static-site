@@ -1,4 +1,5 @@
 import {
+  copyFileSync,
   mkdtempSync,
   mkdirSync,
   readFileSync,
@@ -115,7 +116,7 @@ function prBody(submission, tool) {
   ].join('\n')
 }
 
-function validateCandidateInTemporaryProject(candidate) {
+function validateCandidateInTemporaryProject(candidate, scenarioPath) {
   const temporaryRoot = mkdtempSync(join(tmpdir(), 'xunqi-candidate-'))
   try {
     const temporaryCatalog = join(
@@ -128,6 +129,7 @@ function validateCandidateInTemporaryProject(candidate) {
     )
     mkdirSync(dirname(temporaryCatalog), { recursive: true })
     writeFileSync(temporaryCatalog, `${JSON.stringify(candidate, null, 2)}\n`, 'utf8')
+    copyFileSync(scenarioPath, join(dirname(temporaryCatalog), 'ai-scenarios.json'))
     generateAiPages({
       root: temporaryRoot,
       dataPath: temporaryCatalog,
@@ -202,7 +204,7 @@ export async function curateToolSubmission(submission, deps) {
   const candidate = [...tools, tool]
   try {
     validateTools(candidate)
-    validateCandidateInTemporaryProject(candidate)
+    validateCandidateInTemporaryProject(candidate, join(paths.domainRoot, 'ai-scenarios.json'))
     replaceCatalogAndGenerate(candidate, paths)
   } catch (error) {
     if (error instanceof CurationError) throw error

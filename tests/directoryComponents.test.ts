@@ -302,6 +302,15 @@ describe('AiDirectory extraction contract', () => {
     expect(source).not.toContain('platformHero.eyebrow')
   })
 
+  it('renders crawlable task-scenario links from the shared scenario catalog', () => {
+    const source = componentSource('AiDirectory.vue')
+
+    expect(source).toContain("getScenarios")
+    expect(source).toContain("getScenarioTools")
+    expect(source).toContain('ai-scenarios')
+    expect(source).toContain('场景入口')
+  })
+
   it('places sponsorship in its own region outside discovery and natural results', () => {
     const source = componentSource('AiDirectory.vue')
     const discoveryEnd = source.indexOf('</section>', source.indexOf('class="discovery-section"'))
@@ -418,6 +427,16 @@ describe('AiDirectory extraction contract', () => {
 
     expect(source).not.toContain('class="search-shortcut"')
     expect(source).not.toContain('⌘ K')
+  })
+})
+
+describe('scenario presentation source contract', () => {
+  it('adds scenario links to tool details without replacing alternatives', () => {
+    const source = componentSource('ToolDetail.vue')
+    expect(source).toContain('getScenariosForTool')
+    expect(source).toContain('ai-scenarios')
+    expect(source).toContain('适合场景')
+    expect(source).toContain('v-if="scenarios.length"')
   })
 })
 

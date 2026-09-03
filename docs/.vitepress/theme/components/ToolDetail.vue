@@ -4,6 +4,7 @@ import {
   accessModeLabels,
   chineseSupportLabels,
   getCategoryLabel,
+  getScenariosForTool,
   getToolBySlug,
   pricingModeLabels
 } from '../domain/aiTools'
@@ -25,6 +26,7 @@ const alternatives = computed(() =>
     .map((slug) => getToolBySlug(slug))
     .filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? []
 )
+const scenarios = computed(() => getScenariosForTool(props.slug))
 
 function formatDate(value: string): string {
   return value.replaceAll('-', '.')
@@ -98,6 +100,19 @@ function formatDate(value: string): string {
           <ul class="detail-tag-list">
             <li v-for="tag in tool.tags" :key="tag">{{ tag }}</li>
           </ul>
+        </section>
+
+        <section v-if="scenarios.length" class="detail-section detail-section--wide detail-scenarios">
+          <p class="detail-label">适合场景</p>
+          <div class="detail-scenario-links">
+            <a
+              v-for="scenario in scenarios"
+              :key="scenario.slug"
+              :href="`/ai-scenarios/${scenario.slug}`"
+            >
+              {{ scenario.name }} <span aria-hidden="true">→</span>
+            </a>
+          </div>
         </section>
 
         <section class="detail-section">

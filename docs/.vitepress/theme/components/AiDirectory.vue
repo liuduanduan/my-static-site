@@ -6,6 +6,8 @@ import {
   getAllTools,
   getCategories,
   getDiscoveryTools,
+  getScenarioTools,
+  getScenarios,
   paginateTools,
   type CategoryFilter,
   type ChineseSupportFilter,
@@ -30,6 +32,10 @@ const activeDiscovery = ref<DiscoveryKind>('featured')
 const visibleCount = ref(PAGE_SIZE)
 
 const categories = getCategories()
+const scenarios = getScenarios().map((scenario) => ({
+  ...scenario,
+  count: getScenarioTools(scenario.slug).length
+}))
 const toolCount = getAllTools().length
 const heroEyebrow = formatPlatformEyebrow(toolCount, categories.length)
 const discoveryOptions: readonly { value: DiscoveryKind; label: string }[] = [
@@ -183,6 +189,36 @@ function loadMore() {
             </span>
             <span class="category-count">{{ categoryOption.count }}</span>
           </button>
+        </div>
+      </section>
+
+      <section id="task-scenarios" class="scenario-section" aria-labelledby="scenario-title">
+        <header class="platform-section-heading">
+          <div>
+            <p class="platform-kicker">TASK SCENARIOS</p>
+            <h2 id="scenario-title">按事情找工具</h2>
+            <p>先说清楚要完成什么，再进入合适的工具集合。</p>
+          </div>
+          <a class="section-link" href="/ai-scenarios/">
+            查看全部场景 <span aria-hidden="true">→</span>
+          </a>
+        </header>
+
+        <div class="scenario-grid" role="list" aria-label="任务场景入口">
+          <a
+            v-for="scenario in scenarios"
+            :key="scenario.slug"
+            class="scenario-card"
+            :href="`/ai-scenarios/${scenario.slug}`"
+            role="listitem"
+          >
+            <span class="scenario-card__index" aria-hidden="true">0{{ scenarios.indexOf(scenario) + 1 }}</span>
+            <span class="scenario-card__copy">
+              <strong>{{ scenario.name }}</strong>
+              <small>{{ scenario.description }}</small>
+            </span>
+            <span class="scenario-card__count">{{ scenario.count }} 款 <span aria-hidden="true">→</span></span>
+          </a>
         </div>
       </section>
 

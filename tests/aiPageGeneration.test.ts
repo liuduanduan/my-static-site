@@ -30,6 +30,7 @@ const categories = [
   'marketing',
   'automation'
 ]
+const scenarios = ['study', 'create', 'work', 'marketing', 'build', 'life', 'design', 'data', 'podcast']
 
 function cloneCatalog(): Array<Record<string, unknown>> {
   return JSON.parse(readFileSync(catalogPath, 'utf8')) as Array<Record<string, unknown>>
@@ -40,12 +41,14 @@ function createFixture(prefix: string): {
   dataDirectory: string
   toolsDirectory: string
   categoriesDirectory: string
+  scenariosDirectory: string
   manifestPath: string
 } {
   const fixtureRoot = mkdtempSync(resolve(tmpdir(), prefix))
   const dataDirectory = resolve(fixtureRoot, 'docs/.vitepress/theme/domain')
   const toolsDirectory = resolve(fixtureRoot, 'docs/tools')
   const categoriesDirectory = resolve(fixtureRoot, 'docs/ai-categories')
+  const scenariosDirectory = resolve(fixtureRoot, 'docs/ai-scenarios')
   const manifestPath = resolve(fixtureRoot, 'docs/.vitepress/ai-pages-manifest.json')
 
   mkdirSync(dataDirectory, { recursive: true })
@@ -54,12 +57,18 @@ function createFixture(prefix: string): {
     JSON.stringify(cloneCatalog()),
     'utf8'
   )
+  writeFileSync(
+    resolve(dataDirectory, 'ai-scenarios.json'),
+    readFileSync(resolve(root, 'docs/.vitepress/theme/domain/ai-scenarios.json')),
+    'utf8'
+  )
 
   return {
     root: fixtureRoot,
     dataDirectory,
     toolsDirectory,
     categoriesDirectory,
+    scenariosDirectory,
     manifestPath
   }
 }
@@ -115,8 +124,10 @@ describe('AI page generation', () => {
     const expectedManifest = [
       ...catalog.map((tool) => `docs/tools/${tool.slug}.md`),
       ...categories.map((category) => `docs/ai-categories/${category}.md`),
+      ...scenarios.map((scenario) => `docs/ai-scenarios/${scenario}.md`),
       'docs/tools/index.md',
-      'docs/ai-categories/index.md'
+      'docs/ai-categories/index.md',
+      'docs/ai-scenarios/index.md'
     ]
     const oldCategory = resolve(fixture.categoriesDirectory, 'productivity.md')
     const siblingDirectory = resolve(fixture.root, 'docs/tools-archive')
@@ -140,13 +151,15 @@ describe('AI page generation', () => {
       const manifest = JSON.parse(readFileSync(fixture.manifestPath, 'utf8')) as string[]
 
       expect(generated).toEqual(expectedManifest)
-      expect(manifest).toHaveLength(catalog.length + categories.length + 2)
+      expect(manifest).toHaveLength(catalog.length + categories.length + scenarios.length + 3)
       expect(manifest).toEqual(expectedManifest)
       expect(new Set(manifest).size).toBe(manifest.length)
       expect(manifest).toContain('docs/tools/chatgpt.md')
       expect(manifest).toContain('docs/tools/julius-ai.md')
       expect(manifest).toContain('docs/ai-categories/marketing.md')
       expect(manifest).toContain('docs/ai-categories/automation.md')
+      expect(manifest).toContain('docs/ai-scenarios/study.md')
+      expect(manifest).toContain('docs/ai-scenarios/life.md')
       expect(manifest).not.toContain('docs/ai-categories/productivity.md')
       expect(existsSync(oldCategory)).toBe(false)
       expect(readFileSync(siblingFile, 'utf8')).toBe('preserve sibling')
@@ -155,7 +168,8 @@ describe('AI page generation', () => {
         manifest.every(
           (path) =>
             /^docs\/tools\/(?:[a-z0-9]+(?:-[a-z0-9]+)*|index)\.md$/.test(path) ||
-            /^docs\/ai-categories\/(?:[a-z0-9]+(?:-[a-z0-9]+)*|index)\.md$/.test(path)
+            /^docs\/ai-categories\/(?:[a-z0-9]+(?:-[a-z0-9]+)*|index)\.md$/.test(path) ||
+            /^docs\/ai-scenarios\/(?:[a-z0-9]+(?:-[a-z0-9]+)*|index)\.md$/.test(path)
         )
       ).toBe(true)
 
@@ -181,6 +195,14 @@ describe('AI page generation', () => {
           .map((match) => match[2])
         expect(renderedOrder).toEqual(categoryTools.map((tool) => tool.slug))
       })
+
+      scenarios.forEach((scenario) => {
+        const source = readFileSync(resolve(fixture.root, `docs/ai-scenarios/${scenario}.md`), 'utf8')
+        const structuredData = jsonLdFromMarkdown(source)
+        expect(structuredData['@type']).toBe('ItemList')
+        expect(source).toContain('## 适合什么时候用')
+        expect(source).toMatch(/\[.+\]\(\/tools\/.+\)/)
+      })
     } finally {
       rmSync(fixture.root, { recursive: true, force: true })
     }
@@ -205,6 +227,14 @@ describe('AI page generation', () => {
         { position: 1, item: 'https://no996noicu.com/' },
         { position: 2, item: 'https://no996noicu.com/ai-categories/' },
         { position: 3, item: 'https://no996noicu.com/ai-categories/chat' }
+      ]
+    })
+    expect(graphFor('ai-scenarios/study.md', '学生学习 AI 工具')).toMatchObject({
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { position: 1, item: 'https://no996noicu.com/' },
+        { position: 2, item: 'https://no996noicu.com/ai-scenarios/' },
+        { position: 3, item: 'https://no996noicu.com/ai-scenarios/study' }
       ]
     })
     expect(graphFor('submit.md', '提交工具')).toMatchObject({ '@type': 'BreadcrumbList' })
@@ -233,15 +263,15 @@ describe('AI page generation', () => {
       const manifest = JSON.parse(readFileSync(fixture.manifestPath, 'utf8')) as string[]
 
       expect(output.replaceAll('\r\n', '\n')).toBe(
-        `Generated ${catalog.length} tool pages and ${categories.length} category pages.\n`
+        `Generated ${catalog.length} tool pages, ${categories.length} category pages, and ${scenarios.length} scenario pages.\n`
       )
-      expect(manifest).toHaveLength(catalog.length + categories.length + 2)
+      expect(manifest).toHaveLength(catalog.length + categories.length + scenarios.length + 3)
     } finally {
       rmSync(fixture.root, { recursive: true, force: true })
     }
   })
 
-  it('derives generated routes and counts from a reviewed 64th tool', () => {
+  it('derives generated routes and counts from an additional reviewed tool', () => {
     const fixture = createFixture('ai-page-growth-')
     const catalog = cloneCatalog()
     const extra = {
@@ -271,7 +301,7 @@ describe('AI page generation', () => {
       const manifest = JSON.parse(readFileSync(fixture.manifestPath, 'utf8')) as string[]
 
       expect(generated).toContain('docs/tools/example-ai.md')
-      expect(manifest).toHaveLength(75)
+      expect(manifest).toHaveLength(catalog.length + categories.length + scenarios.length + 3)
       expect(readFileSync(resolve(fixture.toolsDirectory, 'example-ai.md'), 'utf8')).toContain(
         '<ToolDetail slug="example-ai" />'
       )
@@ -309,7 +339,7 @@ describe('AI page generation', () => {
         readFileSync(resolve(root, 'docs/.vitepress/ai-pages-manifest.json'), 'utf8')
       ) as string[]
 
-      expect(generatedManifest).toHaveLength(cloneCatalog().length + categories.length + 2)
+      expect(generatedManifest).toHaveLength(cloneCatalog().length + categories.length + scenarios.length + 3)
       expect(generatedManifest).toEqual(committedManifest)
       assertGeneratedArtifactsMatch(fixture.root, root, [
         ...generatedManifest,
@@ -349,6 +379,11 @@ describe('AI page generation', () => {
       mkdirSync(dataDirectory, { recursive: true })
       mkdirSync(toolsDirectory, { recursive: true })
       writeFileSync(resolve(dataDirectory, 'ai-tools.json'), JSON.stringify(catalog), 'utf8')
+      writeFileSync(
+        resolve(dataDirectory, 'ai-scenarios.json'),
+        readFileSync(resolve(root, 'docs/.vitepress/theme/domain/ai-scenarios.json')),
+        'utf8'
+      )
       writeFileSync(manifestPath, previousManifest, 'utf8')
       writeFileSync(sentinelPath, 'keep me', 'utf8')
 
@@ -385,6 +420,11 @@ describe('AI page generation', () => {
       writeFileSync(
         resolve(dataDirectory, 'ai-tools.json'),
         JSON.stringify(cloneCatalog()),
+        'utf8'
+      )
+      writeFileSync(
+        resolve(dataDirectory, 'ai-scenarios.json'),
+        readFileSync(resolve(root, 'docs/.vitepress/theme/domain/ai-scenarios.json')),
         'utf8'
       )
       writeFileSync(staleCategory, 'stale category', 'utf8')

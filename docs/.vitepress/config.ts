@@ -23,6 +23,8 @@ function breadcrumbGraph(relativePath: string, title: string) {
 
   if (relativePath.startsWith('ai-categories/')) {
     items.push({ name: '按场景浏览', item: `${siteOrigin}/ai-categories/` })
+  } else if (relativePath.startsWith('ai-scenarios/')) {
+    items.push({ name: '按事情找工具', item: `${siteOrigin}/ai-scenarios/` })
   } else if (relativePath === 'submit/status.md') {
     items.push({ name: '提交工具', item: `${siteOrigin}/submit` })
   }
@@ -102,6 +104,7 @@ export default defineConfig({
     nav: [
       { text: '工具目录', link: '/' },
       { text: '按场景浏览', link: '/ai-categories/' },
+      { text: '按事情找工具', link: '/ai-scenarios/' },
       { text: '关于寻器', link: '/about' },
       { text: '提交工具', link: '/submit' }
     ],

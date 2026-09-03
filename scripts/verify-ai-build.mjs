@@ -510,7 +510,11 @@ export function runVerification(root = defaultRoot) {
   const tools = JSON.parse(
     readFileSync(join(docsDir, '.vitepress', 'theme', 'domain', 'ai-tools.json'), 'utf8')
   )
+  const scenarioDefinitions = JSON.parse(
+    readFileSync(join(docsDir, '.vitepress', 'theme', 'domain', 'ai-scenarios.json'), 'utf8')
+  )
   const categorySlugs = [...new Set(tools.map((tool) => tool.category))]
+  const scenarioSlugs = scenarioDefinitions.map((scenario) => scenario.slug)
   const expectedToolArtifacts = new Set([
     '/tools',
     ...tools.map((tool) => `/tools/${tool.slug}`)
@@ -518,6 +522,10 @@ export function runVerification(root = defaultRoot) {
   const expectedCategoryArtifacts = new Set([
     '/ai-categories',
     ...categorySlugs.map((slug) => `/ai-categories/${slug}`)
+  ])
+  const expectedScenarioArtifacts = new Set([
+    '/ai-scenarios',
+    ...scenarioSlugs.map((slug) => `/ai-scenarios/${slug}`)
   ])
 
   check('VitePress production output exists', () => {
@@ -537,7 +545,13 @@ export function runVerification(root = defaultRoot) {
     results.categoryArtifacts = actual.size
   })
 
-  check('sitemap contains exact tool/category route sets and excludes archived content', () => {
+  check('production output contains the exact scenario HTML route set', () => {
+    const actual = artifactRouteSet(join(distDir, 'ai-scenarios'), '/ai-scenarios')
+    assertExactSet(actual, expectedScenarioArtifacts, 'scenario HTML artifacts')
+    results.scenarioArtifacts = actual.size
+  })
+
+  check('sitemap contains exact tool/category/scenario route sets and excludes archived content', () => {
     const paths = sitemapPathSet(readFileSync(join(distDir, 'sitemap.xml'), 'utf8'))
     const actualToolPaths = new Set(
       [...paths].filter((path) => path === '/tools/' || path.startsWith('/tools/'))
@@ -545,6 +559,11 @@ export function runVerification(root = defaultRoot) {
     const actualCategoryPaths = new Set(
       [...paths].filter(
         (path) => path === '/ai-categories/' || path.startsWith('/ai-categories/')
+      )
+    )
+    const actualScenarioPaths = new Set(
+      [...paths].filter(
+        (path) => path === '/ai-scenarios/' || path.startsWith('/ai-scenarios/')
       )
     )
     assertExactSet(
@@ -556,6 +575,11 @@ export function runVerification(root = defaultRoot) {
       actualCategoryPaths,
       new Set(['/ai-categories/', ...categorySlugs.map((slug) => `/ai-categories/${slug}`)]),
       'sitemap category routes'
+    )
+    assertExactSet(
+      actualScenarioPaths,
+      new Set(['/ai-scenarios/', ...scenarioSlugs.map((slug) => `/ai-scenarios/${slug}`)]),
+      'sitemap scenario routes'
     )
 
     const excludedPrefixes = [
@@ -632,6 +656,25 @@ export function runVerification(root = defaultRoot) {
     }
   })
 
+  check('all scenario pages emit ordered ItemList structured data', () => {
+    for (const scenario of scenarioDefinitions) {
+      const html = readFileSync(artifactPath(distDir, `ai-scenarios/${scenario.slug}`), 'utf8')
+      const scenarioTools = tools.filter((tool) => {
+        const content = [
+          tool.name,
+          tool.tagline,
+          tool.description,
+          ...tool.bestFor,
+          ...tool.features,
+          ...tool.tags,
+          ...tool.searchTerms
+        ].join(' ').toLowerCase()
+        return scenario.keywords.some((keyword) => content.includes(keyword.toLowerCase()))
+      })
+      verifyCategoryStructuredData(html, scenario.slug, scenarioTools)
+    }
+  })
+
   check('homepage SSR reflects the current catalog and emitted CSS', () => {
     const html = readFileSync(artifactPath(distDir, 'index'), 'utf8')
     verifyBaiduSiteVerification(html)
@@ -660,8 +703,10 @@ export function runVerification(root = defaultRoot) {
     const expected = [
       ...tools.map((tool) => `docs/tools/${tool.slug}.md`),
       ...categorySlugs.map((category) => `docs/ai-categories/${category}.md`),
+      ...scenarioSlugs.map((scenario) => `docs/ai-scenarios/${scenario}.md`),
       'docs/tools/index.md',
-      'docs/ai-categories/index.md'
+      'docs/ai-categories/index.md',
+      'docs/ai-scenarios/index.md'
     ]
     const manifest = JSON.parse(
       readFileSync(join(docsDir, '.vitepress', 'ai-pages-manifest.json'), 'utf8')
@@ -672,13 +717,14 @@ export function runVerification(root = defaultRoot) {
 
     const generatedMarkdown = [
       ...walkFiles(join(docsDir, 'tools')),
-      ...walkFiles(join(docsDir, 'ai-categories'))
+      ...walkFiles(join(docsDir, 'ai-categories')),
+      ...walkFiles(join(docsDir, 'ai-scenarios'))
     ].map((path) => relative(root, path).split(sep).join('/'))
     assert.deepEqual(sorted(generatedMarkdown), sorted(expected), 'generated Markdown set is out of sync')
   })
 
   console.log(
-    `Artifact counts: tools=${results.toolArtifacts ?? 'unknown'}, categories=${results.categoryArtifacts ?? 'unknown'}; tool pages verified=${results.toolPagesVerified ?? 'unknown'}`
+    `Artifact counts: tools=${results.toolArtifacts ?? 'unknown'}, categories=${results.categoryArtifacts ?? 'unknown'}, scenarios=${results.scenarioArtifacts ?? 'unknown'}; tool pages verified=${results.toolPagesVerified ?? 'unknown'}`
   )
 
   if (failures.length > 0) {

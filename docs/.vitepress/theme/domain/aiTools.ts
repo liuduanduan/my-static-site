@@ -1,4 +1,5 @@
 import rawTools from './ai-tools.json'
+import rawScenarios from './ai-scenarios.json'
 
 export type ToolCategory =
   | 'chat'
@@ -37,6 +38,14 @@ export interface AiTool {
   updatedAt: string
   featuredOrder?: number
   alternatives: string[]
+}
+
+export interface AiScenario {
+  slug: string
+  name: string
+  description: string
+  guide: string
+  keywords: readonly string[]
 }
 
 export type ReadonlyAiTool = {
@@ -272,6 +281,15 @@ function freezeToolCollection(collection: AiTool[]): readonly ReadonlyAiTool[] {
 }
 
 const tools = freezeToolCollection(validateToolCollection(rawTools))
+const scenarios: readonly AiScenario[] = Object.freeze(
+  rawScenarios.map((scenario) => Object.freeze({
+    slug: scenario.slug,
+    name: scenario.name,
+    description: scenario.description,
+    guide: scenario.guide,
+    keywords: Object.freeze([...scenario.keywords])
+  }))
+)
 const querySynonyms: Readonly<Partial<Record<string, readonly string[]>>> = {
   去背景: ['背景移除'],
   论文检索: ['文献检索']
@@ -279,6 +297,20 @@ const querySynonyms: Readonly<Partial<Record<string, readonly string[]>>> = {
 
 function normalize(value: string): string {
   return value.trim().toLowerCase().replace(/\s+/g, ' ')
+}
+
+function scenarioText(tool: ReadonlyAiTool): string {
+  return [
+    tool.name,
+    tool.tagline,
+    tool.description,
+    ...tool.bestFor,
+    ...tool.features,
+    ...tool.tags,
+    ...tool.searchTerms
+  ]
+    .map(normalize)
+    .join(' ')
 }
 
 function compareDefaultOrder(left: ReadonlyAiTool, right: ReadonlyAiTool): number {
@@ -322,6 +354,31 @@ export function getAllTools(): readonly ReadonlyAiTool[] {
 
 export function getToolBySlug(slug: string): ReadonlyAiTool | undefined {
   return tools.find((tool) => tool.slug === slug)
+}
+
+export function getScenarios(): readonly AiScenario[] {
+  return scenarios
+}
+
+export function getScenarioBySlug(slug: string): AiScenario | undefined {
+  return scenarios.find((scenario) => scenario.slug === slug)
+}
+
+export function getScenarioTools(slug: string): ReadonlyAiTool[] {
+  const scenario = getScenarioBySlug(slug)
+  if (!scenario) return []
+  const keywords = scenario.keywords.map(normalize)
+  return tools.filter((tool) => {
+    const content = scenarioText(tool)
+    return keywords.some((keyword) => content.includes(keyword))
+  })
+}
+
+export function getScenariosForTool(slug: string): AiScenario[] {
+  if (!getToolBySlug(slug)) return []
+  return scenarios.filter((scenario) =>
+    getScenarioTools(scenario.slug).some((tool) => tool.slug === slug)
+  )
 }
 
 export function getCategoryLabel(category: ToolCategory): string {
