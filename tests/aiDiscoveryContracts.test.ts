@@ -135,11 +135,22 @@ describe('AI discovery contracts', () => {
     for (const url of [
       'https://example.com/?TOKEN=secret',
       'https://example.com/?api-key=secret',
-      'https://example.com/?authorization=Bearer+secret'
+      'https://example.com/?authorization=Bearer+secret',
+      'https://example.com/?client_secret=secret',
+      'https://example.com/?refresh-token=secret'
     ]) {
       expect(() => normalizeCandidate({ name: 'Example', url }, validConfig.sources[2], new Date()))
         .toThrow('invalid_discovery_candidate')
     }
+  })
+
+  it('allows benign query parameter names that only contain sensitive substrings', () => {
+    const candidate = normalizeCandidate({
+      name: 'Example',
+      url: 'https://example.com/?keyboard=layout&monkey=banana'
+    }, validConfig.sources[2], new Date())
+
+    expect(candidate.url).toBe('https://example.com/?keyboard=layout&monkey=banana')
   })
 
   it('rejects candidate URLs longer than 2048 characters after normalization', () => {

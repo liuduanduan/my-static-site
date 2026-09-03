@@ -13,12 +13,8 @@ const SOURCE_FIELDS = Object.freeze({
 
 const SOURCE_KINDS = new Set(Object.keys(SOURCE_FIELDS))
 const TRACKING_PARAMETER = /^(utm_.*|ref|source|fbclid)$/i
-const SENSITIVE_QUERY_PARAMETERS = new Set([
+const SENSITIVE_QUERY_SEGMENTS = new Set([
   'token',
-  'access_token',
-  'api_key',
-  'apikey',
-  'key',
   'secret',
   'password',
   'passwd',
@@ -26,7 +22,14 @@ const SENSITIVE_QUERY_PARAMETERS = new Set([
   'authorization',
   'signature',
   'sig',
-  'code'
+])
+const SENSITIVE_QUERY_NAMES = new Set([
+  'key',
+  'code',
+  'apikey',
+  'api_key',
+  'access_key',
+  'client_key'
 ])
 const MAX_CANDIDATE_URL_LENGTH = 2048
 const SAFE_ID = /^[a-z0-9][a-z0-9-]{0,63}$/
@@ -66,6 +69,12 @@ function isScore(value) {
   return Number.isInteger(value) && value >= 0 && value <= 100
 }
 
+function isSensitiveQueryParameter(key) {
+  const normalized = key.replaceAll('-', '_').toLowerCase()
+  return SENSITIVE_QUERY_NAMES.has(normalized)
+    || normalized.split('_').some((segment) => SENSITIVE_QUERY_SEGMENTS.has(segment))
+}
+
 function normalizeUrl(value, onInvalid, { rejectSensitiveQuery = false, maximumLength = Infinity } = {}) {
   if (typeof value !== 'string' || value.trim().length === 0) onInvalid()
 
@@ -79,8 +88,7 @@ function normalizeUrl(value, onInvalid, { rejectSensitiveQuery = false, maximumL
   if (parsed.protocol !== 'https:' || parsed.username || parsed.password || parsed.port) onInvalid()
 
   for (const key of [...parsed.searchParams.keys()]) {
-    const normalizedKey = key.replaceAll('-', '_').toLowerCase()
-    if (rejectSensitiveQuery && SENSITIVE_QUERY_PARAMETERS.has(normalizedKey)) onInvalid()
+    if (rejectSensitiveQuery && isSensitiveQueryParameter(key)) onInvalid()
     if (TRACKING_PARAMETER.test(key)) parsed.searchParams.delete(key)
   }
   parsed.hash = ''
