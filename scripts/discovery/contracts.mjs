@@ -70,9 +70,15 @@ function isScore(value) {
 }
 
 function isSensitiveQueryParameter(key) {
-  const normalized = key.replaceAll('-', '_').toLowerCase()
+  const normalized = key.normalize('NFKC')
+    .replace(/([a-z0-9])([A-Z])/g, '$1_$2')
+    .replace(/([A-Z])([A-Z][a-z])/g, '$1_$2')
+    .replace(/[^A-Za-z0-9]+/g, '_')
+    .toLowerCase()
+  const segments = normalized.split('_').filter(Boolean)
+  if (segments.length === 0) return true
   return SENSITIVE_QUERY_NAMES.has(normalized)
-    || normalized.split('_').some((segment) => SENSITIVE_QUERY_SEGMENTS.has(segment))
+    || segments.some((segment) => SENSITIVE_QUERY_SEGMENTS.has(segment))
 }
 
 function normalizeUrl(value, onInvalid, { rejectSensitiveQuery = false, maximumLength = Infinity } = {}) {

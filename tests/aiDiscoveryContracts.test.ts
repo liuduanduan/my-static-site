@@ -137,7 +137,10 @@ describe('AI discovery contracts', () => {
       'https://example.com/?api-key=secret',
       'https://example.com/?authorization=Bearer+secret',
       'https://example.com/?client_secret=secret',
-      'https://example.com/?refresh-token=secret'
+      'https://example.com/?refresh-token=secret',
+      'https://example.com/?client.secret=secret',
+      'https://example.com/?client%20secret=secret',
+      'https://example.com/?clientSecret=secret'
     ]) {
       expect(() => normalizeCandidate({ name: 'Example', url }, validConfig.sources[2], new Date()))
         .toThrow('invalid_discovery_candidate')
@@ -151,6 +154,16 @@ describe('AI discovery contracts', () => {
     }, validConfig.sources[2], new Date())
 
     expect(candidate.url).toBe('https://example.com/?keyboard=layout&monkey=banana')
+  })
+
+  it('allows benign dotted and spaced query parameter names', () => {
+    const candidate = normalizeCandidate({
+      name: 'Example',
+      url: 'https://example.com/?project.note=ok&display%20label=ok'
+    }, validConfig.sources[2], new Date())
+
+    expect(candidate.url).toContain('project.note=ok')
+    expect(candidate.url).toContain('display%20label=ok')
   })
 
   it('rejects candidate URLs longer than 2048 characters after normalization', () => {
