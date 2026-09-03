@@ -262,6 +262,7 @@ describe('AI discovery deterministic quality gate', () => {
   })
 
   it.each([
+    'AI deepfake synthesis platform',
     'AI deepfake generation platform for security training and detection',
     'AI voice impersonation system designed to bypass identity verification',
     'AI voice impersonation product, alongside a separate identity verification service',
@@ -284,8 +285,10 @@ describe('AI discovery deterministic quality gate', () => {
     'AI security service detects deepfake generation before publication',
     'AI deepfake generation detector for security teams',
     'AI deepfake detection platform for identity verification',
+    'AI deepfake synthesis detection platform for identity verification',
     '人工智能深度伪造语音检测与身份核验工具',
     '人工智能平台检测深度伪造生成内容并执行身份核验',
+    '人工智能深度伪造合成检测平台，用于身份核验',
     '人工智能声音冒充识别和欺诈防御平台',
     '人工智能恶意软件检测与防御平台，可阻止勒索软件攻击',
     '人工智能反钓鱼安全工具，用于检测并拦截欺诈邮件'
