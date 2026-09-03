@@ -262,13 +262,30 @@ describe('AI discovery deterministic quality gate', () => {
   })
 
   it.each([
+    'AI deepfake generation platform for security training and detection',
+    'AI voice impersonation system designed to bypass identity verification',
+    'AI voice impersonation product, alongside a separate identity verification service',
+    '用于安全培训和检测的人工智能深度伪造合成平台',
+    '用于绕过身份核验的人工智能声音冒充系统',
+    '人工智能声音冒充产品，另提供身份核验服务'
+  ])('rejects deceptive-media generation or bypass despite defensive wording: %s', (phrase) => {
+    const visibleText = `${phrase}. ${'Detailed product capability evidence. '.repeat(8)}`
+    expect(() => evaluateCandidate(candidate, { ...evidence, visibleText }, catalogDiscoveryIndex(catalog)))
+      .toThrow('prohibited_candidate')
+  })
+
+  it.each([
     'AI anti-malware scanner protects endpoints and blocks ransomware attacks',
     'AI anti-phishing defense detects fraudulent emails and protects users',
     'AI phishing simulation and security awareness training platform',
     'AI malware analysis sandbox for security researchers',
     'AI deepfake detector prevents voice impersonation fraud',
     'AI voice impersonation detector for identity verification',
+    'AI security service detects deepfake generation before publication',
+    'AI deepfake generation detector for security teams',
+    'AI deepfake detection platform for identity verification',
     '人工智能深度伪造语音检测与身份核验工具',
+    '人工智能平台检测深度伪造生成内容并执行身份核验',
     '人工智能声音冒充识别和欺诈防御平台',
     '人工智能恶意软件检测与防御平台，可阻止勒索软件攻击',
     '人工智能反钓鱼安全工具，用于检测并拦截欺诈邮件'
@@ -409,6 +426,57 @@ describe('AI discovery deterministic quality gate', () => {
   })
 
   it.each([
+    [
+      'desktop app is unavailable',
+      { ...draft, accessModes: ['desktop'] },
+      'The desktop app is unavailable. It requires account registration, offers free and paid plans, and supports Chinese translation.'
+    ],
+    [
+      'it is not a web app',
+      draft,
+      'It is not a web app. It requires account registration, offers free and paid plans, and supports Chinese translation.'
+    ],
+    [
+      'not a native Chinese interface',
+      { ...draft, chineseSupport: 'native' },
+      'It is not a native Chinese interface. This AI product requires account registration, offers free and paid plans, and has a web app.'
+    ],
+    [
+      'paid plans are unavailable',
+      { ...draft, pricingMode: 'paid' },
+      'Paid plans are unavailable. This AI web app requires account registration and supports Chinese translation.'
+    ],
+    [
+      '未提供桌面应用',
+      { ...draft, accessModes: ['desktop'] },
+      '未提供桌面应用。这款人工智能产品需要注册账户，提供免费方案与付费套餐，并支持中文翻译。'
+    ],
+    [
+      '这不是网页应用',
+      draft,
+      '这不是网页应用。这款人工智能产品需要注册账户，提供免费方案与付费套餐，并支持中文翻译。'
+    ],
+    [
+      '没有原生中文界面',
+      { ...draft, chineseSupport: 'native' },
+      '没有原生中文界面。这款人工智能网页应用需要注册账户，并提供免费方案与付费套餐。'
+    ],
+    [
+      '付费方案不可用',
+      { ...draft, pricingMode: 'paid' },
+      '付费方案不可用。这款人工智能网页应用需要注册账户，并支持中文翻译。'
+    ]
+  ])('rejects predicate-style negative evidence for a claimed enum: %s', (_label, proposedDraft, claim) => {
+    const accepted = evaluateCandidate(candidate, {
+      ...evidence,
+      visibleText: `${claim} ${'Detailed product evidence and workflow documentation. '.repeat(10)}`
+    }, catalogDiscoveryIndex(catalog))
+
+    expect(() => validateDraftAgainstEvidence(proposedDraft, accepted))
+      .toThrow('insufficient_official_evidence')
+  })
+
+  it.each([
     ['slug', { slug: 'offline-example-ai' }],
     ['bestFor', { bestFor: ['离线处理资料', '核对来源依据', '制作研究简报'] }],
     ['name', { name: 'Example Offline AI' }],
@@ -447,6 +515,39 @@ describe('AI discovery deterministic quality gate', () => {
   })
 
   it.each([
+    ['Chinese discount', '现提供五折优惠，具体价格以官网为准', ''],
+    ['percentage', '现提供 50% 优惠，具体价格以官网为准', ''],
+    ['trial duration', '提供 14 天免费试用，具体价格以官网为准', 'A free trial is available.'],
+    ['discount wording', '官网提供优惠活动，具体价格以官网为准', ''],
+    ['limited-time condition', '限时提供 50% 优惠，具体价格以官网为准', 'A 50% discount is available.'],
+    ['new-user condition', '新用户可享 50% 优惠，具体价格以官网为准', 'A 50% discount is available.'],
+    ['first-month condition', '首月可享 50% 优惠，具体价格以官网为准', 'A 50% discount is available.']
+  ])('rejects unsupported promotional pricing fact: %s', (_label, pricing, pricingEvidence) => {
+    const accepted = evaluateCandidate(candidate, {
+      ...evidence,
+      visibleText: `This AI web app requires an account, supports Chinese translation, and offers free and paid plans. ${pricingEvidence} ${'Detailed product evidence. '.repeat(10)}`
+    }, catalogDiscoveryIndex(catalog))
+
+    expect(() => validateDraftAgainstEvidence({ ...draft, pricing }, accepted))
+      .toThrow('insufficient_official_evidence')
+  })
+
+  it.each([
+    ['percentage', '现提供 50% 优惠，具体价格以官网为准', 'A 20% discount is available.'],
+    ['Chinese discount', '现提供五折优惠，具体价格以官网为准', '官网现提供八折优惠。'],
+    ['trial duration', '提供 14 天免费试用，具体价格以官网为准', 'A 7-day free trial is available.'],
+    ['promotional condition', '限时提供 50% 优惠，具体价格以官网为准', 'New users receive a 50% discount.']
+  ])('rejects different promotional pricing evidence: %s', (_label, pricing, pricingEvidence) => {
+    const accepted = evaluateCandidate(candidate, {
+      ...evidence,
+      visibleText: `This AI web app requires an account, supports Chinese translation, and offers free and paid plans. ${pricingEvidence} ${'Detailed product evidence. '.repeat(10)}`
+    }, catalogDiscoveryIndex(catalog))
+
+    expect(() => validateDraftAgainstEvidence({ ...draft, pricing }, accepted))
+      .toThrow('insufficient_official_evidence')
+  })
+
+  it.each([
     [
       'Chinese monthly amount',
       { ...draft, pricingMode: 'paid', pricing: '每月仅需 10 元，具体价格以官网为准' },
@@ -469,6 +570,42 @@ describe('AI discovery deterministic quality gate', () => {
     }, catalogDiscoveryIndex(catalog))
 
     expect(validateDraftAgainstEvidence(proposedDraft, accepted)).toBe(accepted)
+  })
+
+  it.each([
+    [
+      'Chinese discount',
+      '现提供五折优惠，具体价格以官网为准',
+      'The official offer is a 五折优惠.'
+    ],
+    [
+      'percentage discount',
+      '现提供 50% 优惠，具体价格以官网为准',
+      'The official offer is a 50% discount.'
+    ],
+    [
+      'trial duration',
+      '提供 14 天免费试用，具体价格以官网为准',
+      'The official site offers a 14-day free trial.'
+    ],
+    [
+      'promotional conditions',
+      '限时面向新用户提供首月 50% 优惠，具体价格以官网为准',
+      'For a limited time, new users receive a 50% discount for the first month.'
+    ]
+  ])('accepts matching promotional pricing evidence: %s', (_label, pricing, pricingEvidence) => {
+    const accepted = evaluateCandidate(candidate, {
+      ...evidence,
+      visibleText: `This AI web app requires an account, supports Chinese translation, and offers free and paid plans. ${pricingEvidence} ${'Detailed product evidence. '.repeat(10)}`
+    }, catalogDiscoveryIndex(catalog))
+
+    expect(validateDraftAgainstEvidence({ ...draft, pricing }, accepted)).toBe(accepted)
+  })
+
+  it('keeps conservative generic pricing valid without promotional evidence', () => {
+    const accepted = evaluateCandidate(candidate, evidence, catalogDiscoveryIndex(catalog))
+
+    expect(validateDraftAgainstEvidence(draft, accepted)).toBe(accepted)
   })
 
   it('rejects a different price even when currency and billing period are both present', () => {

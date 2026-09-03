@@ -68,10 +68,10 @@ const ALWAYS_PROHIBITED_PATTERNS = Object.freeze([
 const SECURITY_HARM_PATTERN = /\b(?:malware|ransomware|phishing|credential theft)\b|恶意软件|勒索软件|网络钓鱼|窃取凭据/iu
 const DEFENSIVE_SECURITY_PATTERN = /\b(?:anti[- ]?(?:malware|phishing)|detect(?:s|ion|or)?|prevent(?:s|ion)?|protect(?:s|ion)?|block(?:s|ing)?|scanner|security|defen[sc]e|threat monitoring|analysis|sandbox|simulation|training|awareness|removal)\b|反钓鱼|检测|防御|拦截|阻止|安全|保护|威胁监控|分析|沙箱|演练|培训|意识|清除/iu
 const OFFENSIVE_SECURITY_PATTERN = /\b(?:generate|generator|create|build|deploy|spread|steal|harvest|bypass|offensive)\w*\b|生成|制作|部署|传播|窃取|收割|绕过|攻击性/iu
-const DECEPTIVE_MEDIA_PATTERN = /(?:\b(?:deepfake|impersonat\w*|voice\s+clon\w*|face\s+swap\w*)\b.{0,60}\b(?:generator|generate|create|fraud|scam|deceive)\w*\b|\b(?:generator|generate|create|fraud|scam|deceive)\w*\b.{0,60}\b(?:deepfake|impersonat\w*|voice\s+clon\w*|face\s+swap\w*)\b|(?:生成|制作|冒充|仿冒|诈骗|欺诈).{0,30}(?:换脸|人脸|声音|语音|深度伪造)|(?:换脸|人脸|声音|语音|深度伪造).{0,30}(?:生成|制作|冒充|仿冒|诈骗|欺诈))/iu
-const DECEPTIVE_MEDIA_GENERATION_PATTERN = /(?:\b(?:deepfake|face\s+swap)\w*\b.{0,40}\b(?:generator|generate|create)\w*\b|\b(?:generator|generate|create)\w*\b.{0,40}\b(?:deepfake|face\s+swap)\w*\b|(?:生成|制作).{0,20}(?:换脸|人脸|深度伪造)|(?:换脸|人脸|深度伪造).{0,20}(?:生成|制作))/iu
 const DECEPTIVE_MEDIA_DEFENSE_PATTERN = /\b(?:detect(?:s|ion|or)?|prevent(?:s|ion)?|protect(?:s|ion)?|block(?:s|ing)?|scanner|security|defen[sc]e|verification)\b|检测|识别|防御|拦截|阻止|安全|保护|核验/iu
-const DECEPTIVE_MEDIA_TERM_PATTERN = /\b(?:deepfake|impersonat\w*|voice\s+clon\w*|face\s+swap\w*)\b|深度伪造|深伪|声音(?:冒充|克隆)|语音(?:冒充|克隆)|仿冒(?:声音|语音|人脸)|AI\s*换脸/iu
+const DECEPTIVE_MEDIA_TERM_PATTERN = /\b(?:deepfake|impersonat\w*|voice\s+clon\w*|face[- ]?swap\w*)\b|深度伪造|深伪|(?:声音|语音)(?:冒充|克隆)|(?:冒充|仿冒).{0,8}(?:声音|语音|人脸)|仿冒(?:声音|语音|人脸)|AI\s*换脸/iu
+const DECEPTIVE_MEDIA_OFFENSIVE_INTENT_PATTERN = /\b(?:bypass|evad(?:e|es|ed|ing)|circumvent(?:s|ed|ing)?|defeat(?:s|ed|ing)?)\b|\b(?:platform|system|tool|service|app|software)\b.{0,30}\b(?:to\s+)?impersonat(?:e|es|ed|ing)\b|\bfor\s+(?:committing\s+)?(?:fraud|scams?)\b|\bto\s+(?:commit\s+)?(?:fraud|scam|deceive)\w*\b|绕过|规避|突破.{0,8}(?:验证|核验)|用于.{0,24}(?:冒充|诈骗|欺诈)|(?:实施|进行).{0,8}(?:诈骗|欺诈)/iu
+const DECEPTIVE_MEDIA_GENERATION_PRODUCT_PATTERN = /(?:\b(?:deepfake|impersonat\w*|face[- ]?swap|voice\s+clon\w*)\b(?:\s+[a-z-]+){0,2}\s+\bgenerator\b|\b(?:deepfake|impersonat\w*|face[- ]?swap|voice\s+clon\w*)\b(?:\s+[a-z-]+){0,2}\s+\b(?:generation|synthesis|cloning)\b(?:\s+[a-z-]+){0,2}\s+\b(?:platform|system|tool|software|service|app|application|model|api|product)\b|\b(?:voice\s+clon\w*|face[- ]?swap\w*)\b\s+\b(?:platform|system|tool|software|service|app|application|model|api|product)\b|\b(?:platform|system|tool|software|service|app|application|model|api|product)\b\s+(?:for|to)\s+(?:(?:\w+\s+){0,3}(?:generat\w*|creat\w*|synthesi[sz]\w*|clon\w*)\s+(?:\w+\s+){0,2}\b(?:deepfake|face[- ]?swap|voice)\b|(?:\w+\s+){0,2}\b(?:deepfake|impersonat\w*|face[- ]?swap|voice\s+clon\w*)\b\s+(?:generation|synthesis|cloning))|(?:深度伪造|深伪|AI\s*换脸|(?:声音|语音)(?:冒充|克隆)).{0,10}(?:生成|合成|制作|克隆).{0,6}(?:平台|系统|工具|软件|服务|应用|模型|生成器)|(?:生成|合成|制作|克隆).{0,10}(?:深度伪造|深伪|换脸|人脸|声音|语音).{0,8}(?:平台|系统|工具|软件|服务|应用|模型|生成器))/iu
 
 function gateError(code) {
   const error = new Error(code)
@@ -228,6 +228,21 @@ function hasPattern(patterns, text) {
   return patterns.some((pattern) => pattern.test(text))
 }
 
+function textClauses(value) {
+  return String(value).split(/[\r\n.!?,:。！？；;，：]+/u)
+    .map((clause) => clause.trim())
+    .filter(Boolean)
+}
+
+function hasProhibitedDeceptiveMedia(text) {
+  return textClauses(text).some((clause) => {
+    if (!DECEPTIVE_MEDIA_TERM_PATTERN.test(clause)) return false
+    if (DECEPTIVE_MEDIA_OFFENSIVE_INTENT_PATTERN.test(clause)) return true
+    if (DECEPTIVE_MEDIA_GENERATION_PRODUCT_PATTERN.test(clause)) return true
+    return !DECEPTIVE_MEDIA_DEFENSE_PATTERN.test(clause)
+  })
+}
+
 function assertSafeCandidateName(candidate) {
   const name = normalizeText(candidate?.name, 160)
   if (!name || SENSITIVE_TEXT.test(name)) gateError('insufficient_official_evidence')
@@ -274,9 +289,7 @@ export function evaluateCandidate(candidate, evidence, index) {
 
   const allText = `${summary.title}\n${summary.metaDescription}\n${summary.visibleText}`
   if (hasPattern(ALWAYS_PROHIBITED_PATTERNS, allText)
-    || DECEPTIVE_MEDIA_GENERATION_PATTERN.test(allText)
-    || ((DECEPTIVE_MEDIA_TERM_PATTERN.test(allText) || DECEPTIVE_MEDIA_PATTERN.test(allText))
-      && !DECEPTIVE_MEDIA_DEFENSE_PATTERN.test(allText))
+    || hasProhibitedDeceptiveMedia(allText)
     || (SECURITY_HARM_PATTERN.test(allText)
       && (OFFENSIVE_SECURITY_PATTERN.test(allText) || !DEFENSIVE_SECURITY_PATTERN.test(allText)))) {
     gateError('prohibited_candidate')
@@ -287,6 +300,9 @@ export function evaluateCandidate(candidate, evidence, index) {
 
   return Object.freeze(summary)
 }
+
+const ACCOUNT_REQUIRED_PATTERN = /\b(?:requires?\s+(?:an?\s+)?account|(?<!no\s)account\s+required|sign\s*up\s+(?:is\s+)?required|sign\s*up\s+to|create\s+(?:an?\s+)?account|log\s*in\s+to)\b|(?<!不)需要(?:账户|账号|注册|登录)|注册(?:账户|账号)?后|登录后/iu
+const ACCOUNT_NOT_REQUIRED_PATTERN = /\b(?:no\s+account\s+required|without\s+sign(?:ing)?\s*up|without\s+(?:an?\s+)?account|no\s+signup)\b|无需(?:注册|登录)|免登录|不需要(?:账户|账号)/iu
 
 const GROUNDING_PATTERNS = Object.freeze({
   pricingMode: Object.freeze({
@@ -308,25 +324,29 @@ const GROUNDING_PATTERNS = Object.freeze({
     extension: /\bbrowser\s+extension\b|\b(?:chrome|edge|firefox)\s+extension\b|浏览器扩展|Chrome\s*扩展/iu
   }),
   requiresAccount: Object.freeze({
-    true: /\b(?:requires?\s+(?:an?\s+)?account|(?<!no\s)account\s+required|sign\s*up\s+(?:is\s+)?required|sign\s*up\s+to|create\s+(?:an?\s+)?account|log\s*in\s+to)\b|(?<!不)需要(?:账户|账号|注册|登录)|注册(?:账户|账号)?后|登录后/iu,
-    false: /\b(?:no\s+account\s+required|without\s+sign(?:ing)?\s*up|without\s+(?:an?\s+)?account|no\s+signup)\b|无需(?:注册|登录)|免登录|不需要(?:账户|账号)/iu
+    true: ACCOUNT_REQUIRED_PATTERN,
+    false: ACCOUNT_NOT_REQUIRED_PATTERN
+  }),
+  requiresAccountContradictions: Object.freeze({
+    true: ACCOUNT_NOT_REQUIRED_PATTERN,
+    false: ACCOUNT_REQUIRED_PATTERN
   }),
   accessModeContradictions: Object.freeze({
-    web: /\b(?:no|without)\s+(?:a\s+)?web\s+(?:app|access|version)\b|\bnot\s+available\s+(?:on|via)\s+the\s+web\b|无网页(?:版|端|访问)|不支持网页(?:版|端|访问)/iu,
-    desktop: /\b(?:no|without)\s+(?:a\s+)?desktop\s+app\b|\bnot\s+available\s+on\s+(?:windows|mac(?:os)?)\b|无桌面(?:应用|客户端|版)|不支持桌面(?:应用|客户端|版)/iu,
-    mobile: /\b(?:no|without)\s+(?:a\s+)?mobile\s+app\b|\bnot\s+available\s+on\s+(?:ios|android|mobile)\b|无移动(?:应用|客户端|端)|不支持移动(?:应用|客户端|端)/iu,
-    api: /\b(?:no|without)\s+(?:an?\s+)?api(?:\s+access)?\b|\bdoes\s+not\s+(?:offer|provide|support)\s+(?:an?\s+)?api\b|无\s*API|不(?:提供|支持)\s*API/iu,
-    extension: /\b(?:no|without)\s+(?:a\s+)?browser\s+extension\b|\bdoes\s+not\s+(?:offer|provide|support)\s+(?:an?\s+)?extension\b|无浏览器扩展|不(?:提供|支持)浏览器扩展/iu
+    web: /\b(?:no|without)\s+(?:a\s+)?web\s+(?:app|access|version)\b|\b(?:it\s+is\s+)?not\s+(?:a\s+)?web\s+(?:app|application)\b|\bweb\s+(?:app|application|version|access)\s+(?:is\s+)?(?:unavailable|not\s+(?:available|offered|supported))\b|\bnot\s+available\s+(?:on|via)\s+the\s+web\b|(?:无|没有|未提供|不支持)网页(?:应用|版|端|访问)|网页(?:应用|版|端|访问)(?:不可用|未提供|不支持)|不是网页应用/iu,
+    desktop: /\b(?:no|without)\s+(?:a\s+)?desktop\s+app\b|\bdesktop\s+app\s+(?:is\s+)?(?:unavailable|not\s+(?:available|offered|supported))\b|\bnot\s+available\s+on\s+(?:windows|mac(?:os)?)\b|(?:无|没有|未提供|不支持)桌面(?:应用|客户端|版)|桌面(?:应用|客户端|版)(?:不可用|未提供|不支持)/iu,
+    mobile: /\b(?:no|without)\s+(?:a\s+)?mobile\s+app\b|\bmobile\s+apps?\s+(?:are\s+)?(?:unavailable|not\s+(?:available|offered|supported))\b|\bnot\s+available\s+on\s+(?:ios|android|mobile)\b|(?:无|没有|未提供|不支持)移动(?:应用|客户端|端)|移动(?:应用|客户端|端)(?:不可用|未提供|不支持)/iu,
+    api: /\b(?:no|without)\s+(?:an?\s+)?api(?:\s+access)?\b|\bapi(?:\s+access)?\s+(?:is\s+)?(?:unavailable|not\s+(?:available|offered|supported))\b|\bdoes\s+not\s+(?:offer|provide|support)\s+(?:an?\s+)?api\b|(?:无|没有|未提供|不支持)\s*API|API(?:访问)?(?:不可用|未提供|不支持)/iu,
+    extension: /\b(?:no|without)\s+(?:a\s+)?browser\s+extension\b|\bbrowser\s+extension\s+(?:is\s+)?(?:unavailable|not\s+(?:available|offered|supported))\b|\bdoes\s+not\s+(?:offer|provide|support)\s+(?:an?\s+)?extension\b|(?:无|没有|未提供|不支持)浏览器扩展|浏览器扩展(?:不可用|未提供|不支持)/iu
   }),
   pricingModeContradictions: Object.freeze({
-    free: /\b(?:no|without)\s+(?:a\s+)?free\s+(?:plan|tier|version)\b|\bpaid[- ]only\b|无免费(?:方案|套餐|版本)|仅(?:提供)?付费/iu,
-    freemium: /\b(?:no|without)\s+(?:a\s+)?free\s+(?:plan|tier|version)\b|\b(?:no|without)\s+paid\s+plans?\b|\bpaid[- ]only\b|无免费(?:方案|套餐|版本)|无付费方案|仅(?:提供)?付费/iu,
-    paid: /\b(?:no|without)\s+paid\s+plans?\b|\b(?:completely|entirely|100%)\s+free\b|无付费方案|完全免费|全部免费/iu,
+    free: /\b(?:no|without)\s+(?:a\s+)?free\s+(?:plan|tier|version)\b|\bfree\s+(?:plan|tier|version)\s+(?:is\s+)?(?:unavailable|not\s+(?:available|offered|supported))\b|\bpaid[- ]only\b|(?:无|没有|未提供|不支持)免费(?:方案|套餐|版本)|免费(?:方案|套餐|版本)(?:不可用|未提供|不支持)|仅(?:提供)?付费/iu,
+    freemium: /\b(?:no|without)\s+(?:a\s+)?free\s+(?:plan|tier|version)\b|\b(?:free\s+(?:plan|tier|version)|paid\s+plans?)\s+(?:is|are\s+)?(?:unavailable|not\s+(?:available|offered|supported))\b|\b(?:no|without)\s+paid\s+plans?\b|\bpaid[- ]only\b|(?:无|没有|未提供|不支持)(?:免费|付费)(?:方案|套餐|版本)|(?:免费|付费)(?:方案|套餐|版本)(?:不可用|未提供|不支持)|仅(?:提供)?付费/iu,
+    paid: /\b(?:no|without)\s+paid\s+plans?\b|\bpaid\s+plans?\s+(?:are\s+)?(?:unavailable|not\s+(?:available|offered|supported))\b|\b(?:completely|entirely|100%)\s+free\b|(?:无|没有|未提供|不支持)付费(?:方案|套餐|版本)|付费(?:方案|套餐|版本)(?:不可用|未提供|不支持)|完全免费|全部免费/iu,
     contact: /\b(?:public|listed|self[- ]service)\s+pricing\b.{0,30}\bno\s+(?:sales\s+)?contact\b|公开价格.{0,20}无需联系销售/iu
   }),
   chineseSupportContradictions: Object.freeze({
-    native: /\b(?:no|without)\s+chinese\s+support\b|\bdoes\s+not\s+support\s+chinese\b|\bchinese\s+(?:is\s+)?not\s+supported\b|不支持中文|无中文(?:支持|界面)|暂无中文/iu,
-    partial: /\b(?:no|without)\s+chinese\s+support\b|\bdoes\s+not\s+support\s+chinese\b|\bchinese\s+(?:is\s+)?not\s+supported\b|不支持中文|无中文(?:支持|界面)|暂无中文/iu,
+    native: /\b(?:no|without)\s+chinese\s+support\b|\bnot\s+(?:a\s+)?native\s+chinese\s+interface\b|\bnative\s+chinese\s+interface\s+(?:is\s+)?(?:unavailable|not\s+(?:available|offered|supported))\b|\bdoes\s+not\s+support\s+chinese\b|\bchinese\s+(?:is\s+)?not\s+supported\b|不支持中文|(?:无|没有|未提供)原生中文(?:支持|界面)?|无中文(?:支持|界面)|暂无中文/iu,
+    partial: /\b(?:no|without)\s+chinese\s+support\b|\bchinese\s+(?:support|translation)\s+(?:is\s+)?(?:unavailable|not\s+(?:available|offered|supported))\b|\bdoes\s+not\s+support\s+chinese\b|\bchinese\s+(?:is\s+)?not\s+supported\b|(?:不支持|未提供)中文|中文(?:支持|翻译)(?:不可用|未提供|不支持)|无中文(?:支持|界面)|暂无中文/iu,
     none: /\bnative\s+chinese\b|(?<!not\s)(?<!no\s)\b(?:supports?|including)\s+chinese\b|\bchinese\s+translation\b|原生中文|(?<!不)支持中文|中文翻译/iu
   })
 })
@@ -347,25 +367,74 @@ function draftText(draft) {
     .join('\n')
 }
 
+function groundedMatches(positivePatterns, contradictionPatterns, clauses) {
+  return Object.entries(positivePatterns)
+    .filter(([mode, positive]) => clauses.some((clause) => positive.test(clause)
+      && !contradictionPatterns[mode]?.test(clause)))
+    .map(([mode]) => mode)
+}
+
+function hasGroundingContradiction(contradictionPatterns, mode, clauses) {
+  const pattern = contradictionPatterns[mode]
+  return Boolean(pattern && clauses.some((clause) => pattern.test(clause)))
+}
+
 function pricingFacts(value) {
-  const text = normalizeText(value).toLocaleLowerCase('en-US')
+  const text = normalizeText(value).normalize('NFKC').toLocaleLowerCase('en-US')
   const amounts = [
     ...text.matchAll(/[$€£¥]\s*\d+(?:[.,]\d+)?/gu),
     ...text.matchAll(/\d+(?:[.,]\d+)?\s*(?:(?:元|人民币|美元|美金|欧元|英镑)(?![\p{L}\p{N}])|(?:usd|cny|rmb|eur|gbp)\b)/giu)
   ].map(([match]) => match.replace(/\s+/gu, ''))
+  const percentages = [...text.matchAll(/\d+(?:[.,]\d+)?\s*%/gu)]
+    .map(([match]) => match.replace(/\s+/gu, ''))
+  const chineseDiscounts = [...text.matchAll(/(?:[零一二三四五六七八九十百]+|\d+(?:\.\d+)?)\s*折/gu)]
+    .map(([match]) => match.replace(/\s+/gu, ''))
+  const trialDurations = [
+    ...[...text.matchAll(/\b(\d+)\s*[- ]?(day|week|month|year)s?\s+(?:free\s+)?trial\b/gu)]
+      .map(([, amount, unit]) => `${amount}-${unit}`),
+    ...[...text.matchAll(/\bfree\s+trial\s+(?:for\s+)?(\d+)\s+(day|week|month|year)s?\b/gu)]
+      .map(([, amount, unit]) => `${amount}-${unit}`),
+    ...[...text.matchAll(/(\d+)\s*(天|日|周|个月|月|年)(?:的)?免费试用/gu)]
+      .map(([, amount, unit]) => `${amount}-${unit === '天' || unit === '日' ? 'day' : unit === '周' ? 'week' : unit === '年' ? 'year' : 'month'}`)
+  ]
   const periods = [
     /\b(?:per\s+month|monthly)\b|每月|月付/iu.test(text) ? 'monthly' : '',
     /\b(?:per\s+year|yearly|annual(?:ly)?)\b|每年|年付/iu.test(text) ? 'yearly' : '',
     /\bfree\s+trial\b|免费试用/iu.test(text) ? 'trial' : ''
   ].filter(Boolean)
-  return { amounts: [...new Set(amounts)], periods }
+  const offerTerms = [
+    /\b(?:discount|discounted|percent\s+off)\b|优惠|折扣|(?:[零一二三四五六七八九十百]+|\d+(?:\.\d+)?)\s*折/iu.test(text) ? 'discount' : '',
+    /\b(?:promotion|promotional|promo)\b|促销|优惠活动|活动价/iu.test(text) ? 'promotion' : ''
+  ].filter(Boolean)
+  const promotionConditions = [
+    /\blimited[- ]time\b|限时/iu.test(text) ? 'limited-time' : '',
+    /\bnew\s+(?:users?|customers?)\b|新用户/iu.test(text) ? 'new-user' : '',
+    /\bfirst\s+month\b|首月/iu.test(text) ? 'first-month' : ''
+  ].filter(Boolean)
+  return {
+    amounts: [...new Set(amounts)],
+    percentages: [...new Set(percentages)],
+    chineseDiscounts: [...new Set(chineseDiscounts)],
+    trialDurations: [...new Set(trialDurations)],
+    periods,
+    offerTerms,
+    promotionConditions
+  }
 }
 
 function assertPricingTextGrounded(pricing, proof) {
   const claimed = pricingFacts(pricing)
   const evidenced = pricingFacts(proof)
-  if (claimed.amounts.some((amount) => !evidenced.amounts.includes(amount))
-    || claimed.periods.some((period) => !evidenced.periods.includes(period))) {
+  const factGroups = [
+    'amounts',
+    'percentages',
+    'chineseDiscounts',
+    'trialDurations',
+    'periods',
+    'offerTerms',
+    'promotionConditions'
+  ]
+  if (factGroups.some((group) => claimed[group].some((fact) => !evidenced[group].includes(fact)))) {
     gateError('insufficient_official_evidence')
   }
 }
@@ -373,9 +442,12 @@ function assertPricingTextGrounded(pricing, proof) {
 export function validateDraftAgainstEvidence(draft, acceptedEvidence) {
   const proof = evidenceText(acceptedEvidence)
   if (!draft || typeof draft !== 'object' || !proof) gateError('insufficient_official_evidence')
-  const pricingMatches = Object.entries(GROUNDING_PATTERNS.pricingMode)
-    .filter(([, pattern]) => pattern.test(proof))
-    .map(([mode]) => mode)
+  const clauses = textClauses(proof)
+  const pricingMatches = groundedMatches(
+    GROUNDING_PATTERNS.pricingMode,
+    GROUNDING_PATTERNS.pricingModeContradictions,
+    clauses
+  )
   if (pricingMatches.includes('free') && /\bno\s+paid\s+plans?\b|无付费方案/iu.test(proof)) {
     const paidIndex = pricingMatches.indexOf('paid')
     if (paidIndex >= 0) pricingMatches.splice(paidIndex, 1)
@@ -383,22 +455,28 @@ export function validateDraftAgainstEvidence(draft, acceptedEvidence) {
   const pricingIsGrounded = pricingMatches.includes('freemium')
     ? draft.pricingMode === 'freemium' && !pricingMatches.includes('contact')
     : pricingMatches.length === 1 && pricingMatches[0] === draft.pricingMode
-  const languageMatches = Object.entries(GROUNDING_PATTERNS.chineseSupport)
-    .filter(([, pattern]) => pattern.test(proof))
-    .map(([mode]) => mode)
-  const accountMatches = Object.entries(GROUNDING_PATTERNS.requiresAccount)
-    .filter(([, pattern]) => pattern.test(proof))
-    .map(([mode]) => mode)
+  const languageMatches = groundedMatches(
+    GROUNDING_PATTERNS.chineseSupport,
+    GROUNDING_PATTERNS.chineseSupportContradictions,
+    clauses
+  )
+  const accountMatches = groundedMatches(
+    GROUNDING_PATTERNS.requiresAccount,
+    GROUNDING_PATTERNS.requiresAccountContradictions,
+    clauses
+  )
   if (!pricingIsGrounded
-    || GROUNDING_PATTERNS.pricingModeContradictions[draft.pricingMode]?.test(proof)
+    || hasGroundingContradiction(GROUNDING_PATTERNS.pricingModeContradictions, draft.pricingMode, clauses)
     || languageMatches.length !== 1
     || languageMatches[0] !== draft.chineseSupport
-    || GROUNDING_PATTERNS.chineseSupportContradictions[draft.chineseSupport]?.test(proof)
+    || hasGroundingContradiction(GROUNDING_PATTERNS.chineseSupportContradictions, draft.chineseSupport, clauses)
     || accountMatches.length !== 1
     || accountMatches[0] !== String(draft.requiresAccount)
+    || hasGroundingContradiction(GROUNDING_PATTERNS.requiresAccountContradictions, String(draft.requiresAccount), clauses)
     || !Array.isArray(draft.accessModes)
-    || draft.accessModes.some((mode) => !GROUNDING_PATTERNS.accessModes[mode]?.test(proof)
-      || GROUNDING_PATTERNS.accessModeContradictions[mode]?.test(proof))) {
+    || draft.accessModes.some((mode) => !clauses.some((clause) => GROUNDING_PATTERNS.accessModes[mode]?.test(clause)
+      && !GROUNDING_PATTERNS.accessModeContradictions[mode]?.test(clause))
+      || hasGroundingContradiction(GROUNDING_PATTERNS.accessModeContradictions, mode, clauses))) {
     gateError('insufficient_official_evidence')
   }
 
