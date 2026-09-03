@@ -1,16 +1,10 @@
 import {
-  copyFileSync,
-  mkdtempSync,
-  mkdirSync,
-  readFileSync,
-  renameSync,
-  rmSync,
-  writeFileSync
-} from 'node:fs'
-import { tmpdir } from 'node:os'
-import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path'
-import { randomUUID } from 'node:crypto'
-import { generateAiPages, validateTools } from '../generate-ai-pages.mjs'
+  alternativesFor,
+  appendCatalogTools,
+  dateOnly,
+  domainKey,
+  loadCatalog
+} from '../catalog/catalogMutation.mjs'
 import { buildCatalogTool } from '../../shared/submissions/contentDraft.mjs'
 
 const allowedRetryableErrors = new Set([
@@ -28,56 +22,11 @@ export class CurationError extends Error {
   }
 }
 
-function isWithin(path, parent) {
-  const difference = relative(resolve(parent), resolve(path))
-  return difference === '' || (!difference.startsWith(`..${sep}`) && difference !== '..' && !isAbsolute(difference))
-}
-
-function catalogPaths(projectRoot, catalogPath) {
-  const root = resolve(projectRoot)
-  const domainRoot = join(root, 'docs', '.vitepress', 'theme', 'domain')
-  const expectedCatalog = join(domainRoot, 'ai-tools.json')
-  const actualCatalog = resolve(catalogPath)
-  if (actualCatalog !== expectedCatalog || !isWithin(actualCatalog, domainRoot)) {
-    throw new CurationError('catalog_validation_failed', {
-      status: 'error',
-      errorCode: 'catalog_validation_failed'
-    })
-  }
-  return { root, domainRoot, catalog: actualCatalog }
-}
-
-function domainKey(value) {
-  try {
-    return new URL(value).hostname.toLowerCase().replace(/^www\./, '')
-  } catch {
-    return ''
-  }
-}
-
-function dateOnly(value) {
-  const date = value instanceof Date ? value : new Date(value)
-  if (Number.isNaN(date.getTime())) {
-    throw new CurationError('catalog_validation_failed', {
-      status: 'error',
-      errorCode: 'catalog_validation_failed'
-    })
-  }
-  return date.toISOString().slice(0, 10)
-}
-
-function alternativesFor(tools, category, slug) {
-  const values = tools
-    .filter((tool) => tool.category === category && tool.slug !== slug)
-    .map((tool) => tool.slug)
-    .slice(0, 2)
-  if (values.length !== 2) {
-    throw new CurationError('catalog_validation_failed', {
-      status: 'error',
-      errorCode: 'catalog_validation_failed'
-    })
-  }
-  return values
+function catalogError() {
+  return new CurationError('catalog_validation_failed', {
+    status: 'error',
+    errorCode: 'catalog_validation_failed'
+  })
 }
 
 function duplicateError() {
@@ -116,102 +65,34 @@ function prBody(submission, tool) {
   ].join('\n')
 }
 
-function validateCandidateInTemporaryProject(candidate, scenarioPath) {
-  const temporaryRoot = mkdtempSync(join(tmpdir(), 'xunqi-candidate-'))
-  try {
-    const temporaryCatalog = join(
-      temporaryRoot,
-      'docs',
-      '.vitepress',
-      'theme',
-      'domain',
-      'ai-tools.json'
-    )
-    mkdirSync(dirname(temporaryCatalog), { recursive: true })
-    writeFileSync(temporaryCatalog, `${JSON.stringify(candidate, null, 2)}\n`, 'utf8')
-    copyFileSync(scenarioPath, join(dirname(temporaryCatalog), 'ai-scenarios.json'))
-    generateAiPages({
-      root: temporaryRoot,
-      dataPath: temporaryCatalog,
-      logger: () => undefined
-    })
-  } catch {
-    throw new CurationError('catalog_validation_failed', {
-      status: 'error',
-      errorCode: 'catalog_validation_failed'
-    })
-  } finally {
-    rmSync(temporaryRoot, { recursive: true, force: true })
-  }
-}
-
-function replaceCatalogAndGenerate(candidate, paths) {
-  const token = randomUUID()
-  const nextPath = join(paths.domainRoot, `.ai-tools.${token}.tmp`)
-  const backupPath = join(paths.domainRoot, `.ai-tools.${token}.backup`)
-  const serialized = `${JSON.stringify(candidate, null, 2)}\n`
-  writeFileSync(nextPath, serialized, { encoding: 'utf8', flag: 'wx' })
-  validateTools(JSON.parse(readFileSync(nextPath, 'utf8')))
-
-  let movedOriginal = false
-  try {
-    renameSync(paths.catalog, backupPath)
-    movedOriginal = true
-    renameSync(nextPath, paths.catalog)
-    generateAiPages({ root: paths.root, dataPath: paths.catalog, logger: () => undefined })
-    rmSync(backupPath, { force: true })
-  } catch (error) {
-    rmSync(nextPath, { force: true })
-    if (movedOriginal) {
-      rmSync(paths.catalog, { force: true })
-      renameSync(backupPath, paths.catalog)
-      try {
-        generateAiPages({ root: paths.root, dataPath: paths.catalog, logger: () => undefined })
-      } catch {
-        // The original catalog is restored even if generated-page recovery is unavailable.
-      }
-    }
-    throw new CurationError('catalog_validation_failed', {
-      status: 'error',
-      errorCode: 'catalog_validation_failed'
-    })
-  }
-}
-
 export async function curateToolSubmission(submission, deps) {
-  const paths = catalogPaths(deps.projectRoot, deps.catalogPath)
-  let tools
+  let context
   try {
-    tools = validateTools(JSON.parse(readFileSync(paths.catalog, 'utf8')))
-  } catch {
-    throw new CurationError('catalog_validation_failed', {
-      status: 'error',
-      errorCode: 'catalog_validation_failed'
+    context = loadCatalog({
+      projectRoot: deps.projectRoot,
+      catalogPath: deps.catalogPath
     })
+  } catch {
+    throw catalogError()
   }
 
   const submittedDomain = String(submission.normalizedDomain).toLowerCase().replace(/^www\./, '')
-  if (!submittedDomain || tools.some((tool) => domainKey(tool.url) === submittedDomain)) {
+  if (!submittedDomain || context.tools.some((tool) => domainKey(tool.url) === submittedDomain)) {
     throw duplicateError()
   }
 
   const evidence = await deps.fetchOfficialPage(submission.officialUrl)
   const draft = await deps.enricher.enrich(submission, evidence)
-  if (tools.some((tool) => tool.slug === draft.slug)) throw duplicateError()
+  if (context.tools.some((tool) => tool.slug === draft.slug)) throw duplicateError()
 
-  const alternatives = alternativesFor(tools, submission.category, draft.slug)
-  const tool = buildCatalogTool(submission, draft, alternatives, dateOnly(deps.now()))
-  const candidate = [...tools, tool]
+  let tool
   try {
-    validateTools(candidate)
-    validateCandidateInTemporaryProject(candidate, join(paths.domainRoot, 'ai-scenarios.json'))
-    replaceCatalogAndGenerate(candidate, paths)
+    const alternatives = alternativesFor(context.tools, submission.category, draft.slug)
+    tool = buildCatalogTool(submission, draft, alternatives, dateOnly(deps.now()))
+    appendCatalogTools({ context, tools: [tool] })
   } catch (error) {
     if (error instanceof CurationError) throw error
-    throw new CurationError('catalog_validation_failed', {
-      status: 'error',
-      errorCode: 'catalog_validation_failed'
-    })
+    throw catalogError()
   }
 
   return Object.freeze({
