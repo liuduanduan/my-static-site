@@ -48,27 +48,30 @@ const validConfig = {
   ]
 }
 
+const SAME_FINGERPRINT = 'a'.repeat(64)
+const CHANGED_FINGERPRINT = 'b'.repeat(64)
+
 const threeFailures = [
   {
     key: 'example.com',
     status: 'failed',
-    errorCode: 'unreachable',
+    errorCode: 'source_unavailable',
     processedAt: '2026-09-02T00:00:00.000Z',
-    fingerprint: 'same-page'
+    fingerprint: SAME_FINGERPRINT
   },
   {
     key: 'example.com',
     status: 'failed',
-    errorCode: 'unreachable',
+    errorCode: 'source_unavailable',
     processedAt: '2026-09-03T00:00:00.000Z',
-    fingerprint: 'same-page'
+    fingerprint: SAME_FINGERPRINT
   },
   {
     key: 'example.com',
     status: 'failed',
-    errorCode: 'unreachable',
+    errorCode: 'source_unavailable',
     processedAt: '2026-09-04T00:00:00.000Z',
-    fingerprint: 'same-page'
+    fingerprint: SAME_FINGERPRINT
   }
 ]
 
@@ -128,6 +131,24 @@ describe('AI discovery contracts', () => {
       .toThrow('invalid_discovery_candidate')
   })
 
+  it('rejects candidate URLs containing sensitive query parameters', () => {
+    for (const url of [
+      'https://example.com/?TOKEN=secret',
+      'https://example.com/?api-key=secret',
+      'https://example.com/?authorization=Bearer+secret'
+    ]) {
+      expect(() => normalizeCandidate({ name: 'Example', url }, validConfig.sources[2], new Date()))
+        .toThrow('invalid_discovery_candidate')
+    }
+  })
+
+  it('rejects candidate URLs longer than 2048 characters after normalization', () => {
+    const url = `https://example.com/?query=${'a'.repeat(2048)}`
+
+    expect(() => normalizeCandidate({ name: 'Example', url }, validConfig.sources[2], new Date()))
+      .toThrow('invalid_discovery_candidate')
+  })
+
   it('cools down three identical failures for exactly 30 days', () => {
     const state = parseDiscoveryState({ version: 1, outcomes: threeFailures })
 
@@ -140,7 +161,7 @@ describe('AI discovery contracts', () => {
       version: 1,
       outcomes: [
         ...threeFailures.slice(0, 2),
-        { ...threeFailures[2], fingerprint: 'changed-page' }
+        { ...threeFailures[2], fingerprint: CHANGED_FINGERPRINT }
       ]
     })
 
@@ -156,25 +177,46 @@ describe('AI discovery contracts', () => {
     expect(state.outcomes[0].processedAt).toBe('2026-09-02T00:00:00.000Z')
   })
 
+  it('rejects arbitrary discovery state error codes', () => {
+    expect(() => parseDiscoveryState({
+      version: 1,
+      outcomes: [{ ...threeFailures[0], errorCode: 'raw webpage text or secret' }]
+    })).toThrow('invalid_discovery_state')
+  })
+
+  it('rejects non-digest discovery state fingerprints', () => {
+    expect(() => parseDiscoveryState({
+      version: 1,
+      outcomes: [{ ...threeFailures[0], fingerprint: 'not-a-sha-256-digest' }]
+    })).toThrow('invalid_discovery_state')
+  })
+
+  it('rejects nonexistent ISO calendar timestamps', () => {
+    expect(() => parseDiscoveryState({
+      version: 1,
+      outcomes: [{ ...threeFailures[0], processedAt: '2026-02-30T00:00:00Z' }]
+    })).toThrow('invalid_discovery_state')
+  })
+
   it('retains bounded state and replaces terminal outcomes for the same key', () => {
     const outcomes = Array.from({ length: 501 }, (_, index) => ({
       key: `tool-${index}.example`,
       status: 'review',
       errorCode: null,
       processedAt: new Date(Date.UTC(2026, 0, 1, 0, 0, index)).toISOString(),
-      fingerprint: `fingerprint-${index}`
+      fingerprint: index.toString(16).padStart(64, '0')
     }))
     const state = recordOutcome(parseDiscoveryState({ version: 1, outcomes }), {
       key: 'tool-500.example',
       status: 'published',
       errorCode: null,
       processedAt: '2026-02-01T00:00:00.000Z',
-      fingerprint: 'published-page'
+      fingerprint: CHANGED_FINGERPRINT
     })
 
     expect(state.outcomes).toHaveLength(500)
     expect(state.outcomes.filter(({ key }) => key === 'tool-500.example')).toEqual([
-      expect.objectContaining({ status: 'published', fingerprint: 'published-page' })
+      expect.objectContaining({ status: 'published', fingerprint: CHANGED_FINGERPRINT })
     ])
   })
 })

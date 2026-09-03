@@ -13,6 +13,22 @@ const SOURCE_FIELDS = Object.freeze({
 
 const SOURCE_KINDS = new Set(Object.keys(SOURCE_FIELDS))
 const TRACKING_PARAMETER = /^(utm_.*|ref|source|fbclid)$/i
+const SENSITIVE_QUERY_PARAMETERS = new Set([
+  'token',
+  'access_token',
+  'api_key',
+  'apikey',
+  'key',
+  'secret',
+  'password',
+  'passwd',
+  'auth',
+  'authorization',
+  'signature',
+  'sig',
+  'code'
+])
+const MAX_CANDIDATE_URL_LENGTH = 2048
 const SAFE_ID = /^[a-z0-9][a-z0-9-]{0,63}$/
 
 function invalidConfig() {
@@ -50,7 +66,7 @@ function isScore(value) {
   return Number.isInteger(value) && value >= 0 && value <= 100
 }
 
-function normalizeUrl(value, onInvalid) {
+function normalizeUrl(value, onInvalid, { rejectSensitiveQuery = false, maximumLength = Infinity } = {}) {
   if (typeof value !== 'string' || value.trim().length === 0) onInvalid()
 
   let parsed
@@ -63,10 +79,14 @@ function normalizeUrl(value, onInvalid) {
   if (parsed.protocol !== 'https:' || parsed.username || parsed.password || parsed.port) onInvalid()
 
   for (const key of [...parsed.searchParams.keys()]) {
+    const normalizedKey = key.replaceAll('-', '_').toLowerCase()
+    if (rejectSensitiveQuery && SENSITIVE_QUERY_PARAMETERS.has(normalizedKey)) onInvalid()
     if (TRACKING_PARAMETER.test(key)) parsed.searchParams.delete(key)
   }
   parsed.hash = ''
-  return parsed.toString()
+  const normalized = parsed.toString()
+  if (normalized.length > maximumLength) onInvalid()
+  return normalized
 }
 
 function normalizeSource(source) {
@@ -127,7 +147,10 @@ export function normalizeCandidate(value, source, now = new Date()) {
 
   return Object.freeze({
     name: value.name.trim(),
-    url: normalizeUrl(value.url, invalidCandidate),
+    url: normalizeUrl(value.url, invalidCandidate, {
+      rejectSensitiveQuery: true,
+      maximumLength: MAX_CANDIDATE_URL_LENGTH
+    }),
     sourceId: source.id,
     sourceKind: source.kind,
     discoveredAt: now.toISOString(),
@@ -137,7 +160,10 @@ export function normalizeCandidate(value, source, now = new Date()) {
 
 export function candidateKey(candidate) {
   if (!isPlainObject(candidate)) invalidCandidate()
-  const url = normalizeUrl(candidate.url, invalidCandidate)
+  const url = normalizeUrl(candidate.url, invalidCandidate, {
+    rejectSensitiveQuery: true,
+    maximumLength: MAX_CANDIDATE_URL_LENGTH
+  })
   const hostname = new URL(url).hostname.toLowerCase()
   const key = hostname.startsWith('www.') ? hostname.slice(4) : hostname
   if (!key) invalidCandidate()

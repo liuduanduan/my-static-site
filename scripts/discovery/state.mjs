@@ -1,9 +1,25 @@
 const MAX_OUTCOMES = 500
 const OUTCOME_STATUSES = new Set(['failed', 'published', 'review'])
 const TERMINAL_STATUSES = new Set(['published', 'review'])
+const ERROR_CODES = new Set([
+  'source_unavailable',
+  'source_invalid',
+  'source_rejected',
+  'official_fetch_rejected',
+  'official_fetch_failed',
+  'duplicate_catalog_entry',
+  'insufficient_official_evidence',
+  'non_product_page',
+  'prohibited_candidate',
+  'discovery_enricher_invalid_output',
+  'discovery_enricher_failed',
+  'enricher_unconfigured',
+  'catalog_validation_failed',
+  'catalog_maximum_reached',
+  'publish_limit_reached'
+])
 const SAFE_KEY = /^[a-z0-9](?:[a-z0-9.-]{0,251}[a-z0-9])?$/
-const MAX_FINGERPRINT_LENGTH = 256
-const MAX_ERROR_CODE_LENGTH = 80
+const SHA256_HEX = /^[a-f0-9]{64}$/
 const COOLDOWN_MILLISECONDS = 30 * 24 * 60 * 60 * 1000
 
 function invalidState() {
@@ -19,11 +35,12 @@ function isPlainObject(value) {
 }
 
 function parseTimestamp(value, onInvalid) {
-  if (typeof value !== 'string'
-    || value.length > 40
-    || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) onInvalid()
+  const match = typeof value === 'string'
+    && /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(?:\.(\d{3}))?Z$/.exec(value)
+  if (!match) onInvalid()
   const timestamp = new Date(value)
-  if (Number.isNaN(timestamp.valueOf())) onInvalid()
+  const expected = `${match[1]}.${match[2] ?? '000'}Z`
+  if (Number.isNaN(timestamp.valueOf()) || timestamp.toISOString() !== expected) onInvalid()
   return timestamp
 }
 
@@ -41,8 +58,9 @@ function normalizeOutcome(value, onInvalid) {
     || !isSafeShortText(value.key, 253)
     || !SAFE_KEY.test(value.key)
     || !OUTCOME_STATUSES.has(value.status)
-    || !(value.errorCode === null || isSafeShortText(value.errorCode, MAX_ERROR_CODE_LENGTH))
-    || !isSafeShortText(value.fingerprint, MAX_FINGERPRINT_LENGTH)) onInvalid()
+    || !(value.status === 'failed' ? ERROR_CODES.has(value.errorCode) : value.errorCode === null)
+    || typeof value.fingerprint !== 'string'
+    || !SHA256_HEX.test(value.fingerprint)) onInvalid()
 
   const processedAt = parseTimestamp(value.processedAt, onInvalid)
   return Object.freeze({
