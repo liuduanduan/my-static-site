@@ -177,7 +177,7 @@ npm run search:notify -- --sitemap docs/.vitepress/dist/sitemap.xml --urls chang
 npm run tools:discover -- --config config/ai-discovery-sources.json --output ai-discovery-state.json --review ai-discovery-review.md --urls discovered-urls.txt --dry-run
 ```
 
-首次真实来源演练应在子进程中明确清空 `CONTENT_ENRICHER_API_KEY` 和 `CONTENT_ENRICHER_MODEL`，使需要内容补全的候选写入审核结果而不是调用补全服务。检查 `ai-discovery-review.md`、`ai-discovery-state.json` 和 `discovered-urls.txt`；这些是本地运行时文件，不得提交。
+首次真实来源演练应在子进程中明确清空 `CONTENT_ENRICHER_API_KEY` 和 `CONTENT_ENRICHER_MODEL`，使需要内容补全的候选写入审核结果而不是调用补全服务。检查 `ai-discovery-review.md`、`ai-discovery-state.json` 和 `discovered-urls.txt`；这些是本地运行时文件，不得提交。审核文件的 **Source health** 区段只列出已尝试来源的配置 ID、候选数量和有限公开错误码；**Candidate review** 区段保留候选的门槛错误。两者都不应包含来源正文、页面内容、模型输出、URL 查询密钥或 Authorization 值。
 
 ### GitHub 运行与审核
 

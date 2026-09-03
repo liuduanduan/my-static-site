@@ -140,7 +140,9 @@ export async function runDiscovery(options) {
     discoverFromSources: options?.discoverFromSources ?? discoverFromConfiguredSources,
     fetchOfficialPage: options?.fetchOfficialPage ?? safeFetchOfficialPage,
     enricher: options?.enricher ?? null,
-    appendCatalogTools: options?.appendCatalogTools ?? appendCatalogToolsToCatalog
+    appendCatalogTools: options?.appendCatalogTools ?? appendCatalogToolsToCatalog,
+    fetch: options?.fetch ?? globalThis.fetch,
+    now: () => nowValue
   }
   const context = loadCatalog({ projectRoot: options?.projectRoot, catalogPath: options?.catalogPath })
   let nextState = parseDiscoveryState(options?.state)
@@ -222,6 +224,7 @@ export async function runDiscovery(options) {
   return Object.freeze({
     hasChanges: !dryRun && published.length > 0,
     sourceErrors: frozenList(sourceResult.errors),
+    sourceSummaries: frozenList(sourceResult.sourceSummaries ?? []),
     candidates: frozenList(inspected.map((candidate) => ({
       key: candidateKey(candidate), sourceId: candidate.sourceId
     }))),

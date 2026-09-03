@@ -185,18 +185,27 @@ function adapterFor(kind) {
 export async function discoverFromSources(config, deps) {
   const candidates = []
   const errors = []
+  const sourceSummaries = []
   for (const source of config.sources.filter(({ enabled }) => enabled)) {
     try {
-      candidates.push(...await adapterFor(source.kind)(source, deps))
+      const sourceCandidates = await adapterFor(source.kind)(source, deps)
+      candidates.push(...sourceCandidates)
+      sourceSummaries.push(Object.freeze({
+        sourceId: source.id,
+        candidateCount: sourceCandidates.length,
+        errorCode: null
+      }))
     } catch (error) {
       const errorCode = publicSourceError(error)
       errors.push(Object.freeze({ sourceId: source.id, errorCode }))
+      sourceSummaries.push(Object.freeze({ sourceId: source.id, candidateCount: 0, errorCode }))
       deps?.logger?.warn?.({ sourceId: source.id, errorCode })
     }
     if (candidates.length >= config.limits.sourceRecords) break
   }
   return Object.freeze({
     candidates: Object.freeze(candidates.slice(0, config.limits.sourceRecords)),
-    errors: Object.freeze(errors)
+    errors: Object.freeze(errors),
+    sourceSummaries: Object.freeze(sourceSummaries)
   })
 }

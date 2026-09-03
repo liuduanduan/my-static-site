@@ -234,6 +234,55 @@ describe('automatic AI discovery pipeline', () => {
     expect(readFileSync(catalogPath, 'utf8')).toBe(before)
   })
 
+  it('propagates injected fetch and time through the default source adapters without inventing source errors', async () => {
+    const result = await runDiscovery({
+      config: {
+        version: 1,
+        limits: { sourceRecords: 50, newDomains: 15, publishPerRun: 3, catalogMaximum: 300 },
+        sources: [{
+          id: 'default-github', kind: 'github-search', enabled: true,
+          query: 'topic:ai-tool stars:>=200 archived:false', minimumStars: 200, score: 50
+        }]
+      },
+      state: emptyState(), catalogPath, projectRoot, dryRun: true, enricher: null, now,
+      fetch: async () => new Response(JSON.stringify({
+        items: [{ name: 'Default Source AI', homepage: 'https://default-source.example/', stargazers_count: 200, archived: false }]
+      }), { status: 200, headers: { 'content-type': 'application/json' } })
+    })
+
+    expect(result.candidates).toEqual([{ key: 'default-source.example', sourceId: 'default-github' }])
+    expect(result.sourceErrors).toEqual([])
+    expect(result.sourceSummaries).toEqual([{
+      sourceId: 'default-github', candidateCount: 1, errorCode: null
+    }])
+  })
+
+  it('writes bounded default-source failures to the CLI review output without request details', async () => {
+    mkdirSync(join(projectRoot, 'config'), { recursive: true })
+    writeFileSync(join(projectRoot, 'config/ai-discovery-sources.json'), JSON.stringify({
+      version: 1,
+      limits: { sourceRecords: 50, newDomains: 15, publishPerRun: 3, catalogMaximum: 300 },
+      sources: [{ id: 'default-feed', kind: 'feed', enabled: true, url: 'https://feed.example/discovery.json', score: 50 }]
+    }), 'utf8')
+
+    const result = await runDiscoveryFromEnvironment({}, {
+      projectRoot,
+      argv: ['--dry-run'],
+      enricher: null,
+      now,
+      fetch: async () => { throw new Error('socket details must not escape') }
+    })
+    const review = readFileSync(join(projectRoot, 'ai-discovery-review.md'), 'utf8')
+
+    expect(result.sourceErrors).toEqual([{ sourceId: 'default-feed', errorCode: 'source_unavailable' }])
+    expect(result.sourceSummaries).toEqual([{
+      sourceId: 'default-feed', candidateCount: 0, errorCode: 'source_unavailable'
+    }])
+    expect(review).toContain('`source_unavailable` — default-feed')
+    expect(review).not.toContain('socket details')
+    expect(review).not.toContain('https://feed.example')
+  })
+
   it('writes canonical catalog detail URLs to the discovery notification allowlist', async () => {
     mkdirSync(join(projectRoot, 'config'), { recursive: true })
     copyFileSync(sourceConfig, join(projectRoot, 'config/ai-discovery-sources.json'))

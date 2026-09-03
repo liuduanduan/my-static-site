@@ -57,8 +57,20 @@ function readJson(path, missingValue) {
 }
 
 function reviewReport(result) {
-  const rows = result.review.map((item) => `- \`${item.errorCode}\` — ${item.sourceId} — ${item.key}`)
-  return `# AI discovery review\n\n${rows.join('\n')}\n`
+  const sourceRows = result.sourceSummaries.map((item) => `- \`${item.errorCode ?? 'source_checked'}\` — ${item.sourceId} — candidates: ${item.candidateCount}`)
+  const candidateRows = result.review.map((item) => `- \`${item.errorCode}\` — ${item.sourceId} — ${item.key}`)
+  return [
+    '# AI discovery review',
+    '',
+    '## Source health',
+    '',
+    ...sourceRows,
+    '',
+    '## Candidate review',
+    '',
+    ...candidateRows,
+    ''
+  ].join('\n')
 }
 
 function prBody(result) {
@@ -101,7 +113,7 @@ function emitGithubOutputs(result, paths, outputPath, now = new Date()) {
     branch,
     pr_title: title,
     pr_body: body,
-    review_path: result.review.length ? paths.review : '',
+    review_path: result.review.length || result.sourceSummaries.length ? paths.review : '',
     state_path: paths.output,
     changed_urls_path: paths.urls
   }
@@ -130,13 +142,14 @@ export async function runDiscoveryFromEnvironment(env = process.env, options = {
       : options.enricher,
     discoverFromSources: options.discoverFromSources,
     fetchOfficialPage: options.fetchOfficialPage,
-    now: options.now
+    now: options.now,
+    fetch: options.fetch
   })
   mkdirSync(dirname(paths.output), { recursive: true })
   writeFileSync(paths.output, `${JSON.stringify(result.nextState, null, 2)}\n`, 'utf8')
   mkdirSync(dirname(paths.urls), { recursive: true })
   writeFileSync(paths.urls, result.changedUrls.length ? `${result.changedUrls.join('\n')}\n` : '', 'utf8')
-  if (result.review.length) {
+  if (result.review.length || result.sourceSummaries.length) {
     mkdirSync(dirname(paths.review), { recursive: true })
     writeFileSync(paths.review, reviewReport(result), 'utf8')
   }
