@@ -156,7 +156,38 @@ npm run search:notify -- --sitemap docs/.vitepress/dist/sitemap.xml --urls chang
 
 脚本只会推送同时存在于已构建 sitemap、同一 HTTPS 源且位于显式白名单中的公开 URL；状态、管理和隐私 URL 会被排除。没有任何密钥时脚本成功退出且不发网络请求；任一服务返回非 2xx 时脚本失败，但不会修改构建产物。不要把密钥写进 URL 白名单、命令历史、仓库或日志。
 
-## 9. 上线验收
+## 9. 自动发现 AI 工具
+
+`discover-ai-tools.yml` 的代码当前仅位于本地分支；在包含该工作流的分支推送并合并到 GitHub、且完成下述仓库 Actions 设置、权限和 Secrets 配置之前，定时任务**尚未上线**，不能将它视为正在运行的生产自动化。
+
+上线前在 GitHub 的 Actions secrets 中配置内容补全所必需的两个值：
+
+- `CONTENT_ENRICHER_API_KEY`
+- `CONTENT_ENRICHER_MODEL`
+
+可选搜索索引通知沿用现有通知器和工作流的名称：`INDEXNOW_KEY` 与 `BAIDU_TOKEN`。未配置它们时，通知器不会发送请求。不要把任何 Secret 写入配置文件、终端输出、Issue、PR 或日志。
+
+发现工作流每次最多发布 3 个通过全部确定性门槛的工具，目录总量达到 300 时停止发布。它不会取代公开提交的人工审核流程：`curate-tool-submission.yml` 仍然只创建待人工审核的 PR，不会自动合并。
+
+### 本地安全演练
+
+在仓库根目录运行下面的干跑命令。`--dry-run` 仍会读取已配置的公开来源和写入本地状态/审核输出，但绝不修改 `docs/.vitepress/theme/domain/ai-tools.json`：
+
+```powershell
+npm run tools:discover -- --config config/ai-discovery-sources.json --output ai-discovery-state.json --review ai-discovery-review.md --urls discovered-urls.txt --dry-run
+```
+
+首次真实来源演练应在子进程中明确清空 `CONTENT_ENRICHER_API_KEY` 和 `CONTENT_ENRICHER_MODEL`，使需要内容补全的候选写入审核结果而不是调用补全服务。检查 `ai-discovery-review.md`、`ai-discovery-state.json` 和 `discovered-urls.txt`；这些是本地运行时文件，不得提交。
+
+### GitHub 运行与审核
+
+完成推送、合并和 Secret 配置后，工作流既可按其已提交的日程运行，也可在 GitHub Actions 页面选择 **Discover verified AI tools** 后通过 `workflow_dispatch` 手动运行。每次运行会尝试恢复上一份可信状态，并将 `ai-discovery-state.json` 与 `ai-discovery-review.md` 上传为 `ai-discovery-state` artifact（保留 90 天）。
+
+无法安全发布的候选会写入固定的 GitHub Issue **AI 工具自动发现审核**，供人工核对，不会绕过目录质量门槛。成功批次也必须先经受保护工作流的校验，再以单个 1–3 工具批次合并。
+
+如需回滚已经自动合并的发现批次，使用 `git revert <discovery-squash-commit>` 创建反向提交并让常规校验完成；不要使用重写历史或强制推送。回滚后人工检查目录和状态 artifact，再决定是否重新启用工作流。
+
+## 10. 上线验收
 
 完成配置后至少验证：
 
