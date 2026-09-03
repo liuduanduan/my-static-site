@@ -171,6 +171,25 @@ describe('bounded public discovery sources', () => {
     expect(candidates[0]).toEqual(expect.objectContaining({ name: 'Useful AI', url: 'https://useful.example/', sourceScore: 40 }))
   })
 
+  it('accepts both HN time-window endpoints and rejects future timestamps', async () => {
+    const currentSeconds = Math.floor(fixedNow.valueOf() / 1000)
+    const lowerBoundarySeconds = currentSeconds - hnSource.lookbackDays * 24 * 60 * 60
+    const deps = dependencies(async () => response(JSON.stringify({
+      hits: [
+        { title: 'Show HN: Exact Now', url: 'https://now.example/', points: 20, created_at_i: currentSeconds },
+        { title: 'Show HN: Exact Lower Boundary', url: 'https://lower.example/', points: 20, created_at_i: lowerBoundarySeconds },
+        { title: 'Show HN: Future', url: 'https://future.example/', points: 20, created_at_i: currentSeconds + 1 }
+      ]
+    })))
+
+    const candidates = await discoverFromHackerNews(hnSource, deps)
+
+    expect(candidates.map(({ url }) => url)).toEqual([
+      'https://now.example/',
+      'https://lower.example/'
+    ])
+  })
+
   it('discovers one valid JSON Feed item without reading feed prose', async () => {
     const deps = dependencies(async () => response(JSON.stringify({
       version: 'https://jsonfeed.org/version/1.1',

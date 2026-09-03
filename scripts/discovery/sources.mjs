@@ -150,7 +150,9 @@ export async function discoverFromHackerNews(source, deps) {
       || typeof item.url !== 'string'
       || !isExternalHackerNewsUrl(item.url)
       || !Number.isFinite(item.points) || item.points < source.minimumPoints
-      || !Number.isFinite(item.created_at_i) || item.created_at_i * 1000 < minimumTimestamp) return []
+      || !Number.isFinite(item.created_at_i)
+      || item.created_at_i * 1000 < minimumTimestamp
+      || item.created_at_i * 1000 > now.valueOf()) return []
     const name = item.title.replace(/^show hn\s*:\s*/i, '').trim()
     const normalized = candidate({ name, url: item.url }, source, now)
     return normalized ? [normalized] : []
