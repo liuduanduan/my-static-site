@@ -151,8 +151,8 @@ describe('ai tool directory data', () => {
     ).toBe(true)
   })
 
-  it('expands the directory to at least 120 reviewed tool pages', () => {
-    expect(getAllTools().length).toBeGreaterThanOrEqual(120)
+  it('keeps the verified baseline at exactly 120 reviewed tool pages', () => {
+    expect(getAllTools()).toHaveLength(120)
   })
 
   it('retains every slug from the original 24-tool catalog', () => {
@@ -621,6 +621,13 @@ describe('validateToolCollection', () => {
   it('rejects non-HTTPS and invalid URLs', () => {
     expectMutationToThrow((catalog) => { catalog[0].url = 'http://example.com' }, /url must use HTTPS/)
     expectMutationToThrow((catalog) => { catalog[0].url = 'not a url' }, /url must be a valid HTTPS URL/)
+  })
+
+  it('rejects duplicate official URLs after URL normalization', () => {
+    expectMutationToThrow(
+      (catalog) => { catalog[1].url = 'HTTPS://CHATGPT.COM:443' },
+      /duplicate normalized URL https:\/\/chatgpt\.com\//
+    )
   })
 
   it('rejects malformed and impossible dates', () => {

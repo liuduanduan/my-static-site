@@ -77,6 +77,11 @@ function requireDate(record, field, context) {
   return value
 }
 
+function normalizedOfficialUrl(url) {
+  url.hash = ''
+  return url.href
+}
+
 export function isWithin(path, parent) {
   const resolvedPath = resolve(path)
   const resolvedParent = resolve(parent)
@@ -185,6 +190,7 @@ export function validateTools(items) {
   if (items.length < 60) fail('must contain at least 60 tools')
 
   const seenSlugs = new Set()
+  const seenNormalizedUrls = new Set()
   const seenFeaturedOrders = new Set()
   const categoryCounts = new Map(requiredCategories.map((category) => [category, 0]))
 
@@ -237,6 +243,11 @@ export function validateTools(items) {
       fail(`${context}.url must be a valid HTTPS URL`)
     }
     if (parsedUrl.protocol !== 'https:') fail(`${context}.url must use HTTPS`)
+    const normalizedUrl = normalizedOfficialUrl(parsedUrl)
+    if (seenNormalizedUrls.has(normalizedUrl)) {
+      fail(`duplicate normalized URL ${normalizedUrl}`)
+    }
+    seenNormalizedUrls.add(normalizedUrl)
 
     requireDate(candidate, 'addedAt', context)
     requireDate(candidate, 'updatedAt', context)

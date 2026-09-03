@@ -111,7 +111,7 @@ pageClass: ai-index-page
 - [Semantic Reader](/tools/semantic-reader)：用 AI 辅助阅读论文、解释术语并追踪引用
 - [Evidence Hunt](/tools/evidence-hunt)：从论文中提取支持问题的证据和引用
 - [SciSpace](/tools/scispace)：在可解释的阅读空间中理解和整理论文
-- [Consensus Meter](/tools/consensus-mate)：汇总论文结论并展示研究共识方向
+- [ResearchRabbit](/tools/researchrabbit)：用 AI 发现相关论文、引用关系和研究趋势
 - [ResearchPal](/tools/research-pal)：整理文献、笔记和研究写作的辅助工作区
 - [AskYourPDF](/tools/askyourpdf)：上传 PDF 后用对话方式查找文档信息
 - [Anyword](/tools/anyword)：按受众和渠道生成并评估营销文案

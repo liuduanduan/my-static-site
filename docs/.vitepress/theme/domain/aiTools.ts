@@ -165,11 +165,17 @@ function requireDate(record: Record<string, unknown>, field: string, context: st
   return value
 }
 
+function normalizedOfficialUrl(url: URL): string {
+  url.hash = ''
+  return url.href
+}
+
 export function validateToolCollection(value: unknown): AiTool[] {
   if (!Array.isArray(value)) fail('expected an array')
   if (value.length < 60) fail('must contain at least 60 tools')
 
   const seenSlugs = new Set<string>()
+  const seenNormalizedUrls = new Set<string>()
   const seenFeaturedOrders = new Set<number>()
   const categoryCounts = new Map<ToolCategory, number>(
     requiredCategories.map((category) => [category, 0])
@@ -223,6 +229,11 @@ export function validateToolCollection(value: unknown): AiTool[] {
       fail(`${context}.url must be a valid HTTPS URL`)
     }
     if (parsedUrl.protocol !== 'https:') fail(`${context}.url must use HTTPS`)
+    const normalizedUrl = normalizedOfficialUrl(parsedUrl)
+    if (seenNormalizedUrls.has(normalizedUrl)) {
+      fail(`duplicate normalized URL ${normalizedUrl}`)
+    }
+    seenNormalizedUrls.add(normalizedUrl)
 
     requireDate(candidate, 'addedAt', context)
     requireDate(candidate, 'updatedAt', context)

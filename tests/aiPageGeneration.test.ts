@@ -285,6 +285,7 @@ describe('AI page generation', () => {
       pros: ['测试事实清晰', '不会修改现有条目'],
       cons: ['仅用于测试', '不代表真实产品'],
       searchTerms: ['目录增长', '工具测试'],
+      url: 'https://example-ai.test/',
       featuredOrder: undefined,
       alternatives: ['chatgpt', 'claude']
     }
@@ -362,6 +363,15 @@ describe('AI page generation', () => {
     catalog[0].slug = '../outside'
 
     expect(() => pageGenerator.validateTools(catalog)).toThrow(/slug is unsafe/)
+  })
+
+  it('rejects duplicate official URLs after URL normalization before generation', () => {
+    const catalog = cloneCatalog()
+    catalog[1].url = 'HTTPS://CHATGPT.COM:443'
+
+    expect(() => pageGenerator.validateTools(catalog)).toThrow(
+      /duplicate normalized URL https:\/\/chatgpt\.com\//
+    )
   })
 
   it('validates the complete catalog before cleaning prior generated pages', () => {

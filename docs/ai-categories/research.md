@@ -6,7 +6,7 @@ head:
   - - script
     - type: application/ld+json
     - >-
-      {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"Perplexity","url":"https://no996noicu.com/tools/perplexity"},{"@type":"ListItem","position":2,"name":"Elicit","url":"https://no996noicu.com/tools/elicit"},{"@type":"ListItem","position":3,"name":"Consensus","url":"https://no996noicu.com/tools/consensus"},{"@type":"ListItem","position":4,"name":"Scite","url":"https://no996noicu.com/tools/scite"},{"@type":"ListItem","position":5,"name":"NotebookLM","url":"https://no996noicu.com/tools/notebooklm"},{"@type":"ListItem","position":6,"name":"You.com","url":"https://no996noicu.com/tools/you-com"},{"@type":"ListItem","position":7,"name":"Semantic Scholar","url":"https://no996noicu.com/tools/semantic-scholar"},{"@type":"ListItem","position":8,"name":"Semantic Reader","url":"https://no996noicu.com/tools/semantic-reader"},{"@type":"ListItem","position":9,"name":"Evidence Hunt","url":"https://no996noicu.com/tools/evidence-hunt"},{"@type":"ListItem","position":10,"name":"SciSpace","url":"https://no996noicu.com/tools/scispace"},{"@type":"ListItem","position":11,"name":"Consensus Meter","url":"https://no996noicu.com/tools/consensus-mate"},{"@type":"ListItem","position":12,"name":"ResearchPal","url":"https://no996noicu.com/tools/research-pal"},{"@type":"ListItem","position":13,"name":"AskYourPDF","url":"https://no996noicu.com/tools/askyourpdf"}]}
+      {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"Perplexity","url":"https://no996noicu.com/tools/perplexity"},{"@type":"ListItem","position":2,"name":"Elicit","url":"https://no996noicu.com/tools/elicit"},{"@type":"ListItem","position":3,"name":"Consensus","url":"https://no996noicu.com/tools/consensus"},{"@type":"ListItem","position":4,"name":"Scite","url":"https://no996noicu.com/tools/scite"},{"@type":"ListItem","position":5,"name":"NotebookLM","url":"https://no996noicu.com/tools/notebooklm"},{"@type":"ListItem","position":6,"name":"You.com","url":"https://no996noicu.com/tools/you-com"},{"@type":"ListItem","position":7,"name":"Semantic Scholar","url":"https://no996noicu.com/tools/semantic-scholar"},{"@type":"ListItem","position":8,"name":"Semantic Reader","url":"https://no996noicu.com/tools/semantic-reader"},{"@type":"ListItem","position":9,"name":"Evidence Hunt","url":"https://no996noicu.com/tools/evidence-hunt"},{"@type":"ListItem","position":10,"name":"SciSpace","url":"https://no996noicu.com/tools/scispace"},{"@type":"ListItem","position":11,"name":"ResearchRabbit","url":"https://no996noicu.com/tools/researchrabbit"},{"@type":"ListItem","position":12,"name":"ResearchPal","url":"https://no996noicu.com/tools/research-pal"},{"@type":"ListItem","position":13,"name":"AskYourPDF","url":"https://no996noicu.com/tools/askyourpdf"}]}
 ---
 
 # 搜索与研究 AI 工具
@@ -25,7 +25,7 @@ head:
 - [Semantic Reader](/tools/semantic-reader)：用 AI 辅助阅读论文、解释术语并追踪引用
 - [Evidence Hunt](/tools/evidence-hunt)：从论文中提取支持问题的证据和引用
 - [SciSpace](/tools/scispace)：在可解释的阅读空间中理解和整理论文
-- [Consensus Meter](/tools/consensus-mate)：汇总论文结论并展示研究共识方向
+- [ResearchRabbit](/tools/researchrabbit)：用 AI 发现相关论文、引用关系和研究趋势
 - [ResearchPal](/tools/research-pal)：整理文献、笔记和研究写作的辅助工作区
 - [AskYourPDF](/tools/askyourpdf)：上传 PDF 后用对话方式查找文档信息
 
