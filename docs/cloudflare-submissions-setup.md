@@ -183,7 +183,7 @@ npm run tools:discover -- --config config/ai-discovery-sources.json --output ai-
 
 完成推送、合并和 Secret 配置后，工作流既可按其已提交的日程运行，也可在 GitHub Actions 页面选择 **Discover verified AI tools** 后通过 `workflow_dispatch` 手动运行。每次运行会尝试恢复上一份可信状态，并将 `ai-discovery-state.json` 与 `ai-discovery-review.md` 上传为 `ai-discovery-state` artifact（保留 90 天）。
 
-无法安全发布的候选会写入固定的 GitHub Issue **AI 工具自动发现审核**，供人工核对，不会绕过目录质量门槛。成功批次也必须先经受保护工作流的校验，再以单个 1–3 工具批次合并。
+无法安全发布的候选或有限来源错误会写入固定的 GitHub Issue **AI 工具自动发现审核**，供人工核对，不会绕过目录质量门槛。健康且零候选的 Source health 记录仅保留在 artifact，不会触发该 Issue。成功批次也必须先经受保护工作流的校验，再以单个 1–3 工具批次合并。
 
 如需回滚已经自动合并的发现批次，使用 `git revert <discovery-squash-commit>` 创建反向提交并让常规校验完成；不要使用重写历史或强制推送。回滚后人工检查目录和状态 artifact，再决定是否重新启用工作流。
 

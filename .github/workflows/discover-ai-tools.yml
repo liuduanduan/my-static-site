@@ -64,6 +64,7 @@ jobs:
           PR_TITLE: ${{ steps.discover.outputs.pr_title }}
           PR_BODY: ${{ steps.discover.outputs.pr_body }}
           REVIEW_PATH: ${{ steps.discover.outputs.review_path }}
+          NEEDS_REVIEW: ${{ steps.discover.outputs.needs_review }}
           STATE_PATH: ${{ steps.discover.outputs.state_path }}
           CHANGED_URLS_PATH: ${{ steps.discover.outputs.changed_urls_path }}
           RUN_ID: ${{ github.run_id }}
@@ -79,6 +80,14 @@ jobs:
           fi
           if [[ -n "$REVIEW_PATH" && "$REVIEW_PATH" != 'ai-discovery-review.md' ]]; then
             printf 'Discovery emitted an invalid review path.\n' >&2
+            exit 1
+          fi
+          if [[ "$NEEDS_REVIEW" != 'true' && "$NEEDS_REVIEW" != 'false' ]]; then
+            printf 'Discovery emitted an invalid review flag.\n' >&2
+            exit 1
+          fi
+          if [[ "$NEEDS_REVIEW" == 'true' && "$REVIEW_PATH" != 'ai-discovery-review.md' ]]; then
+            printf 'Discovery requested review without a review artifact.\n' >&2
             exit 1
           fi
           if [[ ! "$RUN_ID" =~ ^[1-9][0-9]*$ ]]; then
@@ -114,7 +123,7 @@ jobs:
           touch ai-discovery-review.md
           printf 'state_path=ai-discovery-state.json\n' >> "$GITHUB_OUTPUT"
           printf 'changed_urls_path=discovered-urls.txt\n' >> "$GITHUB_OUTPUT"
-          printf 'has_review=%s\n' "$([[ -n "$REVIEW_PATH" ]] && printf true || printf false)" >> "$GITHUB_OUTPUT"
+          printf 'needs_review=%s\n' "$NEEDS_REVIEW" >> "$GITHUB_OUTPUT"
 
       - name: Run the complete catalog gates
         if: steps.discover.outputs.has_changes == 'true'
@@ -259,7 +268,7 @@ jobs:
           printf 'merged=true\n' >> "$GITHUB_OUTPUT"
 
       - name: Create or update the discovery review issue
-        if: steps.validate.outputs.has_review == 'true'
+        if: steps.validate.outputs.needs_review == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

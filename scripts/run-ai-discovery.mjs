@@ -114,6 +114,7 @@ function emitGithubOutputs(result, paths, outputPath, now = new Date()) {
     pr_title: title,
     pr_body: body,
     review_path: result.review.length || result.sourceSummaries.length ? paths.review : '',
+    needs_review: result.needsReview ? 'true' : 'false',
     state_path: paths.output,
     changed_urls_path: paths.urls
   }

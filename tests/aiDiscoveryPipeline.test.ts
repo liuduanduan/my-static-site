@@ -265,12 +265,15 @@ describe('automatic AI discovery pipeline', () => {
       sources: [{ id: 'default-feed', kind: 'feed', enabled: true, url: 'https://feed.example/discovery.json', score: 50 }]
     }), 'utf8')
 
+    const githubOutput = join(projectRoot, 'github-output.txt')
+    writeFileSync(githubOutput, '', 'utf8')
     const result = await runDiscoveryFromEnvironment({}, {
       projectRoot,
       argv: ['--dry-run'],
       enricher: null,
       now,
-      fetch: async () => { throw new Error('socket details must not escape') }
+      fetch: async () => { throw new Error('socket details must not escape') },
+      githubOutput
     })
     const review = readFileSync(join(projectRoot, 'ai-discovery-review.md'), 'utf8')
 
@@ -278,9 +281,69 @@ describe('automatic AI discovery pipeline', () => {
     expect(result.sourceSummaries).toEqual([{
       sourceId: 'default-feed', candidateCount: 0, errorCode: 'source_unavailable'
     }])
+    expect(result.needsReview).toBe(true)
+    expect(readFileSync(githubOutput, 'utf8')).toMatch(/needs_review<<[^\n]+\ntrue\n/u)
     expect(review).toContain('`source_unavailable` — default-feed')
     expect(review).not.toContain('socket details')
     expect(review).not.toContain('https://feed.example')
+  })
+
+  it('keeps healthy zero-candidate source health in the artifact without requesting issue review', async () => {
+    mkdirSync(join(projectRoot, 'config'), { recursive: true })
+    writeFileSync(join(projectRoot, 'config/ai-discovery-sources.json'), JSON.stringify({
+      version: 1,
+      limits: { sourceRecords: 50, newDomains: 15, publishPerRun: 3, catalogMaximum: 300 },
+      sources: [{ id: 'healthy-feed', kind: 'feed', enabled: true, url: 'https://feed.example/discovery.json', score: 50 }]
+    }), 'utf8')
+    const githubOutput = join(projectRoot, 'github-output.txt')
+    writeFileSync(githubOutput, '', 'utf8')
+
+    const result = await runDiscoveryFromEnvironment({}, {
+      projectRoot,
+      argv: ['--dry-run'],
+      enricher: null,
+      now,
+      fetch: async () => new Response(JSON.stringify({
+        version: 'https://jsonfeed.org/version/1.1', items: []
+      }), { status: 200, headers: { 'content-type': 'application/feed+json' } }),
+      githubOutput
+    })
+
+    expect(result.sourceSummaries).toEqual([{
+      sourceId: 'healthy-feed', candidateCount: 0, errorCode: null
+    }])
+    expect(result.needsReview).toBe(false)
+    expect(readFileSync(join(projectRoot, 'ai-discovery-review.md'), 'utf8')).toContain('`source_checked` — healthy-feed — candidates: 0')
+    expect(readFileSync(githubOutput, 'utf8')).toMatch(/needs_review<<[^\n]+\nfalse\n/u)
+  })
+
+  it('marks candidate review as actionable while preserving source health', async () => {
+    mkdirSync(join(projectRoot, 'config'), { recursive: true })
+    writeFileSync(join(projectRoot, 'config/ai-discovery-sources.json'), JSON.stringify({
+      version: 1,
+      limits: { sourceRecords: 50, newDomains: 15, publishPerRun: 3, catalogMaximum: 300 },
+      sources: [{
+        id: 'candidate-github', kind: 'github-search', enabled: true,
+        query: 'topic:ai-tool stars:>=200 archived:false', minimumStars: 200, score: 50
+      }]
+    }), 'utf8')
+
+    const githubOutput = join(projectRoot, 'github-output.txt')
+    writeFileSync(githubOutput, '', 'utf8')
+    const result = await runDiscoveryFromEnvironment({}, {
+      projectRoot,
+      argv: ['--dry-run'],
+      enricher: null,
+      now,
+      fetch: async () => new Response(JSON.stringify({
+        items: [{ name: 'Candidate AI', homepage: 'https://candidate.example/', stargazers_count: 200, archived: false }]
+      }), { status: 200, headers: { 'content-type': 'application/json' } }),
+      githubOutput
+    })
+
+    expect(result.needsReview).toBe(true)
+    expect(readFileSync(githubOutput, 'utf8')).toMatch(/needs_review<<[^\n]+\ntrue\n/u)
+    expect(readFileSync(join(projectRoot, 'ai-discovery-review.md'), 'utf8')).toContain('`enricher_unconfigured` — candidate-github — candidate.example')
   })
 
   it('writes canonical catalog detail URLs to the discovery notification allowlist', async () => {

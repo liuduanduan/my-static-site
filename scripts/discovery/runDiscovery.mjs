@@ -221,8 +221,10 @@ export async function runDiscovery(options) {
   }
 
   const published = accepted.map(({ candidate, tool, evidence, score }) => publishedItem(candidate, tool, evidence, score))
+  const needsReview = review.length > 0 || sourceResult.errors.length > 0
   return Object.freeze({
     hasChanges: !dryRun && published.length > 0,
+    needsReview,
     sourceErrors: frozenList(sourceResult.errors),
     sourceSummaries: frozenList(sourceResult.sourceSummaries ?? []),
     candidates: frozenList(inspected.map((candidate) => ({
