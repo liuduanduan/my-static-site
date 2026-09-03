@@ -3,7 +3,8 @@ import {
   mkdirSync,
   mkdtempSync,
   readFileSync,
-  rmSync
+  rmSync,
+  writeFileSync
 } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
@@ -48,21 +49,41 @@ describe('shared catalog mutation', () => {
     ], 'chat', 'new-tool')).toEqual(['alpha', 'beta'])
   })
 
-  it('atomically appends a valid batch and restores the original catalog on generation failure', () => {
+  it('appends a valid tool after temporary-project validation succeeds', () => {
     const sourceTools = JSON.parse(readFileSync(catalogPath, 'utf8')) as Array<Record<string, unknown>>
+    const { featuredOrder: _featuredOrder, ...baseTool } = sourceTools[0]
     const validTool = {
-      ...sourceTools[0],
+      ...baseTool,
       slug: 'catalog-mutation-test',
       name: 'Catalog Mutation Test',
       url: 'https://catalog-mutation-test.example/'
     }
     const context = loadCatalog({ projectRoot, catalogPath })
-    const before = readFileSync(catalogPath, 'utf8')
 
-    expect(() => appendCatalogTools({
+    const result = appendCatalogTools({
       context,
-      tools: [validTool, { ...validTool, slug: 'broken duplicate' }]
-    })).toThrow('catalog_validation_failed')
+      tools: [validTool]
+    })
+
+    expect(result).toHaveLength(context.tools.length + 1)
+    expect(JSON.parse(readFileSync(catalogPath, 'utf8'))).toContainEqual(validTool)
+  })
+
+  it('restores the original catalog when live generation fails after the catalog swap', () => {
+    const sourceTools = JSON.parse(readFileSync(catalogPath, 'utf8')) as Array<Record<string, unknown>>
+    const { featuredOrder: _featuredOrder, ...baseTool } = sourceTools[0]
+    const validTool = {
+      ...baseTool,
+      slug: 'catalog-rollback-test',
+      name: 'Catalog Rollback Test',
+      url: 'https://catalog-rollback-test.example/'
+    }
+    const context = loadCatalog({ projectRoot, catalogPath })
+    const before = readFileSync(catalogPath, 'utf8')
+    writeFileSync(join(projectRoot, 'docs', 'tools'), 'obstruct live page generation', 'utf8')
+
+    expect(() => appendCatalogTools({ context, tools: [validTool] }))
+      .toThrow('catalog_validation_failed')
     expect(readFileSync(catalogPath, 'utf8')).toBe(before)
   })
 })
