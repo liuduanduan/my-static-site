@@ -55,11 +55,24 @@ describe('trusted AI discovery workflow', () => {
   it('binds the tested commit to the remote branch, pull request, and squash merge', () => {
     const workflow = readFileSync(workflowPath, 'utf8')
 
-    expect(workflow).toContain('EXPECTED_HEAD="$(git rev-parse HEAD)"')
-    expect(workflow).toContain('git ls-remote --exit-code origin "refs/heads/$BATCH_BRANCH"')
-    expect(workflow).toContain('"$remote_head" != "$EXPECTED_HEAD"')
+    expect(workflow).toContain('LOCAL_TESTED_HEAD="$(git rev-parse HEAD)"')
+    expect(workflow).toContain('git ls-remote --exit-code --heads origin "$BATCH_BRANCH"')
     expect(workflow).toContain('--json headRefOid')
     expect(workflow).toContain('[[ "$head_oid" == "$EXPECTED_HEAD" ]]')
     expect(workflow).toContain('gh pr merge "$pr_url" --squash --delete-branch --match-head-commit "$EXPECTED_HEAD"')
+  })
+
+  it('reuses a same-tree remote branch by binding PR validation to its validated head', () => {
+    const workflow = readFileSync(workflowPath, 'utf8')
+    const remoteTreeCheck = workflow.indexOf('git diff --quiet "$LOCAL_TESTED_HEAD" "$remote_head" --')
+    const reuseRemoteHead = workflow.indexOf('EXPECTED_HEAD="$remote_head"')
+
+    expect(workflow).toContain('LOCAL_TESTED_HEAD="$(git rev-parse HEAD)"')
+    expect(workflow).toContain('[[ ! "$remote_head" =~ ^[0-9a-f]{40}$ ]]')
+    expect(workflow).toContain('Remote discovery branch exists with different content; refusing to overwrite it.')
+    expect(remoteTreeCheck).toBeGreaterThan(-1)
+    expect(reuseRemoteHead).toBeGreaterThan(remoteTreeCheck)
+    expect(workflow).toContain('EXPECTED_HEAD="$LOCAL_TESTED_HEAD"')
+    expect(workflow).not.toContain('"$remote_head" != "$EXPECTED_HEAD"')
   })
 })

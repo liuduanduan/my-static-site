@@ -179,29 +179,26 @@ jobs:
           git ls-files --others --exclude-standard -z | validate_untracked_paths
           git diff --cached --name-only -z | validate_catalog_paths
           git commit -m "$PR_TITLE"
-          EXPECTED_HEAD="$(git rev-parse HEAD)"
-          if [[ ! "$EXPECTED_HEAD" =~ ^[0-9a-f]{40}$ ]]; then
+          LOCAL_TESTED_HEAD="$(git rev-parse HEAD)"
+          if [[ ! "$LOCAL_TESTED_HEAD" =~ ^[0-9a-f]{40}$ ]]; then
             printf 'Git produced an invalid tested commit identifier.\n' >&2
             exit 1
           fi
           if git ls-remote --exit-code --heads origin "$BATCH_BRANCH" > /dev/null; then
             git fetch origin "refs/heads/$BATCH_BRANCH:refs/remotes/origin/$BATCH_BRANCH"
-            if ! git diff --quiet "origin/$BATCH_BRANCH" "$EXPECTED_HEAD" --; then
+            remote_head="$(git rev-parse "origin/$BATCH_BRANCH")"
+            if [[ ! "$remote_head" =~ ^[0-9a-f]{40}$ ]]; then
+              printf 'Remote discovery branch has an invalid commit identifier.\n' >&2
+              exit 1
+            fi
+            if ! git diff --quiet "$LOCAL_TESTED_HEAD" "$remote_head" --; then
               printf 'Remote discovery branch exists with different content; refusing to overwrite it.\n' >&2
               exit 1
             fi
+            EXPECTED_HEAD="$remote_head"
           else
             git push origin "$BATCH_BRANCH"
-          fi
-          git fetch origin "refs/heads/$BATCH_BRANCH:refs/remotes/origin/$BATCH_BRANCH"
-          remote_head="$(git ls-remote --exit-code origin "refs/heads/$BATCH_BRANCH" | cut -f1)"
-          if [[ ! "$remote_head" =~ ^[0-9a-f]{40}$ || "$remote_head" != "$EXPECTED_HEAD" ]]; then
-            printf 'Remote discovery branch does not match the tested commit.\n' >&2
-            exit 1
-          fi
-          if ! git diff --quiet "$EXPECTED_HEAD" "origin/$BATCH_BRANCH" --; then
-            printf 'Remote discovery branch tree does not match the tested commit.\n' >&2
-            exit 1
+            EXPECTED_HEAD="$LOCAL_TESTED_HEAD"
           fi
           pr_url="$(gh pr list --head "$BATCH_BRANCH" --base main --state open --json url --jq '.[0].url // empty')"
           if [[ -z "$pr_url" ]]; then
