@@ -181,6 +181,31 @@ describe('automatic AI discovery pipeline', () => {
     expect(unconfigured.published).toEqual([])
   })
 
+  it('excludes catalog-known domains before the 15-domain inspection limit', async () => {
+    const catalogDomains = (JSON.parse(readFileSync(catalogPath, 'utf8')) as Array<{ url: string }>)
+      .slice(0, 16)
+      .map(({ url }, index) => candidate(`Catalog duplicate ${index}`, url))
+    const newCandidate = candidate('Actually new', 'https://zzzz-new.example/')
+    const fetchOfficialPage = vi.fn(async (url: string) => evidence(
+      `${url.replace(/\/$/u, '')}/product`,
+      'Actually new'
+    ))
+    const enricher = {
+      enrich: vi.fn(async () => draft('actually-new', 'Actually new'))
+    }
+
+    const result = await runDiscovery({
+      config: config(), state: emptyState(), catalogPath, projectRoot,
+      discoverFromSources: async () => ({ candidates: [...catalogDomains, newCandidate], errors: [] }),
+      fetchOfficialPage, enricher, now
+    })
+
+    expect(fetchOfficialPage).toHaveBeenCalledTimes(1)
+    expect(fetchOfficialPage).toHaveBeenCalledWith('https://zzzz-new.example/')
+    expect(fetchOfficialPage.mock.calls.flat()).not.toEqual(expect.arrayContaining(catalogDomains.map(({ url }) => url)))
+    expect(result.published.map(({ slug }) => slug)).toEqual(['actually-new'])
+  })
+
   it('does not publish at the catalog maximum and preserves the catalog when batch mutation fails', async () => {
     const candidateInput = candidate('Useful AI', 'https://maximum.example/')
     const before = readFileSync(catalogPath, 'utf8')

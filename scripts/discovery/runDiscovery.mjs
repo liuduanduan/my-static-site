@@ -84,16 +84,27 @@ function hasPublishedOutcome(state, key) {
   return state.outcomes.some((outcome) => outcome.key === key && outcome.status === 'published')
 }
 
-function dedupeAndSort(candidates, state, now) {
+function dedupeAndSort(candidates, catalogIndex, state, now) {
   const unique = new Map()
+  const catalogDuplicates = new Map()
   for (const candidate of candidates) {
     validateCandidateForDiscovery(candidate)
     const key = candidateKey(candidate)
     if (hasPublishedOutcome(state, key) || shouldCoolDown(state, key, now)) continue
+    if (catalogIndex.domains.includes(key)) {
+      const existingDuplicate = catalogDuplicates.get(key)
+      if (!existingDuplicate || compareCandidatesForEnrichment(candidate, existingDuplicate) < 0) {
+        catalogDuplicates.set(key, candidate)
+      }
+      continue
+    }
     const existing = unique.get(key)
     if (!existing || compareCandidatesForEnrichment(candidate, existing) < 0) unique.set(key, candidate)
   }
-  return [...unique.values()].sort(compareCandidatesForEnrichment)
+  return Object.freeze({
+    candidates: Object.freeze([...unique.values()].sort(compareCandidatesForEnrichment)),
+    catalogDuplicates: Object.freeze([...catalogDuplicates.values()].sort(compareCandidatesForEnrichment))
+  })
 }
 
 function publishedItem(candidate, tool, evidence, score) {
@@ -125,8 +136,8 @@ export async function runDiscovery(options) {
   const context = loadCatalog({ projectRoot: options?.projectRoot, catalogPath: options?.catalogPath })
   let nextState = parseDiscoveryState(options?.state)
   const sourceResult = await deps.discoverFromSources(config, deps)
-  const unique = dedupeAndSort(sourceResult.candidates, nextState, nowValue)
-  const inspected = unique.slice(0, config.limits.newDomains)
+  const deduped = dedupeAndSort(sourceResult.candidates, catalogDiscoveryIndex(context.tools), nextState, nowValue)
+  const inspected = deduped.candidates.slice(0, config.limits.newDomains)
   const review = []
   const accepted = []
   const validEvidence = []
@@ -134,6 +145,11 @@ export async function runDiscovery(options) {
     config.limits.publishPerRun,
     config.limits.catalogMaximum - context.tools.length
   ))
+
+  for (const candidate of deduped.catalogDuplicates) {
+    review.push(reviewItem(candidate, 'duplicate_catalog_entry'))
+    nextState = recordFailed(nextState, candidate, 'duplicate_catalog_entry', processedAt)
+  }
 
   if (availableSlots === 0) {
     for (const candidate of inspected) {
