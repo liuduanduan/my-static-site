@@ -356,6 +356,25 @@ describe('strict discovery draft parser', () => {
   })
 
   it.each([
+    ['tagline', { tagline: 'Indexes public research sources for teams' }, { tagline: 'Indexes public research sources for teams' }, 'Indexes public research sources for teams'],
+    ['description', { description: 'Example Evidence AI indexes public research sources for teams.' }, { description: 'Example Evidence AI indexes public research sources for teams.' }, 'Example Evidence AI indexes public research sources for teams.'],
+    ['bestFor', { bestFor: ['Indexes public sources', ...validDraft.bestFor.slice(1)] }, { bestFor: ['Indexes public sources', ...validCitations.bestFor.slice(1)] }, 'Indexes public sources'],
+    ['features', { features: ['Indexes public sources', ...validDraft.features.slice(1)] }, { features: ['Indexes public sources', ...validCitations.features.slice(1)] }, 'Indexes public sources'],
+    ['tags', { tags: ['Indexes public sources', validDraft.tags[1]] }, { tags: ['Indexes public sources', validCitations.tags[1]] }, 'Indexes public sources'],
+    ['searchTerms', { searchTerms: ['索引公开资料', validDraft.searchTerms[1]] }, { searchTerms: ['索引公开资料', validCitations.searchTerms[1]] }, '索引公开资料'],
+    ['pros', { pros: ['Indexes public sources', validDraft.pros[1]] }, { pros: ['Indexes public sources', validCitations.pros[1]] }, 'Indexes public sources'],
+    ['cons', { cons: ['Indexes public sources', validDraft.cons[1]] }, { cons: ['Indexes public sources', validCitations.cons[1]] }, 'Indexes public sources']
+  ])('rejects an unknown exact predicate in the %s factual prose field', (_field, changes, citationChanges, citation) => {
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, ...changes },
+      citations: { ...validCitations, ...citationChanges }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
     ['deletion and account', 'Deletes inactive accounts'],
     ['organization and source', 'Organizes public sources']
   ])('accepts a supported relation without borrowing its %s object', (_label, feature) => {
@@ -421,6 +440,97 @@ describe('strict discovery draft parser', () => {
   })
 
   it.each([
+    [
+      'adjunct source object',
+      { features: ['Deletes public sources', ...validDraft.features.slice(1)] },
+      { features: ['It deletes accounts from public sources.', ...validCitations.features.slice(1)] },
+      'It deletes accounts from public sources.'
+    ],
+    [
+      'cross-language adjunct source object',
+      { features: ['删除公开来源', ...validDraft.features.slice(1)] },
+      { features: ['It deletes accounts from public sources.', ...validCitations.features.slice(1)] },
+      'It deletes accounts from public sources.'
+    ],
+    [
+      'unknown description predicate',
+      { description: 'Example Evidence AI indexes public research sources for research teams.' },
+      { description: 'Example Evidence AI organizes public research sources for research teams.' },
+      'Example Evidence AI organizes public research sources for research teams.'
+    ],
+    [
+      'funding amount from the founder subject',
+      { description: 'Example Evidence AI 已融资两亿美元，并为研究团队整理公开来源。' },
+      { description: 'Example Evidence AI 创始人持有两亿美元资产，虽然公司已融资一亿美元。' },
+      'Example Evidence AI 创始人持有两亿美元资产，虽然公司已融资一亿美元。'
+    ],
+    [
+      'promotion conditions from unrelated onboarding',
+      { pricing: '新用户首月可享 50% 优惠，具体价格以官网为准' },
+      { pricing: 'Existing users receive a 50% discount although new users get onboarding help for the first month.' },
+      'Existing users receive a 50% discount although new users get onboarding help for the first month.'
+    ]
+  ])('rejects non-extractive relation grounding from %s', (_label, changes, citations, citation) => {
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, ...changes },
+      citations: { ...validCitations, ...citations }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['action', 'Deletes public sources', 'It organizes public sources.'],
+    ['object', 'Deletes public sources', 'It deletes inactive accounts.']
+  ])('rejects an otherwise matching relation when only its %s changes', (_role, feature, citation) => {
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, features: [feature, ...validDraft.features.slice(1)] },
+      citations: { ...validCitations, features: [citation, ...validCitations.features.slice(1)] }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    [
+      'beneficiary',
+      { pricing: '新用户首月可享 50% 优惠，具体价格以官网为准' },
+      { pricing: 'Existing users receive a 50% discount for the first month.' },
+      'Existing users receive a 50% discount for the first month.'
+    ],
+    [
+      'amount',
+      { description: 'Example Evidence AI 已融资两亿美元，并为研究团队整理公开来源。' },
+      { description: 'Example Evidence AI 公司已融资一亿美元，并为研究团队整理公开来源。' },
+      'Example Evidence AI 公司已融资一亿美元，并为研究团队整理公开来源。'
+    ]
+  ])('rejects an otherwise matching relation when only its %s changes', (_role, changes, citations, citation) => {
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, ...changes },
+      citations: { ...validCitations, ...citations }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['deletion', 'Deletes public sources', 'It deletes public sources.'],
+    ['organization', 'Organizes public sources', 'It organizes public sources.'],
+    ['cross-language deletion', '删除公开来源', 'It deletes public sources.']
+  ])('accepts a clearly extractive %s relation', (_label, feature, citation) => {
+    expect(parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, features: [feature, ...validDraft.features.slice(1)] },
+      citations: { ...validCitations, features: [citation, ...validCitations.features.slice(1)] }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toMatchObject({ features: [feature, ...validDraft.features.slice(1)] })
+  })
+
+  it.each([
     ['English account-password theft', 'This AI research assistant steals account passwords from users.'],
     ['English past-tense credential theft despite defensive wording', 'This AI security research assistant stole account passwords from users.'],
     ['Chinese account-password theft', '这款人工智能研究工具可窃取用户账号密码并整理公开资料。'],
@@ -454,6 +564,25 @@ describe('strict discovery draft parser', () => {
   })
 
   it.each([
+    ['unknown English predicate', "This AI research assistant reads other users' passwords without permission while organizing public sources."],
+    ['unknown Chinese API-key predicate', '这款人工智能研究工具查看未经授权取得的其他用户 API 密钥并整理公开资料。'],
+    ['unknown account-token predicate', 'This AI research assistant profiles account tokens belonging to third parties while organizing public sources.'],
+    ['defensive wording in another relation', 'This authorized security audit inspects customer-provided API keys. It profiles other users\' passwords without permission.']
+  ])('rejects nonconsensual credential secrets independently of a known acquisition verb: %s', (_label, description) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, description }))
+      .toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    'This password manager reads your saved passwords for autofill.',
+    'This authorized security audit inspects synthetic API keys supplied for testing.',
+    '这款人工智能密码管理器读取用户自己保存的密码用于自动填充。',
+    '这款人工智能授权安全审计工具核查客户提供的测试账户令牌。'
+  ])('keeps relation-local defensive credential controls: %s', (description) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, description })).not.toThrow()
+  })
+
+  it.each([
     ['English subject-first wording', 'This AI research assistant provides cancer risk predictions for individual users.'],
     ['Chinese personal-first wording', '这款人工智能研究助手面向个人用户提供癌症风险预测并整理公开资料。']
   ])('rejects reordered personal medical-risk claims: %s', (_label, description) => {
@@ -473,6 +602,27 @@ describe('strict discovery draft parser', () => {
   ])('rejects punctuation-resilient personal medical risk across %s boundaries', (_label, changes) => {
     expect(() => parseDiscoveryDraft({ ...validDraft, ...changes }))
       .toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['chance wording', { description: "Example Evidence AI estimates an individual's chance of cancer for research use." }],
+    ['cross-field composition', {
+      description: 'Example Evidence AI predicts cancer outcomes for research teams using public sources.',
+      pros: ['Personalized individual risk scores', validDraft.pros[1]]
+    }],
+    ['practical Chinese wording', { description: '这款人工智能研究工具推算个人患癌可能性并整理公开资料。' }]
+  ])('rejects composed personal medical outcomes using %s', (_label, changes) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, ...changes }))
+      .toThrow('discovery_enricher_invalid_output')
+  })
+
+  it('keeps literature-only cancer publication analytics without a personal medical outcome', () => {
+    const description = 'Example Evidence AI estimates publication trends in cancer research for research teams.'
+    expect(() => parseDiscoveryDraft({
+      ...validDraft,
+      description,
+      pros: ['Supports personalized research dashboards for individual users', validDraft.pros[1]]
+    })).not.toThrow()
   })
 
   it.each([
