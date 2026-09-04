@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto'
+
 export const discoveryCategories = Object.freeze([
   'chat',
   'writing',
@@ -108,16 +110,17 @@ const vueStructuralPatterns = Object.freeze([
 ])
 const actionAndQualifierAnchors = Object.freeze({
   automatic: /\b(?:automatic|automatically|autonomous(?:ly)?|one[- ]click)\b|自动|自主|一键/iu,
-  create: /\b(?:create(?:s|d|ing)?|generat(?:e[sd]?|ing|ion|ions|or|ors)|produce(?:s|d|ing)?|draft(?:s|ed|ing)?)\b|生成|创建|制作|产出/iu,
+  create: /\b(?:create(?:s|d|ing)?|generat(?:e[sd]?|ing|ion|ions|or|ors)|produce(?:s|d|ing)?|draft(?:s|ed|ing)?)\b|生成|创建|制作|产出|形成/iu,
   deletion: /\b(?:delete(?:s|d|ing)?|deletion|remove(?:s|d|ing)?|removal|erase(?:s|d|ing)?|purge(?:s|d|ing)?|discard(?:s|ed|ing)?)\b|删除|移除|清除|抹除/iu,
   detect: /\b(?:detect(?:s|ed|ing|ion|ions|or|ors)?|identif(?:y|ies|ied|ying|ication|ications)|recogni(?:ze|zes|zed|zing|tion|tions)|scan(?:s|ned|ning|ner|ners)?)\b|检测|识别|扫描/iu,
   export: /\b(?:export(?:s|ed|ing|er|ers)?|download(?:s|ed|ing)?)\b|导出|下载/iu,
   extract: /\b(?:extract(?:s|ed|ing|ion|ions|or|ors)?|pull(?:s|ed|ing)?|retrieve(?:s|d|ing)?|retrieval)\b|提取|抽取|检索/iu,
-  organize: /\b(?:organi[sz](?:e|es|ed|ing|ation|ations)|structure(?:s|d|ing)?|arrange(?:s|d|ing|ment|ments))\b|整理|组织|结构化/iu,
+  organize: /\b(?:organi[sz](?:e|es|ed|ing|ation|ations)|structures?|structuring|arrange(?:s|d|ing|ment|ments))\b|整理|组织/iu,
   predict: /\b(?:predict(?:s|ed|ing|ion|ions|ive)?|forecast(?:s|ed|ing)?|estimate(?:s|d|ing)?)\b|预测|预估/iu,
   realtime: /\b(?:real[- ]?time|live\s+(?:data|updates?|results?|feeds?|transcription|captions?|monitoring|analytics|collaboration)|instant(?:ly)?)\b|实时|即时/iu,
-  summarize: /\b(?:summar(?:y|ies)|summari[sz](?:e|es|ed|ing|ation|ations)|brief(?:s|ed|ing)?|condense(?:s|d|ing)?)\b|摘要|总结|简报/iu,
-  trace: /\b(?:trace(?:s|d|ing)?|track(?:s|ed|ing)?|provenance)\b|回溯|追踪|追溯/iu
+  summarize: /\b(?:summar(?:y|ies)|summari[sz](?:e|es|ed|ing|ation|ations)|brief(?:s|ed|ing)?|condense(?:s|d|ing)?|notes?)\b|摘要|总结|简报|笔记/iu,
+  support: /\b(?:support(?:s|ed|ing)?|provid(?:e|es|ed|ing)|offer(?:s|ed|ing)?|receiv(?:e|es|ed|ing))\b|支持|提供/iu,
+  trace: /\b(?:trace(?:s|d|ing)?|track(?:s|ed|ing)?|provenance)\b|回溯|追踪|追溯|保留(?:(?:人工)?核验流程|来源|链接|证据)/iu
 })
 const factualAnchors = Object.freeze({
   ai: /\b(?:ai|artificial intelligence|llm|machine learning)\b|人工智能|大模型|机器学习/iu,
@@ -156,6 +159,48 @@ const factualAnchors = Object.freeze({
   video: /\bvideo\b|视频/iu,
   writing: /\b(?:write|writing|content|text)\b|写作|内容|文本/iu
 })
+const capabilityActionNames = Object.freeze([
+  'create',
+  'deletion',
+  'detect',
+  'export',
+  'extract',
+  'organize',
+  'predict',
+  'summarize',
+  'support',
+  'trace'
+])
+const relationObjectAnchorGroups = Object.freeze({
+  provenance: Object.freeze(['evidence', 'factCheck', 'source']),
+  account: Object.freeze(['account']),
+  credentials: Object.freeze(['credentials']),
+  summary: Object.freeze(['summary']),
+  media: Object.freeze(['audio', 'deepfake', 'image', 'impersonation', 'video']),
+  health: Object.freeze(['cancer', 'diagnosis', 'health']),
+  code: Object.freeze(['code']),
+  language: Object.freeze(['translation']),
+  finance: Object.freeze(['funding', 'revenue']),
+  pricing: Object.freeze(['pricing', 'promotion'])
+})
+const relationQualifierAnchors = Object.freeze({
+  automatic: actionAndQualifierAnchors.automatic,
+  realtime: actionAndQualifierAnchors.realtime,
+  offline: factualAnchors.offline,
+  privacy: factualAnchors.privacy,
+  promotion: factualAnchors.promotion,
+  limitedTime: /\blimited[- ]time\b|限时/iu,
+  newUser: /\bnew\s+(?:users?|customers?)\b|新用户/iu,
+  firstMonth: /\bfirst\s+month\b|首月/iu,
+  monthly: /\b(?:per\s+month|monthly)\b|每月|月付/iu,
+  yearly: /\b(?:per\s+year|yearly|annual(?:ly)?)\b|每年|年付/iu,
+  trial: /\bfree\s+trial\b|免费试用/iu
+})
+const POLICY_DOCUMENT_PATTERN = /\b(?:privacy|cookie)(?:\s*(?:and|&|\/)\s*(?:privacy|cookie))?\s+polic(?:y|ies)\b|(?:隐私|Cookie)(?:与|和|及|&|\/)?(?:隐私|Cookie)?政策/iu
+const RELATION_SEPARATOR_PATTERN = /(?:,\s*(?:and\s+)?|，|、|\b(?:and|but|while|whereas)\b|并且|并|且|但|而|同时)/giu
+const SUMMARY_PREDICATE_PATTERN = /\b(?:summari[sz](?:e|es|ed|ing)|brief(?:s|ed|ing)|condense(?:s|d|ing)?)\b|总结/iu
+const chineseDigits = Object.freeze({ 零: 0, 〇: 0, 一: 1, 二: 2, 两: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9 })
+const chineseSmallUnits = Object.freeze({ 十: 10, 百: 100, 千: 1_000 })
 const disallowedClaimPatterns = Object.freeze([
   /(?:全球|行业|市场|国内|世界)(?:第一|领先|最佳|最强|排名)/iu,
   /排名\s*(?:第?一|top\s*\d+)/iu,
@@ -173,11 +218,20 @@ const disallowedClaimPatterns = Object.freeze([
 const PROHIBITED_MEDICAL_DRAFT_PATTERN = /\b(?:diagnos\w*|prescri\w*|cure[sd]?|medical treatment|medical advice|health advice|clinical decision\w*|symptom assessment|treatment recommendations?)\b|诊断|处方|治愈|治疗方案|医疗建议|健康建议|临床决策|症状(?:评估|判断)|用药建议|治疗建议/iu
 const PERSONAL_MEDICAL_MARKER_PATTERN = /\b(?:personal|personalized|individual|individualized|individuals?|patients?)\b|个人|个体|个性化|患者/iu
 const MEDICAL_RISK_SUBJECT_PATTERN = /\b(?:cancer|tumou?r|disease|medical|health|clinical|symptoms?)\b|癌症|肿瘤|疾病|医疗|健康|临床|症状/iu
-const MEDICAL_RISK_PREDICTION_PATTERN = /\b(?:predict\w*|forecast\w*|assess\w*|estimat\w*|risk|probability|score|scoring)\b|预测|预估|评估|风险|概率|评分/iu
+const MEDICAL_RISK_OUTCOME_PATTERN = /\b(?:risk|probability|likelihood|score|scoring)\b|风险|概率|几率|评分/iu
+const MEDICAL_RISK_PREDICATE_PATTERN = /\b(?:predict\w*|forecast\w*|assess\w*|estimat\w*|calculat\w*|score|scores|scored|scoring)\b|预测|预估|评估|估算|计算|评分/iu
 const SECURITY_HARM_PATTERN = /\b(?:malware|ransomware|phishing|(?:steal(?:s|ing)?|stole|stolen)\s+(?:(?:account|user)\s+)?(?:credentials?|passwords?|login details?)|credential theft|trojans?|computer viruses|spyware|keyloggers?|exploit payloads?)\b|恶意软件|勒索软件|网络钓鱼|(?:窃取|盗取).{0,8}(?:凭据|密码|登录信息)|盗号|木马|计算机病毒|间谍软件|键盘记录器|漏洞利用(?:载荷)?/iu
 const DECEPTIVE_MEDIA_TERM_PATTERN = /\b(?:deepfake|impersonat\w*|voice\s+clon\w*|face[- ]?swap\w*)\b|深度伪造|深伪|(?:声音|语音)(?:冒充|克隆)|(?:冒充|仿冒).{0,8}(?:声音|语音|人脸)|AI\s*换脸/iu
 const OFFENSIVE_ACTION_PATTERN = /\b(?:(?:generate|generator|create|build|deploy|spread|steal|harvest|bypass|clone|synthesize|impersonate|offensive)\w*|stole|stolen)\b|生成|制作|部署|传播|窃取|盗取|盗号|收割|绕过|克隆|合成|冒充|攻击性/iu
 const DEFENSIVE_ACTION_PATTERN = /\b(?:anti[- ]?(?:malware|phishing)|detect(?:s|ion|or)?|prevent(?:s|ion)?|protect(?:s|ion)?|block(?:s|ing)?|scanner|security|defen[sc]e|verification|analysis|sandbox|simulation|training|removal)\b|反钓鱼|检测|识别|防御|拦截|阻止|安全|保护|核验|分析|沙箱|演练|培训|清除/iu
+const CREDENTIAL_SECRET_PATTERN = /\b(?:credentials?|passwords?|passcodes?|login\s+(?:details?|secrets?)|account\s+secrets?|password\s+hashes?)\b|凭据|密码|口令|登录信息|账号密码|账户密码/iu
+const CREDENTIAL_ACQUISITION_PATTERN = /\b(?:extract(?:s|ed|ing|ion)?|dump(?:s|ed|ing|ped|ping)?|captur(?:e|es|ed|ing)|collect(?:s|ed|ing|ion)?|harvest(?:s|ed|ing)?|access(?:es|ed|ing)?|exfiltrat(?:e|es|ed|ing|ion)|obtain(?:s|ed|ing)?|acquir(?:e|es|ed|ing)|retriev(?:e|es|ed|ing))\b|提取|抽取|倾倒|导出|捕获|抓取|采集|收集|收割|访问|读取|获取|取得|窃取|盗取|外传|泄露/iu
+const INHERENTLY_OFFENSIVE_CREDENTIAL_PATTERN = /\b(?:dump(?:s|ed|ing|ped|ping)?|harvest(?:s|ed|ing)?|exfiltrat(?:e|es|ed|ing|ion)|steal(?:s|ing)?|stole|stolen)\b|窃取|盗取|盗号|收割|外传|泄露/iu
+const NONCONSENSUAL_CREDENTIAL_PATTERN = /\b(?:without|lacking)\s+(?:permission|consent|authori[sz]ation)\b|\bunauthori[sz]ed\b|\b(?:other users?|third part(?:y|ies)|victims?|someone else's)\b|未经(?:许可|授权|同意)|未获(?:许可|授权|同意)|擅自|他人|其他用户|受害者|第三方/iu
+const NEGATED_CREDENTIAL_ACQUISITION_PATTERN = /\b(?:does?\s+not|never|without)\s+(?:extract|dump|capture|collect|harvest|access|obtain|acquire|retrieve|store)(?:s|ed|ing)?\b|不(?:提取|抽取|导出|捕获|抓取|采集|收集|收割|访问|读取|获取|存储)|不会(?:提取|抽取|导出|捕获|抓取|采集|收集|收割|访问|读取|获取|存储)/iu
+const DEFENSIVE_CREDENTIAL_RELATION_PATTERN = /\b(?:password|credential)\s+(?:manager|management|vault|autofill|security|audit|strength|rotation|reset|recovery)\b|\bauthori[sz]ed\s+(?:security\s+)?(?:audit|assessment|test(?:ing)?)\b|\b(?:breach|leak|compromised credential|weak password)\s+(?:detection|monitoring|scanner|audit)\b|\b(?:your|their own)\s+(?:saved|stored|own)?\s*(?:credentials?|passwords?)\b|密码管理器|凭据管理|密码保险库|自动填充|授权(?:安全)?(?:审计|评估|测试)|密码(?:安全|审计|强度|轮换|重置|恢复)|凭据(?:安全|审计)|泄露(?:检测|监测)|弱密码(?:检测|审计)|用户自己(?:保存|存储)?的?密码/iu
+const PASSWORD_MANAGER_PATTERN = /\b(?:password|credential)\s+(?:manager|management|vault|autofill)\b|密码管理器|凭据管理|密码保险库|自动填充/iu
+const AUTHORIZED_AUDIT_CREDENTIAL_PATTERN = /(?:\bauthori[sz]ed\s+(?:security\s+)?(?:audit|assessment|test(?:ing)?)\b.{0,180}\b(?:synthetic|test|customer[- ]provided)\s+(?:credentials?|passwords?)\b|授权(?:安全)?(?:审计|评估|测试).{0,80}(?:测试凭据|测试密码|客户提供的?(?:凭据|密码)))/iu
 
 function invalid() {
   throw new Error('discovery_enricher_invalid_output')
@@ -232,8 +286,8 @@ function normalizedList(value, minimum, maximum, itemMaximum) {
   return Object.freeze(normalized)
 }
 
-function assertNoUnsupportedClaims(draft) {
-  const allText = [
+function draftProseItems(draft) {
+  return [
     draft.name,
     draft.tagline,
     draft.description,
@@ -244,13 +298,49 @@ function assertNoUnsupportedClaims(draft) {
     ...draft.searchTerms,
     ...draft.pros,
     ...draft.cons
-  ].join('\n').normalize('NFKC')
+  ].map((value) => String(value).normalize('NFKC').replace(/\s+/gu, ' '))
+}
+
+function hasPersonalMedicalRisk(items) {
+  const riskRelations = items.filter((item) => MEDICAL_RISK_SUBJECT_PATTERN.test(item)
+    && MEDICAL_RISK_OUTCOME_PATTERN.test(item)
+    && MEDICAL_RISK_PREDICATE_PATTERN.test(item))
+  return riskRelations.length > 0
+    && (riskRelations.some((item) => PERSONAL_MEDICAL_MARKER_PATTERN.test(item))
+      || items.some((item) => PERSONAL_MEDICAL_MARKER_PATTERN.test(item)))
+}
+
+function credentialRelationContexts(items) {
+  return items.flatMap((item) => {
+    if (!CREDENTIAL_SECRET_PATTERN.test(item)) return []
+    if (item.length <= 600) return [item]
+    const matcher = new RegExp(CREDENTIAL_SECRET_PATTERN.source, `${CREDENTIAL_SECRET_PATTERN.flags}g`)
+    return [...item.matchAll(matcher)].map((match) => item.slice(
+      Math.max(0, match.index - 240),
+      Math.min(item.length, match.index + match[0].length + 240)
+    ))
+  })
+}
+
+function hasProhibitedCredentialAcquisition(items) {
+  return credentialRelationContexts(items).some((context) => {
+    if (!CREDENTIAL_ACQUISITION_PATTERN.test(context)) return false
+    if (INHERENTLY_OFFENSIVE_CREDENTIAL_PATTERN.test(context)
+      || NONCONSENSUAL_CREDENTIAL_PATTERN.test(context)) return true
+    const defensive = DEFENSIVE_CREDENTIAL_RELATION_PATTERN.test(context)
+    return !defensive || !(NEGATED_CREDENTIAL_ACQUISITION_PATTERN.test(context)
+      || PASSWORD_MANAGER_PATTERN.test(context)
+      || AUTHORIZED_AUDIT_CREDENTIAL_PATTERN.test(context))
+  })
+}
+
+function assertNoUnsupportedClaims(draft) {
+  const proseItems = draftProseItems(draft)
+  const allText = proseItems.join('\n')
   const clauses = allText.split(/[\r\n.!?,:。！？；;，：]+/u)
   if (disallowedClaimPatterns.some((pattern) => pattern.test(allText))) return invalid()
-  if (PROHIBITED_MEDICAL_DRAFT_PATTERN.test(allText) || clauses.some((clause) =>
-    PERSONAL_MEDICAL_MARKER_PATTERN.test(clause)
-      && MEDICAL_RISK_SUBJECT_PATTERN.test(clause)
-      && MEDICAL_RISK_PREDICTION_PATTERN.test(clause))) return invalid()
+  if (PROHIBITED_MEDICAL_DRAFT_PATTERN.test(allText) || hasPersonalMedicalRisk(proseItems)) return invalid()
+  if (hasProhibitedCredentialAcquisition(proseItems)) return invalid()
   if (clauses.some((clause) => {
     const securityOrDeception = SECURITY_HARM_PATTERN.test(clause) || DECEPTIVE_MEDIA_TERM_PATTERN.test(clause)
     return securityOrDeception
@@ -323,16 +413,169 @@ function actionAndQualifierSet(value) {
     .map(([name]) => name))
 }
 
+function normalizedDecimal(value) {
+  const number = Number(String(value).replace(',', '.'))
+  return Number.isFinite(number) ? String(number) : ''
+}
+
+function parseChineseCardinal(value) {
+  if (/^\d+(?:\.\d+)?$/u.test(value)) return Number(value)
+  let total = 0
+  let section = 0
+  let digit = 0
+  for (const character of value) {
+    if (Object.hasOwn(chineseDigits, character)) {
+      digit = chineseDigits[character]
+      continue
+    }
+    if (character === '万') {
+      total += (section + digit || 1) * 10_000
+      section = 0
+      digit = 0
+      continue
+    }
+    const unit = chineseSmallUnits[character]
+    if (!unit) return Number.NaN
+    section += (digit || 1) * unit
+    digit = 0
+  }
+  return total + section + digit
+}
+
+function currencyKey(value) {
+  if (!value) return 'unspecified'
+  if (/^(?:美元|美金|usd|\$)$/iu.test(value)) return 'usd'
+  if (/^(?:人民币|元|cny|rmb|¥)$/iu.test(value)) return 'cny'
+  if (/^(?:欧元|eur|€)$/iu.test(value)) return 'eur'
+  if (/^(?:英镑|gbp|£)$/iu.test(value)) return 'gbp'
+  return String(value).toLocaleLowerCase('en-US')
+}
+
 function exactFactSet(value) {
-  const text = normalizedEvidence(value).toLocaleLowerCase('en-US')
-  return new Set([
-    ...[...text.matchAll(/[$€£¥]\s*\d+(?:[.,]\d+)?/gu)].map(([match]) => match.replace(/\s+/gu, '')),
-    ...[...text.matchAll(/\d+(?:[.,]\d+)?\s*(?:(?:元|人民币|美元|美金|欧元|英镑)(?![\p{L}\p{N}])|(?:usd|cny|rmb|eur|gbp)\b)/giu)].map(([match]) => match.replace(/\s+/gu, '')),
-    ...[...text.matchAll(/\b\d+(?:[.,]\d+)?\s*(?:million|billion|thousand)\b/gu)].map(([match]) => match.replace(/\s+/gu, '')),
-    ...[...text.matchAll(/\d+(?:[.,]\d+)?\s*%/gu)].map(([match]) => match.replace(/\s+/gu, '')),
-    ...[...text.matchAll(/(?:[零一二三四五六七八九十百]+|\d+(?:\.\d+)?)\s*折/gu)].map(([match]) => match.replace(/\s+/gu, '')),
-    ...[...text.matchAll(/\b\d+(?:\.\d+)?\b/gu)].map(([match]) => match)
-  ])
+  let remainder = normalizedEvidence(value).toLocaleLowerCase('en-US')
+  const facts = []
+  const consume = (pattern, factFor) => {
+    remainder = remainder.replace(pattern, (...match) => {
+      const fact = factFor(...match)
+      if (fact) facts.push(fact)
+      return ' '.repeat(match[0].length)
+    })
+  }
+
+  consume(/(\d+(?:\.\d+)?|[零〇一二两三四五六七八九十百千万]+)\s*(万|亿)\s*(美元|美金|人民币|元|欧元|英镑)?/gu,
+    (_match, amount, unit, currency) => {
+      const cardinal = parseChineseCardinal(amount)
+      if (!Number.isFinite(cardinal)) return ''
+      return `quantity:${cardinal * (unit === '亿' ? 100_000_000 : 10_000)}:${currencyKey(currency)}`
+    })
+  consume(/([$€£¥])\s*(\d+(?:[.,]\d+)?)/gu,
+    (_match, currency, amount) => `money:${normalizedDecimal(amount)}:${currencyKey(currency)}`)
+  consume(/(\d+(?:[.,]\d+)?)\s*((?:元|人民币|美元|美金|欧元|英镑)(?![\p{L}\p{N}])|(?:usd|cny|rmb|eur|gbp)\b)/giu,
+    (_match, amount, currency) => `money:${normalizedDecimal(amount)}:${currencyKey(currency)}`)
+  consume(/\b(\d+(?:[.,]\d+)?)\s*(million|billion|thousand)\b/gu,
+    (_match, amount, unit) => `quantity:${normalizedDecimal(amount)}:${unit}`)
+  consume(/(\d+(?:[.,]\d+)?)\s*%/gu,
+    (_match, amount) => `percentage:${normalizedDecimal(amount)}`)
+  consume(/([零〇一二两三四五六七八九十百]+|\d+(?:\.\d+)?)\s*折/gu,
+    (_match, amount) => {
+      const cardinal = parseChineseCardinal(amount)
+      return Number.isFinite(cardinal) ? `discount:${cardinal}` : ''
+    })
+  facts.push(...[...remainder.matchAll(/\b\d+(?:\.\d+)?\b/gu)].map(([match]) => `number:${normalizedDecimal(match)}`))
+  return new Set(facts)
+}
+
+function capabilityActionSet(value) {
+  const anchors = actionAndQualifierSet(value)
+  return new Set(capabilityActionNames.filter((name) => anchors.has(name)))
+}
+
+function relationActionSet(value) {
+  const actions = capabilityActionSet(value)
+  const objects = relationObjectSet(value)
+  if (actions.has('summarize')
+    && !actions.has('create')
+    && !SUMMARY_PREDICATE_PATTERN.test(normalizedEvidence(value))) actions.delete('summarize')
+  if (actions.has('support') && objects.has('pricing')) actions.delete('support')
+  return actions
+}
+
+function relationObjectSet(value) {
+  const anchors = anchorSet(value)
+  return new Set(Object.entries(relationObjectAnchorGroups)
+    .filter(([, names]) => names.some((name) => anchors.has(name)))
+    .map(([family]) => family))
+}
+
+function relationQualifierSet(value) {
+  const text = normalizedEvidence(value)
+  return new Set(Object.entries(relationQualifierAnchors)
+    .filter(([, pattern]) => pattern.test(text))
+    .map(([name]) => name))
+}
+
+function relationBusinessPredicateSet(value) {
+  const anchors = anchorSet(value)
+  return new Set(['funding', 'revenue'].filter((name) => anchors.has(name)))
+}
+
+function shouldSplitRelation(left, right) {
+  const leftActions = capabilityActionSet(left)
+  const rightActions = capabilityActionSet(right)
+  const leftBusiness = relationBusinessPredicateSet(left)
+  const rightBusiness = relationBusinessPredicateSet(right)
+  return (leftActions.size > 0 && rightActions.size > 0)
+    || ((leftActions.size > 0 || leftBusiness.size > 0)
+      && (rightActions.size > 0 || rightBusiness.size > 0))
+    || (exactFactSet(left).size > 0 && exactFactSet(right).size > 0)
+}
+
+function splitCoordinatedRelations(value) {
+  const matcher = new RegExp(RELATION_SEPARATOR_PATTERN.source, RELATION_SEPARATOR_PATTERN.flags)
+  for (const match of value.matchAll(matcher)) {
+    const left = value.slice(0, match.index).trim()
+    const right = value.slice(match.index + match[0].length).trim()
+    if (!left || !right || !shouldSplitRelation(left, right)) continue
+    return [...splitCoordinatedRelations(left), ...splitCoordinatedRelations(right)]
+  }
+  return value ? [value] : []
+}
+
+function relationSegments(value) {
+  return normalizedEvidence(value).split(/[\r\n.!?。！？；;]+/u)
+    .flatMap((segment) => splitCoordinatedRelations(segment.trim()))
+    .filter(Boolean)
+}
+
+function relationSignature(value) {
+  return {
+    text: value,
+    actions: relationActionSet(value),
+    objects: relationObjectSet(value),
+    qualifiers: relationQualifierSet(value),
+    facts: exactFactSet(value)
+  }
+}
+
+function isSubset(left, right) {
+  return [...left].every((value) => right.has(value))
+}
+
+function citationSupportsRelation(claim, citation) {
+  if (claim.qualifiers.has('privacy') && POLICY_DOCUMENT_PATTERN.test(citation.text)) return false
+  return isSubset(claim.actions, citation.actions)
+    && isSubset(claim.objects, citation.objects)
+    && isSubset(claim.qualifiers, citation.qualifiers)
+    && isSubset(claim.facts, citation.facts)
+}
+
+function hasRelationLevelSupport(publicText, citation, field) {
+  const publicRelations = relationSegments(publicText).map(relationSignature)
+  if (field === 'features' && capabilityActionSet(publicText).size === 0) return false
+  const citationRelations = relationSegments(citation).map(relationSignature)
+  return publicRelations
+    .filter((relation) => relation.actions.size > 0 || relation.qualifiers.size > 0 || relation.facts.size > 0)
+    .every((claim) => citationRelations.some((proof) => citationSupportsRelation(claim, proof)))
 }
 
 function normalizeCitation(value, proof) {
@@ -342,7 +585,7 @@ function normalizeCitation(value, proof) {
   return citation
 }
 
-function assertRelevantCitation(publicText, citation, field) {
+export function hasGroundedDiscoveryClaimSupport(publicText, citation, field) {
   const publicAnchors = anchorSet(publicText)
   const citationAnchors = anchorSet(citation)
   const publicActions = actionAndQualifierSet(publicText)
@@ -352,15 +595,47 @@ function assertRelevantCitation(publicText, citation, field) {
       .replace(/[^\p{L}\p{N}]+/gu, '')
     const citedIdentity = normalizedEvidence(citation).toLocaleLowerCase('en-US')
       .replace(/[^\p{L}\p{N}]+/gu, '')
-    if (publicIdentity.length < 2 || !citedIdentity.includes(publicIdentity)) return invalid()
-    return
+    return publicIdentity.length >= 2 && citedIdentity.includes(publicIdentity)
   }
+  if (publicAnchors.has('pricing') || publicAnchors.has('promotion')) publicActions.delete('support')
   const publicFacts = exactFactSet(publicText)
   const citationFacts = exactFactSet(citation)
-  if (publicAnchors.size === 0
+  return !(publicAnchors.size === 0
     || [...publicAnchors].some((anchor) => !citationAnchors.has(anchor))
     || [...publicActions].some((anchor) => !citationActions.has(anchor))
-    || [...publicFacts].some((fact) => !citationFacts.has(fact))) return invalid()
+    || [...publicFacts].some((fact) => !citationFacts.has(fact)))
+    && hasRelationLevelSupport(publicText, citation, field)
+}
+
+function assertRelevantCitation(publicText, citation, field) {
+  if (!hasGroundedDiscoveryClaimSupport(publicText, citation, field)) return invalid()
+}
+
+function normalizedOfficialUrl(evidence) {
+  const value = evidence?.selectedOfficialUrl ?? evidence?.canonicalUrl ?? evidence?.finalUrl
+  try {
+    const url = new URL(value)
+    if (url.protocol !== 'https:' || url.username || url.password || url.port) return ''
+    url.hostname = url.hostname.toLocaleLowerCase('en-US').replace(/\.+$/u, '')
+    url.search = ''
+    url.hash = ''
+    return url.toString()
+  } catch {
+    return ''
+  }
+}
+
+function evidenceFingerprint(evidence, citationMap) {
+  const selectedOfficialUrl = normalizedOfficialUrl(evidence)
+  if (!selectedOfficialUrl) return ''
+  const payload = {
+    selectedOfficialUrl,
+    title: normalizedEvidence(evidence?.title),
+    metaDescription: normalizedEvidence(evidence?.metaDescription),
+    visibleText: normalizedEvidence(evidence?.visibleText),
+    citations: citationFields.map((field) => [field, citationMap[field]])
+  }
+  return createHash('sha256').update(JSON.stringify(payload)).digest('hex')
 }
 
 export function parseGroundedDiscoveryDraft(value, evidence) {
@@ -377,27 +652,30 @@ export function parseGroundedDiscoveryDraft(value, evidence) {
   const draft = parseDiscoveryDraft(value.draft)
   const proof = evidenceText(evidence)
   if (!proof) return invalid()
-  const provenance = []
+  const citationMap = Object.create(null)
 
   for (const field of citationFields) {
     const publicValue = draft[field]
     const citationValue = value.citations[field]
     if (Array.isArray(publicValue)) {
       if (!Array.isArray(citationValue) || citationValue.length !== publicValue.length) return invalid()
-      publicValue.forEach((text, index) => {
+      citationMap[field] = Object.freeze(publicValue.map((text, index) => {
         const citation = normalizeCitation(citationValue[index], proof)
         assertRelevantCitation(text, citation, field)
-        provenance.push(citation)
-      })
+        return citation
+      }))
     } else {
       if (Array.isArray(citationValue)) return invalid()
       const citation = normalizeCitation(citationValue, proof)
       assertRelevantCitation(publicValue, citation, field)
-      provenance.push(citation)
+      citationMap[field] = citation
     }
   }
 
-  groundedDrafts.set(draft, Object.freeze([...new Set(provenance)]))
+  const privateCitationMap = Object.freeze(citationMap)
+  const fingerprint = evidenceFingerprint(evidence, privateCitationMap)
+  if (!fingerprint) return invalid()
+  groundedDrafts.set(draft, Object.freeze({ privateCitationMap, fingerprint }))
   return draft
 }
 
@@ -406,7 +684,7 @@ export function isGroundedDiscoveryDraft(value) {
 }
 
 export function hasGroundedDiscoveryCitationProvenance(value, evidence) {
-  const citations = value && typeof value === 'object' ? groundedDrafts.get(value) : undefined
-  const proof = evidenceText(evidence)
-  return Boolean(citations && proof && citations.every((citation) => proof.includes(citation)))
+  const provenance = value && typeof value === 'object' ? groundedDrafts.get(value) : undefined
+  return Boolean(provenance
+    && evidenceFingerprint(evidence, provenance.privateCitationMap) === provenance.fingerprint)
 }

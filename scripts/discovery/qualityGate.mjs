@@ -1,6 +1,7 @@
 import { candidateKey } from './contracts.mjs'
 import { registrableDomainFromUrl } from '../catalog/registrableDomain.mjs'
 import {
+  hasGroundedDiscoveryClaimSupport,
   hasGroundedDiscoveryCitationProvenance,
   isGroundedDiscoveryDraft
 } from './discoveryDraft.mjs'
@@ -77,6 +78,14 @@ const DECEPTIVE_MEDIA_DEFENSE_PATTERN = /\b(?:detect(?:s|ion|or)?|prevent(?:s|io
 const DECEPTIVE_MEDIA_TERM_PATTERN = /\b(?:deepfake|impersonat\w*|voice\s+clon\w*|face[- ]?swap\w*)\b|深度伪造|深伪|(?:声音|语音)(?:冒充|克隆)|(?:冒充|仿冒).{0,8}(?:声音|语音|人脸)|仿冒(?:声音|语音|人脸)|AI\s*换脸/iu
 const DECEPTIVE_MEDIA_OFFENSIVE_INTENT_PATTERN = /\b(?:bypass|evad(?:e|es|ed|ing)|circumvent(?:s|ed|ing)?|defeat(?:s|ed|ing)?)\b|\b(?:platform|system|tool|service|app|software)\b.{0,30}\b(?:to\s+)?impersonat(?:e|es|ed|ing)\b|\bfor\s+(?:committing\s+)?(?:fraud|scams?)\b|\bto\s+(?:commit\s+)?(?:fraud|scam|deceive)\w*\b|绕过|规避|突破.{0,8}(?:验证|核验)|用于.{0,24}(?:冒充|诈骗|欺诈)|(?:实施|进行).{0,8}(?:诈骗|欺诈)/iu
 const DECEPTIVE_MEDIA_GENERATION_PRODUCT_PATTERN = /(?:\b(?:deepfake|impersonat\w*|face[- ]?swap|voice\s+clon\w*)\b(?:\s+[a-z-]+){0,2}\s+\bgenerator\b|\b(?:deepfake|impersonat\w*|face[- ]?swap|voice\s+clon\w*)\b(?:\s+[a-z-]+){0,2}\s+\b(?:generation|synthesis|cloning)\b(?!(?:\s+[a-z-]+){0,1}\s+\b(?:detect(?:s|ion|or)?|prevent(?:s|ion)?|protect(?:s|ion)?|block(?:s|ing)?|scanner|security|defen[sc]e|verification)\b(?:\s+[a-z-]+){0,1}\s+\b(?:platform|system|tool|software|service|app|application|model|api|product)\b)(?:\s+[a-z-]+){0,2}\s+\b(?:platform|system|tool|software|service|app|application|model|api|product)\b|\b(?:voice\s+clon\w*|face[- ]?swap\w*)\b\s+\b(?:platform|system|tool|software|service|app|application|model|api|product)\b|\b(?:platform|system|tool|software|service|app|application|model|api|product)\b\s+(?:for|to)\s+(?:(?:\w+\s+){0,3}(?:generat\w*|creat\w*|synthesi[sz]\w*|clon\w*)\s+(?:\w+\s+){0,2}\b(?:deepfake|face[- ]?swap|voice)\b|(?:\w+\s+){0,2}\b(?:deepfake|impersonat\w*|face[- ]?swap|voice\s+clon\w*)\b\s+(?:generation|synthesis|cloning))|(?:深度伪造|深伪|AI\s*换脸|(?:声音|语音)(?:冒充|克隆)).{0,10}(?:生成|合成|制作|克隆)(?!.{0,6}(?:检测|识别|防御|拦截|阻止|安全|保护|核验).{0,3}(?:平台|系统|工具|软件|服务|应用|模型|生成器)).{0,6}(?:平台|系统|工具|软件|服务|应用|模型|生成器)|(?:生成|合成|制作|克隆).{0,10}(?:深度伪造|深伪|换脸|人脸|声音|语音)(?!.{0,8}(?:检测|识别|防御|拦截|阻止|安全|保护|核验).{0,3}(?:平台|系统|工具|软件|服务|应用|模型|生成器)).{0,8}(?:平台|系统|工具|软件|服务|应用|模型|生成器))/iu
+const CREDENTIAL_SECRET_PATTERN = /\b(?:credentials?|passwords?|passcodes?|login\s+(?:details?|secrets?)|account\s+secrets?|password\s+hashes?)\b|凭据|密码|口令|登录信息|账号密码|账户密码/iu
+const CREDENTIAL_ACQUISITION_PATTERN = /\b(?:extract(?:s|ed|ing|ion)?|dump(?:s|ed|ing|ped|ping)?|captur(?:e|es|ed|ing)|collect(?:s|ed|ing|ion)?|harvest(?:s|ed|ing)?|access(?:es|ed|ing)?|exfiltrat(?:e|es|ed|ing|ion)|obtain(?:s|ed|ing)?|acquir(?:e|es|ed|ing)|retriev(?:e|es|ed|ing))\b|提取|抽取|倾倒|导出|捕获|抓取|采集|收集|收割|访问|读取|获取|取得|窃取|盗取|外传|泄露/iu
+const INHERENTLY_OFFENSIVE_CREDENTIAL_PATTERN = /\b(?:dump(?:s|ed|ing|ped|ping)?|harvest(?:s|ed|ing)?|exfiltrat(?:e|es|ed|ing|ion)|steal(?:s|ing)?|stole|stolen)\b|窃取|盗取|盗号|收割|外传|泄露/iu
+const NONCONSENSUAL_CREDENTIAL_PATTERN = /\b(?:without|lacking)\s+(?:permission|consent|authori[sz]ation)\b|\bunauthori[sz]ed\b|\b(?:other users?|third part(?:y|ies)|victims?|someone else's)\b|未经(?:许可|授权|同意)|未获(?:许可|授权|同意)|擅自|他人|其他用户|受害者|第三方/iu
+const NEGATED_CREDENTIAL_ACQUISITION_PATTERN = /\b(?:does?\s+not|never|without)\s+(?:extract|dump|capture|collect|harvest|access|obtain|acquire|retrieve|store)(?:s|ed|ing)?\b|不(?:提取|抽取|导出|捕获|抓取|采集|收集|收割|访问|读取|获取|存储)|不会(?:提取|抽取|导出|捕获|抓取|采集|收集|收割|访问|读取|获取|存储)/iu
+const DEFENSIVE_CREDENTIAL_RELATION_PATTERN = /\b(?:password|credential)\s+(?:manager|management|vault|autofill|security|audit|strength|rotation|reset|recovery)\b|\bauthori[sz]ed\s+(?:security\s+)?(?:audit|assessment|test(?:ing)?)\b|\b(?:breach|leak|compromised credential|weak password)\s+(?:detection|monitoring|scanner|audit)\b|\b(?:your|their own)\s+(?:saved|stored|own)?\s*(?:credentials?|passwords?)\b|密码管理器|凭据管理|密码保险库|自动填充|授权(?:安全)?(?:审计|评估|测试)|密码(?:安全|审计|强度|轮换|重置|恢复)|凭据(?:安全|审计)|泄露(?:检测|监测)|弱密码(?:检测|审计)|用户自己(?:保存|存储)?的?密码/iu
+const PASSWORD_MANAGER_PATTERN = /\b(?:password|credential)\s+(?:manager|management|vault|autofill)\b|密码管理器|凭据管理|密码保险库|自动填充/iu
+const AUTHORIZED_AUDIT_CREDENTIAL_PATTERN = /(?:\bauthori[sz]ed\s+(?:security\s+)?(?:audit|assessment|test(?:ing)?)\b.{0,180}\b(?:synthetic|test|customer[- ]provided)\s+(?:credentials?|passwords?)\b|授权(?:安全)?(?:审计|评估|测试).{0,80}(?:测试凭据|测试密码|客户提供的?(?:凭据|密码)))/iu
 
 function gateError(code) {
   const error = new Error(code)
@@ -244,6 +253,30 @@ function hasProhibitedDeceptiveMedia(text) {
   })
 }
 
+function credentialRelationContexts(items) {
+  return items.flatMap((item) => {
+    if (!CREDENTIAL_SECRET_PATTERN.test(item)) return []
+    if (item.length <= 600) return [item]
+    const matcher = new RegExp(CREDENTIAL_SECRET_PATTERN.source, `${CREDENTIAL_SECRET_PATTERN.flags}g`)
+    return [...item.matchAll(matcher)].map((match) => item.slice(
+      Math.max(0, match.index - 240),
+      Math.min(item.length, match.index + match[0].length + 240)
+    ))
+  })
+}
+
+function hasProhibitedCredentialAcquisition(items) {
+  return credentialRelationContexts(items).some((context) => {
+    if (!CREDENTIAL_ACQUISITION_PATTERN.test(context)) return false
+    if (INHERENTLY_OFFENSIVE_CREDENTIAL_PATTERN.test(context)
+      || NONCONSENSUAL_CREDENTIAL_PATTERN.test(context)) return true
+    const defensive = DEFENSIVE_CREDENTIAL_RELATION_PATTERN.test(context)
+    return !defensive || !(NEGATED_CREDENTIAL_ACQUISITION_PATTERN.test(context)
+      || PASSWORD_MANAGER_PATTERN.test(context)
+      || AUTHORIZED_AUDIT_CREDENTIAL_PATTERN.test(context))
+  })
+}
+
 function assertSafeCandidateName(candidate) {
   const name = normalizeText(candidate?.name, 160)
   if (!name || SENSITIVE_TEXT.test(name)) gateError('insufficient_official_evidence')
@@ -333,6 +366,7 @@ export function evaluateCandidate(candidate, evidence, index) {
   const allText = `${summary.title}\n${summary.metaDescription}\n${summary.visibleText}`
   if (hasPattern(ALWAYS_PROHIBITED_PATTERNS, allText)
     || hasProhibitedDeceptiveMedia(allText)
+    || hasProhibitedCredentialAcquisition([summary.title, summary.metaDescription, summary.visibleText])
     || (SECURITY_HARM_PATTERN.test(allText)
       && (OFFENSIVE_SECURITY_PATTERN.test(allText) || !DEFENSIVE_SECURITY_PATTERN.test(allText)))) {
     gateError('prohibited_candidate')
@@ -408,7 +442,8 @@ const RISKY_DRAFT_CLAIMS = Object.freeze([
 const PROHIBITED_MEDICAL_DRAFT_PATTERN = /\b(?:diagnos\w*|prescri\w*|cure[sd]?|medical treatment|medical advice|health advice|clinical decision\w*|symptom assessment|treatment recommendations?)\b|诊断|处方|治愈|治疗方案|医疗建议|健康建议|临床决策|症状(?:评估|判断)|用药建议|治疗建议/iu
 const PERSONAL_MEDICAL_MARKER_PATTERN = /\b(?:personal|personalized|individual|individualized|individuals?|patients?)\b|个人|个体|个性化|患者/iu
 const MEDICAL_RISK_SUBJECT_PATTERN = /\b(?:cancer|tumou?r|disease|medical|health|clinical|symptoms?)\b|癌症|肿瘤|疾病|医疗|健康|临床|症状/iu
-const MEDICAL_RISK_PREDICTION_PATTERN = /\b(?:predict\w*|forecast\w*|assess\w*|estimat\w*|risk|probability|score|scoring)\b|预测|预估|评估|风险|概率|评分/iu
+const MEDICAL_RISK_OUTCOME_PATTERN = /\b(?:risk|probability|likelihood|score|scoring)\b|风险|概率|几率|评分/iu
+const MEDICAL_RISK_PREDICATE_PATTERN = /\b(?:predict\w*|forecast\w*|assess\w*|estimat\w*|calculat\w*|score|scores|scored|scoring)\b|预测|预估|评估|估算|计算|评分/iu
 const CATEGORY_EVIDENCE_PATTERNS = Object.freeze({
   chat: /\b(?:chat|conversation|assistant)\b|对话|聊天|助手/iu,
   writing: /\b(?:writing|write|document|office)\b|写作|文档|办公/iu,
@@ -426,10 +461,22 @@ function evidenceText(evidence) {
 }
 
 function draftText(draft) {
+  return draftProseItems(draft).join('\n')
+}
+
+function draftProseItems(draft) {
   return Object.values(draft).flatMap((value) => Array.isArray(value) ? value : [value])
     .filter((value) => typeof value === 'string')
     .map((value) => normalizeText(value).normalize('NFKC'))
-    .join('\n')
+}
+
+function hasPersonalMedicalRisk(items) {
+  const riskRelations = items.filter((item) => MEDICAL_RISK_SUBJECT_PATTERN.test(item)
+    && MEDICAL_RISK_OUTCOME_PATTERN.test(item)
+    && MEDICAL_RISK_PREDICATE_PATTERN.test(item))
+  return riskRelations.length > 0
+    && (riskRelations.some((item) => PERSONAL_MEDICAL_MARKER_PATTERN.test(item))
+      || items.some((item) => PERSONAL_MEDICAL_MARKER_PATTERN.test(item)))
 }
 
 function groundedMatches(positivePatterns, contradictionPatterns, clauses) {
@@ -502,19 +549,21 @@ function assertPricingTextGrounded(pricing, proof) {
   if (factGroups.some((group) => claimed[group].some((fact) => !evidenced[group].includes(fact)))) {
     gateError('insufficient_official_evidence')
   }
+  if (!hasGroundedDiscoveryClaimSupport(pricing, proof, 'pricing')) {
+    gateError('insufficient_official_evidence')
+  }
 }
 
 export function validateDraftAgainstEvidence(draft, acceptedEvidence) {
   const proof = evidenceText(acceptedEvidence)
   if (!draft || typeof draft !== 'object' || !proof) gateError('insufficient_official_evidence')
   const clauses = textClauses(proof)
+  const proseItems = draftProseItems(draft)
   const allClaims = draftText(draft)
   if (hasPattern(ALWAYS_PROHIBITED_PATTERNS, allClaims)
     || PROHIBITED_MEDICAL_DRAFT_PATTERN.test(allClaims)
-    || textClauses(allClaims).some((clause) =>
-      PERSONAL_MEDICAL_MARKER_PATTERN.test(clause)
-        && MEDICAL_RISK_SUBJECT_PATTERN.test(clause)
-        && MEDICAL_RISK_PREDICTION_PATTERN.test(clause))
+    || hasPersonalMedicalRisk(proseItems)
+    || hasProhibitedCredentialAcquisition(proseItems)
     || hasProhibitedDeceptiveMedia(allClaims)
     || (SECURITY_HARM_PATTERN.test(allClaims)
       && (OFFENSIVE_SECURITY_PATTERN.test(allClaims) || !DEFENSIVE_SECURITY_PATTERN.test(allClaims)))) {
@@ -561,9 +610,13 @@ export function validateDraftAgainstEvidence(draft, acceptedEvidence) {
   }
 
   assertPricingTextGrounded(draft.pricing, proof)
-  const claims = allClaims
-  for (const riskyClaim of RISKY_DRAFT_CLAIMS) {
-    if (riskyClaim.test(claims) && !riskyClaim.test(proof)) gateError('insufficient_official_evidence')
+  for (const claim of proseItems) {
+    for (const riskyClaim of RISKY_DRAFT_CLAIMS) {
+      if (riskyClaim.test(claim)
+        && (!riskyClaim.test(proof) || !hasGroundedDiscoveryClaimSupport(claim, proof, 'prose'))) {
+        gateError('insufficient_official_evidence')
+      }
+    }
   }
   return acceptedEvidence
 }

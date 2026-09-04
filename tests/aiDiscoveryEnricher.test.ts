@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { normalizeCandidate } from '../scripts/discovery/contracts.mjs'
-import { catalogDiscoveryIndex, evaluateCandidate } from '../scripts/discovery/qualityGate.mjs'
+import { catalogDiscoveryIndex, evaluateCandidate, scoreCandidate } from '../scripts/discovery/qualityGate.mjs'
 import {
   discoveryEnrichmentJsonSchema,
   discoveryDraftJsonSchema,
@@ -312,6 +312,114 @@ describe('strict discovery draft parser', () => {
     })).toThrow('discovery_enricher_invalid_output')
   })
 
+  it('rejects a citation that borrows a claimed action and object from different relations', () => {
+    const citation = 'It deletes inactive accounts and organizes public sources.'
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: {
+        ...validDraft,
+        features: ['Deletes public sources', ...validDraft.features.slice(1)]
+      },
+      citations: {
+        ...validCitations,
+        features: [citation, ...validCitations.features.slice(1)]
+      }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it('rejects a product privacy claim supported only by a privacy-and-cookie-policy title', () => {
+    const tagline = 'Privacy-first AI research assistant for teams'
+    const policyTitle = 'Example Evidence AI research assistant privacy and cookie policy for teams'
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, tagline },
+      citations: { ...validCitations, tagline: policyTitle }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${policyTitle}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it('rejects an exact citation for an unknown feature action', () => {
+    const feature = 'Indexes public research sources'
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, features: [feature, ...validDraft.features.slice(1)] },
+      citations: {
+        ...validCitations,
+        features: [feature, ...validCitations.features.slice(1)]
+      }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${feature}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['deletion and account', 'Deletes inactive accounts'],
+    ['organization and source', 'Organizes public sources']
+  ])('accepts a supported relation without borrowing its %s object', (_label, feature) => {
+    const citation = 'It deletes inactive accounts and organizes public sources.'
+    expect(parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, features: [feature, ...validDraft.features.slice(1)] },
+      citations: {
+        ...validCitations,
+        features: [citation, ...validCitations.features.slice(1)]
+      }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toMatchObject({ features: [feature, ...validDraft.features.slice(1)] })
+  })
+
+  it('rejects a different Chinese cardinal funding amount in the cited relation', () => {
+    const description = 'Example Evidence AI 已融资两亿美元，并为研究团队整理公开来源。'
+    const citation = 'Example Evidence AI 已融资一亿美元，并为研究团队整理公开来源。'
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, description },
+      citations: { ...validCitations, description: citation }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it('accepts equivalent Chinese-word and digit cardinal funding amounts', () => {
+    const description = 'Example Evidence AI 已融资两亿美元，并为研究团队整理公开来源。'
+    const citation = 'Example Evidence AI 已融资2亿美元，并为研究团队整理公开来源。'
+    expect(parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, description },
+      citations: { ...validCitations, description: citation }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toMatchObject({ description })
+  })
+
+  it('rejects promotion amount and conditions assembled from different offers', () => {
+    const pricing = '新用户首月可享 50% 优惠，具体价格以官网为准'
+    const citation = 'Pricing: Existing users receive a 50% discount. New users receive a 20% discount for the first month.'
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, pricing },
+      citations: { ...validCitations, pricing: citation }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it('accepts promotion amount and conditions supported by one offer relation', () => {
+    const pricing = '新用户首月可享 50% 优惠，具体价格以官网为准'
+    const citation = 'Pricing: New users receive a 50% discount for the first month.'
+    expect(parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, pricing },
+      citations: { ...validCitations, pricing: citation }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toMatchObject({ pricing })
+  })
+
   it.each([
     ['English account-password theft', 'This AI research assistant steals account passwords from users.'],
     ['English past-tense credential theft despite defensive wording', 'This AI security research assistant stole account passwords from users.'],
@@ -323,10 +431,47 @@ describe('strict discovery draft parser', () => {
   })
 
   it.each([
+    ['exact extraction probe', 'This AI research assistant extracts passwords from other users without permission.'],
+    ['credential dump', 'This AI research assistant dumps login credentials captured from victims.'],
+    ['password capture', 'This AI research assistant captures account passwords without authorization.'],
+    ['credential collection', 'This AI research assistant collects user credentials without consent.'],
+    ['password harvesting', 'This AI research assistant harvests passwords from third parties.'],
+    ['password access', "This AI research assistant accesses other users' passwords."],
+    ['Chinese extraction', '这款人工智能研究工具未经授权提取其他用户的账号密码。'],
+    ['Chinese collection', '这款人工智能研究工具抓取并收集他人的登录凭据。'],
+    ['Chinese password access', '这款人工智能研究工具可擅自访问其他用户密码。']
+  ])('rejects prohibited credential acquisition: %s', (_label, description) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, description }))
+      .toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    'This password manager securely stores and accesses your saved passwords.',
+    'This authorized security audit tool checks password strength without collecting credentials.',
+    'This authorized security audit tool accesses synthetic test credentials supplied by the customer.'
+  ])('allows clearly defensive credential handling: %s', (description) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, description })).not.toThrow()
+  })
+
+  it.each([
     ['English subject-first wording', 'This AI research assistant provides cancer risk predictions for individual users.'],
     ['Chinese personal-first wording', '这款人工智能研究助手面向个人用户提供癌症风险预测并整理公开资料。']
   ])('rejects reordered personal medical-risk claims: %s', (_label, description) => {
     expect(() => parseDiscoveryDraft({ ...validDraft, description }))
+      .toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['comma', { description: 'Example Evidence AI predicts cancer risk, personalized for individual users and research teams.' }],
+    ['semicolon', { description: 'Example Evidence AI predicts cancer risk; personalized for individual users and research teams.' }],
+    ['newline', { description: 'Example Evidence AI predicts cancer risk\npersonalized for individual users and research teams.' }],
+    ['reordered comma', { description: 'Personalized for individual users, Example Evidence AI predicts cancer risk for research teams.' }],
+    ['cross-field', {
+      description: 'Example Evidence AI predicts cancer risk for research teams using public sources.',
+      pros: ['Personalized for individual users', validDraft.pros[1]]
+    }]
+  ])('rejects punctuation-resilient personal medical risk across %s boundaries', (_label, changes) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, ...changes }))
       .toThrow('discovery_enricher_invalid_output')
   })
 
@@ -400,7 +545,8 @@ describe('OpenAI Responses discovery enricher', () => {
       fetch: fetchStub as typeof fetch
     })!
 
-    await expect(enricher.enrich(candidate, evidence, index)).resolves.toEqual(validDraft)
+    const enriched = await enricher.enrich(candidate, evidence, index)
+    expect(enriched).toEqual(validDraft)
     const [url, init] = fetchStub.mock.calls[0]
     expect(url).toBe('https://api.openai.com/v1/responses')
     expect(init).toMatchObject({
@@ -451,6 +597,28 @@ describe('OpenAI Responses discovery enricher', () => {
     expect(serialized).not.toContain('discoveredAt')
     expect(serialized).not.toContain('headers')
     expect(serialized).not.toContain('cookies')
+  })
+
+  it('binds enriched provenance to the selected official URL for scoring without exposing it as citation metadata', async () => {
+    const scoringEvidence = evaluateCandidate(candidate, {
+      ...rawEvidence,
+      visibleText: rawEvidence.visibleText.replace('web research product for teams', 'web app for research teams')
+    }, index)
+    const fetchStub = vi.fn(async (_url, init) => {
+      const body = JSON.parse(String(init?.body))
+      const proof = JSON.parse(body.input[1].content[0].text).officialEvidence
+      return groundedOutputFor(proof)
+    })
+    const enricher = createDiscoveryEnricher({
+      apiKey: 'secret-api-key',
+      model: 'configured-model',
+      fetch: fetchStub as typeof fetch
+    })!
+
+    const enriched = await enricher.enrich(candidate, scoringEvidence, index)
+    expect(Number.isInteger(scoreCandidate(candidate, scoringEvidence, index, enriched))).toBe(true)
+    expect(enriched).not.toHaveProperty('citations')
+    expect(JSON.stringify(enriched)).not.toContain(scoringEvidence.selectedOfficialUrl)
   })
 
   it('redacts secrets embedded inside every allowed text channel before transmission', async () => {

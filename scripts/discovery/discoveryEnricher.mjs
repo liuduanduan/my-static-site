@@ -87,6 +87,13 @@ function safeEvidence(evidence) {
   }
 }
 
+function groundingEvidence(evidence) {
+  return {
+    selectedOfficialUrl: selectedOfficialUrl(evidence),
+    ...safeEvidence(evidence)
+  }
+}
+
 function safeAlternatives(index) {
   if (!Array.isArray(index?.alternatives)) return []
   return index.alternatives.flatMap((tool) => {
@@ -222,7 +229,7 @@ export function createDiscoveryEnricher(config) {
         throw new DiscoveryEnricherError()
       }
       try {
-        return parseGroundedDiscoveryDraft(value, safeEvidence(evidence))
+        return parseGroundedDiscoveryDraft(value, groundingEvidence(evidence))
       } catch {
         throw new DiscoveryEnricherError()
       }

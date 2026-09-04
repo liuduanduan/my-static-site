@@ -343,6 +343,9 @@ describe('AI discovery deterministic quality gate', () => {
     'AI security research product that stole account passwords',
     '窃取用户账号密码的人工智能研究工具',
     '提供盗号功能的人工智能安全研究工具',
+    'AI research assistant that extracts passwords from other users without permission',
+    '未经授权提取其他用户账号密码的人工智能研究工具',
+    '抓取并收集他人登录凭据的人工智能研究工具',
     '用于冒充他人声音实施欺诈的人工智能工具'
   ])('rejects prohibited offensive use: %s', (phrase) => {
     const visibleText = `${phrase}. ${'Detailed product capability evidence. '.repeat(8)}`
@@ -392,7 +395,13 @@ describe('AI discovery deterministic quality gate', () => {
     '人工智能深度伪造合成检测平台，用于身份核验',
     '人工智能声音冒充识别和欺诈防御平台',
     '人工智能恶意软件检测与防御平台，可阻止勒索软件攻击',
-    '人工智能反钓鱼安全工具，用于检测并拦截欺诈邮件'
+    '人工智能反钓鱼安全工具，用于检测并拦截欺诈邮件',
+    'AI password manager securely stores and accesses your saved passwords',
+    'AI authorized security audit tool checks password strength without collecting credentials',
+    'AI authorized security audit tool accesses synthetic test credentials supplied by the customer',
+    '人工智能密码管理器安全存储并访问用户自己保存的密码',
+    '人工智能授权安全审计工具检查密码强度但不收集凭据',
+    '人工智能授权安全审计工具访问客户提供的测试凭据'
   ])('allows clearly defensive security products: %s', (phrase) => {
     const visibleText = `${phrase}. ${'Security teams review detected threats and protection reports. '.repeat(6)}`
     expect(() => evaluateCandidate(candidate, { ...evidence, visibleText }, catalogDiscoveryIndex(catalog)))
@@ -428,12 +437,104 @@ describe('AI discovery deterministic quality gate', () => {
       .toThrow('discovery_enricher_invalid_output')
   })
 
+  it('accepts a grounded draft against a normalized clone of the same official evidence', () => {
+    const index = catalogDiscoveryIndex(catalog)
+    const grounded = groundedDraft()
+    const normalizedClone = {
+      ...evidence,
+      finalUrl: 'https://NEW.EXAMPLE.AI/product?tracking=removed#section',
+      title: `  ${evidence.title}  `,
+      metaDescription: evidence.metaDescription.replace(/ /gu, '   '),
+      visibleText: evidence.visibleText.replace(/ /gu, ' \n ')
+    }
+
+    expect(Number.isInteger(scoreCandidate(candidate, normalizedClone, index, grounded))).toBe(true)
+  })
+
+  it.each([
+    ['different official URL', {
+      ...evidence,
+      finalUrl: 'https://replayed.example.net/product',
+      canonicalUrl: 'https://replayed.example.net/product'
+    }],
+    ['modified evidence retaining every exact citation', {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${'Materially different official-page statements. '.repeat(8)}`
+    }]
+  ])('rejects evidence-bound citation provenance replay from %s', (_label, replayedEvidence) => {
+    const index = catalogDiscoveryIndex(catalog)
+    const grounded = groundedDraft()
+
+    expect(() => scoreCandidate(candidate, replayedEvidence, index, grounded))
+      .toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    [
+      'cross-relation action and object',
+      { ...draft, features: ['Deletes public sources', ...draft.features.slice(1)] },
+      'It deletes inactive accounts and organizes public sources.'
+    ],
+    [
+      'Chinese cardinal funding amount',
+      { ...draft, description: 'Example Evidence AI 已融资两亿美元，并为研究团队整理公开来源。' },
+      'Example Evidence AI 已融资一亿美元，并为研究团队整理公开来源。'
+    ],
+    [
+      'promotion amount and conditions split across offers',
+      { ...draft, pricing: '新用户首月可享 50% 优惠，具体价格以官网为准' },
+      'Pricing: Existing users receive a 50% discount. New users receive a 20% discount for the first month.'
+    ]
+  ])('rejects a relation-level score-path grounding exploit: %s', (_label, proposedDraft, exploitText) => {
+    const index = catalogDiscoveryIndex(catalog)
+    const proof = {
+      ...evidence,
+      visibleText: `Example Evidence AI is a web app for research teams. It requires account registration, offers a free plan and paid plans, and provides multilingual support including Chinese translation. It organizes public sources, creates structured summaries, and helps users trace evidence. ${exploitText} ${'Official product workflow details. '.repeat(4)}`
+    }
+
+    expect(() => {
+      const grounded = groundedDraft(proposedDraft, proof)
+      scoreCandidate(candidate, proof, index, grounded)
+    }).toThrow(/discovery_enricher_invalid_output|insufficient_official_evidence/u)
+  })
+
+  it('rejects punctuation-resilient personal medical risk before a score can be returned', () => {
+    const index = catalogDiscoveryIndex(catalog)
+    const claim = 'Example Evidence AI predicts cancer risk, personalized for individual users and research teams.'
+    const benignResearchEvidence = {
+      ...evidence,
+      visibleText: `Example Evidence AI is a web app for research teams. It predicts publication trends in cancer research and provides personalized research dashboards for individual users. It requires account registration, offers a free plan and paid plans, and provides multilingual support including Chinese translation. ${'It organizes public sources, creates structured summaries, and helps users trace evidence. '.repeat(4)}`
+    }
+    const maliciousDraft = { ...draft, description: claim }
+
+    expect(() => {
+      const grounded = groundedDraft(maliciousDraft, benignResearchEvidence)
+      scoreCandidate(candidate, benignResearchEvidence, index, grounded)
+    }).toThrow(/discovery_enricher_invalid_output|prohibited_candidate|insufficient_official_evidence/u)
+  })
+
+  it('rejects credential acquisition before a benign cross-product citation can produce a score', () => {
+    const index = catalogDiscoveryIndex(catalog)
+    const claim = 'Example Evidence AI extracts passwords from other users without permission.'
+    const benignCredentialEvidence = {
+      ...evidence,
+      visibleText: `Example Evidence AI is a web app for research teams. It extracts public sources and supports password-protected user accounts. It requires account registration, offers a free plan and paid plans, and provides multilingual support including Chinese translation. ${'It extracts public sources, creates structured summaries, and helps users trace evidence from password-protected accounts. '.repeat(4)}`
+    }
+    const maliciousDraft = { ...draft, description: claim }
+
+    expect(() => {
+      const grounded = groundedDraft(maliciousDraft, benignCredentialEvidence)
+      scoreCandidate(candidate, benignCredentialEvidence, index, grounded)
+    }).toThrow(/discovery_enricher_invalid_output|prohibited_candidate|insufficient_official_evidence/u)
+  })
+
   it.each([
     ['medical', { description: '可自动诊断癌症并给出治疗处方的人工智能医疗助手。' }],
     ['medical advice', { description: '提供个性化医疗建议并评估症状的人工智能助手。' }],
     ['personal cancer-risk prediction', { description: 'Example Evidence AI predicts personal cancer risk for individual users.' }],
     ['reordered English personal cancer-risk prediction', { description: 'This AI research assistant provides cancer risk predictions for individual users.' }],
     ['reordered Chinese personal cancer-risk prediction', { description: '这款人工智能研究助手面向个人用户提供癌症风险预测并整理公开资料。' }],
+    ['credential acquisition', { description: 'Example Evidence AI extracts passwords from other users without permission.' }],
     ['obfuscated medical advice', { description: '提供个性化医\u200b疗建议并评估症状的人工智能助手。' }],
     ['malware', { features: ['提取公开来源', '生成恶意软件载荷', '保留链接回溯'] }],
     ['Trojan malware', { features: ['提取公开来源', '生成木马程序并窃取账户', '保留链接回溯'] }],
