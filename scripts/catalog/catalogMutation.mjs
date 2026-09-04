@@ -11,6 +11,7 @@ import { tmpdir } from 'node:os'
 import { randomUUID } from 'node:crypto'
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path'
 import { generateAiPages, validateTools } from '../generate-ai-pages.mjs'
+import { registrableDomainFromUrl } from './registrableDomain.mjs'
 
 function catalogError() {
   return Object.assign(new Error('catalog_validation_failed'), {
@@ -35,11 +36,7 @@ function catalogPaths(projectRoot, catalogPath) {
 }
 
 export function domainKey(value) {
-  try {
-    return new URL(value).hostname.toLowerCase().replace(/^www\./, '')
-  } catch {
-    return ''
-  }
+  return registrableDomainFromUrl(value)
 }
 
 export function dateOnly(value) {
@@ -128,10 +125,21 @@ function replaceCatalogAndGenerate(candidate, paths) {
   }
 }
 
+function assertNewDomainsAvailable(existingTools, newTools) {
+  const existingDomains = new Set(existingTools.map(({ url }) => domainKey(url)).filter(Boolean))
+  const newDomains = new Set()
+  for (const tool of newTools) {
+    const domain = domainKey(tool?.url)
+    if (!domain || existingDomains.has(domain) || newDomains.has(domain)) throw catalogError()
+    newDomains.add(domain)
+  }
+}
+
 export function appendCatalogTools({ context, tools }) {
   if (!Array.isArray(tools) || tools.length === 0) throw catalogError()
   const candidate = [...context.tools, ...tools]
   try {
+    assertNewDomainsAvailable(context.tools, tools)
     validateTools(candidate)
     validateCandidateInTemporaryProject(candidate, context.scenarioPath)
     replaceCatalogAndGenerate(candidate, context)

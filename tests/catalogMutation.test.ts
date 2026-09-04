@@ -42,6 +42,10 @@ describe('shared catalog mutation', () => {
 
   it('normalizes www domains and selects two deterministic same-category alternatives', () => {
     expect(domainKey('https://www.Example.com/product')).toBe('example.com')
+    expect(domainKey('https://app.Example.com/product')).toBe('example.com')
+    expect(domainKey('https://shop.example.co.uk/product')).toBe('example.co.uk')
+    expect(domainKey('https://工具.食狮.com.cn/product')).toBe('xn--85x722f.com.cn')
+    expect(domainKey('https://localhost/product')).toBe('')
     expect(alternativesFor([
       { slug: 'alpha', category: 'chat' },
       { slug: 'beta', category: 'chat' },
@@ -56,7 +60,7 @@ describe('shared catalog mutation', () => {
       ...baseTool,
       slug: 'catalog-mutation-test',
       name: 'Catalog Mutation Test',
-      url: 'https://catalog-mutation-test.example/'
+      url: 'https://catalog-mutation-test.com/'
     }
     const context = loadCatalog({ projectRoot, catalogPath })
 
@@ -69,6 +73,24 @@ describe('shared catalog mutation', () => {
     expect(JSON.parse(readFileSync(catalogPath, 'utf8'))).toContainEqual(validTool)
   })
 
+  it('rejects a new tool on the registrable domain of an existing catalog entry', () => {
+    const sourceTools = JSON.parse(readFileSync(catalogPath, 'utf8')) as Array<Record<string, unknown>>
+    const { featuredOrder: _featuredOrder, ...baseTool } = sourceTools[0]
+    const collidingTool = {
+      ...baseTool,
+      slug: 'catalog-domain-collision',
+      name: 'Catalog Domain Collision',
+      url: new URL('/different-product', String(sourceTools[0].url)).toString()
+        .replace('://', '://app.')
+    }
+    const context = loadCatalog({ projectRoot, catalogPath })
+    const before = readFileSync(catalogPath, 'utf8')
+
+    expect(() => appendCatalogTools({ context, tools: [collidingTool] }))
+      .toThrow('catalog_validation_failed')
+    expect(readFileSync(catalogPath, 'utf8')).toBe(before)
+  })
+
   it('restores the original catalog when live generation fails after the catalog swap', () => {
     const sourceTools = JSON.parse(readFileSync(catalogPath, 'utf8')) as Array<Record<string, unknown>>
     const { featuredOrder: _featuredOrder, ...baseTool } = sourceTools[0]
@@ -76,7 +98,7 @@ describe('shared catalog mutation', () => {
       ...baseTool,
       slug: 'catalog-rollback-test',
       name: 'Catalog Rollback Test',
-      url: 'https://catalog-rollback-test.example/'
+      url: 'https://catalog-rollback-test.com/'
     }
     const context = loadCatalog({ projectRoot, catalogPath })
     const before = readFileSync(catalogPath, 'utf8')

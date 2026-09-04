@@ -1,5 +1,6 @@
 const MAX_SOURCE_BYTES = 1024 * 1024
 const SOURCE_TIMEOUT_MILLISECONDS = 10_000
+const SOURCE_USER_AGENT = 'Xunqi-AI-Directory-Discovery/1.0 (+https://no996noicu.com)'
 const ACCEPTED_CONTENT_TYPES = new Set([
   'application/json',
   'application/feed+json',
@@ -85,6 +86,16 @@ async function boundedBytes(body) {
 export async function fetchBoundedSource(url, options = {}) {
   const safeUrl = sourceUrl(url)
   if (typeof options.fetch !== 'function') throw unavailable()
+  const headers = {
+    accept: 'application/json, application/feed+json, application/rss+xml, application/atom+xml, application/xml, text/xml, text/plain',
+    'user-agent': SOURCE_USER_AGENT
+  }
+  if (options.authorizationToken !== undefined) {
+    if (new URL(safeUrl).hostname !== 'api.github.com'
+      || typeof options.authorizationToken !== 'string'
+      || !/^[A-Za-z0-9_]{1,255}$/u.test(options.authorizationToken)) throw rejected()
+    headers.authorization = `Bearer ${options.authorizationToken}`
+  }
 
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), SOURCE_TIMEOUT_MILLISECONDS)
@@ -95,9 +106,7 @@ export async function fetchBoundedSource(url, options = {}) {
         method: 'GET',
         redirect: 'error',
         signal: controller.signal,
-        headers: {
-          accept: 'application/json, application/feed+json, application/rss+xml, application/atom+xml, application/xml, text/xml, text/plain'
-        }
+        headers
       })
     } catch (error) {
       if (/redirect/i.test(String(error?.message ?? ''))) throw rejected()
@@ -126,5 +135,6 @@ export async function fetchBoundedSource(url, options = {}) {
 
 export const sourceFetchLimits = Object.freeze({
   timeoutMilliseconds: SOURCE_TIMEOUT_MILLISECONDS,
-  maximumBytes: MAX_SOURCE_BYTES
+  maximumBytes: MAX_SOURCE_BYTES,
+  userAgent: SOURCE_USER_AGENT
 })

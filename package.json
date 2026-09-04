@@ -29,5 +29,8 @@
     "vitepress": "^1.6.4",
     "vitest": "^4.1.10",
     "wrangler": "4.126.0"
+  },
+  "dependencies": {
+    "tldts": "7.4.11"
   }
 }

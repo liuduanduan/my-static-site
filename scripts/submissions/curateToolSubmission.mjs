@@ -76,7 +76,7 @@ export async function curateToolSubmission(submission, deps) {
     throw catalogError()
   }
 
-  const submittedDomain = String(submission.normalizedDomain).toLowerCase().replace(/^www\./, '')
+  const submittedDomain = domainKey(submission.officialUrl)
   if (!submittedDomain || context.tools.some((tool) => domainKey(tool.url) === submittedDomain)) {
     throw duplicateError()
   }

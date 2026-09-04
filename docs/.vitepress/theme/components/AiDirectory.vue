@@ -124,7 +124,7 @@ function loadMore() {
         </div>
 
         <div class="hero-trust" aria-label="目录特点">
-          <span>✓ 人工精选</span>
+          <span>✓ 官网证据核验</span>
           <span>✓ 中文说明</span>
           <span>✓ 持续维护</span>
         </div>
@@ -307,7 +307,7 @@ function loadMore() {
         <div class="note-icon" aria-hidden="true">✓</div>
         <div>
           <strong id="directory-note-title">我们先替你筛一遍</strong>
-          <p>工具信息由人工整理，价格、功能和授权可能变化，使用前请以工具官网为准。</p>
+          <p>目录同时包含自动核验发现与人工审核的公开提交；价格、功能和授权可能变化，使用前请以工具官网为准。</p>
         </div>
         <a href="/about">了解收录标准 <span aria-hidden="true">→</span></a>
       </section>

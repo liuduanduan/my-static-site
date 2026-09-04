@@ -118,6 +118,31 @@ describe('AI discovery contracts', () => {
     expect(Object.isFrozen(candidate)).toBe(true)
   })
 
+  it('uses PSL-aware registrable domains for subdomains, multi-level suffixes, IDNs, and private suffixes', () => {
+    const source = validConfig.sources[2]
+    const keyFor = (url: string) => candidateKey(normalizeCandidate(
+      { name: 'Example', url },
+      source,
+      new Date('2026-09-03T00:00:00Z')
+    ))
+
+    expect(keyFor('https://app.example.com/product')).toBe('example.com')
+    expect(keyFor('https://www.example.co.uk/product')).toBe('example.co.uk')
+    expect(keyFor('https://工具.食狮.com.cn/product')).toBe('xn--85x722f.com.cn')
+    expect(keyFor('https://tenant-one.github.io/product')).toBe('tenant-one.github.io')
+    expect(keyFor('https://tenant-two.github.io/product')).toBe('tenant-two.github.io')
+  })
+
+  it.each([
+    'https://localhost/',
+    'https://service.internal/',
+    'https://com/',
+    'https://127.0.0.1/'
+  ])('rejects non-registrable or private candidate host %s', (url) => {
+    expect(() => normalizeCandidate({ name: 'Example', url }, validConfig.sources[2], new Date()))
+      .toThrow('invalid_discovery_candidate')
+  })
+
   it('rejects unsafe source records and unsafe candidate URLs', () => {
     expect(() => parseDiscoveryConfig({
       ...validConfig,
@@ -187,6 +212,31 @@ describe('AI discovery contracts', () => {
         ...threeFailures.slice(0, 2),
         { ...threeFailures[2], fingerprint: CHANGED_FINGERPRINT }
       ]
+    })
+
+    expect(shouldCoolDown(state, 'example.com', new Date('2026-09-20'))).toBe(false)
+  })
+
+  it('requires three consecutive failures with the same error code', () => {
+    const state = parseDiscoveryState({
+      version: 1,
+      outcomes: [
+        ...threeFailures.slice(0, 2),
+        { ...threeFailures[2], errorCode: 'official_fetch_failed' }
+      ]
+    })
+
+    expect(shouldCoolDown(state, 'example.com', new Date('2026-09-20'))).toBe(false)
+  })
+
+  it.each([
+    'enricher_unconfigured',
+    'catalog_maximum_reached',
+    'publish_limit_reached'
+  ])('never cools down legacy deferral outcomes for %s', (errorCode) => {
+    const state = parseDiscoveryState({
+      version: 1,
+      outcomes: threeFailures.map((outcome) => ({ ...outcome, errorCode }))
     })
 
     expect(shouldCoolDown(state, 'example.com', new Date('2026-09-20'))).toBe(false)

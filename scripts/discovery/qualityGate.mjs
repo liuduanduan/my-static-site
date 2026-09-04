@@ -1,4 +1,6 @@
 import { candidateKey } from './contracts.mjs'
+import { registrableDomainFromUrl } from '../catalog/registrableDomain.mjs'
+import { isGroundedDiscoveryDraft } from './discoveryDraft.mjs'
 
 const CATEGORIES = Object.freeze([
   'chat',
@@ -65,7 +67,7 @@ const ALWAYS_PROHIBITED_PATTERNS = Object.freeze([
   /\b(?:casino|betting|gambling|sportsbook|porn(?:ography)?|adult content|token speculation)\b/iu,
   /博彩|赌博|赌场|色情|成人视频|代币投机/u
 ])
-const SECURITY_HARM_PATTERN = /\b(?:malware|ransomware|phishing|credential theft)\b|恶意软件|勒索软件|网络钓鱼|窃取凭据/iu
+const SECURITY_HARM_PATTERN = /\b(?:malware|ransomware|phishing|credential theft|trojans?|computer viruses|spyware|keyloggers?|exploit payloads?)\b|恶意软件|勒索软件|网络钓鱼|窃取凭据|木马|计算机病毒|间谍软件|键盘记录器|漏洞利用(?:载荷)?/iu
 const DEFENSIVE_SECURITY_PATTERN = /\b(?:anti[- ]?(?:malware|phishing)|detect(?:s|ion|or)?|prevent(?:s|ion)?|protect(?:s|ion)?|block(?:s|ing)?|scanner|security|defen[sc]e|threat monitoring|analysis|sandbox|simulation|training|awareness|removal)\b|反钓鱼|检测|防御|拦截|阻止|安全|保护|威胁监控|分析|沙箱|演练|培训|意识|清除/iu
 const OFFENSIVE_SECURITY_PATTERN = /\b(?:generate|generator|create|build|deploy|spread|steal|harvest|bypass|offensive)\w*\b|生成|制作|部署|传播|窃取|收割|绕过|攻击性/iu
 const DECEPTIVE_MEDIA_DEFENSE_PATTERN = /\b(?:detect(?:s|ion|or)?|prevent(?:s|ion)?|protect(?:s|ion)?|block(?:s|ing)?|scanner|security|defen[sc]e|verification)\b|检测|识别|防御|拦截|阻止|安全|保护|核验/iu
@@ -117,11 +119,7 @@ function normalizedUrl(value, stripQuery = false) {
 }
 
 function normalizedDomain(value) {
-  try {
-    return new URL(value).hostname.toLowerCase().replace(/\.+$/u, '').replace(/^www\./u, '')
-  } catch {
-    return ''
-  }
+  return registrableDomainFromUrl(value)
 }
 
 function safeAlternative(tool) {
@@ -248,6 +246,49 @@ function assertSafeCandidateName(candidate) {
   if (!name || SENSITIVE_TEXT.test(name)) gateError('insufficient_official_evidence')
 }
 
+const IDENTITY_GENERIC_WORDS = new Set([
+  'ai', 'app', 'application', 'assistant', 'for', 'home', 'homepage', 'official',
+  'online', 'platform', 'product', 'research', 'service', 'software', 'team',
+  'teams', 'the', 'tool', 'web', 'website', 'with'
+])
+
+function identityTokens(value) {
+  return normalizeText(value).normalize('NFKC').toLocaleLowerCase('en-US')
+    .split(/[^\p{L}\p{N}]+/u)
+    .filter(Boolean)
+}
+
+function compactIdentity(value) {
+  return identityTokens(value).join('')
+}
+
+function candidateCoreIdentity(value) {
+  return identityTokens(value)
+    .filter((token) => !IDENTITY_GENERIC_WORDS.has(token))
+    .join('')
+}
+
+function domainIdentity(value) {
+  const domain = normalizedDomain(value)
+  if (!domain) return ''
+  return domain.split('.')[0].replace(/[^\p{L}\p{N}]+/gu, '').toLocaleLowerCase('en-US')
+}
+
+function assertConsistentIdentity(candidate, summary) {
+  const full = compactIdentity(candidate?.name)
+  const core = candidateCoreIdentity(candidate?.name)
+  const title = compactIdentity(summary.title)
+  if (!full || !core || !title) gateError('insufficient_official_evidence')
+  if (title.includes(full) || title.includes(core)) return
+
+  const matchesDomain = domainIdentity(summary.selectedOfficialUrl).includes(core)
+  const distinctiveTitleTokens = identityTokens(summary.title)
+    .filter((token) => !IDENTITY_GENERIC_WORDS.has(token))
+  if (!matchesDomain || distinctiveTitleTokens.length > 0) {
+    gateError('insufficient_official_evidence')
+  }
+}
+
 export function validateCandidateForDiscovery(candidate) {
   assertSafeCandidateName(candidate)
   if (!normalizedUrl(candidate?.url)) gateError('insufficient_official_evidence')
@@ -286,7 +327,6 @@ export function evaluateCandidate(candidate, evidence, index) {
   if (!summary.title || summary.visibleCharacterCount < MINIMUM_VISIBLE_CHARACTERS) {
     gateError('insufficient_official_evidence')
   }
-
   const allText = `${summary.title}\n${summary.metaDescription}\n${summary.visibleText}`
   if (hasPattern(ALWAYS_PROHIBITED_PATTERNS, allText)
     || hasProhibitedDeceptiveMedia(allText)
@@ -297,6 +337,7 @@ export function evaluateCandidate(candidate, evidence, index) {
   if (hasPattern(NON_PRODUCT_PATTERNS, allText) || !includesCue(allText)) {
     gateError('non_product_page')
   }
+  assertConsistentIdentity(candidate, summary)
 
   return Object.freeze(summary)
 }
@@ -354,8 +395,25 @@ const GROUNDING_PATTERNS = Object.freeze({
 const RISKY_DRAFT_CLAIMS = Object.freeze([
   /\boffline\b|\blocal(?:ly)?\s+(?:processing|inference|execution)\b|\bruns?\s+locally\b|\blocal[- ]first\b|\bon[- ]device\b|离线(?:处理|使用|运行|模式)?|本地(?:处理|推理|运行|部署)|端侧(?:处理|推理|运行)?/iu,
   /\bself[- ]host(?:ed|ing)?\b|自托管|私有化部署/iu,
-  /\bend[- ]to[- ]end\s+encrypt(?:ed|ion)\b|\bdata\s+(?:never\s+)?leaves?\s+(?:the\s+)?device\b|端到端加密|数据不离(?:开)?(?:设备|本机)/iu
+  /\bend[- ]to[- ]end\s+encrypt(?:ed|ion)\b|\bdata\s+(?:never\s+)?leaves?\s+(?:the\s+)?device\b|端到端加密|数据不离(?:开)?(?:设备|本机)/iu,
+  /\b(?:private|privacy[- ]first|zero[- ]retention|no[- ]logs?)\b|隐私优先|不(?:保存|记录|上传)(?:数据|内容)|零数据保留/iu,
+  /\b(?:funding|funded|raised|valuation|revenue)\b|融资|估值|营收|收入/iu,
+  /(?:一|两|二|三|四|五|六|七|八|九|十|百|千|万|亿|\d)+(?:万|亿)?\s*(?:用户|客户|团队|公司)/u,
+  /(?:全球|行业|市场|国内|世界)(?:第一|领先|最佳|最强|排名)|排名\s*(?:第?一|top\s*\d+)|\b(?:best|number one|no\.?\s*1|top\s*\d+)\b/iu,
+  /\b\d+(?:\.\d+)?\s*(?:million|billion)\s+(?:users|customers|teams|companies)\b/iu
 ])
+const PROHIBITED_MEDICAL_DRAFT_PATTERN = /\b(?:diagnos\w*|prescri\w*|cure[sd]?|medical treatment|medical advice|clinical decision\w*|symptom assessment|treatment recommendations?)\b|诊断|处方|治愈|治疗方案|医疗建议|临床决策|症状(?:评估|判断)|用药建议|治疗建议/iu
+const CATEGORY_EVIDENCE_PATTERNS = Object.freeze({
+  chat: /\b(?:chat|conversation|assistant)\b|对话|聊天|助手/iu,
+  writing: /\b(?:writing|write|document|office)\b|写作|文档|办公/iu,
+  image: /\b(?:image|photo|design)\b|图像|图片|设计/iu,
+  video: /\bvideo\b|视频/iu,
+  coding: /\b(?:code|coding|developer|programming)\b|代码|编程|开发/iu,
+  audio: /\b(?:audio|voice|speech|music|podcast)\b|音频|语音|音乐|播客/iu,
+  research: /\b(?:research|evidence|source|study)\b|研究|证据|来源|资料/iu,
+  marketing: /\b(?:marketing|campaign|social media|sales)\b|营销|社媒|销售/iu,
+  automation: /\b(?:automation|automate|workflow|integration)\b|自动化|工作流|集成/iu
+})
 
 function evidenceText(evidence) {
   return normalizeText(`${evidence?.title ?? ''}\n${evidence?.metaDescription ?? ''}\n${evidence?.visibleText ?? ''}`, MAXIMUM_VISIBLE_CHARACTERS + MAXIMUM_META_CHARACTERS + MAXIMUM_TITLE_CHARACTERS)
@@ -364,6 +422,7 @@ function evidenceText(evidence) {
 function draftText(draft) {
   return Object.values(draft).flatMap((value) => Array.isArray(value) ? value : [value])
     .filter((value) => typeof value === 'string')
+    .map((value) => normalizeText(value).normalize('NFKC'))
     .join('\n')
 }
 
@@ -443,6 +502,17 @@ export function validateDraftAgainstEvidence(draft, acceptedEvidence) {
   const proof = evidenceText(acceptedEvidence)
   if (!draft || typeof draft !== 'object' || !proof) gateError('insufficient_official_evidence')
   const clauses = textClauses(proof)
+  const allClaims = draftText(draft)
+  if (hasPattern(ALWAYS_PROHIBITED_PATTERNS, allClaims)
+    || PROHIBITED_MEDICAL_DRAFT_PATTERN.test(allClaims)
+    || hasProhibitedDeceptiveMedia(allClaims)
+    || (SECURITY_HARM_PATTERN.test(allClaims)
+      && (OFFENSIVE_SECURITY_PATTERN.test(allClaims) || !DEFENSIVE_SECURITY_PATTERN.test(allClaims)))) {
+    gateError('prohibited_candidate')
+  }
+  if (!CATEGORY_EVIDENCE_PATTERNS[draft.category]?.test(proof)) {
+    gateError('insufficient_official_evidence')
+  }
   const pricingMatches = groundedMatches(
     GROUNDING_PATTERNS.pricingMode,
     GROUNDING_PATTERNS.pricingModeContradictions,
@@ -481,7 +551,7 @@ export function validateDraftAgainstEvidence(draft, acceptedEvidence) {
   }
 
   assertPricingTextGrounded(draft.pricing, proof)
-  const claims = draftText(draft)
+  const claims = allClaims
   for (const riskyClaim of RISKY_DRAFT_CLAIMS) {
     if (riskyClaim.test(claims) && !riskyClaim.test(proof)) gateError('insufficient_official_evidence')
   }
@@ -491,7 +561,9 @@ export function validateDraftAgainstEvidence(draft, acceptedEvidence) {
 export function scoreCandidate(candidate, evidence, index, draft) {
   const summary = evaluateCandidate(candidate, evidence, index)
   assertNotDuplicate(candidate, index, draft, summary)
-  if (!draft || !CATEGORY_SET.has(draft.category)) gateError('discovery_enricher_invalid_output')
+  if (!draft || !CATEGORY_SET.has(draft.category) || !isGroundedDiscoveryDraft(draft)) {
+    gateError('discovery_enricher_invalid_output')
+  }
   const categoryCount = index.categoryCounts[draft.category]
   if (!Number.isInteger(categoryCount) || categoryCount < 2) gateError('discovery_enricher_invalid_output')
   validateDraftAgainstEvidence(draft, summary)
@@ -511,9 +583,10 @@ export function compareCandidatesForEnrichment(left, right) {
   const sourceDifference = (Number.isInteger(right?.sourceScore) ? right.sourceScore : 0)
     - (Number.isInteger(left?.sourceScore) ? left.sourceScore : 0)
   if (sourceDifference) return sourceDifference
-  const dateDifference = String(left?.discoveredAt ?? '').localeCompare(String(right?.discoveredAt ?? ''))
+  const compareCodePoints = (first, second) => first < second ? -1 : first > second ? 1 : 0
+  const dateDifference = compareCodePoints(String(left?.discoveredAt ?? ''), String(right?.discoveredAt ?? ''))
   if (dateDifference) return dateDifference
-  return candidateKey(left).localeCompare(candidateKey(right))
+  return compareCodePoints(candidateKey(left), candidateKey(right))
 }
 
 export function selectDiscoveryAlternatives(index, category, slug) {

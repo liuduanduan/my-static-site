@@ -75,7 +75,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
-          git add -- docs/.vitepress/theme/domain/ai-tools.json docs/.vitepress/ai-pages-manifest.json docs/tools docs/ai-categories
+          git add -- docs/.vitepress/theme/domain/ai-tools.json docs/.vitepress/ai-pages-manifest.json docs/tools docs/ai-categories docs/ai-scenarios
           git commit -m "$PR_TITLE"
           if git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null; then
             git fetch origin "refs/heads/$BRANCH:refs/remotes/origin/$BRANCH"

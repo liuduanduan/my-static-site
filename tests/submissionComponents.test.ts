@@ -232,6 +232,14 @@ describe('submission routes and disclosures', () => {
     expect(source('promote.md', docsRoot)).toContain('编辑精选不可购买')
   })
 
+  it('keeps visitor submissions explicitly human reviewed without describing automatic discoveries', () => {
+    const submitPage = source('submit.md', docsRoot)
+
+    expect(submitPage).toContain('通过此页面提交的工具必须经过人工确认才会发布')
+    expect(submitPage).toContain('<strong>人工审核</strong>不自动发布内容')
+    expect(submitPage).not.toContain('自动发现')
+  })
+
   it('links the site navigation directly to the real submission page', () => {
     const nav = siteConfig.themeConfig?.nav as Array<{ text: string; link: string }>
     expect(nav.find(({ text }) => text === '提交工具')).toEqual({

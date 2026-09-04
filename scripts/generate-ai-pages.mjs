@@ -288,11 +288,27 @@ export function validateTools(items) {
 }
 
 function frontmatterScalar(value) {
-  return JSON.stringify(String(value))
+  return JSON.stringify(String(value)).replaceAll('<', '\\u003c')
+}
+
+function markdownText(value) {
+  return String(value)
+    .replace(/\s+/gu, ' ')
+    .trim()
+    .replace(/[&<>=\\`*_[\]{}()#!|]/gu, (character) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '=': '&#61;'
+    })[character] ?? `\\${character}`)
 }
 
 function jsonLd(value) {
-  return JSON.stringify(value).replaceAll('<', '\\u003c')
+  return JSON.stringify(value)
+    .replaceAll('&', '\\u0026')
+    .replaceAll('<', '\\u003c')
+    .replaceAll('=', '\\u003d')
+    .replaceAll('>', '\\u003e')
 }
 
 function scenarioMatches(tool, scenario) {
@@ -345,7 +361,7 @@ function detailPage(tool) {
 function categoryPage(category, items, scenarios) {
   const label = categoryLabels[category]
   const links = items
-    .map((tool) => `- [${tool.name}](/tools/${tool.slug})：${tool.tagline}`)
+    .map((tool) => `- [${markdownText(tool.name)}](/tools/${tool.slug})：${markdownText(tool.tagline)}`)
     .join('\n')
   const itemList = jsonLd({
     '@context': 'https://schema.org',
@@ -370,7 +386,7 @@ function categoryPage(category, items, scenarios) {
 
 function scenarioPage(scenario, items) {
   const links = items
-    .map((tool) => `- [${tool.name}](/tools/${tool.slug})：${tool.tagline}`)
+    .map((tool) => `- [${markdownText(tool.name)}](/tools/${tool.slug})：${markdownText(tool.tagline)}`)
     .join('\n')
   const itemList = jsonLd({
     '@context': 'https://schema.org',
@@ -527,7 +543,7 @@ export function generateAiPages(options = {}) {
   }
 
   const toolLinks = tools
-    .map((tool) => `- [${tool.name}](/tools/${tool.slug})：${tool.tagline}`)
+    .map((tool) => `- [${markdownText(tool.name)}](/tools/${tool.slug})：${markdownText(tool.tagline)}`)
     .join('\n')
   pageWrites.push({
     absolutePath: join(toolsDir, 'index.md'),

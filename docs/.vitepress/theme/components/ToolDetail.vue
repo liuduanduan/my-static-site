@@ -54,7 +54,7 @@ function formatDate(value: string): string {
           </span>
           <div>
             <div class="detail-kicker">{{ getCategoryLabel(tool.category) }} / VERIFIED TOOL</div>
-            <span class="detail-curated">✓ 人工整理</span>
+            <span class="detail-curated">✓ 已核验收录</span>
           </div>
         </div>
         <h1>{{ tool.name }}</h1>

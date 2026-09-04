@@ -58,7 +58,13 @@ function readJson(path, missingValue) {
 
 function reviewReport(result) {
   const sourceRows = result.sourceSummaries.map((item) => `- \`${item.errorCode ?? 'source_checked'}\` — ${item.sourceId} — candidates: ${item.candidateCount}`)
-  const candidateRows = result.review.map((item) => `- \`${item.errorCode}\` — ${item.sourceId} — ${item.key}`)
+  const candidateRows = result.review.flatMap((item) => [
+    `- \`${item.errorCode}\` — \`${item.sourceId}\` — \`${item.key}\``,
+    `  - 工具：\`${item.name}\``,
+    `  - 官网：<${item.officialUrl}>`,
+    `  - 原因：${item.explanation}`,
+    `  - 建议：${item.suggestedAction}`
+  ])
   return [
     '# AI discovery review',
     '',
@@ -85,15 +91,14 @@ function prBody(result) {
     '',
     ...tools,
     '',
-    '本变更来自受保护的定时任务，必须经过人工审核才可合并。',
+    '本变更由受保护的自动发现任务根据官网证据生成；通过确定性门槛与完整构建校验后由工作流自动合并，不代表人工审核。公开提交入口的申请仍须人工审核，且不会自动合并。',
     '',
-    '## 人工核验清单',
+    '## 自动校验范围',
     '',
-    '- [ ] 官方域名和落地页',
-    '- [ ] 定价措辞及“以官网为准”声明',
-    '- [ ] 中文支持和账户要求',
-    '- [ ] 分类、替代工具和品牌素材使用权',
-    '- [ ] 目录校验、测试与生产构建均成功'
+    '- 官方域名、落地页与候选身份一致性',
+    '- 官网证据对定价、中文支持、账户要求和能力文案的支持',
+    '- 分类、替代工具、重复注册域名与禁止内容规则',
+    '- 目录校验、测试与生产构建'
   ].join('\n')
 }
 
@@ -144,7 +149,8 @@ export async function runDiscoveryFromEnvironment(env = process.env, options = {
     discoverFromSources: options.discoverFromSources,
     fetchOfficialPage: options.fetchOfficialPage,
     now: options.now,
-    fetch: options.fetch
+    fetch: options.fetch,
+    githubToken: env.GITHUB_TOKEN
   })
   mkdirSync(dirname(paths.output), { recursive: true })
   writeFileSync(paths.output, `${JSON.stringify(result.nextState, null, 2)}\n`, 'utf8')

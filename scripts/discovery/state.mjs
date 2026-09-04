@@ -18,6 +18,11 @@ const ERROR_CODES = new Set([
   'catalog_maximum_reached',
   'publish_limit_reached'
 ])
+const DEFERRAL_ERROR_CODES = new Set([
+  'enricher_unconfigured',
+  'catalog_maximum_reached',
+  'publish_limit_reached'
+])
 const SAFE_KEY = /^[a-z0-9](?:[a-z0-9.-]{0,251}[a-z0-9])?$/
 const SHA256_HEX = /^[a-f0-9]{64}$/
 const COOLDOWN_MILLISECONDS = 30 * 24 * 60 * 60 * 1000
@@ -96,11 +101,16 @@ export function shouldCoolDown(state, key, now = new Date()) {
   }
 
   const relevant = parsed.outcomes.filter((outcome) => outcome.key === key)
-  if (relevant.length === 0 || relevant[0].status !== 'failed') return false
+  if (relevant.length === 0
+    || relevant[0].status !== 'failed'
+    || DEFERRAL_ERROR_CODES.has(relevant[0].errorCode)) return false
 
   const fingerprint = relevant[0].fingerprint
+  const errorCode = relevant[0].errorCode
   const failures = relevant.slice(0, 3)
-  if (failures.length !== 3 || failures.some((outcome) => outcome.status !== 'failed' || outcome.fingerprint !== fingerprint)) {
+  if (failures.length !== 3 || failures.some((outcome) => outcome.status !== 'failed'
+    || outcome.fingerprint !== fingerprint
+    || outcome.errorCode !== errorCode)) {
     return false
   }
 

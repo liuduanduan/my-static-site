@@ -63,6 +63,17 @@ function hackerNewsSearchUrl(source) {
   return url.toString()
 }
 
+function sourceFetchOptions(deps) {
+  return { fetch: deps?.fetch }
+}
+
+function githubFetchOptions(deps) {
+  const token = deps?.githubToken
+  if (token === undefined || token === null || token === '') return sourceFetchOptions(deps)
+  if (typeof token !== 'string' || !/^[A-Za-z0-9_]{1,255}$/u.test(token)) throw invalid()
+  return { ...sourceFetchOptions(deps), authorizationToken: token }
+}
+
 function isExternalHackerNewsUrl(value) {
   try {
     const url = new URL(value)
@@ -124,7 +135,7 @@ function xmlEntries(text) {
 
 export async function discoverFromGitHub(source, deps) {
   const now = currentDate(deps)
-  const response = await fetchBoundedSource(githubSearchUrl(source), deps)
+  const response = await fetchBoundedSource(githubSearchUrl(source), githubFetchOptions(deps))
   const items = records(json(response.text), 'items')
   return Object.freeze(items.flatMap((item) => {
     if (!item || typeof item !== 'object'
@@ -140,7 +151,7 @@ export async function discoverFromGitHub(source, deps) {
 
 export async function discoverFromHackerNews(source, deps) {
   const now = currentDate(deps)
-  const response = await fetchBoundedSource(hackerNewsSearchUrl(source), deps)
+  const response = await fetchBoundedSource(hackerNewsSearchUrl(source), sourceFetchOptions(deps))
   const minimumTimestamp = now.valueOf() - source.lookbackDays * 24 * 60 * 60 * 1000
   const items = records(json(response.text), 'hits')
   return Object.freeze(items.flatMap((item) => {
@@ -161,7 +172,7 @@ export async function discoverFromHackerNews(source, deps) {
 
 export async function discoverFromFeed(source, deps) {
   const now = currentDate(deps)
-  const response = await fetchBoundedSource(source.url, deps)
+  const response = await fetchBoundedSource(source.url, sourceFetchOptions(deps))
   const entries = response.contentType === 'application/json' || response.contentType === 'application/feed+json'
     ? records(json(response.text), 'items').flatMap((item) => {
       if (!item || typeof item !== 'object' || typeof item.title !== 'string') return []

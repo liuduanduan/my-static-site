@@ -48,15 +48,57 @@ jobs:
             fi
           fi
 
+      - name: Inspect open pull request metadata for a pending discovery batch
+        id: pending
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh pr list --base main --state open --json number,url,headRefName,isCrossRepository --limit 1000 | node scripts/discovery/workflowPolicy.mjs pending "$GITHUB_REPOSITORY" >> "$GITHUB_OUTPUT"
+
+      - name: Preserve actionable artifacts while a discovery batch is pending
+        if: steps.pending.outputs.has_pending == 'true'
+        env:
+          PENDING_COUNT: ${{ steps.pending.outputs.pending_count }}
+          PENDING_NUMBER: ${{ steps.pending.outputs.pending_number }}
+          PENDING_URL: ${{ steps.pending.outputs.pending_url }}
+          PENDING_BRANCH: ${{ steps.pending.outputs.pending_branch }}
+        run: |
+          set -euo pipefail
+          [[ "$PENDING_COUNT" =~ ^[1-9][0-9]*$ ]]
+          [[ "$PENDING_NUMBER" =~ ^[1-9][0-9]*$ ]]
+          [[ "$PENDING_URL" =~ ^https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/pull/[1-9][0-9]*$ ]]
+          [[ "$PENDING_BRANCH" =~ ^discovery/[A-Za-z0-9][A-Za-z0-9._/-]*[A-Za-z0-9]$ ]]
+          if [[ -f .baseline/ai-discovery-state.json ]]; then
+            cp -- .baseline/ai-discovery-state.json ai-discovery-state.json
+          else
+            printf '{"version":1,"outcomes":[]}\n' > ai-discovery-state.json
+          fi
+          : > discovered-urls.txt
+          printf '%s\n' \
+            '# AI discovery review' \
+            '' \
+            'A trusted discovery pull request is still open; no new batch was created.' \
+            '' \
+            "- Pull request: <$PENDING_URL>" \
+            "- Branch: \`$PENDING_BRANCH\`" \
+            "- Open discovery pull requests: $PENDING_COUNT" \
+            '- Suggested action: merge or close the pending batch after resolving its checks, then rerun discovery.' \
+            > ai-discovery-review.md
+
       - name: Discover up to the configured three-tool batch
         id: discover
+        if: steps.pending.outputs.has_pending == 'false'
         env:
           CONTENT_ENRICHER_API_KEY: ${{ secrets.CONTENT_ENRICHER_API_KEY }}
           CONTENT_ENRICHER_MODEL: ${{ secrets.CONTENT_ENRICHER_MODEL }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: npm run tools:discover
 
       - name: Validate discovery outputs before GitHub or Git operations
         id: validate
+        if: steps.pending.outputs.has_pending == 'false'
         env:
           HAS_CHANGES: ${{ steps.discover.outputs.has_changes }}
           SLUGS: ${{ steps.discover.outputs.slugs }}
@@ -124,6 +166,15 @@ jobs:
           printf 'state_path=ai-discovery-state.json\n' >> "$GITHUB_OUTPUT"
           printf 'changed_urls_path=discovered-urls.txt\n' >> "$GITHUB_OUTPUT"
           printf 'needs_review=%s\n' "$NEEDS_REVIEW" >> "$GITHUB_OUTPUT"
+
+      - name: Decide whether an actionable review Issue is required
+        id: review_decision
+        if: steps.pending.outputs.has_pending == 'false'
+        env:
+          NEEDS_REVIEW: ${{ steps.validate.outputs.needs_review }}
+        run: |
+          set -euo pipefail
+          node scripts/discovery/workflowPolicy.mjs review "$NEEDS_REVIEW" >> "$GITHUB_OUTPUT"
 
       - name: Run the complete catalog gates
         if: steps.discover.outputs.has_changes == 'true'
@@ -268,7 +319,7 @@ jobs:
           printf 'merged=true\n' >> "$GITHUB_OUTPUT"
 
       - name: Create or update the discovery review issue
-        if: steps.validate.outputs.needs_review == 'true'
+        if: steps.review_decision.outputs.create_issue == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

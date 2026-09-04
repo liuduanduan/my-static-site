@@ -35,8 +35,8 @@ const submission: ClaimedSubmission = {
   id: '0191f271-d0d1-7f15-80bb-9f7abf778999',
   publicRef: 'abcdefghijklm',
   name: 'Example Evidence AI',
-  officialUrl: 'https://submitted.example/product',
-  normalizedDomain: 'submitted.example',
+  officialUrl: 'https://submitted-example.com/product',
+  normalizedDomain: 'submitted-example.com',
   tagline: '把公开资料整理成可核验答案',
   description: '面向需要整理公开资料的研究团队。',
   category: 'research',
@@ -138,6 +138,7 @@ describe('one-submission catalog curation', () => {
 
   it.each([
     ['domain', { officialUrl: 'https://chatgpt.com/new', normalizedDomain: 'chatgpt.com' }, cloneDraft()],
+    ['sibling domain', { officialUrl: 'https://app.chatgpt.com/new', normalizedDomain: 'app.chatgpt.com' }, cloneDraft()],
     ['slug', {}, cloneDraft({ slug: 'chatgpt' })]
   ])('rejects a duplicate %s before changing the catalog', async (_kind, inputChanges, content) => {
     const before = readFileSync(catalogPath, 'utf8')
@@ -396,6 +397,18 @@ describe('trusted PR workflows', () => {
     expect(workflow).toContain('git diff --check')
     expect(workflow).toContain('gh pr create')
     expect(workflow).not.toMatch(/auto-merge|gh pr merge|push[^\n]*\bmain\b/)
+  })
+
+  it('stages every generated catalog surface, including scenario pages', () => {
+    const workflow = readFileSync(
+      resolve(dirname(sourceCatalog), '../../../../.github/workflows/curate-tool-submission.yml'),
+      'utf8'
+    )
+    const stageCommand = workflow.match(/^\s*git add -- .*$/mu)?.[0]?.trim()
+
+    expect(stageCommand).toBe(
+      'git add -- docs/.vitepress/theme/domain/ai-tools.json docs/.vitepress/ai-pages-manifest.json docs/tools docs/ai-categories docs/ai-scenarios'
+    )
   })
 
   it('safely reuses an identical remote submission branch after a partial GitHub failure', () => {

@@ -29,7 +29,7 @@ describe('trusted AI discovery workflow', () => {
     expect(workflow).toContain('AI 工具自动发现审核')
     expect(workflow).toContain('NEEDS_REVIEW: ${{ steps.discover.outputs.needs_review }}')
     expect(workflow).toContain("printf 'needs_review=%s\\n' \"$NEEDS_REVIEW\" >> \"$GITHUB_OUTPUT\"")
-    expect(workflow).toContain("if: steps.validate.outputs.needs_review == 'true'")
+    expect(workflow).toContain("if: steps.review_decision.outputs.create_issue == 'true'")
     expect(workflow).not.toContain("if: steps.validate.outputs.has_review == 'true'")
     expect(workflow).toContain('npm run search:notify')
     expect(workflow).toMatch(/actions\/checkout@[0-9a-f]{40}/)
@@ -78,5 +78,25 @@ describe('trusted AI discovery workflow', () => {
     expect(reuseRemoteHead).toBeGreaterThan(remoteTreeCheck)
     expect(workflow).toContain('EXPECTED_HEAD="$LOCAL_TESTED_HEAD"')
     expect(workflow).not.toContain('"$remote_head" != "$EXPECTED_HEAD"')
+  })
+
+  it('blocks a new batch while trusted discovery PR metadata remains open', () => {
+    const workflow = readFileSync(workflowPath, 'utf8')
+
+    expect(workflow).toContain(
+      'gh pr list --base main --state open --json number,url,headRefName,isCrossRepository'
+    )
+    expect(workflow).toContain('node scripts/discovery/workflowPolicy.mjs pending "$GITHUB_REPOSITORY"')
+    expect(workflow).toMatch(/name: Discover up to the configured three-tool batch\s+id: discover\s+if: steps\.pending\.outputs\.has_pending == 'false'/u)
+    expect(workflow).toContain('A trusted discovery pull request is still open; no new batch was created.')
+    expect(workflow).not.toMatch(/gh pr checkout|refs\/pull\//u)
+  })
+
+  it('uses the executable strict review decision for Issue handling', () => {
+    const workflow = readFileSync(workflowPath, 'utf8')
+
+    expect(workflow).toContain('node scripts/discovery/workflowPolicy.mjs review "$NEEDS_REVIEW"')
+    expect(workflow).toContain("if: steps.review_decision.outputs.create_issue == 'true'")
+    expect(workflow).not.toContain("if: steps.validate.outputs.needs_review == 'true'")
   })
 })

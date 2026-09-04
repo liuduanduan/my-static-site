@@ -1,3 +1,5 @@
+import { registrableDomain } from '../catalog/registrableDomain.mjs'
+
 const CONFIG_LIMIT_CAPS = Object.freeze({
   sourceRecords: 50,
   newDomains: 15,
@@ -92,6 +94,7 @@ function normalizeUrl(value, onInvalid, { rejectSensitiveQuery = false, maximumL
   }
 
   if (parsed.protocol !== 'https:' || parsed.username || parsed.password || parsed.port) onInvalid()
+  if (!registrableDomain(parsed.hostname)) onInvalid()
 
   for (const key of [...parsed.searchParams.keys()]) {
     if (rejectSensitiveQuery && isSensitiveQueryParameter(key)) onInvalid()
@@ -178,8 +181,7 @@ export function candidateKey(candidate) {
     rejectSensitiveQuery: true,
     maximumLength: MAX_CANDIDATE_URL_LENGTH
   })
-  const hostname = new URL(url).hostname.toLowerCase()
-  const key = hostname.startsWith('www.') ? hostname.slice(4) : hostname
+  const key = registrableDomain(new URL(url).hostname)
   if (!key) invalidCandidate()
   return key
 }

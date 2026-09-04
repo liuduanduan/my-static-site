@@ -567,4 +567,40 @@ describe('AI page generation', () => {
       rmSync(fixture.root, { recursive: true, force: true })
     }
   })
+
+  it('escapes catalog strings at every generated Markdown text sink', () => {
+    const fixture = createFixture('ai-page-markdown-escape-')
+    const catalog = cloneCatalog()
+    catalog[0].name = 'Unsafe <img src=x onerror=alert(1)> [label](https://evil.example/)'
+    catalog[0].tagline = 'Image ![pixel](https://evil.example/pixel) ```html\n---\n# injected'
+
+    try {
+      writeFileSync(
+        resolve(fixture.dataDirectory, 'ai-tools.json'),
+        JSON.stringify(catalog),
+        'utf8'
+      )
+
+      generateFixture(fixture.root)
+
+      const sources = [
+        readFileSync(resolve(fixture.toolsDirectory, 'index.md'), 'utf8'),
+        readFileSync(resolve(fixture.categoriesDirectory, 'chat.md'), 'utf8'),
+        ...readdirSync(fixture.scenariosDirectory)
+          .filter((name) => name.endsWith('.md'))
+          .map((name) => readFileSync(resolve(fixture.scenariosDirectory, name), 'utf8'))
+      ].join('\n')
+      const markdownText = sources.replace(/^\s+\{.*\}$/gmu, '')
+      expect(markdownText).not.toContain('<img')
+      expect(markdownText).not.toContain('onerror=')
+      expect(markdownText).not.toContain('[label](https://evil.example/)')
+      expect(markdownText).not.toContain('![pixel](https://evil.example/pixel)')
+      expect(markdownText).not.toContain('```html')
+      expect(markdownText).not.toMatch(/\n---\n# injected/u)
+      expect(markdownText).toContain('&lt;img')
+      expect(markdownText).toContain('\\[label\\]')
+    } finally {
+      rmSync(fixture.root, { recursive: true, force: true })
+    }
+  })
 })

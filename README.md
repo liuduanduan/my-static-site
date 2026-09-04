@@ -13,7 +13,7 @@ npm run docs:dev
 
 ## 更新目录
 
-公开目录的唯一事实源是 `docs/.vitepress/theme/domain/ai-tools.json`。编辑并人工核验后运行：
+公开目录的唯一事实源是 `docs/.vitepress/theme/domain/ai-tools.json`。人工编辑后须人工核验；自动发现批次须通过受保护工作流的官网证据门槛。完成修改后运行：
 
 ```powershell
 npm run content:ai
@@ -21,7 +21,7 @@ npm test
 npm run verify:build
 ```
 
-生成的 `docs/tools/`、`docs/ai-categories/` 和清单文件需要一并提交。价格、官网、中文支持、品牌素材与授权信息必须由人工复核；自动申请只生成待审核 PR，不会自动合并或直接上线。
+生成的 `docs/tools/`、`docs/ai-categories/`、`docs/ai-scenarios/` 和清单文件需要一并提交。公开提交申请只生成待人工审核 PR，不会自动合并；自动发现批次在官网证据、确定性规则、测试与生产构建全部通过后由受保护工作流自动合并。
 
 ## 常用检查
 

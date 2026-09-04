@@ -177,13 +177,13 @@ npm run search:notify -- --sitemap docs/.vitepress/dist/sitemap.xml --urls chang
 npm run tools:discover -- --config config/ai-discovery-sources.json --output ai-discovery-state.json --review ai-discovery-review.md --urls discovered-urls.txt --dry-run
 ```
 
-首次真实来源演练应在子进程中明确清空 `CONTENT_ENRICHER_API_KEY` 和 `CONTENT_ENRICHER_MODEL`，使需要内容补全的候选写入审核结果而不是调用补全服务。检查 `ai-discovery-review.md`、`ai-discovery-state.json` 和 `discovered-urls.txt`；这些是本地运行时文件，不得提交。审核文件的 **Source health** 区段只列出已尝试来源的配置 ID、候选数量和有限公开错误码；**Candidate review** 区段保留候选的门槛错误。两者都不应包含来源正文、页面内容、模型输出、URL 查询密钥或 Authorization 值。
+首次真实来源演练应在子进程中明确清空 `CONTENT_ENRICHER_API_KEY` 和 `CONTENT_ENRICHER_MODEL`，使需要内容补全的候选写入审核结果而不是调用补全服务。检查 `ai-discovery-review.md`、`ai-discovery-state.json` 和 `discovered-urls.txt`；这些是本地运行时文件，不得提交。审核文件的 **Source health** 区段只列出已尝试来源的配置 ID、候选数量和有限公开错误码；**Candidate review** 区段保留有限错误码、净化后的工具名、移除查询与片段的 HTTPS 官网路径、有限原因和建议动作。两者都不应包含来源正文、页面内容、模型输出、URL 查询密钥或 Authorization 值。
 
 ### GitHub 运行与审核
 
 完成推送、合并和 Secret 配置后，工作流既可按其已提交的日程运行，也可在 GitHub Actions 页面选择 **Discover verified AI tools** 后通过 `workflow_dispatch` 手动运行。每次运行会尝试恢复上一份可信状态，并将 `ai-discovery-state.json` 与 `ai-discovery-review.md` 上传为 `ai-discovery-state` artifact（保留 90 天）。
 
-无法安全发布的候选或有限来源错误会写入固定的 GitHub Issue **AI 工具自动发现审核**，供人工核对，不会绕过目录质量门槛。健康且零候选的 Source health 记录仅保留在 artifact，不会触发该 Issue。成功批次也必须先经受保护工作流的校验，再以单个 1–3 工具批次合并。
+无法安全发布的候选或有限来源错误会写入固定的 GitHub Issue **AI 工具自动发现审核**，供人工核对，不会绕过目录质量门槛。健康且零候选的 Source health 记录仅保留在 artifact，不会触发该 Issue。成功批次通过受保护工作流校验后以单个 1–3 工具批次自动 squash 合并；这不代表人工审核。公开提交仍只创建待人工审核 PR，绝不自动合并。
 
 如需回滚已经自动合并的发现批次，使用 `git revert <discovery-squash-commit>` 创建反向提交并让常规校验完成；不要使用重写历史或强制推送。回滚后人工检查目录和状态 artifact，再决定是否重新启用工作流。
 

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { normalizeCandidate } from '../scripts/discovery/contracts.mjs'
+import { parseGroundedDiscoveryDraft } from '../scripts/discovery/discoveryDraft.mjs'
 import {
   catalogDiscoveryIndex,
   compareCandidatesForEnrichment,
@@ -68,12 +69,31 @@ const draft = {
   cons: ['关键事实仍需人工核验', '高级额度可能收费']
 }
 
+function groundedDraft(value = draft, proof = evidence) {
+  const citation = proof.visibleText.slice(0, 390).trim()
+  return parseGroundedDiscoveryDraft({
+    draft: value,
+    citations: {
+      name: proof.title,
+      tagline: citation,
+      description: citation,
+      bestFor: value.bestFor.map(() => citation),
+      features: value.features.map(() => citation),
+      pricing: citation,
+      tags: value.tags.map(() => citation),
+      searchTerms: value.searchTerms.map(() => citation),
+      pros: value.pros.map(() => citation),
+      cons: value.cons.map(() => citation)
+    }
+  }, proof)
+}
+
 describe('AI discovery deterministic quality gate', () => {
   it('builds an immutable safe catalog index without source descriptions', () => {
     const index = catalogDiscoveryIndex(catalog)
 
     expect(index.urls).toContain('https://research-1.example.com/product')
-    expect(index.domains).toContain('research-1.example.com')
+    expect(index.domains).toContain('example.com')
     expect(index.names).toContain('research tool 1')
     expect(index.slugs).toContain('research-tool-1')
     expect(index.categoryCounts).toEqual(Object.fromEntries(categories.map((key) => [key, 2])))
@@ -108,15 +128,92 @@ describe('AI discovery deterministic quality gate', () => {
   it('rejects normalized duplicate names and candidate-derived slugs', () => {
     const index = catalogDiscoveryIndex([
       ...catalog,
-      { slug: 'other-slug', name: '  EXAMPLE   EVIDENCE AI ', category: 'research', url: 'https://other.example/' }
+      { slug: 'other-slug', name: '  EXAMPLE   EVIDENCE AI ', category: 'research', url: 'https://other-example.net/' }
     ])
     expect(() => evaluateCandidate(candidate, evidence, index)).toThrow('duplicate_catalog_entry')
 
     const slugIndex = catalogDiscoveryIndex([
       ...catalog,
-      { slug: 'example-evidence-ai', name: 'Other Name', category: 'research', url: 'https://other.example/' }
+      { slug: 'example-evidence-ai', name: 'Other Name', category: 'research', url: 'https://other-example.net/' }
     ])
     expect(() => evaluateCandidate(candidate, evidence, slugIndex)).toThrow('duplicate_catalog_entry')
+  })
+
+  it('routes a candidate whose product identity conflicts with the official title to review', () => {
+    const mismatched = normalizeCandidate(
+      { name: 'Alpha Research AI', url: 'https://alpha-research.com/product' },
+      { id: 'feed-one', kind: 'feed', score: 40 },
+      new Date('2026-09-03T02:00:00.000Z')
+    )
+    const proof = {
+      ...evidence,
+      finalUrl: mismatched.url,
+      canonicalUrl: mismatched.url,
+      title: 'Completely Different Beta AI Platform',
+      visibleText: `Completely Different Beta is an AI web app. ${'It provides documented research workflows. '.repeat(8)}`
+    }
+
+    expect(() => evaluateCandidate(mismatched, proof, catalogDiscoveryIndex(catalog)))
+      .toThrow('insufficient_official_evidence')
+  })
+
+  it('routes a generic-only candidate name with no distinctive product identity to review', () => {
+    const ambiguous = normalizeCandidate(
+      { name: 'Research AI', url: 'https://research-ai.com/product' },
+      { id: 'feed-one', kind: 'feed', score: 40 },
+      new Date('2026-09-03T02:00:00.000Z')
+    )
+    const proof = {
+      ...evidence,
+      finalUrl: ambiguous.url,
+      canonicalUrl: ambiguous.url,
+      title: 'AI research assistant for teams',
+      visibleText: `This is an artificial intelligence research app. ${'Documented research workflow details. '.repeat(10)}`
+    }
+
+    expect(() => evaluateCandidate(ambiguous, proof, catalogDiscoveryIndex(catalog)))
+      .toThrow('insufficient_official_evidence')
+  })
+
+  it.each([
+    ['title punctuation variant', 'Example-Evidence.AI — Research Assistant', 'https://new.example.ai/product'],
+    ['domain-backed compact brand', 'AI research assistant for teams', 'https://example-evidence.ai/product']
+  ])('accepts legitimate product identity variant: %s', (_label, title, finalUrl) => {
+    const input = normalizeCandidate(
+      { name: 'Example Evidence AI', url: finalUrl },
+      { id: 'feed-one', kind: 'feed', score: 40 },
+      new Date('2026-09-03T02:00:00.000Z')
+    )
+    const proof = {
+      ...evidence,
+      finalUrl,
+      canonicalUrl: finalUrl,
+      title,
+      visibleText: `${title}. ${'Artificial intelligence research workflow details. '.repeat(8)}`
+    }
+
+    expect(() => evaluateCandidate(input, proof, catalogDiscoveryIndex(catalog))).not.toThrow()
+  })
+
+  it('treats sibling subdomains and multi-level public suffix variants as catalog collisions', () => {
+    const sibling = normalizeCandidate(
+      { name: 'Sibling Product AI', url: 'https://app.same-company.co.uk/product' },
+      { id: 'feed-one', kind: 'feed', score: 40 },
+      new Date('2026-09-03T02:00:00.000Z')
+    )
+    const proof = {
+      ...evidence,
+      finalUrl: sibling.url,
+      canonicalUrl: sibling.url,
+      title: 'Sibling Product AI research assistant',
+      visibleText: `Sibling Product AI is an artificial intelligence research app. ${'Documented workflow evidence. '.repeat(10)}`
+    }
+    const index = catalogDiscoveryIndex([
+      ...catalog,
+      { slug: 'same-company', name: 'Same Company', category: 'research', url: 'https://www.same-company.co.uk/' }
+    ])
+
+    expect(() => evaluateCandidate(sibling, proof, index)).toThrow('duplicate_catalog_entry')
   })
 
   it.each([
@@ -186,13 +283,13 @@ describe('AI discovery deterministic quality gate', () => {
   it('recognizes an explicit multi-word AI cue without relying on a generic product token', () => {
     const proof = {
       ...evidence,
-      title: 'Example capability',
+      title: 'Example Evidence AI capability',
       metaDescription: '',
       visibleText: `Artificial intelligence transforms inputs into useful results. ${'Detailed public capability evidence. '.repeat(6)}`
     }
 
     expect(evaluateCandidate(candidate, proof, catalogDiscoveryIndex(catalog))).toMatchObject({
-      title: 'Example capability'
+      title: 'Example Evidence AI capability'
     })
   })
 
@@ -300,16 +397,35 @@ describe('AI discovery deterministic quality gate', () => {
 
   it('uses scoring only for integer ordering and never turns a hard failure into a pass', () => {
     const index = catalogDiscoveryIndex(catalog)
-    const score = scoreCandidate(candidate, evidence, index, draft)
+    const grounded = groundedDraft()
+    const score = scoreCandidate(candidate, evidence, index, grounded)
     const acceptedEvidence = evaluateCandidate(candidate, evidence, index)
 
     expect(Number.isInteger(score)).toBe(true)
     expect(score).toBeGreaterThan(candidate.sourceScore)
-    expect(scoreCandidate(candidate, acceptedEvidence, index, draft)).toBe(score)
-    expect(() => scoreCandidate(candidate, { ...evidence, visibleText: 'AI' }, index, draft))
+    expect(scoreCandidate(candidate, acceptedEvidence, index, grounded)).toBe(score)
+    expect(() => scoreCandidate(candidate, { ...evidence, visibleText: 'AI' }, index, grounded))
       .toThrow('insufficient_official_evidence')
-    expect(() => scoreCandidate(candidate, evidence, index, { ...draft, slug: 'research-tool-1' }))
+    expect(() => scoreCandidate(candidate, evidence, index, groundedDraft({ ...draft, slug: 'research-tool-1' })))
       .toThrow('duplicate_catalog_entry')
+    expect(() => scoreCandidate(candidate, evidence, index, draft))
+      .toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['medical', { description: '可自动诊断癌症并给出治疗处方的人工智能医疗助手。' }],
+    ['medical advice', { description: '提供个性化医疗建议并评估症状的人工智能助手。' }],
+    ['obfuscated medical advice', { description: '提供个性化医\u200b疗建议并评估症状的人工智能助手。' }],
+    ['malware', { features: ['提取公开来源', '生成恶意软件载荷', '保留链接回溯'] }],
+    ['Trojan malware', { features: ['提取公开来源', '生成木马程序并窃取账户', '保留链接回溯'] }],
+    ['impersonation', { tagline: '用于声音克隆和冒充他人的 AI 工具' }],
+    ['ranking', { pros: ['全球排名第一', '整理流程较直接'] }],
+    ['user count', { description: '拥有一百万用户的人工智能研究平台，可整理公开资料与来源。' }],
+    ['financial', { pros: ['已融资一亿美元', '整理流程较直接'] }]
+  ])('rejects a prohibited model-authored %s claim even with benign official evidence', (_label, changes) => {
+    const accepted = evaluateCandidate(candidate, evidence, catalogDiscoveryIndex(catalog))
+    expect(() => validateDraftAgainstEvidence({ ...draft, ...changes }, accepted))
+      .toThrow(/prohibited_candidate|insufficient_official_evidence/u)
   })
 
   it('orders pre-enrichment candidates by source score, discovery date, then stable key', () => {
@@ -319,10 +435,10 @@ describe('AI discovery deterministic quality gate', () => {
       new Date(date)
     )
     const inputs = [
-      makeCandidate('Zulu', 'https://z.example/', 40, '2026-09-03T01:00:00Z'),
-      makeCandidate('Alpha', 'https://a.example/', 50, '2026-09-03T02:00:00Z'),
-      makeCandidate('Beta', 'https://b.example/', 50, '2026-09-03T01:00:00Z'),
-      makeCandidate('Able', 'https://aa.example/', 50, '2026-09-03T01:00:00Z')
+      makeCandidate('Zulu', 'https://z-example.com/', 40, '2026-09-03T01:00:00Z'),
+      makeCandidate('Alpha', 'https://a-example.com/', 50, '2026-09-03T02:00:00Z'),
+      makeCandidate('Beta', 'https://b-example.com/', 50, '2026-09-03T01:00:00Z'),
+      makeCandidate('Able', 'https://aa-example.com/', 50, '2026-09-03T01:00:00Z')
     ]
 
     expect([...inputs].sort(compareCandidatesForEnrichment).map(({ name }) => name)).toEqual([
@@ -331,6 +447,16 @@ describe('AI discovery deterministic quality gate', () => {
       'Alpha',
       'Zulu'
     ])
+
+    const originalLocaleCompare = String.prototype.localeCompare
+    String.prototype.localeCompare = () => { throw new Error('ambient locale must not be consulted') }
+    try {
+      expect([...inputs].sort(compareCandidatesForEnrichment).map(({ name }) => name)).toEqual([
+        'Able', 'Beta', 'Alpha', 'Zulu'
+      ])
+    } finally {
+      String.prototype.localeCompare = originalLocaleCompare
+    }
   })
 
   it('selects two safe deterministic alternatives only after the returned category is known', () => {

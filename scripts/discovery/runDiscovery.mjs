@@ -33,6 +33,58 @@ const CANDIDATE_ERROR_CODES = new Set([
 ])
 const CATALOG_DETAIL_ORIGIN = 'https://no996noicu.com'
 const CATALOG_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
+const OFFICIAL_FETCH_BACKOFF_MILLISECONDS = Object.freeze([250, 500])
+const REVIEW_GUIDANCE = Object.freeze({
+  official_fetch_rejected: Object.freeze({
+    explanation: '官网请求被安全策略拒绝。',
+    suggestedAction: '确认公开 HTTPS 官网未指向受限网络，并重新提交候选。'
+  }),
+  official_fetch_failed: Object.freeze({
+    explanation: '官网在三次受限请求后仍不可用。',
+    suggestedAction: '检查官网可用性与证书，恢复后重新运行发现任务。'
+  }),
+  duplicate_catalog_entry: Object.freeze({
+    explanation: '候选与现有目录使用同一注册域名、名称、地址或标识。',
+    suggestedAction: '核对现有条目；仅在确认独立产品后人工处理。'
+  }),
+  insufficient_official_evidence: Object.freeze({
+    explanation: '官网证据不足、身份不一致或无法支持候选文案。',
+    suggestedAction: '核对产品身份并补充可公开验证的官网证据。'
+  }),
+  non_product_page: Object.freeze({
+    explanation: '官网页面未表现为可收录的 AI 产品页面。',
+    suggestedAction: '确认落地页正确且已公开产品信息后重新提交。'
+  }),
+  prohibited_candidate: Object.freeze({
+    explanation: '候选或草稿触发目录禁止内容规则。',
+    suggestedAction: '人工核对用途与文案；禁止内容不得收录。'
+  }),
+  discovery_enricher_invalid_output: Object.freeze({
+    explanation: '内容补全结果未通过严格结构或证据校验。',
+    suggestedAction: '核对官网证据与字段约束后重新生成草稿。'
+  }),
+  discovery_enricher_failed: Object.freeze({
+    explanation: '内容补全服务在有限重试后失败。',
+    suggestedAction: '检查补全服务状态，恢复后重新运行发现任务。'
+  }),
+  enricher_unconfigured: Object.freeze({
+    explanation: '内容补全服务尚未配置，本次候选已延期。',
+    suggestedAction: '配置补全服务后重新运行；不要手工绕过质量门槛。'
+  }),
+  catalog_maximum_reached: Object.freeze({
+    explanation: '公开目录已达到配置的容量上限，本次候选已延期。',
+    suggestedAction: '评估目录容量策略后重新运行，不要删除候选状态。'
+  }),
+  publish_limit_reached: Object.freeze({
+    explanation: '本次发布名额已用完，候选留待后续运行。',
+    suggestedAction: '等待下一次计划任务，无需修改候选。'
+  })
+})
+const REVIEW_NAME_REPLACEMENTS = Object.freeze({
+  '@': '＠', '`': '｀', '[': '［', ']': '］', '(': '（', ')': '）',
+  '<': '＜', '>': '＞', '#': '＃', '*': '＊', '_': '＿', '!': '！',
+  '|': '｜', ':': '：', '/': '／', '\\': '＼'
+})
 
 function frozenList(values) {
   return Object.freeze(values.map((value) => Object.freeze({ ...value })))
@@ -54,11 +106,43 @@ function knownCandidateError(error) {
   return CANDIDATE_ERROR_CODES.has(error?.code) ? error.code : null
 }
 
+function delay(milliseconds) {
+  return new Promise((resolveDelay) => setTimeout(resolveDelay, milliseconds))
+}
+
+async function fetchOfficialPageWithRetry(url, fetchOfficialPage, sleep) {
+  for (let attempt = 0; ; attempt += 1) {
+    try {
+      return await fetchOfficialPage(url)
+    } catch (error) {
+      const backoff = OFFICIAL_FETCH_BACKOFF_MILLISECONDS[attempt]
+      if (error?.code !== 'official_fetch_failed' || backoff === undefined) throw error
+      await sleep(backoff)
+    }
+  }
+}
+
 function reviewItem(candidate, errorCode) {
+  const guidance = REVIEW_GUIDANCE[errorCode]
+  if (!guidance) throw new Error('invalid_discovery_review_code')
+  const sanitizedName = Array.from(String(candidate.name).normalize('NFKC')
+    .replace(/[\p{Cc}\p{Cf}\p{Default_Ignorable_Code_Point}]/gu, ' ')
+    .replace(/\b(?:https?:\/\/|www\.)\S+/giu, ' ')
+    .replace(/[@`\[\]()<>#*_!|:/\\]/gu, (character) => REVIEW_NAME_REPLACEMENTS[character])
+    .replace(/\s+/gu, ' ')
+    .trim()).slice(0, 120).join('')
+  const name = sanitizedName || '未命名候选'
+  const officialUrl = new URL(candidate.url)
+  officialUrl.search = ''
+  officialUrl.hash = ''
   return Object.freeze({
     key: candidateKey(candidate),
     sourceId: candidate.sourceId,
-    errorCode
+    errorCode,
+    name,
+    officialUrl: officialUrl.toString(),
+    explanation: guidance.explanation,
+    suggestedAction: guidance.suggestedAction
   })
 }
 
@@ -142,6 +226,8 @@ export async function runDiscovery(options) {
     enricher: options?.enricher ?? null,
     appendCatalogTools: options?.appendCatalogTools ?? appendCatalogToolsToCatalog,
     fetch: options?.fetch ?? globalThis.fetch,
+    githubToken: options?.githubToken,
+    sleep: options?.sleep ?? delay,
     now: () => nowValue
   }
   const context = loadCatalog({ projectRoot: options?.projectRoot, catalogPath: options?.catalogPath })
@@ -165,17 +251,19 @@ export async function runDiscovery(options) {
   if (availableSlots === 0) {
     for (const candidate of inspected) {
       review.push(reviewItem(candidate, 'catalog_maximum_reached'))
-      nextState = recordFailed(nextState, candidate, 'catalog_maximum_reached', processedAt)
     }
   } else if (!deps.enricher) {
     for (const candidate of inspected) {
       review.push(reviewItem(candidate, 'enricher_unconfigured'))
-      nextState = recordFailed(nextState, candidate, 'enricher_unconfigured', processedAt)
     }
   } else {
     for (const candidate of inspected) {
       try {
-        const evidence = await deps.fetchOfficialPage(candidate.url)
+        const evidence = await fetchOfficialPageWithRetry(
+          candidate.url,
+          deps.fetchOfficialPage,
+          deps.sleep
+        )
         const acceptedEvidence = evaluateCandidate(candidate, evidence, catalogDiscoveryIndex(context.tools))
         validEvidence.push(Object.freeze({ candidate, evidence: acceptedEvidence }))
       } catch (error) {
@@ -189,7 +277,6 @@ export async function runDiscovery(options) {
     for (const { candidate, evidence } of validEvidence) {
       if (accepted.length >= availableSlots) {
         review.push(reviewItem(candidate, 'publish_limit_reached'))
-        nextState = recordFailed(nextState, candidate, 'publish_limit_reached', processedAt)
         continue
       }
       try {

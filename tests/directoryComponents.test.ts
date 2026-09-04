@@ -78,6 +78,16 @@ describe('directory component compilation', () => {
     expect(compileSfc('InvalidScript.vue', '<script setup lang="ts">const =</script>')).not.toEqual([])
     expect(compileSfc('InvalidTemplate.vue', '<template><div></template>')).not.toEqual([])
   })
+
+  it('describes mixed catalog provenance without claiming every tool was human curated', () => {
+    const directory = componentSource('AiDirectory.vue')
+    const detail = componentSource('ToolDetail.vue')
+
+    expect(directory).toContain('✓ 官网证据核验')
+    expect(directory).toContain('自动核验发现与人工审核的公开提交')
+    expect(detail).toContain('✓ 已核验收录')
+    expect(`${directory}\n${detail}`).not.toMatch(/人工精选|工具信息由人工整理|✓ 人工整理/u)
+  })
 })
 
 describe('directory filter change values', () => {
