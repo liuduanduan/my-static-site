@@ -136,7 +136,7 @@ const factualAnchors = Object.freeze({
   factCheck: /\b(?:fact[- ]?check\w*|verify(?:ing|ies|ied)?\s+(?:the\s+)?facts?|check(?:ing|s|ed)?\s+(?:the\s+)?facts?)\b|(?:自动|自主|一键|直接)(?:核验|验证|核查|检查)(?:事实|信息)|(?:事实|信息)(?:自动|自主|一键|直接)?(?:核查|检查|验证)/iu,
   image: /\b(?:image|photo|picture|design)\b|图像|图片|照片|设计/iu,
   cancer: /\bcancer\b|癌症|肿瘤/iu,
-  credentials: /\b(?:credentials?|passwords?|passcodes?|secrets?|(?:(?:api|access|account|auth(?:entication|orization)?|bearer|refresh|session)[- ]*)?(?:keys?|tokens?)|login details?)\b|凭据|密码|口令|秘密|密钥|秘钥|令牌|登录信息|盗号/iu,
+  credentials: /\b(?:credentials?|passwords?|passcodes?|secrets?|(?:api|access|account|auth(?:entication|orization)?|bearer|refresh|session|login|security)[- ]*(?:keys?|tokens?)|login details?)\b|凭据|密码|口令|秘密|密钥|秘钥|(?:API|访问|账户|账号|认证|授权|承载|刷新|会话|登录|安全)\s*令牌|登录信息|盗号/iu,
   deepfake: /\b(?:deepfake|face[- ]?swap|voice clon\w*)\b|深度伪造|深伪|AI\s*换脸|(?:声音|语音)克隆/iu,
   diagnosis: /\bdiagnos\w*\b|诊断|确诊/iu,
   funding: /\b(?:funding|funded|raised|valuation|venture capital)\b|融资|估值|风投/iu,
@@ -198,7 +198,7 @@ const relationQualifierAnchors = Object.freeze({
   trial: /\bfree\s+trial\b|免费试用/iu
 })
 const POLICY_DOCUMENT_PATTERN = /\b(?:privacy|cookie)(?:\s*(?:and|&|\/)\s*(?:privacy|cookie))?\s+polic(?:y|ies)\b|(?:隐私|Cookie)(?:与|和|及|&|\/)?(?:隐私|Cookie)?政策/iu
-const RELATION_SEPARATOR_PATTERN = /(?:,\s*(?:and\s+)?|，|、|\b(?:and|but|while|whereas)\b|并且|并|且|但|而|同时)/giu
+const RELATION_SEPARATOR_PATTERN = /(?:,\s*(?:(?:and|or|but|then|yet)\s+)?|，|、|[&＆]|\b(?:and|or|nor|but|yet|while|whereas)\b|并且|以及|同时|并|且|但|而|或|和|及|又)/giu
 const SUMMARY_PREDICATE_PATTERN = /\b(?:summari[sz](?:e|es|ed|ing)|brief(?:s|ed|ing)|condense(?:s|d|ing)?)\b|总结/iu
 const FUNDING_PREDICATE_PATTERN = /\b(?:fund(?:s|ed|ing)?|rais(?:e|es|ed|ing)|valu(?:e|es|ed|ing|ation))\b|(?:完成|获得|宣布|公司)?(?:新一轮)?融资|估值/iu
 const REVENUE_PREDICATE_PATTERN = /\b(?:earn(?:s|ed|ing)?|generat(?:e|es|ed|ing))?\s*(?:revenue|income|sales)\b|营收|收入|销售额/iu
@@ -247,17 +247,17 @@ const disallowedClaimPatterns = Object.freeze([
   /\b(?:one|two|three|four|five|six|seven|eight|nine|ten|hundred|thousand|million|billion|\d+(?:\.\d+)?)\s+(?:thousand|million|billion)?\s*(?:users|customers|teams|companies)\b/iu
 ])
 const PROHIBITED_MEDICAL_DRAFT_PATTERN = /\b(?:diagnos\w*|prescri\w*|cure[sd]?|medical treatment|medical advice|health advice|clinical decision\w*|symptom assessment|treatment recommendations?)\b|诊断|处方|治愈|治疗方案|医疗建议|健康建议|临床决策|症状(?:评估|判断)|用药建议|治疗建议/iu
-const PERSONAL_MEDICAL_MARKER_PATTERN = /\b(?:persons?|people|patients?|individuals?|personali[sz]ed|personal|individualized|(?:user|patient|person|individual)[- ](?:specific|level)|specific\s+to\s+(?:a|an|the|each)?\s*(?:user|patient|person|individual)|(?:each|per)\s+(?:user|patient|person|individual))\b|个人|个体|个性化|患者|病人|用户特定|患者特定|针对(?:个人|个体|患者|病人|用户)|每(?:位|个)?(?:用户|患者|病人|个人)/iu
+const PERSONAL_MEDICAL_MARKER_PATTERN = /(?:\b(?:persons?|people|patients?|individuals?|(?:user|patient|person|individual)['’]s|personali[sz]ed|individuali[sz]ed|personal|(?:user|patient|person|individual)[- ](?:specific|level)|specific\s+to\s+(?:a|an|the|each|every)?\s*(?:user|patient|person|individual)|(?:each|every|per[- ]?)\s*(?:user|patient|person|individual)|(?:for|to)\s+(?:each|every)\s+(?:user|patient|person|individual))\b|\b(?:users|patients|persons|individuals)['’](?=\s|[^\p{L}\p{N}_])|个人|个体|个性化|个体化|个人化|患者|病人|(?:用户|患者|病人|个人|个体)(?:的|专属)|用户特定|患者特定|针对(?:每(?:位|个)?(?:用户|患者|病人|个人)|个人|个体|患者|病人|用户)|每(?:位|个)?(?:用户|患者|病人|个人)|逐(?:位|个)?(?:用户|患者|病人|个人)|按(?:用户|患者|病人|个人|个体))/iu
 const MEDICAL_RISK_SUBJECT_PATTERN = /\b(?:cancer|tumou?rs?|diseases?|illness(?:es)?|medical|health(?:care)?|clinical|symptoms?|oncolog\w*)\b|患癌|患病|癌症?|肿瘤|疾病|病症|医疗|健康|临床|症状/iu
 const MEDICAL_RISK_OUTCOME_PATTERN = /\b(?:risks?|odds?|chances?|likelihoods?|probabilit(?:y|ies)|prognos(?:is|es)|predictions?|scores?|scoring|assessments?|outcomes?|diagnos\w*|advice|treatments?)\b|风险|概率|几率|机率|胜算|可能性|结局|结果|预后|预测|评分|评估|诊断|建议|治疗/iu
 const SECURITY_HARM_PATTERN = /\b(?:malware|ransomware|phishing|(?:steal(?:s|ing)?|stole|stolen)\s+(?:(?:account|user)\s+)?(?:credentials?|passwords?|login details?)|credential theft|trojans?|computer viruses|spyware|keyloggers?|exploit payloads?)\b|恶意软件|勒索软件|网络钓鱼|(?:窃取|盗取).{0,8}(?:凭据|密码|登录信息)|盗号|木马|计算机病毒|间谍软件|键盘记录器|漏洞利用(?:载荷)?/iu
 const DECEPTIVE_MEDIA_TERM_PATTERN = /\b(?:deepfake|impersonat\w*|voice\s+clon\w*|face[- ]?swap\w*)\b|深度伪造|深伪|(?:声音|语音)(?:冒充|克隆)|(?:冒充|仿冒).{0,8}(?:声音|语音|人脸)|AI\s*换脸/iu
 const OFFENSIVE_ACTION_PATTERN = /\b(?:(?:generate|generator|create|build|deploy|spread|steal|harvest|bypass|clone|synthesize|impersonate|offensive)\w*|stole|stolen)\b|生成|制作|部署|传播|窃取|盗取|盗号|收割|绕过|克隆|合成|冒充|攻击性/iu
 const DEFENSIVE_ACTION_PATTERN = /\b(?:anti[- ]?(?:malware|phishing)|detect(?:s|ion|or)?|prevent(?:s|ion)?|protect(?:s|ion)?|block(?:s|ing)?|scanner|security|defen[sc]e|verification|analysis|sandbox|simulation|training|removal)\b|反钓鱼|检测|识别|防御|拦截|阻止|安全|保护|核验|分析|沙箱|演练|培训|清除/iu
-const CREDENTIAL_SECRET_PATTERN = /\b(?:credentials?|passwords?|passcodes?|secrets?|(?:(?:api|access|account|auth(?:entication|orization)?|bearer|refresh|session|login|security)[- ]*)?(?:keys?|tokens?)|login\s+(?:details?|secrets?)|account\s+secrets?|password\s+hashes?)\b|凭据|密码|口令|秘密|密钥|秘钥|令牌|API\s*密钥|登录信息|账号密码|账户密码|访问令牌|账户令牌|账号令牌|刷新令牌|会话令牌/iu
+const CREDENTIAL_SECRET_PATTERN = /\b(?:credentials?|passwords?|passcodes?|secrets?|(?:api|access|account|auth(?:entication|orization)?|bearer|refresh|session|login|security)[- ]*(?:keys?|tokens?)|login\s+(?:details?|secrets?)|account\s+secrets?|password\s+hashes?)\b|凭据|密码|口令|秘密|密钥|秘钥|API\s*密钥|登录信息|账号密码|账户密码|访问令牌|账户令牌|账号令牌|认证令牌|授权令牌|承载令牌|刷新令牌|会话令牌|登录令牌|安全令牌/iu
 const CREDENTIAL_ACQUISITION_PATTERN = /\b(?:extract(?:s|ed|ing|ion)?|dump(?:s|ed|ing|ped|ping)?|captur(?:e|es|ed|ing)|collect(?:s|ed|ing|ion)?|harvest(?:s|ed|ing)?|access(?:es|ed|ing)?|exfiltrat(?:e|es|ed|ing|ion)|obtain(?:s|ed|ing)?|acquir(?:e|es|ed|ing)|retriev(?:e|es|ed|ing))\b|提取|抽取|倾倒|导出|捕获|抓取|采集|收集|收割|访问|读取|获取|取得|窃取|盗取|外传|泄露/iu
 const INHERENTLY_OFFENSIVE_CREDENTIAL_PATTERN = /\b(?:dump(?:s|ed|ing|ped|ping)?|harvest(?:s|ed|ing)?|exfiltrat(?:e|es|ed|ing|ion)|steal(?:s|ing)?|stole|stolen)\b|窃取|盗取|盗号|收割|外传|泄露/iu
-const NONCONSENSUAL_CREDENTIAL_PATTERN = /\b(?:without|lacking)\s+(?:(?:the|a|any|user|customer|owner)\s+)?(?:permission|consent|authori[sz]ation)\b|\b(?:no|absent)\s+(?:permission|consent|authori[sz]ation)\b|\b(?:not\s+authori[sz]ed|unauthori[sz]ed)\b|\b(?:bypass|circumvent|evade)(?:es|ed|ing)?\b|\b(?:other users?|other people|another\s+(?:user|person|customer)(?:'s)?|third[- ]part(?:y|ies)|victims?|someone else's)\b|\bbelong(?:s|ing)?\s+to\s+(?:other users?|other people|third part(?:y|ies))\b|未经(?:许可|授权|同意)|未获(?:许可|授权|同意)|未授权|无授权|擅自|绕过|绕开|规避|非法|无权|他人|其他用户|受害者|第三方/iu
+const NONCONSENSUAL_CREDENTIAL_PATTERN = /\b(?:without|lacking)\s+(?:(?:the|a|any|their|his|her|its|user|customer|owner|(?:the\s+)?(?:users?|customers?|owners?)(?:['’]s?)?)\s+)?(?:permission|consent|authori[sz]ation)\b|\b(?:no|absent)\s+(?:(?:their|his|her|its|user|customer|owner)\s+)?(?:permission|consent|authori[sz]ation)\b|\b(?:not\s+authori[sz]ed|unauthori[sz]ed)\b|\b(?:bypass|circumvent|evade)(?:es|ed|ing)?\b|\b(?:other users?|other people|another\s+(?:user|person|customer)(?:['’]s)?|third[- ]part(?:y|ies)|victims?|someone else['’]s)\b|\bbelong(?:s|ing)?\s+to\s+(?:other users?|other people|third part(?:y|ies))\b|未经(?:(?:其|用户|客户|所有者|本人)(?:的)?)?(?:许可|授权|同意)|未获(?:(?:其|用户|客户|所有者|本人)(?:的)?)?(?:许可|授权|同意)|未(?:取得|得到)(?:(?:其|用户|客户|所有者|本人)(?:的)?)?(?:许可|授权|同意)|没有(?:(?:其|用户|客户|所有者|本人)(?:的)?)?(?:许可|授权|同意)|未授权|无授权|擅自|绕过|绕开|规避|非法|无权|他人|其他用户|受害者|第三方/iu
 const NEGATED_CREDENTIAL_ACQUISITION_PATTERN = /\b(?:does?\s+not|never|without)\s+(?:extract|dump|capture|collect|harvest|access|obtain|acquire|retrieve|store)(?:s|ed|ing)?\b|不(?:提取|抽取|导出|捕获|抓取|采集|收集|收割|访问|读取|获取|存储)|不会(?:提取|抽取|导出|捕获|抓取|采集|收集|收割|访问|读取|获取|存储)/iu
 const DEFENSIVE_CREDENTIAL_RELATION_PATTERN = /\b(?:password|credential)\s+(?:manager|management|vault|autofill|security|audit|strength|rotation|reset|recovery)\b|\bauthori[sz]ed\s+(?:security\s+)?(?:audit|assessment|test(?:ing)?)\b|\b(?:breach|leak|compromised credential|weak password)\s+(?:detection|monitoring|scanner|audit)\b|\b(?:your|their own)\s+(?:saved|stored|own)?\s*(?:credentials?|passwords?)\b|密码管理器|凭据管理|密码保险库|自动填充|授权(?:安全)?(?:审计|评估|测试)|密码(?:安全|审计|强度|轮换|重置|恢复)|凭据(?:安全|审计)|泄露(?:检测|监测)|弱密码(?:检测|审计)|用户自己(?:保存|存储)?的?密码/iu
 const PASSWORD_MANAGER_PATTERN = /\b(?:password|credential)\s+(?:manager|management|vault|autofill)\b|密码管理器|凭据管理|密码保险库|自动填充/iu
@@ -343,9 +343,7 @@ export function hasProhibitedPersonalMedicalClaim(items) {
 }
 
 function credentialRelationSegments(items) {
-  return items.flatMap((item) => normalizedEvidence(item).split(/[\r\n.!?。！？；;]+/u))
-    .map((segment) => segment.trim())
-    .filter(Boolean)
+  return items.flatMap((item) => relationSegments(item))
 }
 
 function isNarrowDefensiveCredentialRelation(segment) {
@@ -364,9 +362,7 @@ export function hasProhibitedCredentialClaim(items, rejectUnknown = false) {
     if (!CREDENTIAL_SECRET_PATTERN.test(segment)) return false
     if (NONCONSENSUAL_CREDENTIAL_PATTERN.test(segment)
       || INHERENTLY_OFFENSIVE_CREDENTIAL_PATTERN.test(segment)) return true
-    const defensive = isNarrowDefensiveCredentialRelation(segment)
-    if (CREDENTIAL_ACQUISITION_PATTERN.test(segment)) return !defensive
-    return rejectUnknown && !defensive
+    return false
   })
 }
 
@@ -555,6 +551,68 @@ function relationBusinessPredicateSet(value) {
   return new Set(['funding', 'revenue'].filter((name) => anchors.has(name)))
 }
 
+const POTENTIAL_ACTION_NON_VERBS = new Set([
+  'accounts', 'credentials', 'customers', 'documents', 'evidence', 'findings', 'keys', 'members',
+  'plans', 'results', 'sources', 'subscribers', 'teams', 'tokens', 'users'
+])
+
+function hasPotentialCoordinatedAction(value) {
+  const text = normalizedEvidence(value)
+  if (capabilityActionSet(text).size > 0) return true
+  const firstObject = firstRelationObjectAfter(text, 0)
+  if (/\p{Script=Latin}/u.test(text)) {
+    const head = firstObject ? text.slice(0, firstObject.index) : text
+    return [...head.matchAll(/\b([a-z][a-z-]{1,30}(?:s|ed|ing))\b/giu)]
+      .some(([, word]) => !POTENTIAL_ACTION_NON_VERBS.has(word.toLocaleLowerCase('en-US')))
+  }
+  if (!/\p{Script=Han}/u.test(text)) return false
+  const head = (firstObject ? text.slice(0, firstObject.index) : text)
+    .replace(/^(?:它|其|该|这款|本款|工具|产品|平台)/u, '')
+    .replace(/^(?:从未|不会|不能|不可|没有|未曾|不|未|无)/u, '')
+    .replace(/[^\p{Script=Han}]/gu, '')
+  return head.length > 0 && head.length <= 4
+    && !/^(?:公开|研究|团队|用户|客户|产品|工具|资料|文档)$/u.test(head)
+}
+
+function coordinatedSharedComplement(value) {
+  const text = normalizedEvidence(value)
+  const actions = capabilityActionSet(text)
+  const action = firstClaimedAction(text, actions)
+  const object = firstRelationObjectAfter(text, action ? action.index + action.length : 0)
+  if (!object) return ''
+  const start = action ? action.index + action.length : object.index
+  const complement = text.slice(start).replace(/^[\s,:：，]+/u, '').trim()
+  return relationObjectSet(complement).size > 0
+    ? complement
+    : text.slice(object.index).trim()
+}
+
+function inheritCoordinatedComplement(value, complement) {
+  if (!complement || relationObjectSet(value).size > 0 || !hasPotentialCoordinatedAction(value)) return value
+  const separator = /\p{Script=Han}$/u.test(value) && /^\p{Script=Han}/u.test(complement) ? '' : ' '
+  return `${value}${separator}${complement}`
+}
+
+function sharedNegationPrefix(value) {
+  const text = normalizedEvidence(value)
+  const english = /^(?:(?:it|this|that|the|a|an|they|we|he|she)\s+)?(does?\s+not|did\s+not|will\s+not|would\s+not|can(?:not|'t)|could\s+not|never|without)\b/iu.exec(text)
+  if (english) return english[1]
+  const chinese = /^(?:(?:它|其|该|这款|本款|工具|产品|平台))?(从未|不会|不能|不可|没有|未曾|不|未|无)/u.exec(text)
+  return chinese?.[1] ?? ''
+}
+
+function coordinatorSharesNegation(value) {
+  const connector = normalizedEvidence(value).toLocaleLowerCase('en-US')
+  if (/\b(?:but|yet|while|whereas|then)\b|但|而|同时/u.test(connector)) return false
+  return /,|，|、|[&＆]|\b(?:and|or|nor)\b|并且|以及|并|且|或|和|及|又/u.test(connector)
+}
+
+function inheritCoordinatedNegation(value, prefix) {
+  if (!prefix || hasNegativeAssertion(value, relationActionSet(value))) return value
+  const separator = /\p{Script=Han}$/u.test(prefix) && /^\p{Script=Han}/u.test(value) ? '' : ' '
+  return `${prefix}${separator}${value}`
+}
+
 function shouldSplitRelation(left, right) {
   const leftActions = capabilityActionSet(left)
   const rightActions = capabilityActionSet(right)
@@ -566,6 +624,10 @@ function shouldSplitRelation(left, right) {
     || (exactFactSet(left).size > 0 && exactFactSet(right).size > 0)
     || (!isLeadingRelationModifier(left)
       && hasAtomicAssertionSignal(left) && hasAtomicAssertionSignal(right))
+    || (!isLeadingRelationModifier(left)
+      && hasPotentialCoordinatedAction(left)
+      && hasPotentialCoordinatedAction(right)
+      && (relationObjectSet(left).size > 0 || relationObjectSet(right).size > 0))
 }
 
 function hasAtomicAssertionSignal(value) {
@@ -605,10 +667,12 @@ function splitCoordinatedRelations(value) {
     const left = value.slice(0, match.index).trim()
     const right = value.slice(match.index + match[0].length).trim()
     if (!left || !right || !shouldSplitRelation(left, right)) continue
-    return [
-      ...splitCoordinatedRelations(left),
-      ...splitCoordinatedRelations(right.replace(/^(?:and|but)\s+/iu, '').trim())
-    ]
+    const rightRelations = splitCoordinatedRelations(right.replace(/^(?:and|or|but|then|yet)\s+/iu, '').trim())
+    const complement = rightRelations.map(coordinatedSharedComplement).find(Boolean) ?? ''
+    const leftRelations = splitCoordinatedRelations(left)
+      .map((relation) => inheritCoordinatedComplement(relation, complement))
+    const negation = coordinatorSharesNegation(match[0]) ? sharedNegationPrefix(left) : ''
+    return [...leftRelations, ...rightRelations.map((relation) => inheritCoordinatedNegation(relation, negation))]
   }
   return value ? [value] : []
 }

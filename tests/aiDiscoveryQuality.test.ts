@@ -556,6 +556,16 @@ describe('AI discovery deterministic quality gate', () => {
       'nominal prognosis wording',
       { ...draft, description: 'An individual cancer prognosis from Example Evidence AI for research use.' },
       'An individual cancer prognosis from Example Evidence AI for research use.'
+    ],
+    [
+      'user possessive probability wording',
+      { ...draft, description: "Example Evidence AI provides a user's probability of developing cancer." },
+      "Example Evidence AI provides a user's probability of developing cancer."
+    ],
+    [
+      'British individualised assessment wording',
+      { ...draft, description: 'Example Evidence AI provides an individualised cancer risk assessment.' },
+      'Example Evidence AI provides an individualised cancer risk assessment.'
     ]
   ])('rejects a personal medical score-path bypass using %s', (_label, proposedDraft, exploitText) => {
     const index = catalogDiscoveryIndex(catalog)
@@ -584,12 +594,42 @@ describe('AI discovery deterministic quality gate', () => {
     }).toThrow(/discovery_enricher_invalid_output|prohibited_candidate/u)
   })
 
+  it('rejects a defensive credential clause followed by pronoun-marked abuse before scoring', () => {
+    const index = catalogDiscoveryIndex(catalog)
+    const claim = "This authorized security audit inspects customer-provided test account tokens but exports users' refresh tokens without their consent."
+    const proof = {
+      ...evidence,
+      visibleText: `${claim} ${evidence.visibleText} ${'It organizes public sources, creates structured summaries, and helps users trace evidence. '.repeat(3)}`
+    }
+
+    expect(() => {
+      const grounded = groundedDraft({ ...draft, description: claim }, proof)
+      scoreCandidate(candidate, proof, index, grounded)
+    }).toThrow(/discovery_enricher_invalid_output|prohibited_candidate/u)
+  })
+
   it('scores an exact relation-local authorized customer-token audit', () => {
     const index = catalogDiscoveryIndex(catalog)
     const description = 'This authorized security audit inspects account tokens supplied by the customer for testing.'
     const proof = {
       ...evidence,
       visibleText: `Example Evidence AI is a web app for research teams. It requires account registration, offers a free plan and paid plans, and supports Chinese translation. ${description} ${'It organizes public sources, creates structured summaries, and helps users trace evidence. '.repeat(4)}`
+    }
+
+    expect(Number.isInteger(scoreCandidate(candidate, proof, index, groundedDraft({
+      ...draft,
+      description
+    }, proof)))).toBe(true)
+  })
+
+  it.each([
+    ['key findings', 'Example Evidence AI summarizes key findings from public research sources.'],
+    ['API token documentation', 'Example Evidence AI summarizes API token documentation from public sources.']
+  ])('scores exact benign %s language without credential false positives', (_label, description) => {
+    const index = catalogDiscoveryIndex(catalog)
+    const proof = {
+      ...evidence,
+      visibleText: `${description} ${evidence.visibleText} ${'It organizes public sources, creates structured summaries, and helps users trace evidence. '.repeat(3)}`
     }
 
     expect(Number.isInteger(scoreCandidate(candidate, proof, index, groundedDraft({
@@ -643,6 +683,21 @@ describe('AI discovery deterministic quality gate', () => {
       'current-subscriber discount plus new-user onboarding',
       { ...draft, pricing: 'New users receive a 50% discount for the first month，具体价格以官网为准' },
       'Current subscribers receive a 50% discount, and new users get onboarding for the first month.'
+    ],
+    [
+      'shared-object deletion with distinct evidence objects',
+      { ...draft, features: ['Deletes and organizes public sources', ...draft.features.slice(1)] },
+      'It deletes inactive accounts and organizes public sources.'
+    ],
+    [
+      'unknown shared-object action',
+      { ...draft, features: ['Indexes and organizes public sources', ...draft.features.slice(1)] },
+      '它整理公开来源。'
+    ],
+    [
+      'Chinese three-action shared object',
+      { ...draft, features: ['生成、总结并整理公开来源', ...draft.features.slice(1)] },
+      '生成报告、总结文档并整理公开来源'
     ]
   ])('rejects atomic assertion score-path bypasses: %s', (_label, proposedDraft, exploitText) => {
     const index = catalogDiscoveryIndex(catalog)

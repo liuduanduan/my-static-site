@@ -549,6 +549,56 @@ describe('strict discovery draft parser', () => {
   })
 
   it.each([
+    ['unknown first action', 'Indexes and organizes public sources', '它整理公开来源。'],
+    ['known first action with a distinct cited object', 'Deletes and organizes public sources', 'It deletes inactive accounts and organizes public sources.'],
+    ['known last action with a distinct cited object', 'Organizes and deletes public sources', 'It organizes inactive accounts and deletes public sources.'],
+    ['three actions with distinct cited objects', 'Creates, summarizes, and organizes public sources', 'It creates reports, summarizes documents, and organizes public sources.'],
+    ['punctuation coordinator', 'Deletes, then organizes public sources', 'It deletes inactive accounts, then organizes public sources.'],
+    ['adversative coordinator', 'Deletes but organizes public sources', 'It deletes inactive accounts but organizes public sources.'],
+    ['Chinese shared object', '删除并整理公开来源', '删除无效账户并整理公开来源'],
+    ['Chinese three-action shared object', '生成、总结并整理公开来源', '生成报告、总结文档并整理公开来源'],
+    ['negated shared object', 'Does not delete or organize public sources', 'It does not delete inactive accounts or organize public sources.'],
+    ['Chinese negated shared object', '不删除或整理公开来源', '不删除无效账户或整理公开来源']
+  ])('does not let a coordinated %s borrow another action\'s object', (_label, feature, citation) => {
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, features: [feature, ...validDraft.features.slice(1)] },
+      citations: { ...validCitations, features: [citation, ...validCitations.features.slice(1)] }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['English two actions', 'Deletes and organizes public sources'],
+    ['English three actions', 'Creates, summarizes, and organizes public sources'],
+    ['English adversative', 'Deletes but organizes public sources'],
+    ['Chinese two actions', '删除并整理公开来源'],
+    ['Chinese three actions', '生成、总结并整理公开来源'],
+    ['English negative', 'Does not delete or organize public sources'],
+    ['Chinese negative', '不删除或整理公开来源']
+  ])('accepts exact shared-object evidence for %s', (_label, feature) => {
+    expect(parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, features: [feature, ...validDraft.features.slice(1)] },
+      citations: { ...validCitations, features: [feature, ...validCitations.features.slice(1)] }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${feature}`
+    })).toMatchObject({ features: [feature, ...validDraft.features.slice(1)] })
+  })
+
+  it('fails closed for an unknown coordinated action even when the complete assertion is cited exactly', () => {
+    const feature = 'Indexes and organizes public sources'
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, features: [feature, ...validDraft.features.slice(1)] },
+      citations: { ...validCitations, features: [feature, ...validCitations.features.slice(1)] }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${feature}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
     ['does not', 'It does not delete public sources.'],
     ['never', 'It will never delete public sources.'],
     ["doesn't", "It doesn't delete public sources."],
@@ -780,6 +830,38 @@ describe('strict discovery draft parser', () => {
   })
 
   it.each([
+    ['singular user possessive', "Example Evidence AI provides a user's probability of developing cancer."],
+    ['plural user possessive', "Example Evidence AI reports users' cancer risk assessments."],
+    ['patient possessive', "A patient's likelihood of developing cancer from Example Evidence AI."],
+    ['individual possessive', "An individual's disease outcome assessment from Example Evidence AI."],
+    ['British individualised', 'An individualised cancer risk assessment from Example Evidence AI.'],
+    ['British personalised', 'A personalised illness prognosis from Example Evidence AI.'],
+    ['per-patient nominal form', 'Per-patient cancer probability assessment from Example Evidence AI.'],
+    ['for-each nominal form', 'Cancer outcome scores for each user from Example Evidence AI.'],
+    ['Chinese possessive', '这款人工智能研究工具提供用户的癌症风险评估。'],
+    ['Chinese patient possessive', '这款人工智能研究工具展示患者的患病概率。'],
+    ['Chinese individualized', '这款人工智能研究工具提供个体化癌症风险评估。'],
+    ['Chinese per-user', '这款人工智能研究工具提供逐用户疾病预后评分。']
+  ])('rejects structural person ownership in medical outcomes: %s', (_label, description) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, description }))
+      .toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ["Example Evidence AI provides a user's probability of developing cancer."],
+    ['Example Evidence AI provides an individualised cancer risk assessment.'],
+    ['这款人工智能研究工具提供用户的癌症风险评估。']
+  ])('rejects an exactly cited personalized medical outcome before publication: %s', (description) => {
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, description },
+      citations: { ...validCitations, description }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${description}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
     ['punctuation split', {
       description: 'Example Evidence AI reports cancer outcomes for research teams.',
       pros: ['For each patient; individualized results', validDraft.pros[1]]
@@ -861,6 +943,30 @@ describe('strict discovery draft parser', () => {
   ])('does not launder a separate offensive credential relation: %s', (description) => {
     expect(() => parseDiscoveryDraft({ ...validDraft, description }))
       .toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ["This authorized security audit inspects customer-provided test account tokens but exports users' refresh tokens without their consent."],
+    ["It exports a customer's bearer token without his authorization, while an approved audit reviews synthetic access tokens."],
+    ["Without her permission, it displays the user's session token, but the authorized audit checks customer-owned API keys."],
+    ["An authorized audit reviews customer-owned API keys and then exports users' refresh tokens without the customers' consent."],
+    ['这项已授权安全审计核查客户提供的测试账户令牌，但未经其同意导出用户的刷新令牌。'],
+    ['未经用户同意，这款工具展示其会话令牌；已授权审计仅核查客户自有的 API 密钥。']
+  ])('rejects coordinator-separated credential abuse with possessive consent markers: %s', (description) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, description }))
+      .toThrow('discovery_enricher_invalid_output')
+    expect(hasProhibitedCredentialClaim([description], false)).toBe(true)
+  })
+
+  it.each([
+    ['key findings', 'This AI research assistant summarizes key findings from public research sources.'],
+    ['language-model token limits', 'This guide explains token limits for language models and public research workflows.'],
+    ['design tokens', 'This design assistant organizes design tokens for interface teams.'],
+    ['benign API-token discussion', 'This research guide summarizes API token documentation from public sources.'],
+    ['authorized credential management', 'Authorized credential management rotates customer-owned access tokens for account security.']
+  ])('does not classify benign %s as credential abuse', (_label, description) => {
+    expect(hasProhibitedCredentialClaim([description], true)).toBe(false)
+    expect(() => parseDiscoveryDraft({ ...validDraft, description })).not.toThrow()
   })
 
   it.each([
