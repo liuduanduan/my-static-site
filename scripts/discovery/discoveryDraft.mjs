@@ -83,7 +83,7 @@ const citationFields = Object.freeze([
   'cons'
 ])
 const citationFieldSet = new Set(citationFields)
-const groundedDrafts = new WeakSet()
+const groundedDrafts = new WeakMap()
 const structuralMarkupPatterns = Object.freeze([
   /<\/?[a-z][^<>]*>/iu,
   /<!--|-->/u,
@@ -101,6 +101,24 @@ const structuralMarkupPatterns = Object.freeze([
   /(?:^|[\r\n])[ \t]{0,3}(?:(?:\*[ \t]*){3,}|(?:_[ \t]*){3,}|(?:=[ \t]*){3,})(?:[\r\n]|$)/u,
   /(?:^|[\r\n])[ \t]{0,3}\|?[ \t]*:?-{3,}:?[ \t]*(?:\|[ \t]*:?-{3,}:?[ \t]*)+\|?[ \t]*(?:[\r\n]|$)/u
 ])
+const vueStructuralPatterns = Object.freeze([
+  /\{\s*\{[\s\S]*?\}\s*\}/u,
+  /(?:^|[\s"'(<\[,])v-[A-Za-z_][\w.-]*(?::[^\s=]+)?(?:\s*=|\s|$)/iu,
+  /(?:^|[\s"'(<\[,])(?:@|:|#)(?:[A-Za-z_][\w.-]*|\[[^\]\r\n]+\])(?:\.[^\s=]+)*\s*=/u
+])
+const actionAndQualifierAnchors = Object.freeze({
+  automatic: /\b(?:automatic|automatically|autonomous(?:ly)?|one[- ]click)\b|自动|自主|一键/iu,
+  create: /\b(?:create(?:s|d|ing)?|generat(?:e[sd]?|ing|ion|ions|or|ors)|produce(?:s|d|ing)?|draft(?:s|ed|ing)?)\b|生成|创建|制作|产出/iu,
+  deletion: /\b(?:delete(?:s|d|ing)?|deletion|remove(?:s|d|ing)?|removal|erase(?:s|d|ing)?|purge(?:s|d|ing)?|discard(?:s|ed|ing)?)\b|删除|移除|清除|抹除/iu,
+  detect: /\b(?:detect(?:s|ed|ing|ion|ions|or|ors)?|identif(?:y|ies|ied|ying|ication|ications)|recogni(?:ze|zes|zed|zing|tion|tions)|scan(?:s|ned|ning|ner|ners)?)\b|检测|识别|扫描/iu,
+  export: /\b(?:export(?:s|ed|ing|er|ers)?|download(?:s|ed|ing)?)\b|导出|下载/iu,
+  extract: /\b(?:extract(?:s|ed|ing|ion|ions|or|ors)?|pull(?:s|ed|ing)?|retrieve(?:s|d|ing)?|retrieval)\b|提取|抽取|检索/iu,
+  organize: /\b(?:organi[sz](?:e|es|ed|ing|ation|ations)|structure(?:s|d|ing)?|arrange(?:s|d|ing|ment|ments))\b|整理|组织|结构化/iu,
+  predict: /\b(?:predict(?:s|ed|ing|ion|ions|ive)?|forecast(?:s|ed|ing)?|estimate(?:s|d|ing)?)\b|预测|预估/iu,
+  realtime: /\b(?:real[- ]?time|live\s+(?:data|updates?|results?|feeds?|transcription|captions?|monitoring|analytics|collaboration)|instant(?:ly)?)\b|实时|即时/iu,
+  summarize: /\b(?:summar(?:y|ies)|summari[sz](?:e|es|ed|ing|ation|ations)|brief(?:s|ed|ing)?|condense(?:s|d|ing)?)\b|摘要|总结|简报/iu,
+  trace: /\b(?:trace(?:s|d|ing)?|track(?:s|ed|ing)?|provenance)\b|回溯|追踪|追溯/iu
+})
 const factualAnchors = Object.freeze({
   ai: /\b(?:ai|artificial intelligence|llm|machine learning)\b|人工智能|大模型|机器学习/iu,
   account: /\b(?:account|sign ?up|log ?in|registration)\b|账户|账号|注册|登录/iu,
@@ -114,10 +132,24 @@ const factualAnchors = Object.freeze({
   export: /\b(?:export|download)\w*\b|导出|下载/iu,
   factCheck: /\b(?:fact[- ]?check\w*|verify(?:ing|ies|ied)?\s+(?:the\s+)?facts?|check(?:ing|s|ed)?\s+(?:the\s+)?facts?)\b|(?:自动|自主|一键|直接)(?:核验|验证|核查|检查)(?:事实|信息)|(?:事实|信息)(?:自动|自主|一键|直接)?(?:核查|检查|验证)/iu,
   image: /\b(?:image|photo|picture|design)\b|图像|图片|照片|设计/iu,
+  cancer: /\bcancer\b|癌症|肿瘤/iu,
+  credentials: /\b(?:credentials?|passwords?|login details?)\b|凭据|密码|登录信息|盗号/iu,
+  deepfake: /\b(?:deepfake|face[- ]?swap|voice clon\w*)\b|深度伪造|深伪|AI\s*换脸|(?:声音|语音)克隆/iu,
+  diagnosis: /\bdiagnos\w*\b|诊断|确诊/iu,
+  funding: /\b(?:funding|funded|raised|valuation|venture capital)\b|融资|估值|风投/iu,
+  health: /\b(?:medical|health|clinical|disease|symptoms?)\b|医疗|健康|临床|疾病|症状/iu,
+  impersonation: /\bimpersonat\w*\b|冒充|仿冒/iu,
+  malware: /\b(?:malware|ransomware|trojans?|spyware|keyloggers?|exploit payloads?)\b|恶意软件|勒索软件|木马|间谍软件|键盘记录器|漏洞利用(?:载荷)?/iu,
   marketing: /\b(?:marketing|campaign|social media|sales)\b|营销|社媒|销售/iu,
+  offline: /\b(?:offline|local[- ]?first|on[- ]device|runs? locally|local(?:ly)? processing)\b|离线(?:处理|使用|运行|模式)?|本地(?:处理|推理|运行|部署)|端侧(?:处理|推理|运行)?/iu,
   organize: /\b(?:organiz\w*|structure\w*|workflow)\b|整理|结构化|流程/iu,
+  personal: /\b(?:personal|personalized|individual|individualized)\b|个人|个体|个性化/iu,
+  prediction: /\b(?:predict\w*|forecast\w*|risk assessment|risk scoring)\b|预测|预估|风险(?:评估|评分)/iu,
   pricing: /\b(?:free|paid|plan|pricing|price|subscription|tier|quota|cost)\b|免费|付费|方案|套餐|价格|定价|订阅|额度|收费/iu,
+  privacy: /\b(?:private|privacy|zero[- ]retention|no[- ]logs?|data protection)\b|隐私|私密|零数据保留|不(?:保存|记录|上传)(?:数据|内容)/iu,
+  promotion: /\b(?:discount|promotion|promotional|promo|free trial)\b|优惠|折扣|促销|免费试用|活动价/iu,
   research: /\b(?:research|study|analysis)\b|研究|调研|分析/iu,
+  revenue: /\b(?:revenue|annual recurring revenue|arr|income|sales volume)\b|营收|收入|销售额/iu,
   source: /\b(?:source|document|material|link)\w*\b|来源|资料|文档|链接/iu,
   summary: /\b(?:summar\w*|brief|notes?)\b|摘要|简报|笔记|总结/iu,
   translation: /\b(?:chinese|language|multilingual|translat\w*)\b|中文|语言|翻译/iu,
@@ -135,8 +167,17 @@ const disallowedClaimPatterns = Object.freeze([
   /官方(?:授权|合作伙伴|认证)/iu,
   /评分\s*[:：]?\s*\d/iu,
   /\b(?:best|number one|no\.?\s*1|top\s*\d+)\b/iu,
-  /\b\d+(?:\.\d+)?\s*(?:million|billion)\s+(?:users|customers|teams|companies)\b/iu
+  /\b\d+(?:\.\d+)?\s*(?:million|billion)\s+(?:users|customers|teams|companies)\b/iu,
+  /\b(?:one|two|three|four|five|six|seven|eight|nine|ten|hundred|thousand|million|billion|\d+(?:\.\d+)?)\s+(?:thousand|million|billion)?\s*(?:users|customers|teams|companies)\b/iu
 ])
+const PROHIBITED_MEDICAL_DRAFT_PATTERN = /\b(?:diagnos\w*|prescri\w*|cure[sd]?|medical treatment|medical advice|health advice|clinical decision\w*|symptom assessment|treatment recommendations?)\b|诊断|处方|治愈|治疗方案|医疗建议|健康建议|临床决策|症状(?:评估|判断)|用药建议|治疗建议/iu
+const PERSONAL_MEDICAL_MARKER_PATTERN = /\b(?:personal|personalized|individual|individualized|individuals?|patients?)\b|个人|个体|个性化|患者/iu
+const MEDICAL_RISK_SUBJECT_PATTERN = /\b(?:cancer|tumou?r|disease|medical|health|clinical|symptoms?)\b|癌症|肿瘤|疾病|医疗|健康|临床|症状/iu
+const MEDICAL_RISK_PREDICTION_PATTERN = /\b(?:predict\w*|forecast\w*|assess\w*|estimat\w*|risk|probability|score|scoring)\b|预测|预估|评估|风险|概率|评分/iu
+const SECURITY_HARM_PATTERN = /\b(?:malware|ransomware|phishing|(?:steal(?:s|ing)?|stole|stolen)\s+(?:(?:account|user)\s+)?(?:credentials?|passwords?|login details?)|credential theft|trojans?|computer viruses|spyware|keyloggers?|exploit payloads?)\b|恶意软件|勒索软件|网络钓鱼|(?:窃取|盗取).{0,8}(?:凭据|密码|登录信息)|盗号|木马|计算机病毒|间谍软件|键盘记录器|漏洞利用(?:载荷)?/iu
+const DECEPTIVE_MEDIA_TERM_PATTERN = /\b(?:deepfake|impersonat\w*|voice\s+clon\w*|face[- ]?swap\w*)\b|深度伪造|深伪|(?:声音|语音)(?:冒充|克隆)|(?:冒充|仿冒).{0,8}(?:声音|语音|人脸)|AI\s*换脸/iu
+const OFFENSIVE_ACTION_PATTERN = /\b(?:(?:generate|generator|create|build|deploy|spread|steal|harvest|bypass|clone|synthesize|impersonate|offensive)\w*|stole|stolen)\b|生成|制作|部署|传播|窃取|盗取|盗号|收割|绕过|克隆|合成|冒充|攻击性/iu
+const DEFENSIVE_ACTION_PATTERN = /\b(?:anti[- ]?(?:malware|phishing)|detect(?:s|ion|or)?|prevent(?:s|ion)?|protect(?:s|ion)?|block(?:s|ing)?|scanner|security|defen[sc]e|verification|analysis|sandbox|simulation|training|removal)\b|反钓鱼|检测|识别|防御|拦截|阻止|安全|保护|核验|分析|沙箱|演练|培训|清除/iu
 
 function invalid() {
   throw new Error('discovery_enricher_invalid_output')
@@ -145,7 +186,9 @@ function invalid() {
 function normalizedString(value, minimum, maximum) {
   if (typeof value !== 'string') return invalid()
   if (/[\p{Cf}\p{Default_Ignorable_Code_Point}]/u.test(value)) return invalid()
-  if (structuralMarkupPatterns.some((pattern) => pattern.test(value))) return invalid()
+  const securityForms = [value, value.normalize('NFKC')]
+  if (securityForms.some((text) => structuralMarkupPatterns.some((pattern) => pattern.test(text))
+    || vueStructuralPatterns.some((pattern) => pattern.test(text)))) return invalid()
   const normalized = value.trim().replace(/\s+/gu, ' ')
   if (normalized.length < minimum || normalized.length > maximum || /[\u0000-\u001f\u007f]/u.test(normalized)) {
     return invalid()
@@ -202,7 +245,17 @@ function assertNoUnsupportedClaims(draft) {
     ...draft.pros,
     ...draft.cons
   ].join('\n').normalize('NFKC')
+  const clauses = allText.split(/[\r\n.!?,:。！？；;，：]+/u)
   if (disallowedClaimPatterns.some((pattern) => pattern.test(allText))) return invalid()
+  if (PROHIBITED_MEDICAL_DRAFT_PATTERN.test(allText) || clauses.some((clause) =>
+    PERSONAL_MEDICAL_MARKER_PATTERN.test(clause)
+      && MEDICAL_RISK_SUBJECT_PATTERN.test(clause)
+      && MEDICAL_RISK_PREDICTION_PATTERN.test(clause))) return invalid()
+  if (clauses.some((clause) => {
+    const securityOrDeception = SECURITY_HARM_PATTERN.test(clause) || DECEPTIVE_MEDIA_TERM_PATTERN.test(clause)
+    return securityOrDeception
+      && (OFFENSIVE_ACTION_PATTERN.test(clause) || !DEFENSIVE_ACTION_PATTERN.test(clause))
+  })) return invalid()
   if (!/以官网为准[。！!]?$/u.test(draft.pricing)) return invalid()
 }
 
@@ -263,6 +316,25 @@ function anchorSet(value) {
     .map(([name]) => name))
 }
 
+function actionAndQualifierSet(value) {
+  const text = normalizedEvidence(value)
+  return new Set(Object.entries(actionAndQualifierAnchors)
+    .filter(([, pattern]) => pattern.test(text))
+    .map(([name]) => name))
+}
+
+function exactFactSet(value) {
+  const text = normalizedEvidence(value).toLocaleLowerCase('en-US')
+  return new Set([
+    ...[...text.matchAll(/[$€£¥]\s*\d+(?:[.,]\d+)?/gu)].map(([match]) => match.replace(/\s+/gu, '')),
+    ...[...text.matchAll(/\d+(?:[.,]\d+)?\s*(?:(?:元|人民币|美元|美金|欧元|英镑)(?![\p{L}\p{N}])|(?:usd|cny|rmb|eur|gbp)\b)/giu)].map(([match]) => match.replace(/\s+/gu, '')),
+    ...[...text.matchAll(/\b\d+(?:[.,]\d+)?\s*(?:million|billion|thousand)\b/gu)].map(([match]) => match.replace(/\s+/gu, '')),
+    ...[...text.matchAll(/\d+(?:[.,]\d+)?\s*%/gu)].map(([match]) => match.replace(/\s+/gu, '')),
+    ...[...text.matchAll(/(?:[零一二三四五六七八九十百]+|\d+(?:\.\d+)?)\s*折/gu)].map(([match]) => match.replace(/\s+/gu, '')),
+    ...[...text.matchAll(/\b\d+(?:\.\d+)?\b/gu)].map(([match]) => match)
+  ])
+}
+
 function normalizeCitation(value, proof) {
   if (typeof value !== 'string') return invalid()
   const citation = normalizedEvidence(value)
@@ -273,6 +345,8 @@ function normalizeCitation(value, proof) {
 function assertRelevantCitation(publicText, citation, field) {
   const publicAnchors = anchorSet(publicText)
   const citationAnchors = anchorSet(citation)
+  const publicActions = actionAndQualifierSet(publicText)
+  const citationActions = actionAndQualifierSet(citation)
   if (field === 'name') {
     const publicIdentity = normalizedEvidence(publicText).toLocaleLowerCase('en-US')
       .replace(/[^\p{L}\p{N}]+/gu, '')
@@ -281,8 +355,12 @@ function assertRelevantCitation(publicText, citation, field) {
     if (publicIdentity.length < 2 || !citedIdentity.includes(publicIdentity)) return invalid()
     return
   }
+  const publicFacts = exactFactSet(publicText)
+  const citationFacts = exactFactSet(citation)
   if (publicAnchors.size === 0
-    || [...publicAnchors].some((anchor) => !citationAnchors.has(anchor))) return invalid()
+    || [...publicAnchors].some((anchor) => !citationAnchors.has(anchor))
+    || [...publicActions].some((anchor) => !citationActions.has(anchor))
+    || [...publicFacts].some((fact) => !citationFacts.has(fact))) return invalid()
 }
 
 export function parseGroundedDiscoveryDraft(value, evidence) {
@@ -299,6 +377,7 @@ export function parseGroundedDiscoveryDraft(value, evidence) {
   const draft = parseDiscoveryDraft(value.draft)
   const proof = evidenceText(evidence)
   if (!proof) return invalid()
+  const provenance = []
 
   for (const field of citationFields) {
     const publicValue = draft[field]
@@ -308,18 +387,26 @@ export function parseGroundedDiscoveryDraft(value, evidence) {
       publicValue.forEach((text, index) => {
         const citation = normalizeCitation(citationValue[index], proof)
         assertRelevantCitation(text, citation, field)
+        provenance.push(citation)
       })
     } else {
       if (Array.isArray(citationValue)) return invalid()
       const citation = normalizeCitation(citationValue, proof)
       assertRelevantCitation(publicValue, citation, field)
+      provenance.push(citation)
     }
   }
 
-  groundedDrafts.add(draft)
+  groundedDrafts.set(draft, Object.freeze([...new Set(provenance)]))
   return draft
 }
 
 export function isGroundedDiscoveryDraft(value) {
   return Boolean(value && typeof value === 'object' && groundedDrafts.has(value))
+}
+
+export function hasGroundedDiscoveryCitationProvenance(value, evidence) {
+  const citations = value && typeof value === 'object' ? groundedDrafts.get(value) : undefined
+  const proof = evidenceText(evidence)
+  return Boolean(citations && proof && citations.every((citation) => proof.includes(citation)))
 }

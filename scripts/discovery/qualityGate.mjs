@@ -1,6 +1,9 @@
 import { candidateKey } from './contracts.mjs'
 import { registrableDomainFromUrl } from '../catalog/registrableDomain.mjs'
-import { isGroundedDiscoveryDraft } from './discoveryDraft.mjs'
+import {
+  hasGroundedDiscoveryCitationProvenance,
+  isGroundedDiscoveryDraft
+} from './discoveryDraft.mjs'
 
 const CATEGORIES = Object.freeze([
   'chat',
@@ -67,9 +70,9 @@ const ALWAYS_PROHIBITED_PATTERNS = Object.freeze([
   /\b(?:casino|betting|gambling|sportsbook|porn(?:ography)?|adult content|token speculation)\b/iu,
   /博彩|赌博|赌场|色情|成人视频|代币投机/u
 ])
-const SECURITY_HARM_PATTERN = /\b(?:malware|ransomware|phishing|credential theft|trojans?|computer viruses|spyware|keyloggers?|exploit payloads?)\b|恶意软件|勒索软件|网络钓鱼|窃取凭据|木马|计算机病毒|间谍软件|键盘记录器|漏洞利用(?:载荷)?/iu
+const SECURITY_HARM_PATTERN = /\b(?:malware|ransomware|phishing|(?:steal(?:s|ing)?|stole|stolen)\s+(?:(?:account|user)\s+)?(?:credentials?|passwords?|login details?)|credential theft|trojans?|computer viruses|spyware|keyloggers?|exploit payloads?)\b|恶意软件|勒索软件|网络钓鱼|(?:窃取|盗取).{0,8}(?:凭据|密码|登录信息)|盗号|木马|计算机病毒|间谍软件|键盘记录器|漏洞利用(?:载荷)?/iu
 const DEFENSIVE_SECURITY_PATTERN = /\b(?:anti[- ]?(?:malware|phishing)|detect(?:s|ion|or)?|prevent(?:s|ion)?|protect(?:s|ion)?|block(?:s|ing)?|scanner|security|defen[sc]e|threat monitoring|analysis|sandbox|simulation|training|awareness|removal)\b|反钓鱼|检测|防御|拦截|阻止|安全|保护|威胁监控|分析|沙箱|演练|培训|意识|清除/iu
-const OFFENSIVE_SECURITY_PATTERN = /\b(?:generate|generator|create|build|deploy|spread|steal|harvest|bypass|offensive)\w*\b|生成|制作|部署|传播|窃取|收割|绕过|攻击性/iu
+const OFFENSIVE_SECURITY_PATTERN = /\b(?:(?:generate|generator|create|build|deploy|spread|steal|harvest|bypass|offensive)\w*|stole|stolen)\b|生成|制作|部署|传播|窃取|盗取|盗号|收割|绕过|攻击性/iu
 const DECEPTIVE_MEDIA_DEFENSE_PATTERN = /\b(?:detect(?:s|ion|or)?|prevent(?:s|ion)?|protect(?:s|ion)?|block(?:s|ing)?|scanner|security|defen[sc]e|verification)\b|检测|识别|防御|拦截|阻止|安全|保护|核验/iu
 const DECEPTIVE_MEDIA_TERM_PATTERN = /\b(?:deepfake|impersonat\w*|voice\s+clon\w*|face[- ]?swap\w*)\b|深度伪造|深伪|(?:声音|语音)(?:冒充|克隆)|(?:冒充|仿冒).{0,8}(?:声音|语音|人脸)|仿冒(?:声音|语音|人脸)|AI\s*换脸/iu
 const DECEPTIVE_MEDIA_OFFENSIVE_INTENT_PATTERN = /\b(?:bypass|evad(?:e|es|ed|ing)|circumvent(?:s|ed|ing)?|defeat(?:s|ed|ing)?)\b|\b(?:platform|system|tool|service|app|software)\b.{0,30}\b(?:to\s+)?impersonat(?:e|es|ed|ing)\b|\bfor\s+(?:committing\s+)?(?:fraud|scams?)\b|\bto\s+(?:commit\s+)?(?:fraud|scam|deceive)\w*\b|绕过|规避|突破.{0,8}(?:验证|核验)|用于.{0,24}(?:冒充|诈骗|欺诈)|(?:实施|进行).{0,8}(?:诈骗|欺诈)/iu
@@ -402,7 +405,10 @@ const RISKY_DRAFT_CLAIMS = Object.freeze([
   /(?:全球|行业|市场|国内|世界)(?:第一|领先|最佳|最强|排名)|排名\s*(?:第?一|top\s*\d+)|\b(?:best|number one|no\.?\s*1|top\s*\d+)\b/iu,
   /\b\d+(?:\.\d+)?\s*(?:million|billion)\s+(?:users|customers|teams|companies)\b/iu
 ])
-const PROHIBITED_MEDICAL_DRAFT_PATTERN = /\b(?:diagnos\w*|prescri\w*|cure[sd]?|medical treatment|medical advice|clinical decision\w*|symptom assessment|treatment recommendations?)\b|诊断|处方|治愈|治疗方案|医疗建议|临床决策|症状(?:评估|判断)|用药建议|治疗建议/iu
+const PROHIBITED_MEDICAL_DRAFT_PATTERN = /\b(?:diagnos\w*|prescri\w*|cure[sd]?|medical treatment|medical advice|health advice|clinical decision\w*|symptom assessment|treatment recommendations?)\b|诊断|处方|治愈|治疗方案|医疗建议|健康建议|临床决策|症状(?:评估|判断)|用药建议|治疗建议/iu
+const PERSONAL_MEDICAL_MARKER_PATTERN = /\b(?:personal|personalized|individual|individualized|individuals?|patients?)\b|个人|个体|个性化|患者/iu
+const MEDICAL_RISK_SUBJECT_PATTERN = /\b(?:cancer|tumou?r|disease|medical|health|clinical|symptoms?)\b|癌症|肿瘤|疾病|医疗|健康|临床|症状/iu
+const MEDICAL_RISK_PREDICTION_PATTERN = /\b(?:predict\w*|forecast\w*|assess\w*|estimat\w*|risk|probability|score|scoring)\b|预测|预估|评估|风险|概率|评分/iu
 const CATEGORY_EVIDENCE_PATTERNS = Object.freeze({
   chat: /\b(?:chat|conversation|assistant)\b|对话|聊天|助手/iu,
   writing: /\b(?:writing|write|document|office)\b|写作|文档|办公/iu,
@@ -505,6 +511,10 @@ export function validateDraftAgainstEvidence(draft, acceptedEvidence) {
   const allClaims = draftText(draft)
   if (hasPattern(ALWAYS_PROHIBITED_PATTERNS, allClaims)
     || PROHIBITED_MEDICAL_DRAFT_PATTERN.test(allClaims)
+    || textClauses(allClaims).some((clause) =>
+      PERSONAL_MEDICAL_MARKER_PATTERN.test(clause)
+        && MEDICAL_RISK_SUBJECT_PATTERN.test(clause)
+        && MEDICAL_RISK_PREDICTION_PATTERN.test(clause))
     || hasProhibitedDeceptiveMedia(allClaims)
     || (SECURITY_HARM_PATTERN.test(allClaims)
       && (OFFENSIVE_SECURITY_PATTERN.test(allClaims) || !DEFENSIVE_SECURITY_PATTERN.test(allClaims)))) {
@@ -561,7 +571,8 @@ export function validateDraftAgainstEvidence(draft, acceptedEvidence) {
 export function scoreCandidate(candidate, evidence, index, draft) {
   const summary = evaluateCandidate(candidate, evidence, index)
   assertNotDuplicate(candidate, index, draft, summary)
-  if (!draft || !CATEGORY_SET.has(draft.category) || !isGroundedDiscoveryDraft(draft)) {
+  if (!draft || !CATEGORY_SET.has(draft.category) || !isGroundedDiscoveryDraft(draft)
+    || !hasGroundedDiscoveryCitationProvenance(draft, summary)) {
     gateError('discovery_enricher_invalid_output')
   }
   const categoryCount = index.categoryCounts[draft.category]

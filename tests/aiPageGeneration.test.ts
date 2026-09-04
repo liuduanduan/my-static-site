@@ -113,6 +113,14 @@ function jsonLdFromMarkdown(source: string): Record<string, unknown> {
   return JSON.parse(match![1]) as Record<string, unknown>
 }
 
+function compiledFiles(directory: string, extension: string): string {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const path = resolve(directory, entry.name)
+    if (entry.isDirectory()) return compiledFiles(path, extension)
+    return entry.name.endsWith(extension) ? [readFileSync(path, 'utf8')] : []
+  }).join('\n')
+}
+
 describe('AI page generation', () => {
   it('exposes an explicit-root generator without running the CLI on import', () => {
     expect(pageGenerator.generateAiPages).toBeTypeOf('function')
@@ -561,8 +569,62 @@ describe('AI page generation', () => {
       generateFixture(fixture.root)
 
       const source = readFileSync(resolve(fixture.toolsDirectory, 'chatgpt.md'), 'utf8')
-      expect(source).toContain(`title: ${JSON.stringify(`${name} - AI 工具介绍`)}\n`)
-      expect(source).toContain(`description: ${JSON.stringify(description)}\n`)
+      expect(source).toContain('title: "Quoted &quot; name \\\\ path\\nnext line - AI 工具介绍"\n')
+      expect(source).toContain('description: "Description &quot; quote \\\\ path\\nnext line"\n')
+    } finally {
+      rmSync(fixture.root, { recursive: true, force: true })
+    }
+  })
+
+  it('keeps Vue interpolation inert at every generated sink after VitePress compilation', () => {
+    const fixture = createFixture('ai-page-generated-sink-')
+    const catalog = cloneCatalog()
+    const scenarioPath = resolve(fixture.dataDirectory, 'ai-scenarios.json')
+    const scenarioCatalog = JSON.parse(readFileSync(scenarioPath, 'utf8')) as Array<Record<string, unknown>>
+    const expression = '{{globalThis?.alert?.(1)}}'
+    const hostileTag = '<img src="https://evil.example/x" onerror="globalThis.alert(2)">'
+    catalog[0].name = `JSON-LD generated sink ${expression} ${hostileTag}`
+    catalog[0].tagline = `Markdown generated sink ${expression} ${hostileTag}`
+    catalog[0].description = `Frontmatter generated sink ${expression} ${hostileTag}`
+    scenarioCatalog[0].name = `Scenario name generated sink ${expression} ${hostileTag}`
+    scenarioCatalog[0].description = `Scenario description generated sink ${expression} ${hostileTag}`
+    scenarioCatalog[0].guide = `Scenario guide generated sink ${expression} ${hostileTag}`
+    const buildDirectory = resolve(fixture.root, 'dist')
+
+    try {
+      writeFileSync(
+        resolve(fixture.dataDirectory, 'ai-tools.json'),
+        JSON.stringify(catalog),
+        'utf8'
+      )
+      writeFileSync(scenarioPath, JSON.stringify(scenarioCatalog), 'utf8')
+
+      generateFixture(fixture.root)
+      rmSync(resolve(fixture.root, 'docs/.vitepress/theme'), { recursive: true, force: true })
+      createDirectoryLink(resolve(root, 'node_modules'), resolve(fixture.root, 'node_modules'))
+      execFileSync(process.execPath, [
+        resolve(root, 'node_modules/vitepress/bin/vitepress.js'),
+        'build',
+        resolve(fixture.root, 'docs'),
+        '--outDir',
+        buildDirectory
+      ], { cwd: root, encoding: 'utf8' })
+
+      const categoryHtml = readFileSync(resolve(buildDirectory, 'ai-categories/chat.html'), 'utf8')
+      const scenarioHtml = readFileSync(resolve(buildDirectory, 'ai-scenarios/study.html'), 'utf8')
+      const detailHtml = readFileSync(resolve(buildDirectory, 'tools/chatgpt.html'), 'utf8')
+      const indexHtml = readFileSync(resolve(buildDirectory, 'ai-scenarios/index.html'), 'utf8')
+      const javascript = compiledFiles(resolve(buildDirectory, 'assets'), '.js')
+      expect(categoryHtml).toContain(`Markdown generated sink ${expression} &lt;img`)
+      expect(categoryHtml).toContain(`Scenario description generated sink ${expression} &lt;img`)
+      expect(scenarioHtml).toContain(`Scenario guide generated sink ${expression} &lt;img`)
+      expect(detailHtml).toContain('Frontmatter generated sink &#123;&#123;globalThis?.alert?.(1)&#125;&#125; &lt;img')
+      expect(categoryHtml).toContain(`JSON-LD generated sink ${expression}`)
+      expect(indexHtml).toContain(`Scenario name generated sink ${expression} &lt;img`)
+      expect(`${categoryHtml}\n${scenarioHtml}\n${detailHtml}\n${indexHtml}`)
+        .not.toMatch(/<img\s+src=["']?https:\/\/evil\.example\/x[^>]*onerror/iu)
+      expect(javascript).toMatch(/<span>[^<]*\{\{globalThis\?\.alert\?\.\(1\)\}\}[^<]*&lt;img/u)
+      expect(javascript).not.toMatch(/(?:toDisplayString|_ctx\.)\([^)]*globalThis(?:\?\.|\.)alert/iu)
     } finally {
       rmSync(fixture.root, { recursive: true, force: true })
     }
@@ -597,8 +659,8 @@ describe('AI page generation', () => {
       expect(markdownText).not.toContain('![pixel](https://evil.example/pixel)')
       expect(markdownText).not.toContain('```html')
       expect(markdownText).not.toMatch(/\n---\n# injected/u)
-      expect(markdownText).toContain('&lt;img')
-      expect(markdownText).toContain('\\[label\\]')
+      expect(markdownText).toContain('\\u003cimg')
+      expect(markdownText).toContain('\\u005blabel\\u005d')
     } finally {
       rmSync(fixture.root, { recursive: true, force: true })
     }

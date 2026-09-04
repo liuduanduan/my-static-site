@@ -64,7 +64,7 @@ const validDraft = {
   tagline: '整理公开资料并保留来源线索的 AI 研究助手',
   description: '适合需要整理公开资料、生成结构化摘要并回溯来源的团队，关键事实仍需人工核验。',
   bestFor: ['整理公开资料', '核对来源依据', '制作研究简报'],
-  features: ['提取公开来源', '生成结构化摘要', '保留链接回溯'],
+  features: ['整理公开来源', '生成结构化摘要', '保留链接回溯'],
   pricing: '官网展示可用方案，具体额度与价格以官网为准',
   pricingMode: 'freemium',
   chineseSupport: 'partial',
@@ -191,6 +191,21 @@ describe('strict discovery draft parser', () => {
       .toThrow('discovery_enricher_invalid_output')
   })
 
+  it.each([
+    ['Vue interpolation', { tagline: '整理公开资料的 AI 助手 {{globalThis?.alert?.(1)}}' }],
+    ['Unicode-obfuscated Vue mustache', { tagline: '整理公开资料的 AI 助手 ｛｛globalThis?.alert?.(1)｝｝' }],
+    ['triple-brace Vue interpolation', { tagline: '整理公开资料的 AI 助手 {{{globalThis?.alert?.(1)}}}' }],
+    ['multiline Vue interpolation', { description: '适合研究团队整理公开资料。{{\nglobalThis?.alert?.(1)\n}} 关键事实仍需人工核验。' }],
+    ['Vue directive syntax', { description: '适合研究团队整理公开资料，v-html="globalThis.document.cookie" 会改变页面结构。' }],
+    ['Vue custom directive syntax', { description: '适合研究团队整理公开资料，v-exfiltrate:cookie="globalThis.document.cookie" 会改变页面结构。' }],
+    ['Vue shorthand directive syntax', { description: '适合研究团队整理公开资料，@click="globalThis.alert(1)" 会改变页面结构。' }],
+    ['Vue dynamic shorthand directive syntax', { description: '适合研究团队整理公开资料，:[globalThis.event]="globalThis.payload" 会改变页面结构。' }],
+    ['Vue component syntax', { description: '适合研究团队整理公开资料，<component :is="globalThis.Evil" /> 会改变页面结构。' }]
+  ])('rejects model-authored %s before public draft construction', (_label, changes) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, ...changes }))
+      .toThrow('discovery_enricher_invalid_output')
+  })
+
   it('preserves ordinary Chinese and English punctuation that is not structural markup', () => {
     expect(parseDiscoveryDraft({
       ...validDraft,
@@ -238,6 +253,130 @@ describe('strict discovery draft parser', () => {
       draft: { ...validDraft, features: [unsupportedFeature, ...validDraft.features.slice(1)] },
       citations: validCitations
     }, evidence)).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['different source action', '提取公开来源'],
+    ['unsupported automatic qualifier', '自动生成结构化摘要'],
+    ['unsupported real-time qualifier', '实时生成结构化摘要']
+  ])('rejects a same-topic citation missing the claimed action or qualifier: %s', (_label, unsupportedFeature) => {
+    const sameTopicCitation = 'It organizes public sources, creates summaries, and traces evidence.'
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, features: [unsupportedFeature, ...validDraft.features.slice(1)] },
+      citations: {
+        ...validCitations,
+        features: [sameTopicCitation, ...validCitations.features.slice(1)]
+      }
+    }, evidence)).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['creation', 'Creates summaries from public sources', 'It is a creative product for summaries from public sources.'],
+    ['detection', 'Scans public research sources', 'A scandal archive of public research sources.'],
+    ['extraction', 'Pulls public research sources', 'A pulley archive of public research sources.'],
+    ['organization', 'Organizes public research sources', 'An organizational archive of public research sources.'],
+    ['summarization', 'Briefs research teams with evidence', 'A research briefcase for teams and evidence.'],
+    ['tracing', 'Traces research evidence', 'A research evidence tractor.']
+  ])('does not treat unrelated nouns as evidence of a claimed %s action', (_label, feature, citation) => {
+    const falsePositiveEvidence = {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    }
+
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: {
+        ...validDraft,
+        features: [feature, ...validDraft.features.slice(1)]
+      },
+      citations: {
+        ...validCitations,
+        features: [citation, ...validCitations.features.slice(1)]
+      }
+    }, falsePositiveEvidence)).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it('does not treat a live product launch as evidence of a real-time qualifier', () => {
+    const citation = 'The product is live and creates summaries from public sources.'
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: {
+        ...validDraft,
+        features: ['Real-time summaries from public sources', ...validDraft.features.slice(1)]
+      },
+      citations: {
+        ...validCitations,
+        features: [citation, ...validCitations.features.slice(1)]
+      }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['English account-password theft', 'This AI research assistant steals account passwords from users.'],
+    ['English past-tense credential theft despite defensive wording', 'This AI security research assistant stole account passwords from users.'],
+    ['Chinese account-password theft', '这款人工智能研究工具可窃取用户账号密码并整理公开资料。'],
+    ['Chinese account takeover despite defensive wording', '这款人工智能安全研究工具提供盗号功能并整理公开资料。']
+  ])('rejects standalone offensive credential theft: %s', (_label, description) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, description }))
+      .toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['English subject-first wording', 'This AI research assistant provides cancer risk predictions for individual users.'],
+    ['Chinese personal-first wording', '这款人工智能研究助手面向个人用户提供癌症风险预测并整理公开资料。']
+  ])('rejects reordered personal medical-risk claims: %s', (_label, description) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, description }))
+      .toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['Chinese personal cancer-risk prediction', { description: '这款人工智能研究助手可预测个人癌症风险，并整理公开研究资料与来源。' }],
+    ['English personal cancer-risk prediction', { description: 'Example Evidence AI predicts personal cancer risk while organizing public research sources.' }],
+    ['medical diagnosis and treatment', { description: 'This AI research assistant diagnoses cancer and recommends individualized medical treatment.' }],
+    ['individualized health advice', { description: 'This AI research assistant gives individualized health advice to research users.' }],
+    ['offensive malware and credential theft', { description: 'This AI research assistant generates malware and steals account credentials.' }],
+    ['deepfake impersonation generation', { description: 'This AI research assistant generates deepfake impersonations for users.' }],
+    ['unsupported privacy claim', { description: 'This AI research assistant keeps customer data private while organizing public sources.' }],
+    ['unsupported offline claim', { description: 'This AI research assistant runs fully offline while organizing public sources.' }],
+    ['unsupported funding claim', { description: 'This AI research assistant raised 100 million dollars while serving research teams.' }],
+    ['unsupported revenue claim', { description: 'This AI research assistant earns 10 million dollars in annual revenue.' }],
+    ['unsupported exact price', { pricing: '$99 per month for the paid plan，具体价格以官网为准' }],
+    ['unsupported ranking claim', { tagline: '全球排名第一的 AI 研究助手' }],
+    ['unsupported user-count claim', { description: 'This AI research assistant has one million users and organizes public sources.' }]
+  ])('rejects a sensitive or fabricated claim absent from its exact citation: %s', (_label, changes) => {
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, ...changes },
+      citations: validCitations
+    }, evidence)).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it('accepts a conservative capability supported by the same exact official-evidence citation', () => {
+    const feature = 'Creates summaries from public sources'
+    const citation = 'It creates summaries from public sources and traces evidence.'
+    const supportedDraft = {
+      ...validDraft,
+      features: [feature, ...validDraft.features.slice(1)]
+    }
+    const supportedVisibleText = `Example Evidence AI is a web research product for teams. It requires account registration, offers a free plan and paid plans, and provides multilingual support including Chinese translation. It organizes public sources, creates summaries, and traces evidence. Manual review is required to verify important facts. ${'It creates summaries from public sources and traces evidence. '.repeat(4)}`
+    const supportedEvidence = {
+      ...evidence,
+      visibleText: supportedVisibleText
+    }
+    const supportedCitation = supportedVisibleText.slice(0, 350).trim()
+    const supportedCitations = Object.fromEntries(Object.entries(validCitations).map(([field, value]) => [
+      field,
+      Array.isArray(value) ? value.map(() => supportedCitation) : supportedCitation
+    ]))
+
+    expect(parseGroundedDiscoveryDraft({
+      draft: supportedDraft,
+      citations: {
+        ...supportedCitations,
+        name: rawEvidence.title,
+        features: [citation, supportedCitation, supportedCitation]
+      }
+    }, supportedEvidence)).toEqual(supportedDraft)
   })
 })
 

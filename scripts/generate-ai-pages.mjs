@@ -288,13 +288,49 @@ export function validateTools(items) {
 }
 
 function frontmatterScalar(value) {
-  return JSON.stringify(String(value)).replaceAll('<', '\\u003c')
+  const encoded = String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;')
+    .replaceAll('{', '&#123;')
+    .replaceAll('}', '&#125;')
+  return JSON.stringify(encoded)
 }
 
 function markdownText(value) {
-  return String(value)
+  const text = String(value)
     .replace(/\s+/gu, ' ')
     .trim()
+  const securityForm = text.normalize('NFKC')
+  if (/[<>{}]/u.test(securityForm)
+    || /(?:^|[\s"'(<\[,])v-[A-Za-z_][\w.-]*(?::[^\s=]+)?(?:\s*=|\s|$)/iu.test(securityForm)
+    || /(?:^|[\s"'(<\[,])(?:@|:|#)(?:[A-Za-z_][\w.-]*|\[[^\]\r\n]+\])(?:\.[^\s=]+)*\s*=/u.test(securityForm)) {
+    const expression = JSON.stringify(text)
+      .replaceAll('&', '\\u0026')
+      .replaceAll('<', '\\u003c')
+      .replaceAll('=', '\\u003d')
+      .replaceAll('>', '\\u003e')
+      .replaceAll('[', '\\u005b')
+      .replaceAll(']', '\\u005d')
+      .replaceAll('(', '\\u0028')
+      .replaceAll(')', '\\u0029')
+      .replaceAll('!', '\\u0021')
+      .replaceAll('#', '\\u0023')
+      .replaceAll('*', '\\u002a')
+      .replaceAll('_', '\\u005f')
+      .replaceAll('|', '\\u007c')
+      .replaceAll('`', '\\u0060')
+      .replaceAll('\u2028', '\\u2028')
+      .replaceAll('\u2029', '\\u2029')
+    return `<span v-text="${expression
+      .replaceAll('&', '&amp;')
+      .replaceAll('"', '&quot;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')}"></span>`
+  }
+  return text
     .replace(/[&<>=\\`*_[\]{}()#!|]/gu, (character) => ({
       '&': '&amp;',
       '<': '&lt;',
@@ -378,7 +414,7 @@ function categoryPage(category, items, scenarios) {
     items.some((tool) => scenarioMatches(tool, scenario))
   )
   const scenarioLinks = relatedScenarios
-    .map((scenario) => `- [${scenario.name}](/ai-scenarios/${scenario.slug})：${scenario.description}`)
+    .map((scenario) => `- [${markdownText(scenario.name)}](/ai-scenarios/${scenario.slug})：${markdownText(scenario.description)}`)
     .join('\n')
 
   return `---\ntitle: ${frontmatterScalar(`${label} AI 工具`)}\ndescription: ${frontmatterScalar(`寻器整理的${label} AI 工具，按真实使用场景选择合适产品。`)}\npageClass: ai-category-page\nhead:\n  - - script\n    - type: application/ld+json\n    - >-\n      ${itemList}\n---\n\n# ${label} AI 工具\n\n这一页收录适合${label}场景的 AI 工具。先看一句话结论，再进入详情页了解能力、价格和替代选项。\n\n## 工具列表\n\n${links}\n\n## 相关场景\n\n${scenarioLinks}\n\n<p class="generated-page-note"><a href="/">← 返回全部工具</a></p>\n`
@@ -399,7 +435,7 @@ function scenarioPage(scenario, items) {
     }))
   })
 
-  return `---\ntitle: ${frontmatterScalar(`${scenario.name} AI 工具`)}\ndescription: ${frontmatterScalar(scenario.description)}\npageClass: ai-scenario-page\nhead:\n  - - script\n    - type: application/ld+json\n    - >-\n      ${itemList}\n---\n\n# ${scenario.name} AI 工具\n\n${scenario.description}\n\n## 适合什么时候用\n\n${scenario.guide}\n\n## 推荐工具\n\n${links}\n\n<p class="generated-page-note"><a href="/ai-scenarios/">← 返回全部场景</a> · <a href="/">返回工具目录</a></p>\n`
+  return `---\ntitle: ${frontmatterScalar(`${scenario.name} AI 工具`)}\ndescription: ${frontmatterScalar(scenario.description)}\npageClass: ai-scenario-page\nhead:\n  - - script\n    - type: application/ld+json\n    - >-\n      ${itemList}\n---\n\n# ${markdownText(scenario.name)} AI 工具\n\n${markdownText(scenario.description)}\n\n## 适合什么时候用\n\n${markdownText(scenario.guide)}\n\n## 推荐工具\n\n${links}\n\n<p class="generated-page-note"><a href="/ai-scenarios/">← 返回全部场景</a> · <a href="/">返回工具目录</a></p>\n`
 }
 
 function readPreviousManifest(manifestPath) {
@@ -563,7 +599,7 @@ export function generateAiPages(options = {}) {
   generated.push('docs/ai-categories/index.md')
 
   const scenarioLinks = scenarios
-    .map((scenario) => `- [${scenario.name}](/ai-scenarios/${scenario.slug})：${scenario.description}`)
+    .map((scenario) => `- [${markdownText(scenario.name)}](/ai-scenarios/${scenario.slug})：${markdownText(scenario.description)}`)
     .join('\n')
   pageWrites.push({
     absolutePath: join(scenariosDir, 'index.md'),

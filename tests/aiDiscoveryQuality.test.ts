@@ -57,7 +57,7 @@ const draft = {
   tagline: '整理公开资料并保留来源线索的 AI 研究助手',
   description: '适合需要整理公开资料、生成结构化摘要并回溯来源的团队，关键事实仍需人工核验。',
   bestFor: ['整理公开资料', '核对来源依据', '制作研究简报'],
-  features: ['提取公开来源', '生成结构化摘要', '保留链接回溯'],
+  features: ['整理公开来源', '生成结构化摘要', '保留链接回溯'],
   pricing: '官网展示可用方案，具体额度与价格以官网为准',
   pricingMode: 'freemium',
   chineseSupport: 'partial',
@@ -339,6 +339,10 @@ describe('AI discovery deterministic quality gate', () => {
     '生成仿冒人脸的 AI 换脸诈骗工具',
     '生成钓鱼邮件并窃取凭据的人工智能平台',
     'offensive AI malware generator',
+    'AI research product that steals account passwords',
+    'AI security research product that stole account passwords',
+    '窃取用户账号密码的人工智能研究工具',
+    '提供盗号功能的人工智能安全研究工具',
     '用于冒充他人声音实施欺诈的人工智能工具'
   ])('rejects prohibited offensive use: %s', (phrase) => {
     const visibleText = `${phrase}. ${'Detailed product capability evidence. '.repeat(8)}`
@@ -412,9 +416,24 @@ describe('AI discovery deterministic quality gate', () => {
       .toThrow('discovery_enricher_invalid_output')
   })
 
+  it('rejects a grounded draft when its private exact citations do not belong to the scored evidence', () => {
+    const index = catalogDiscoveryIndex(catalog)
+    const grounded = groundedDraft()
+    const differentEvidence = {
+      ...evidence,
+      visibleText: `Example Evidence AI is a web app for research teams. It requires account registration, offers a free plan and paid plans, and provides multilingual support including Chinese translation. ${'This official page documents an AI research product. '.repeat(8)}`
+    }
+
+    expect(() => scoreCandidate(candidate, differentEvidence, index, grounded))
+      .toThrow('discovery_enricher_invalid_output')
+  })
+
   it.each([
     ['medical', { description: '可自动诊断癌症并给出治疗处方的人工智能医疗助手。' }],
     ['medical advice', { description: '提供个性化医疗建议并评估症状的人工智能助手。' }],
+    ['personal cancer-risk prediction', { description: 'Example Evidence AI predicts personal cancer risk for individual users.' }],
+    ['reordered English personal cancer-risk prediction', { description: 'This AI research assistant provides cancer risk predictions for individual users.' }],
+    ['reordered Chinese personal cancer-risk prediction', { description: '这款人工智能研究助手面向个人用户提供癌症风险预测并整理公开资料。' }],
     ['obfuscated medical advice', { description: '提供个性化医\u200b疗建议并评估症状的人工智能助手。' }],
     ['malware', { features: ['提取公开来源', '生成恶意软件载荷', '保留链接回溯'] }],
     ['Trojan malware', { features: ['提取公开来源', '生成木马程序并窃取账户', '保留链接回溯'] }],
