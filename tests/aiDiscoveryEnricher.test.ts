@@ -4,6 +4,7 @@ import { catalogDiscoveryIndex, evaluateCandidate, scoreCandidate } from '../scr
 import {
   discoveryEnrichmentJsonSchema,
   discoveryDraftJsonSchema,
+  hasProhibitedCredentialClaim,
   parseGroundedDiscoveryDraft,
   parseDiscoveryDraft
 } from '../scripts/discovery/discoveryDraft.mjs'
@@ -531,6 +532,149 @@ describe('strict discovery draft parser', () => {
   })
 
   it.each([
+    ['sentence', 'Organizes public sources. Indexes public sources.', '它整理公开来源。'],
+    ['semicolon and reversed order', 'Indexes public sources; organizes public sources.', '它整理公开来源。'],
+    ['adversative', 'Organizes public sources, but indexes public sources.', '它整理公开来源。'],
+    ['coordinator', 'Organizes public sources and indexes public sources.', '它整理公开来源。'],
+    ['Chinese coordinator', '整理公开来源并索引公开来源', 'It organizes public sources.'],
+    ['Chinese adversative', '整理公开来源，但索引公开来源', 'It organizes public sources.']
+  ])('rejects a supported relation with an unsupported atomic assertion appended via %s', (_label, feature, citation) => {
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, features: [feature, ...validDraft.features.slice(1)] },
+      citations: { ...validCitations, features: [citation, ...validCitations.features.slice(1)] }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['does not', 'It does not delete public sources.'],
+    ['never', 'It will never delete public sources.'],
+    ["doesn't", "It doesn't delete public sources."],
+    ['without', 'It works without deleting public sources.'],
+    ['unavailable', 'Deletion of public sources is unavailable.'],
+    ['Chinese not', '它不删除公开来源。'],
+    ['Chinese never', '它从未删除公开来源。']
+  ])('rejects positive deletion supported only by %s evidence', (_label, citation) => {
+    const feature = /[\p{Script=Han}]/u.test(citation) ? '删除公开来源' : 'Delete public sources'
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, features: [feature, ...validDraft.features.slice(1)] },
+      citations: { ...validCitations, features: [citation, ...validCitations.features.slice(1)] }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['positive', 'Delete public sources', 'It may delete public sources.'],
+    ['negative', 'Does not delete public sources', 'It does not delete public sources.'],
+    ['Chinese negative', '不删除公开来源', '它不删除公开来源。']
+  ])('accepts matching %s polarity in extractive evidence', (_label, feature, citation) => {
+    expect(parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, features: [feature, ...validDraft.features.slice(1)] },
+      citations: { ...validCitations, features: [citation, ...validCitations.features.slice(1)] }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toMatchObject({ features: [feature, ...validDraft.features.slice(1)] })
+  })
+
+  it.each([
+    ['no deletion', 'No deletion of public sources is available.'],
+    ['deletion unavailable', 'Deletion of public sources is unavailable.'],
+    ['deletion disabled', 'Deletion of public sources is disabled.'],
+    ['Chinese unavailable', '公开来源删除功能不可用。']
+  ])('rejects positive deletion supported only by nominal %s evidence', (_label, citation) => {
+    const feature = /[\p{Script=Han}]/u.test(citation) ? '删除公开来源' : 'Delete public sources'
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, features: [feature, ...validDraft.features.slice(1)] },
+      citations: { ...validCitations, features: [citation, ...validCitations.features.slice(1)] }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it('keeps polarity local when a later object is negated', () => {
+    const feature = 'Delete public sources'
+    const citation = 'It may delete public sources without deleting accounts.'
+    expect(parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, features: [feature, ...validDraft.features.slice(1)] },
+      citations: { ...validCitations, features: [citation, ...validCitations.features.slice(1)] }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toMatchObject({ features: [feature, ...validDraft.features.slice(1)] })
+  })
+
+  it.each([
+    ['new user/current subscriber', 'New users receive a 50% discount for the first month，具体价格以官网为准', 'Current subscribers receive a 50% discount, and new users get onboarding for the first month.'],
+    ['new subscriber/existing member', 'New subscribers receive a 50% discount for the first month，具体价格以官网为准', 'Existing members receive a 50% discount, and new subscribers get onboarding for the first month.'],
+    ['first-time member/current customer', 'First-time members receive a 50% discount for the first month，具体价格以官网为准', 'Current customers receive a 50% discount, and first-time members get onboarding for the first month.'],
+    ['first-time customer/existing user', 'First-time customers receive a 50% discount for the first month，具体价格以官网为准', 'Existing users receive a 50% discount, and first-time customers get onboarding for the first month.'],
+    ['Chinese new member/current member', '新会员首月可享 50% 优惠，具体价格以官网为准', '现有会员可享 50% 优惠，新会员首月可获得入门指导。']
+  ])('rejects promotion eligibility assembled from %s relations', (_label, pricing, citation) => {
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, pricing },
+      citations: { ...validCitations, pricing: citation }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['new subscribers', 'New subscribers receive a 50% discount for the first month，具体价格以官网为准', 'New subscribers receive a 50% discount for the first month.'],
+    ['first-time members', 'First-time members receive a 50% discount for the first month，具体价格以官网为准', 'First-time members receive a 50% discount for the first month.'],
+    ['Chinese new members', '新会员首月可享 50% 优惠，具体价格以官网为准', '新会员首月可享 50% 优惠。']
+  ])('accepts one extractive offer relation for %s', (_label, pricing, citation) => {
+    expect(parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, pricing },
+      citations: { ...validCitations, pricing: citation }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toMatchObject({ pricing })
+  })
+
+  it.each([
+    ['unsupported pricing assertion', '官网展示可用方案，具体价格以官网为准', 'Example Evidence AI research assistant'],
+    ['unsupported factual clause before framing', 'Provides a paid plan；具体价格以官网为准', 'It organizes public sources.']
+  ])('does not let pricing framing hide an %s', (_label, pricing, citation) => {
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, pricing },
+      citations: { ...validCitations, pricing: citation }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['direct object', 'Delete public sources', 'It deletes inactive accounts.'],
+    ['funding subject', 'Example Evidence AI 公司已融资两亿美元，并为团队整理公开来源。', 'Example Evidence AI 创始人已融资两亿美元，并为团队整理公开来源。'],
+    ['promotion amount', 'New subscribers receive a 50% discount for the first month，具体价格以官网为准', 'New subscribers receive a 20% discount for the first month.'],
+    ['promotion period', 'New subscribers receive a 50% discount for the first month，具体价格以官网为准', 'New subscribers receive a 50% discount for the second month.']
+  ])('rejects an atomic relation when only its %s is substituted', (_label, claim, citation) => {
+    const isPricing = claim.endsWith('具体价格以官网为准')
+    const changes = isPricing ? { pricing: claim } : claim.includes('融资')
+      ? { description: claim }
+      : { features: [claim, ...validDraft.features.slice(1)] }
+    const citationChanges = isPricing ? { pricing: citation } : claim.includes('融资')
+      ? { description: citation }
+      : { features: [citation, ...validCitations.features.slice(1)] }
+    expect(() => parseGroundedDiscoveryDraft({
+      draft: { ...validDraft, ...changes },
+      citations: { ...validCitations, ...citationChanges }
+    }, {
+      ...evidence,
+      visibleText: `${evidence.visibleText} ${citation}`
+    })).toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
     ['English account-password theft', 'This AI research assistant steals account passwords from users.'],
     ['English past-tense credential theft despite defensive wording', 'This AI security research assistant stole account passwords from users.'],
     ['Chinese account-password theft', '这款人工智能研究工具可窃取用户账号密码并整理公开资料。'],
@@ -616,13 +760,107 @@ describe('strict discovery draft parser', () => {
       .toThrow('discovery_enricher_invalid_output')
   })
 
-  it('keeps literature-only cancer publication analytics without a personal medical outcome', () => {
-    const description = 'Example Evidence AI estimates publication trends in cancer research for research teams.'
+  it.each([
+    ...['risk', 'odds', 'chance', 'likelihood', 'probability', 'prognosis', 'prediction', 'score', 'assessment', 'outcome']
+      .flatMap((outcome) => [
+        [`provides/${outcome}`, `Example Evidence AI provides an individual's ${outcome} of developing cancer for research use.`],
+        [`shows/${outcome}`, `Example Evidence AI shows a patient's cancer ${outcome} for research use.`],
+        [`reports/${outcome}`, `Example Evidence AI reports personal health ${outcome} information for research use.`],
+        [`nominal/${outcome}`, `An individual cancer ${outcome} for users of Example Evidence AI.`]
+      ]),
+    ['Chinese patient odds', '这款人工智能研究工具面向患者展示患癌几率并整理公开资料。'],
+    ['Chinese individual prognosis', '个人；癌症预后：由这款人工智能研究工具展示。'],
+    ['Chinese user-specific assessment', '这款人工智能研究工具提供针对用户的疾病评估与公开资料整理。'],
+    ['British personalized disease likelihood', 'Example Evidence AI reports a personalised likelihood for diseases to each user.'],
+    ['patient-level illness prognosis', 'Example Evidence AI shows a patient-level illness prognosis for research use.'],
+    ['Chinese per-user illness chance', '这款人工智能研究工具展示每位用户的患病机率。']
+  ])('rejects predicate-independent personal medical outcome composition: %s', (_label, description) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, description }))
+      .toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ['punctuation split', {
+      description: 'Example Evidence AI reports cancer outcomes for research teams.',
+      pros: ['For each patient; individualized results', validDraft.pros[1]]
+    }],
+    ['field and order split', {
+      description: 'Example Evidence AI analyzes disease probability for research teams.',
+      cons: ['Patient-specific information requires review', validDraft.cons[1]]
+    }],
+    ['nominal field split', {
+      tagline: 'Personal health assessment for research users',
+      description: 'Example Evidence AI organizes public cancer research sources for teams.'
+    }],
+    ['publication outcome plus personal marker', {
+      description: 'Example Evidence AI estimates publication outcomes in cancer research.',
+      pros: ['Personalized for individual patients', validDraft.pros[1]]
+    }]
+  ])('rejects personal medical outcome components split across %s', (_label, changes) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, ...changes }))
+      .toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    'Example Evidence AI estimates publication outcomes in cancer research for research teams.',
+    'Example Evidence AI reports paper outcome trends in cancer research for research teams.',
+    'Example Evidence AI analyzes study outcomes across cancer research publications.',
+    '这款人工智能研究工具分析癌症研究论文的发表结果趋势。'
+  ])('keeps explicitly literature-governed medical research analytics: %s', (description) => {
     expect(() => parseDiscoveryDraft({
       ...validDraft,
-      description,
-      pros: ['Supports personalized research dashboards for individual users', validDraft.pros[1]]
+      description
     })).not.toThrow()
+  })
+
+  it.each([
+    ...['passwords', 'passcodes', 'credentials', 'secrets', 'API keys', 'access tokens', 'account tokens', 'auth tokens', 'bearer tokens', 'refresh tokens', 'session tokens']
+      .flatMap((secret) => [
+        [`other-user/${secret}`, `This AI research assistant reads other users' ${secret} without permission.`],
+        [`third-party/${secret}`, `This AI research assistant reports ${secret} belonging to third parties.`],
+        [`unauthorized/${secret}`, `Unauthorized access lets this AI research assistant show ${secret}.`]
+      ]),
+    ['Chinese refresh token', '这款人工智能研究工具读取其他用户的刷新令牌，且未经授权。'],
+    ['Chinese session token', '未经许可，这款人工智能研究工具查看第三方会话令牌。'],
+    ['Chinese API key', '这款人工智能研究工具绕过授权后展示他人的 API 密钥。'],
+    ['another user compound', "This AI research assistant reports another user's refresh-token."],
+    ['user-consent permutation', 'Without user consent, this AI research assistant shows customer refresh tokens.'],
+    ['Chinese unauthorized key', '这款人工智能研究工具未授权访问第三方会话秘钥。']
+  ])('rejects structural nonconsensual credential combinations: %s', (_label, description) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, description }))
+      .toThrow('discovery_enricher_invalid_output')
+  })
+
+  it.each([
+    ["This AI research assistant reports another user's refresh-token."],
+    ['Without user consent, this AI research assistant shows customer refresh tokens.'],
+    ['This AI research assistant profiles session keys with no authorization.'],
+    ['这款人工智能研究工具未授权查看第三方会话秘钥。'],
+    ['这款人工智能研究工具绕开访问控制后显示他人的刷新令牌。']
+  ])('classifies nonconsensual compound credentials without relying on an acquisition verb: %s', (description) => {
+    expect(hasProhibitedCredentialClaim([description], false)).toBe(true)
+  })
+
+  it.each([
+    'This authorized security audit inspects account tokens supplied by the customer for testing.',
+    'Synthetic refresh tokens are inspected during an authorized security audit.',
+    'For testing, customer-owned session keys are reviewed by an authorized security audit.',
+    'During a security audit, authorized reviewers inspect bearer tokens provided by the customer.',
+    'An authorized security assessment reviews customer-supplied refresh tokens.',
+    '这项已授权的安全审计核查客户提供的测试账户令牌。',
+    '客户自有的会话令牌由已授权安全审计人员进行测试。'
+  ])('allows order-independent controlled credential audits: %s', (description) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, description })).not.toThrow()
+  })
+
+  it.each([
+    "This authorized security audit inspects customer-provided test account tokens. It reads other users' refresh tokens without permission.",
+    "It profiles other users' session tokens without consent; an authorized security audit inspects synthetic account tokens.",
+    "This authorized audit checks customer-owned API keys, but it displays bearer tokens belonging to other users.",
+    '这项已授权安全审计核查客户提供的测试账户令牌；随后未经许可读取其他用户的刷新令牌。'
+  ])('does not launder a separate offensive credential relation: %s', (description) => {
+    expect(() => parseDiscoveryDraft({ ...validDraft, description }))
+      .toThrow('discovery_enricher_invalid_output')
   })
 
   it.each([

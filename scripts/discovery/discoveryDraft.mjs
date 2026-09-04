@@ -136,7 +136,7 @@ const factualAnchors = Object.freeze({
   factCheck: /\b(?:fact[- ]?check\w*|verify(?:ing|ies|ied)?\s+(?:the\s+)?facts?|check(?:ing|s|ed)?\s+(?:the\s+)?facts?)\b|(?:自动|自主|一键|直接)(?:核验|验证|核查|检查)(?:事实|信息)|(?:事实|信息)(?:自动|自主|一键|直接)?(?:核查|检查|验证)/iu,
   image: /\b(?:image|photo|picture|design)\b|图像|图片|照片|设计/iu,
   cancer: /\bcancer\b|癌症|肿瘤/iu,
-  credentials: /\b(?:credentials?|passwords?|login details?)\b|凭据|密码|登录信息|盗号/iu,
+  credentials: /\b(?:credentials?|passwords?|passcodes?|secrets?|(?:(?:api|access|account|auth(?:entication|orization)?|bearer|refresh|session)[- ]*)?(?:keys?|tokens?)|login details?)\b|凭据|密码|口令|秘密|密钥|秘钥|令牌|登录信息|盗号/iu,
   deepfake: /\b(?:deepfake|face[- ]?swap|voice clon\w*)\b|深度伪造|深伪|AI\s*换脸|(?:声音|语音)克隆/iu,
   diagnosis: /\bdiagnos\w*\b|诊断|确诊/iu,
   funding: /\b(?:funding|funded|raised|valuation|venture capital)\b|融资|估值|风投/iu,
@@ -148,7 +148,7 @@ const factualAnchors = Object.freeze({
   organize: /\b(?:organiz\w*|structure\w*|workflow)\b|整理|结构化|流程/iu,
   personal: /\b(?:personal|personalized|individual|individualized)\b|个人|个体|个性化/iu,
   prediction: /\b(?:predict\w*|forecast\w*|risk assessment|risk scoring)\b|预测|预估|风险(?:评估|评分)/iu,
-  pricing: /\b(?:free|paid|plan|pricing|price|subscription|tier|quota|cost)\b|免费|付费|方案|套餐|价格|定价|订阅|额度|收费/iu,
+  pricing: /\b(?:free|paid|plans?|pricing|prices?|subscriptions?|tiers?|quotas?|costs?|quotes?|contact\s+sales)\b|免费|付费|方案|套餐|价格|定价|报价|订阅|额度|收费|联系销售/iu,
   privacy: /\b(?:private|privacy|zero[- ]retention|no[- ]logs?|data protection)\b|隐私|私密|零数据保留|不(?:保存|记录|上传)(?:数据|内容)/iu,
   promotion: /\b(?:discount|promotion|promotional|promo|free trial)\b|优惠|折扣|促销|免费试用|活动价/iu,
   research: /\b(?:research|study|analysis)\b|研究|调研|分析/iu,
@@ -190,8 +190,9 @@ const relationQualifierAnchors = Object.freeze({
   privacy: factualAnchors.privacy,
   promotion: factualAnchors.promotion,
   limitedTime: /\blimited[- ]time\b|限时/iu,
-  newUser: /\bnew\s+(?:users?|customers?)\b|新用户/iu,
-  firstMonth: /\bfirst\s+month\b|首月/iu,
+  newUser: /\b(?:new|first[- ]time)\s+(?:users?|customers?|subscribers?|members?)\b|(?:新|首次)(?:用户|客户|订阅者|会员|成员)/iu,
+  existingUser: /\b(?:existing|current|returning)\s+(?:users?|customers?|subscribers?|members?)\b|(?:现有|当前|老|既有)(?:用户|客户|订阅者|会员|成员)/iu,
+  firstMonth: /\bfirst[- ]month\b|\bfirst\s+month\b|首个?月|第一个月|头一个月/iu,
   monthly: /\b(?:per\s+month|monthly)\b|每月|月付/iu,
   yearly: /\b(?:per\s+year|yearly|annual(?:ly)?)\b|每年|年付/iu,
   trial: /\bfree\s+trial\b|免费试用/iu
@@ -202,15 +203,14 @@ const SUMMARY_PREDICATE_PATTERN = /\b(?:summari[sz](?:e|es|ed|ing)|brief(?:s|ed|
 const FUNDING_PREDICATE_PATTERN = /\b(?:fund(?:s|ed|ing)?|rais(?:e|es|ed|ing)|valu(?:e|es|ed|ing|ation))\b|(?:完成|获得|宣布|公司)?(?:新一轮)?融资|估值/iu
 const REVENUE_PREDICATE_PATTERN = /\b(?:earn(?:s|ed|ing)?|generat(?:e|es|ed|ing))?\s*(?:revenue|income|sales)\b|营收|收入|销售额/iu
 const PROMOTION_PREDICATE_PATTERN = /\b(?:discount|discounted|promotion|promotional|promo|percent\s+off|free\s+trial)\b|优惠|折扣|促销|免费试用|活动价/iu
+const PRICING_PREDICATE_PATTERN = /\b(?:costs?|priced?|charges?|show(?:s|ed|ing)?|display(?:s|ed|ing)?|list(?:s|ed|ing)?|contact\s+sales|request(?:s|ed|ing)?\s+(?:a\s+)?quote|ask(?:s|ed|ing)?\s+customers?\s+to\s+contact\s+sales)\b|仅需|售价|收费|展示|列出|说明|联系销售|获取报价|索取报价/iu
+const PRICING_AMOUNT_PATTERN = /(?:[$€£¥]\s*\d|\d(?:[\d.,]*)\s*(?:(?:元|人民币|美元|美金|欧元|英镑)(?![\p{L}\p{N}])|(?:usd|cny|rmb|eur|gbp)\b))/iu
 const PROMOTION_BENEFICIARY_PATTERNS = Object.freeze({
-  newUser: /\bnew\s+(?:users?|customers?)\b|新用户/iu,
-  existingUser: /\b(?:existing|current)\s+(?:users?|customers?)\b|(?:现有|老)用户/iu
+  newUser: /\b(?:new|first[- ]time)\s+(?:users?|customers?|subscribers?|members?)\b|(?:新|首次)(?:用户|客户|订阅者|会员|成员)/iu,
+  existingUser: /\b(?:existing|current|returning)\s+(?:users?|customers?|subscribers?|members?)\b|(?:现有|当前|老|既有)(?:用户|客户|订阅者|会员|成员)/iu
 })
 const FUNDING_FOUNDER_SUBJECT_PATTERN = /\b(?:founders?|cofounders?|co-founders?)\b|创始人|联合创始人/iu
 const FUNDING_COMPANY_SUBJECT_PATTERN = /\b(?:company|business|startup|corporation|enterprise|platform|product)\b|公司|企业|平台|产品/iu
-const EXTRACTIVE_FACTUAL_FIELDS = new Set([
-  'tagline', 'description', 'bestFor', 'features', 'tags', 'searchTerms', 'pros', 'cons'
-])
 const CATALOG_FRAMING_PATTERNS = Object.freeze([
   /^(?:这|本)(?:是|为)一款(?:AI|人工智能)(?:研究)?(?:工具|助手|平台|产品|应用)$/iu,
   /^(?:适合|面向|用于)(?:研究)?(?:团队|用户|工作|流程)$/iu,
@@ -222,6 +222,11 @@ const CATALOG_FRAMING_PATTERNS = Object.freeze([
   /^(?:完整|高级|部分|全部)?(?:能力|功能|额度)(?:可能|仍|还)?(?:依赖|需要|收费)(?:账户)?(?:方案|套餐)?$/iu,
   /^(?:manual|human)\s+(?:review|verification)\s+(?:is\s+)?required(?:\s+for\s+important\s+facts)?$/iu,
   /^(?:for|built\s+for|designed\s+for)\s+(?:research\s+)?teams?$/iu
+])
+const PRICING_FRAMING_PATTERNS = Object.freeze([
+  /^官网(?:展示|列出|说明)(?:可用)?(?:方案|套餐|价格|定价)$/iu,
+  /^(?:具体)?(?:额度|价格|定价|套餐|方案)(?:与|和|及)?(?:具体)?(?:额度|价格|定价|套餐|方案)?以官网为准$/iu,
+  /^(?:details?|pricing|prices?|plans?|quotas?)\s+(?:remain\s+)?(?:subject\s+to|as\s+shown\s+on)\s+(?:the\s+)?official\s+(?:site|website)$/iu
 ])
 const CATALOG_METADATA_PATTERN = /^(?:(?:公开|研究)?(?:资料|来源|证据|依据|文档|链接)(?:整理|核验|验证|回溯|追溯|笔记)?|(?:研究|资料)(?:笔记|简报)|(?:来源|证据)(?:(?:核验|验证)?工具|核验|验证)|(?:AI|人工智能)(?:研究)?(?:工具|助手))$/iu
 const NOMINAL_CAPABILITY_PATTERN = /^(?:(?:结构化)?(?:摘要|笔记|简报)|(?:来源|链接|证据)(?:回溯|追溯|核验))$/iu
@@ -242,23 +247,25 @@ const disallowedClaimPatterns = Object.freeze([
   /\b(?:one|two|three|four|five|six|seven|eight|nine|ten|hundred|thousand|million|billion|\d+(?:\.\d+)?)\s+(?:thousand|million|billion)?\s*(?:users|customers|teams|companies)\b/iu
 ])
 const PROHIBITED_MEDICAL_DRAFT_PATTERN = /\b(?:diagnos\w*|prescri\w*|cure[sd]?|medical treatment|medical advice|health advice|clinical decision\w*|symptom assessment|treatment recommendations?)\b|诊断|处方|治愈|治疗方案|医疗建议|健康建议|临床决策|症状(?:评估|判断)|用药建议|治疗建议/iu
-const PERSONAL_MEDICAL_MARKER_PATTERN = /\b(?:personal|personalized|individual|individualized|individuals?|patients?)\b|个人|个体|个性化|患者/iu
-const MEDICAL_RISK_SUBJECT_PATTERN = /\b(?:cancer|tumou?r|disease|medical|health|clinical|symptoms?)\b|患癌|癌症?|肿瘤|疾病|医疗|健康|临床|症状/iu
-const MEDICAL_RISK_OUTCOME_PATTERN = /\b(?:risk|chance|likelihood|probability|outcomes?|score|scores|scoring|diagnos\w*|advice|treatment)\b|风险|概率|几率|可能性|结局|预后|评分|诊断|建议|治疗/iu
-const MEDICAL_RISK_PREDICATE_PATTERN = /\b(?:predict\w*|forecast\w*|assess\w*|estimat\w*|calculat\w*|infer\w*|score|scores|scored|scoring)\b|预测|预估|评估|估算|推算|计算|判断|评分/iu
-const MEDICAL_RESEARCH_ANALYTICS_PATTERN = /\b(?:research|literature|publication|paper|study|bibliometric|trial)\b|研究|文献|论文|发表|出版|试验|科研/iu
+const PERSONAL_MEDICAL_MARKER_PATTERN = /\b(?:persons?|people|patients?|individuals?|personali[sz]ed|personal|individualized|(?:user|patient|person|individual)[- ](?:specific|level)|specific\s+to\s+(?:a|an|the|each)?\s*(?:user|patient|person|individual)|(?:each|per)\s+(?:user|patient|person|individual))\b|个人|个体|个性化|患者|病人|用户特定|患者特定|针对(?:个人|个体|患者|病人|用户)|每(?:位|个)?(?:用户|患者|病人|个人)/iu
+const MEDICAL_RISK_SUBJECT_PATTERN = /\b(?:cancer|tumou?rs?|diseases?|illness(?:es)?|medical|health(?:care)?|clinical|symptoms?|oncolog\w*)\b|患癌|患病|癌症?|肿瘤|疾病|病症|医疗|健康|临床|症状/iu
+const MEDICAL_RISK_OUTCOME_PATTERN = /\b(?:risks?|odds?|chances?|likelihoods?|probabilit(?:y|ies)|prognos(?:is|es)|predictions?|scores?|scoring|assessments?|outcomes?|diagnos\w*|advice|treatments?)\b|风险|概率|几率|机率|胜算|可能性|结局|结果|预后|预测|评分|评估|诊断|建议|治疗/iu
 const SECURITY_HARM_PATTERN = /\b(?:malware|ransomware|phishing|(?:steal(?:s|ing)?|stole|stolen)\s+(?:(?:account|user)\s+)?(?:credentials?|passwords?|login details?)|credential theft|trojans?|computer viruses|spyware|keyloggers?|exploit payloads?)\b|恶意软件|勒索软件|网络钓鱼|(?:窃取|盗取).{0,8}(?:凭据|密码|登录信息)|盗号|木马|计算机病毒|间谍软件|键盘记录器|漏洞利用(?:载荷)?/iu
 const DECEPTIVE_MEDIA_TERM_PATTERN = /\b(?:deepfake|impersonat\w*|voice\s+clon\w*|face[- ]?swap\w*)\b|深度伪造|深伪|(?:声音|语音)(?:冒充|克隆)|(?:冒充|仿冒).{0,8}(?:声音|语音|人脸)|AI\s*换脸/iu
 const OFFENSIVE_ACTION_PATTERN = /\b(?:(?:generate|generator|create|build|deploy|spread|steal|harvest|bypass|clone|synthesize|impersonate|offensive)\w*|stole|stolen)\b|生成|制作|部署|传播|窃取|盗取|盗号|收割|绕过|克隆|合成|冒充|攻击性/iu
 const DEFENSIVE_ACTION_PATTERN = /\b(?:anti[- ]?(?:malware|phishing)|detect(?:s|ion|or)?|prevent(?:s|ion)?|protect(?:s|ion)?|block(?:s|ing)?|scanner|security|defen[sc]e|verification|analysis|sandbox|simulation|training|removal)\b|反钓鱼|检测|识别|防御|拦截|阻止|安全|保护|核验|分析|沙箱|演练|培训|清除/iu
-const CREDENTIAL_SECRET_PATTERN = /\b(?:credentials?|passwords?|passcodes?|secrets?|api[- ]?keys?|access\s+tokens?|account\s+tokens?|auth(?:entication|orization)?\s+tokens?|login\s+(?:details?|secrets?)|account\s+secrets?|password\s+hashes?)\b|凭据|密码|口令|密钥|API\s*密钥|登录信息|账号密码|账户密码|访问令牌|账户令牌|账号令牌/iu
+const CREDENTIAL_SECRET_PATTERN = /\b(?:credentials?|passwords?|passcodes?|secrets?|(?:(?:api|access|account|auth(?:entication|orization)?|bearer|refresh|session|login|security)[- ]*)?(?:keys?|tokens?)|login\s+(?:details?|secrets?)|account\s+secrets?|password\s+hashes?)\b|凭据|密码|口令|秘密|密钥|秘钥|令牌|API\s*密钥|登录信息|账号密码|账户密码|访问令牌|账户令牌|账号令牌|刷新令牌|会话令牌/iu
 const CREDENTIAL_ACQUISITION_PATTERN = /\b(?:extract(?:s|ed|ing|ion)?|dump(?:s|ed|ing|ped|ping)?|captur(?:e|es|ed|ing)|collect(?:s|ed|ing|ion)?|harvest(?:s|ed|ing)?|access(?:es|ed|ing)?|exfiltrat(?:e|es|ed|ing|ion)|obtain(?:s|ed|ing)?|acquir(?:e|es|ed|ing)|retriev(?:e|es|ed|ing))\b|提取|抽取|倾倒|导出|捕获|抓取|采集|收集|收割|访问|读取|获取|取得|窃取|盗取|外传|泄露/iu
 const INHERENTLY_OFFENSIVE_CREDENTIAL_PATTERN = /\b(?:dump(?:s|ed|ing|ped|ping)?|harvest(?:s|ed|ing)?|exfiltrat(?:e|es|ed|ing|ion)|steal(?:s|ing)?|stole|stolen)\b|窃取|盗取|盗号|收割|外传|泄露/iu
-const NONCONSENSUAL_CREDENTIAL_PATTERN = /\b(?:without|lacking)\s+(?:permission|consent|authori[sz]ation)\b|\bunauthori[sz]ed\b|\bbypass(?:es|ed|ing)?\b|\b(?:other users?|third part(?:y|ies)|victims?|someone else's)\b|\bbelong(?:s|ing)?\s+to\s+(?:other users?|third part(?:y|ies))\b|未经(?:许可|授权|同意)|未获(?:许可|授权|同意)|擅自|绕过|非法|无权|他人|其他用户|受害者|第三方/iu
+const NONCONSENSUAL_CREDENTIAL_PATTERN = /\b(?:without|lacking)\s+(?:(?:the|a|any|user|customer|owner)\s+)?(?:permission|consent|authori[sz]ation)\b|\b(?:no|absent)\s+(?:permission|consent|authori[sz]ation)\b|\b(?:not\s+authori[sz]ed|unauthori[sz]ed)\b|\b(?:bypass|circumvent|evade)(?:es|ed|ing)?\b|\b(?:other users?|other people|another\s+(?:user|person|customer)(?:'s)?|third[- ]part(?:y|ies)|victims?|someone else's)\b|\bbelong(?:s|ing)?\s+to\s+(?:other users?|other people|third part(?:y|ies))\b|未经(?:许可|授权|同意)|未获(?:许可|授权|同意)|未授权|无授权|擅自|绕过|绕开|规避|非法|无权|他人|其他用户|受害者|第三方/iu
 const NEGATED_CREDENTIAL_ACQUISITION_PATTERN = /\b(?:does?\s+not|never|without)\s+(?:extract|dump|capture|collect|harvest|access|obtain|acquire|retrieve|store)(?:s|ed|ing)?\b|不(?:提取|抽取|导出|捕获|抓取|采集|收集|收割|访问|读取|获取|存储)|不会(?:提取|抽取|导出|捕获|抓取|采集|收集|收割|访问|读取|获取|存储)/iu
 const DEFENSIVE_CREDENTIAL_RELATION_PATTERN = /\b(?:password|credential)\s+(?:manager|management|vault|autofill|security|audit|strength|rotation|reset|recovery)\b|\bauthori[sz]ed\s+(?:security\s+)?(?:audit|assessment|test(?:ing)?)\b|\b(?:breach|leak|compromised credential|weak password)\s+(?:detection|monitoring|scanner|audit)\b|\b(?:your|their own)\s+(?:saved|stored|own)?\s*(?:credentials?|passwords?)\b|密码管理器|凭据管理|密码保险库|自动填充|授权(?:安全)?(?:审计|评估|测试)|密码(?:安全|审计|强度|轮换|重置|恢复)|凭据(?:安全|审计)|泄露(?:检测|监测)|弱密码(?:检测|审计)|用户自己(?:保存|存储)?的?密码/iu
 const PASSWORD_MANAGER_PATTERN = /\b(?:password|credential)\s+(?:manager|management|vault|autofill)\b|密码管理器|凭据管理|密码保险库|自动填充/iu
-const AUTHORIZED_AUDIT_CREDENTIAL_PATTERN = /(?:\bauthori[sz]ed\s+(?:security\s+)?(?:audit|assessment|test(?:ing)?)\b.{0,180}\b(?:synthetic|test|customer[- ]provided|supplied\s+(?:by|for)\s+the\s+customer)\b.{0,40}\b(?:credentials?|passwords?|api[- ]?keys?|account\s+tokens?)\b|授权(?:安全)?(?:审计|评估|测试).{0,80}(?:测试凭据|测试密码|测试(?:API\s*)?密钥|测试(?:账户|账号)?令牌|客户提供的?(?:凭据|密码|(?:API\s*)?密钥|(?:账户|账号)?令牌)))/iu
+const AUTHORIZED_CONTROL_PATTERN = /\bauthori[sz](?:e|es|ed|ing|ation)\b|\bapproved\b|(?:已)?授权|经(?:客户|用户|所有者)?授权/iu
+const SECURITY_AUDIT_CONTEXT_PATTERN = /\b(?:security\s+(?:audit|assessment|test(?:ing)?)|audit|assessment|penetration\s+test(?:ing)?)\b|安全(?:审计|评估|测试)|审计|评估|渗透测试/iu
+const CONTROLLED_CREDENTIAL_PATTERN = /\b(?:synthetic|test(?:ing)?|customer[- ](?:provided|supplied|owned)|client[- ](?:provided|supplied|owned))\b|\b(?:provided|supplied|owned)\s+(?:by|for)\s+(?:the\s+)?(?:customer|client|owner|user)\b|\b(?:customer|client|owner|user)(?:'s|s')?\s+own\b|测试|合成|模拟|客户提供|用户提供|客户自有|用户自有|用户自己/iu
+const PRECEDING_NEGATION_PATTERN = /(?:\b(?:not|never|without|cannot|can't|doesn't|isn't|aren't|won't)\b|\b(?:do|does|did|is|are|was|were|will|can)\s+not\b|\bno\b(?![- ]code)|(?:从未|尚未|并非|不会|不能|不可|无法|没有|无需|未曾|不|未|无)(?!限))[^.!?。！？；;,，]{0,40}$/iu
+const UNAVAILABLE_ASSERTION_PATTERN = /\b(?:unavailable|unsupported|disabled)\b|不可用|不支持|未提供|已禁用/iu
 
 function invalid() {
   throw new Error('discovery_enricher_invalid_output')
@@ -330,20 +337,9 @@ function draftProseItems(draft) {
 
 export function hasProhibitedPersonalMedicalClaim(items) {
   const normalizedItems = items.map((item) => normalizedEvidence(item)).filter(Boolean)
-  if (!normalizedItems.some((item) => PERSONAL_MEDICAL_MARKER_PATTERN.test(item))
-    || !normalizedItems.some((item) => MEDICAL_RISK_SUBJECT_PATTERN.test(item))
-    || !normalizedItems.some((item) => MEDICAL_RISK_OUTCOME_PATTERN.test(item)
-      || MEDICAL_RISK_PREDICATE_PATTERN.test(item))) return false
-
-  const medicalOutcomeItems = normalizedItems.filter((item) => MEDICAL_RISK_SUBJECT_PATTERN.test(item)
-    && (MEDICAL_RISK_OUTCOME_PATTERN.test(item) || MEDICAL_RISK_PREDICATE_PATTERN.test(item)))
-  const explicitPersonalOutcome = normalizedItems.some((item) => PERSONAL_MEDICAL_MARKER_PATTERN.test(item)
-    && MEDICAL_RISK_OUTCOME_PATTERN.test(item))
-  const literatureOnly = medicalOutcomeItems.length > 0
-    && medicalOutcomeItems.every((item) => MEDICAL_RESEARCH_ANALYTICS_PATTERN.test(item)
-      && !MEDICAL_RISK_OUTCOME_PATTERN.test(item))
-    && !explicitPersonalOutcome
-  return !literatureOnly
+  return normalizedItems.some((item) => PERSONAL_MEDICAL_MARKER_PATTERN.test(item))
+    && normalizedItems.some((item) => MEDICAL_RISK_SUBJECT_PATTERN.test(item))
+    && normalizedItems.some((item) => MEDICAL_RISK_OUTCOME_PATTERN.test(item))
 }
 
 function credentialRelationSegments(items) {
@@ -356,7 +352,9 @@ function isNarrowDefensiveCredentialRelation(segment) {
   if (NONCONSENSUAL_CREDENTIAL_PATTERN.test(segment)) return false
   if (PASSWORD_MANAGER_PATTERN.test(segment)
     && /\b(?:your|their own|saved|stored)\b|用户自己(?:保存|存储)?的?/iu.test(segment)) return true
-  if (AUTHORIZED_AUDIT_CREDENTIAL_PATTERN.test(segment)) return true
+  if (AUTHORIZED_CONTROL_PATTERN.test(segment)
+    && SECURITY_AUDIT_CONTEXT_PATTERN.test(segment)
+    && CONTROLLED_CREDENTIAL_PATTERN.test(segment)) return true
   return DEFENSIVE_CREDENTIAL_RELATION_PATTERN.test(segment)
     && NEGATED_CREDENTIAL_ACQUISITION_PATTERN.test(segment)
 }
@@ -566,6 +564,25 @@ function shouldSplitRelation(left, right) {
     || ((leftActions.size > 0 || leftBusiness.size > 0)
       && (rightActions.size > 0 || rightBusiness.size > 0))
     || (exactFactSet(left).size > 0 && exactFactSet(right).size > 0)
+    || (!isLeadingRelationModifier(left)
+      && hasAtomicAssertionSignal(left) && hasAtomicAssertionSignal(right))
+}
+
+function hasAtomicAssertionSignal(value) {
+  return hasKnownFactualPredicate(value)
+    || relationObjectSet(value).size > 0
+    || relationQualifierSet(value).size > 0
+    || exactFactSet(value).size > 0
+    || isNarrowDefensiveCredentialRelation(value)
+}
+
+function isLeadingRelationModifier(value) {
+  const text = normalizedEvidence(value)
+  return capabilityActionSet(text).size === 0
+    && relationObjectSet(text).size === 0
+    && exactFactSet(text).size === 0
+    && relationQualifierSet(text).size > 0
+    && /^(?:for|during|within|under)\b|^(?:限时|面向|针对)/iu.test(text)
 }
 
 function splitStrongRelationBoundaries(value) {
@@ -579,7 +596,7 @@ function splitStrongRelationBoundaries(value) {
   }
   const tail = value.slice(start).trim()
   if (tail) segments.push(tail)
-  return segments
+  return segments.map((segment) => segment.replace(/^(?:,\s*)?(?:and|but)\s+/iu, '').trim())
 }
 
 function splitCoordinatedRelations(value) {
@@ -588,7 +605,10 @@ function splitCoordinatedRelations(value) {
     const left = value.slice(0, match.index).trim()
     const right = value.slice(match.index + match[0].length).trim()
     if (!left || !right || !shouldSplitRelation(left, right)) continue
-    return [...splitCoordinatedRelations(left), ...splitCoordinatedRelations(right)]
+    return [
+      ...splitCoordinatedRelations(left),
+      ...splitCoordinatedRelations(right.replace(/^(?:and|but)\s+/iu, '').trim())
+    ]
   }
   return value ? [value] : []
 }
@@ -601,13 +621,30 @@ function relationSegments(value) {
 }
 
 function relationSignature(value) {
+  const actions = relationActionSet(value)
   return {
     text: value,
-    actions: relationActionSet(value),
+    actions,
     objects: relationObjectSet(value),
     qualifiers: relationQualifierSet(value),
-    facts: exactFactSet(value)
+    facts: exactFactSet(value),
+    negative: hasNegativeAssertion(value, actions)
   }
+}
+
+function hasNegativeAssertion(value, actions) {
+  const text = normalizedEvidence(value)
+  const action = firstClaimedAction(text, actions)
+  const object = firstRelationObjectAfter(text, 0)
+  const pivot = action && object
+    ? Math.min(action.index, object.index)
+    : action?.index ?? object?.index ?? text.length
+  if (PRECEDING_NEGATION_PATTERN.test(text.slice(Math.max(0, pivot - 64), pivot))) return true
+  if (action) {
+    const localTail = text.slice(action.index + action.length, action.index + action.length + 40)
+    if (/^\s+(?:absolutely\s+)?no\b|^(?:任何)?不/iu.test(localTail)) return true
+  }
+  return UNAVAILABLE_ASSERTION_PATTERN.test(text)
 }
 
 function isSubset(left, right) {
@@ -616,8 +653,11 @@ function isSubset(left, right) {
 
 function scriptKind(value) {
   const text = normalizedEvidence(value)
-  if (/\p{Script=Han}/u.test(text)) return 'han'
-  if (/\p{Script=Latin}/u.test(text)) return 'latin'
+  const hasHan = /\p{Script=Han}/u.test(text)
+  const hasLatin = /\p{Script=Latin}/u.test(text)
+  if (hasHan && hasLatin) return 'mixed'
+  if (hasHan) return 'han'
+  if (hasLatin) return 'latin'
   return 'other'
 }
 
@@ -632,6 +672,11 @@ function canonicalExtractiveText(value) {
     })
   text = text.replace(/(\d+(?:[.,]\d+)?)\s*%/gu,
     (_match, amount) => ` percentage${normalizedDecimal(amount)} `)
+  text = text.replace(/([$€£¥])\s*(\d+(?:[.,]\d+)?)/gu,
+    (_match, currency, amount) => ` money${normalizedDecimal(amount)}${currencyKey(currency)} `)
+  text = text.replace(/(\d+(?:[.,]\d+)?)\s*((?:元|人民币|美元|美金|欧元|英镑)(?![\p{L}\p{N}])|(?:usd|cny|rmb|eur|gbp)\b)/giu,
+    (_match, amount, currency) => ` money${normalizedDecimal(amount)}${currencyKey(currency)} `)
+  text = text.replace(/仅需/gu, '')
   return text
 }
 
@@ -642,7 +687,7 @@ const EXTRACTIVE_STOP_WORDS = new Set([
 
 function extractiveTokens(value) {
   const text = canonicalExtractiveText(value)
-  if (scriptKind(text) === 'han') {
+  if (scriptKind(value) === 'han') {
     return [...text.matchAll(/quantity\d+[a-z]+|percentage\d+(?:\.\d+)?|[\p{Script=Han}]|[a-z0-9]+/gu)]
       .map(([token]) => token)
       .filter((token) => !EXTRACTIVE_STOP_WORDS.has(token))
@@ -677,6 +722,9 @@ function isOrderedNearExtractiveSpan(claimText, citationText) {
 
 function isCatalogFramingPhrase(value, field) {
   const text = normalizedEvidence(value)
+  if (field === 'pricing') {
+    return PRICING_FRAMING_PATTERNS.some((pattern) => pattern.test(text))
+  }
   if (field === 'tags' || field === 'searchTerms') {
     return CATALOG_METADATA_PATTERN.test(text)
   }
@@ -690,6 +738,16 @@ function hasKnownFactualPredicate(value) {
     || FUNDING_PREDICATE_PATTERN.test(text)
     || REVENUE_PREDICATE_PATTERN.test(text)
     || PROMOTION_PREDICATE_PATTERN.test(text)
+}
+
+function isKnownPricingAssertion(value) {
+  const text = normalizedEvidence(value)
+  return hasKnownFactualPredicate(text)
+    || PRICING_PREDICATE_PATTERN.test(text)
+    || (relationObjectSet(text).has('pricing')
+      && actionAndQualifierAnchors.support.test(text))
+    || (exactFactSet(text).size > 0
+      && (PRICING_AMOUNT_PATTERN.test(text) || relationQualifierSet(text).size > 0))
 }
 
 function relationSubjectAndEligibility(value) {
@@ -746,6 +804,7 @@ function directRelationObject(value, claimedActions) {
 
 function citationSupportsRelation(claim, citation) {
   if (claim.qualifiers.has('privacy') && POLICY_DOCUMENT_PATTERN.test(citation.text)) return false
+  if (claim.negative !== citation.negative) return false
   const claimRoles = relationSubjectAndEligibility(claim.text)
   const citationRoles = relationSubjectAndEligibility(citation.text)
   if ((claimRoles.companyFunding && (!citationRoles.companyFunding || citationRoles.founder))
@@ -763,17 +822,29 @@ function citationSupportsRelation(claim, citation) {
 }
 
 function hasRelationLevelSupport(publicText, citation, field) {
-  const publicRelations = relationSegments(publicText).map(relationSignature)
-  if (field === 'features' && capabilityActionSet(publicText).size === 0) return false
-  if (EXTRACTIVE_FACTUAL_FIELDS.has(field)
-    && !hasKnownFactualPredicate(publicText)
-    && !isCatalogFramingPhrase(publicText, field)) return false
+  const publicRelations = relationSegments(publicText)
   const citationRelations = relationSegments(citation).map(relationSignature)
-  return publicRelations
-    .filter((relation) => relation.actions.size > 0 || relation.qualifiers.size > 0 || relation.facts.size > 0)
-    .every((claim) => citationRelations.some((proof) => citationSupportsRelation(claim, proof)
+  let factualRelations = 0
+  const supported = publicRelations.every((text) => {
+    if (isCatalogFramingPhrase(text, field)) return true
+    const defensiveCredential = isNarrowDefensiveCredentialRelation(text)
+    if (!hasKnownFactualPredicate(text)
+      && !(field === 'pricing' && isKnownPricingAssertion(text))
+      && !defensiveCredential) return false
+    if (field === 'features' && capabilityActionSet(text).size === 0) return false
+    factualRelations += 1
+    const claim = relationSignature(text)
+    if (claim.actions.size === 0 && claim.objects.size === 0
+      && claim.qualifiers.size === 0 && claim.facts.size === 0) return false
+    return citationRelations.some((proof) => citationSupportsRelation(claim, proof)
       && (scriptKind(claim.text) !== scriptKind(proof.text)
-        || isOrderedNearExtractiveSpan(claim.text, proof.text))))
+        || isOrderedNearExtractiveSpan(claim.text, proof.text)))
+  })
+  if (!supported) return false
+  if (factualRelations > 0) return true
+  const publicAnchors = anchorSet(publicText)
+  const citationAnchors = anchorSet(citation)
+  return publicAnchors.size > 0 && isSubset(publicAnchors, citationAnchors)
 }
 
 function normalizeCitation(value, proof) {
@@ -784,10 +855,6 @@ function normalizeCitation(value, proof) {
 }
 
 export function hasGroundedDiscoveryClaimSupport(publicText, citation, field) {
-  const publicAnchors = anchorSet(publicText)
-  const citationAnchors = anchorSet(citation)
-  const publicActions = actionAndQualifierSet(publicText)
-  const citationActions = actionAndQualifierSet(citation)
   if (field === 'name') {
     const publicIdentity = normalizedEvidence(publicText).toLocaleLowerCase('en-US')
       .replace(/[^\p{L}\p{N}]+/gu, '')
@@ -795,24 +862,7 @@ export function hasGroundedDiscoveryClaimSupport(publicText, citation, field) {
       .replace(/[^\p{L}\p{N}]+/gu, '')
     return publicIdentity.length >= 2 && citedIdentity.includes(publicIdentity)
   }
-  if (publicAnchors.has('pricing') || publicAnchors.has('promotion')) publicActions.delete('support')
-  const publicFacts = exactFactSet(publicText)
-  const citationFacts = exactFactSet(citation)
-  if (field === 'pricing') {
-    return !(publicAnchors.size === 0
-      || [...publicAnchors].some((anchor) => !citationAnchors.has(anchor))
-      || [...publicActions].some((anchor) => !citationActions.has(anchor))
-      || [...publicFacts].some((fact) => !citationFacts.has(fact)))
-      && relationSegments(publicText).map(relationSignature)
-        .filter((relation) => relation.qualifiers.size > 0 || relation.facts.size > 0)
-        .every((claim) => relationSegments(citation).map(relationSignature)
-          .some((proof) => citationSupportsRelation(claim, proof)))
-  }
-  return !(publicAnchors.size === 0
-    || [...publicAnchors].some((anchor) => !citationAnchors.has(anchor))
-    || [...publicActions].some((anchor) => !citationActions.has(anchor))
-    || [...publicFacts].some((fact) => !citationFacts.has(fact)))
-    && hasRelationLevelSupport(publicText, citation, field)
+  return hasRelationLevelSupport(publicText, citation, field)
 }
 
 function assertRelevantCitation(publicText, citation, field) {

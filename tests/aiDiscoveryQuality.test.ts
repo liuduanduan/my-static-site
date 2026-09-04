@@ -546,6 +546,16 @@ describe('AI discovery deterministic quality gate', () => {
         pros: ['Personalized individual risk scores', draft.pros[1]]
       },
       'It predicts publication trends in cancer research using public sources and provides personalized individual research risk scores.'
+    ],
+    [
+      'predicate-independent odds wording',
+      { ...draft, description: "Example Evidence AI provides an individual's odds of developing cancer for research use." },
+      "Example Evidence AI provides an individual's odds of developing cancer for research use."
+    ],
+    [
+      'nominal prognosis wording',
+      { ...draft, description: 'An individual cancer prognosis from Example Evidence AI for research use.' },
+      'An individual cancer prognosis from Example Evidence AI for research use.'
     ]
   ])('rejects a personal medical score-path bypass using %s', (_label, proposedDraft, exploitText) => {
     const index = catalogDiscoveryIndex(catalog)
@@ -558,6 +568,34 @@ describe('AI discovery deterministic quality gate', () => {
       const grounded = groundedDraft(proposedDraft, proof)
       scoreCandidate(candidate, proof, index, grounded)
     }).toThrow(/discovery_enricher_invalid_output|prohibited_candidate|insufficient_official_evidence/u)
+  })
+
+  it('rejects compound refresh tokens with nonconsensual markers before a score can be returned', () => {
+    const index = catalogDiscoveryIndex(catalog)
+    const claim = "Example Evidence AI organizes public sources and reads other users' refresh tokens without permission."
+    const proof = {
+      ...evidence,
+      visibleText: `Example Evidence AI is a web app for research teams. It requires account registration, offers a free plan and paid plans, and supports Chinese translation. ${claim} ${'It organizes public sources, creates structured summaries, and helps users trace evidence. '.repeat(4)}`
+    }
+
+    expect(() => {
+      const grounded = groundedDraft({ ...draft, description: claim }, proof)
+      scoreCandidate(candidate, proof, index, grounded)
+    }).toThrow(/discovery_enricher_invalid_output|prohibited_candidate/u)
+  })
+
+  it('scores an exact relation-local authorized customer-token audit', () => {
+    const index = catalogDiscoveryIndex(catalog)
+    const description = 'This authorized security audit inspects account tokens supplied by the customer for testing.'
+    const proof = {
+      ...evidence,
+      visibleText: `Example Evidence AI is a web app for research teams. It requires account registration, offers a free plan and paid plans, and supports Chinese translation. ${description} ${'It organizes public sources, creates structured summaries, and helps users trace evidence. '.repeat(4)}`
+    }
+
+    expect(Number.isInteger(scoreCandidate(candidate, proof, index, groundedDraft({
+      ...draft,
+      description
+    }, proof)))).toBe(true)
   })
 
   it('rejects an unknown credential predicate with explicit nonconsensual markers before scoring', () => {
@@ -574,21 +612,49 @@ describe('AI discovery deterministic quality gate', () => {
     }).toThrow(/discovery_enricher_invalid_output|prohibited_candidate|insufficient_official_evidence/u)
   })
 
-  it('scores literature-only cancer publication analytics with no personal medical outcome', () => {
+  it('scores literature-governed cancer publication outcomes with no personal marker', () => {
     const index = catalogDiscoveryIndex(catalog)
-    const description = 'Example Evidence AI estimates publication trends in cancer research for research teams.'
+    const description = 'Example Evidence AI estimates publication outcomes in cancer research for research teams.'
     const proof = {
       ...evidence,
-      visibleText: `Example Evidence AI estimates publication trends in cancer research for research teams. It supports personalized research dashboards for individual users. It is a web app, requires account registration, offers a free plan and paid plans, and supports Chinese translation. ${'It organizes public sources, creates structured summaries, and helps users trace evidence. '.repeat(4)}`
+      visibleText: `Example Evidence AI estimates publication outcomes in cancer research for research teams. It is a web app, requires account registration, offers a free plan and paid plans, and supports Chinese translation. ${'It organizes public sources, creates structured summaries, and helps teams trace evidence. '.repeat(4)}`
     }
 
     const safeDraft = {
       ...draft,
-      description,
-      pros: ['Supports personalized research dashboards for individual users', draft.pros[1]]
+      description
     }
     expect(Number.isInteger(scoreCandidate(candidate, proof, index, groundedDraft(safeDraft, proof))))
       .toBe(true)
+  })
+
+  it.each([
+    [
+      'unsupported second sentence',
+      { ...draft, features: ['Organizes public sources. Indexes public sources.', ...draft.features.slice(1)] },
+      '它整理公开来源。'
+    ],
+    [
+      'negated deletion evidence',
+      { ...draft, features: ['Delete public sources', ...draft.features.slice(1)] },
+      'It does not delete public sources.'
+    ],
+    [
+      'current-subscriber discount plus new-user onboarding',
+      { ...draft, pricing: 'New users receive a 50% discount for the first month，具体价格以官网为准' },
+      'Current subscribers receive a 50% discount, and new users get onboarding for the first month.'
+    ]
+  ])('rejects atomic assertion score-path bypasses: %s', (_label, proposedDraft, exploitText) => {
+    const index = catalogDiscoveryIndex(catalog)
+    const proof = {
+      ...evidence,
+      visibleText: `Example Evidence AI is a web app for research teams. It requires account registration, offers a free plan and paid plans, and supports Chinese translation. ${exploitText} ${'It organizes public sources, creates structured summaries, and helps users trace evidence. '.repeat(4)}`
+    }
+
+    expect(() => {
+      const grounded = groundedDraft(proposedDraft, proof)
+      scoreCandidate(candidate, proof, index, grounded)
+    }).toThrow(/discovery_enricher_invalid_output|insufficient_official_evidence/u)
   })
 
   it('rejects punctuation-resilient personal medical risk before a score can be returned', () => {
